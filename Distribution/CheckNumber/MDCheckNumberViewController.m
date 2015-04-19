@@ -11,6 +11,7 @@
 #import <SVProgressHUD.h>
 #import "MDCreateProfileViewController.h"
 #import "MDUser.h"
+#import "MDPhoneNumberSettingViewController.h"
 
 @interface MDCheckNumberViewController ()
 
@@ -61,8 +62,6 @@
     [_backButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = leftButton;
-    
-    
 }
 
 -(void) postButtonTouched {
@@ -75,8 +74,7 @@
                                    if([[completeOperation responseJSON][@"code"] integerValue] == 0) {
                                        MDUser *user = [MDUser getInstance];
                                        user.checknumber = _inputView.input.text;
-                                       MDCreateProfileViewController *cpv = [[MDCreateProfileViewController alloc]init];
-                                       [self.navigationController pushViewController:cpv animated:YES];
+                                       [self checkHash];
                                    }
                                }
                                   onError:^(MKNetworkOperation *completeOperartion, NSError *error){
@@ -89,6 +87,18 @@
 
 -(void) backButtonTouched {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void) checkHash {
+    if([MDUser getInstance].userHash.length > 0) {
+        //番号変更
+        MDPhoneNumberSettingViewController *phoneNumberSettingViewController = [[MDPhoneNumberSettingViewController alloc]init];
+        [self.navigationController pushViewController:phoneNumberSettingViewController animated:YES];
+    } else {
+        //新規
+        MDCreateProfileViewController *cpv = [[MDCreateProfileViewController alloc]init];
+        [self.navigationController pushViewController:cpv animated:YES];
+    }
 }
 
 @end

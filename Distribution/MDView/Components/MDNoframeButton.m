@@ -18,7 +18,7 @@
         self.buttonTittle = [[UILabel alloc]initWithFrame:frame];
         self.buttonTittle.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:14];
         
-        self.buttonTittle.textColor = [UIColor colorWithRed:30/255.0 green:132/255.0 blue:158 alpha:1];
+        self.buttonTittle.textColor = [UIColor colorWithRed:30/255.0 green:132/255.0 blue:158/255.0 alpha:1];
     }
     
     return self;

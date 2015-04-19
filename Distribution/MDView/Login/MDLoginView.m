@@ -20,6 +20,7 @@
         _phoneInput = [[MDInput alloc]initWithFrame:CGRectMake(10, 74, frame.size.width-20, 50)];
         _phoneInput.title.text = @"電話番号";
         _phoneInput.input.placeholder = @"番号入力(「-」無し)";
+        [_phoneInput.input setKeyboardType:UIKeyboardTypeNumberPad];
         [_phoneInput.title sizeToFit];
         [self addSubview:_phoneInput];
         
@@ -40,6 +41,7 @@
         
     }
     
+    [self loginTest];
     return self;
 }
 
@@ -47,6 +49,11 @@
     if([self.delegate respondsToSelector:@selector(postData:)]){
         [self.delegate postData:self];
     }
+}
+
+-(void) loginTest {
+    _phoneInput.input.text = @"09028280392";
+    _passwordInput.input.text = @"123456";
 }
 
 @end

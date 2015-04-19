@@ -56,6 +56,14 @@
     [_postButton addTarget:self action:@selector(postButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:_postButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;
+    
+    UIButton *_backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_backButton setTitle:@"戻る" forState:UIControlStateNormal];
+    _backButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
+    _backButton.frame = CGRectMake(0, 0, 25, 44);
+    [_backButton addTarget:self action:@selector(backButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
+    self.navigationItem.leftBarButtonItem = leftButton;
 }
 
 -(void) postButtonTouched {
@@ -118,6 +126,10 @@
                              }];
         }
     }
+}
+
+-(void)backButtonPushed {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

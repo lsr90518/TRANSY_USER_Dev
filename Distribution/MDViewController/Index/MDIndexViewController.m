@@ -23,7 +23,6 @@
     [self.view addSubview:_indexView];
     
     //判断登陆，注册，直接使用
-    
 }
 
 - (void)viewDidLoad {
@@ -44,7 +43,6 @@
 }
 
 -(void)loginTouched {
-    NSLog(@"login button");
     MDLoginViewController *loginViewController = [[MDLoginViewController alloc]init];
     UINavigationController *loginNavigationController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
     [self presentViewController:loginNavigationController animated:YES completion:nil];

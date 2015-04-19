@@ -69,7 +69,14 @@
 }
 
 -(void) buttonPushed:(UIButton *)button {
-    [MDCurrentPackage getInstance].expire = _dataArray[button.tag];
+    NSDate *now = [NSDate date];
+    //4時間後
+    NSDate *nHoursAfter = [now dateByAddingTimeInterval:[_dataArray[button.tag] intValue]*60*60];
+    NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
+    [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
+    [MDCurrentPackage getInstance].expire = [tmpFormatter stringFromDate:nHoursAfter];
+    
+//    [MDCurrentPackage getInstance].expire = _dataArray[button.tag];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

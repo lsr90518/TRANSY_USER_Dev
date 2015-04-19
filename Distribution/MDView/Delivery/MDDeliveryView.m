@@ -150,7 +150,6 @@
         //list
         requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, 510, frame.size.width-20, 50)];
         requestTerm.buttonTitle.text = @"依頼期限";
-        requestTerm.selectLabel.text = @"3時間";
         requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
         [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestTerm];
@@ -193,7 +192,14 @@
     destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@時", [[MDCurrentPackage getInstance].deliver_limit substringToIndex:13]];
     
     //expire
-    requestTerm.selectLabel.text = [NSString stringWithFormat:@"%@時間以内",[MDCurrentPackage getInstance].expire];
+    NSDate * now = [NSDate date];
+    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setLocale:[NSLocale systemLocale]];
+    [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:00"];
+    NSDate *expireDate =[dateFormat dateFromString:[MDCurrentPackage getInstance].expire];
+    NSTimeInterval timeBetween = [expireDate timeIntervalSinceDate:now];
+    int hour = timeBetween/60/60;
+    requestTerm.selectLabel.text = [NSString stringWithFormat:@"%d時間以内",hour+1];
 }
 
 -(void) postButtonTouched {

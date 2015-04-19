@@ -40,8 +40,21 @@
         //4時間後
         NSDate *fiveHoursAfter = [now dateByAddingTimeInterval:5*60*60];
         NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
-        [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:00:00"];
+        [tmpFormatter setLocale:[NSLocale systemLocale]];
+        [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
         self.deliver_limit = [tmpFormatter stringFromDate:fiveHoursAfter];
+        
+    }
+    
+    //期限
+    if(self.expire == nil) {
+        //4時間後
+        NSDate *threeHoursAfter = [now dateByAddingTimeInterval:3*60*60];
+        NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
+        [tmpFormatter setLocale:[NSLocale systemLocale]];
+        [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
+        self.expire = [tmpFormatter stringFromDate:threeHoursAfter];
+        
     }
     
     

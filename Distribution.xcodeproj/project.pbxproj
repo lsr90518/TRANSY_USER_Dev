@@ -45,6 +45,9 @@
 		0D0FD5B41ADFFF6700615C24 /* MDDeliveryLimitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5B31ADFFF6700615C24 /* MDDeliveryLimitViewController.m */; };
 		0D0FD5B61AE1E60100615C24 /* movingIconOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FD5B51AE1E60100615C24 /* movingIconOn.png */; };
 		0D0FD5B81AE1E63100615C24 /* packageIconOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FD5B71AE1E63100615C24 /* packageIconOff.png */; };
+		0D0FD5BC1AE29D9900615C24 /* MDNameSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5BB1AE29D9900615C24 /* MDNameSettingViewController.m */; };
+		0D0FD5C01AE2A18800615C24 /* MDPhoneNumberSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5BF1AE2A18800615C24 /* MDPhoneNumberSettingViewController.m */; };
+		0D0FD5C31AE2AA2700615C24 /* MDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5C21AE2AA2700615C24 /* MDButton.m */; };
 		0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */; };
 		0D5A37F61AC981EB0062F0C1 /* MDSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F51AC981EB0062F0C1 /* MDSelect.m */; };
 		0D5A37F91AC987840062F0C1 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5A37F81AC987840062F0C1 /* rightArrow.png */; };
@@ -165,6 +168,12 @@
 		0D0FD5B31ADFFF6700615C24 /* MDDeliveryLimitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDeliveryLimitViewController.m; path = MDViewController/DeliveryLimit/MDDeliveryLimitViewController.m; sourceTree = "<group>"; };
 		0D0FD5B51AE1E60100615C24 /* movingIconOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movingIconOn.png; sourceTree = "<group>"; };
 		0D0FD5B71AE1E63100615C24 /* packageIconOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = packageIconOff.png; sourceTree = "<group>"; };
+		0D0FD5BA1AE29D9900615C24 /* MDNameSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDNameSettingViewController.h; path = MDViewController/NameSetting/MDNameSettingViewController.h; sourceTree = "<group>"; };
+		0D0FD5BB1AE29D9900615C24 /* MDNameSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDNameSettingViewController.m; path = MDViewController/NameSetting/MDNameSettingViewController.m; sourceTree = "<group>"; };
+		0D0FD5BE1AE2A18800615C24 /* MDPhoneNumberSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPhoneNumberSettingViewController.h; path = MDViewController/PhoneNumberSetting/MDPhoneNumberSettingViewController.h; sourceTree = "<group>"; };
+		0D0FD5BF1AE2A18800615C24 /* MDPhoneNumberSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPhoneNumberSettingViewController.m; path = MDViewController/PhoneNumberSetting/MDPhoneNumberSettingViewController.m; sourceTree = "<group>"; };
+		0D0FD5C11AE2AA2700615C24 /* MDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDButton.h; sourceTree = "<group>"; };
+		0D0FD5C21AE2AA2700615C24 /* MDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDButton.m; sourceTree = "<group>"; };
 		0D5A37F11AC91D7E0062F0C1 /* MDAddressInputTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressInputTable.h; path = MDView/Delivery/MDAddressInputTable.h; sourceTree = "<group>"; };
 		0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressInputTable.m; path = MDView/Delivery/MDAddressInputTable.m; sourceTree = "<group>"; };
 		0D5A37F41AC981EB0062F0C1 /* MDSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSelect.h; path = MDView/Components/MDSelect.h; sourceTree = "<group>"; };
@@ -438,6 +447,24 @@
 			name = DeliveryLimit;
 			sourceTree = "<group>";
 		};
+		0D0FD5B91AE29D3E00615C24 /* NameSetting */ = {
+			isa = PBXGroup;
+			children = (
+				0D0FD5BA1AE29D9900615C24 /* MDNameSettingViewController.h */,
+				0D0FD5BB1AE29D9900615C24 /* MDNameSettingViewController.m */,
+			);
+			name = NameSetting;
+			sourceTree = "<group>";
+		};
+		0D0FD5BD1AE2A11C00615C24 /* PhoneNumberSetting */ = {
+			isa = PBXGroup;
+			children = (
+				0D0FD5BE1AE2A18800615C24 /* MDPhoneNumberSettingViewController.h */,
+				0D0FD5BF1AE2A18800615C24 /* MDPhoneNumberSettingViewController.m */,
+			);
+			name = PhoneNumberSetting;
+			sourceTree = "<group>";
+		};
 		0D5A37F71AC9854B0062F0C1 /* SelectButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,6 +582,8 @@
 		0DC16F731AC54CF20066FA0C /* MDViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0D0FD5BD1AE2A11C00615C24 /* PhoneNumberSetting */,
+				0D0FD5B91AE29D3E00615C24 /* NameSetting */,
 				0D0FD56D1AD9724A00615C24 /* CreateProfile */,
 				0D0FD55C1AD8F3AA00615C24 /* Login */,
 				0D0FD5551AD8F33C00615C24 /* CheckNumber */,
@@ -710,6 +739,8 @@
 				0D0FD5681AD9039D00615C24 /* MDWell.m */,
 				0D0FD56A1AD95C2900615C24 /* MDBarButton.h */,
 				0D0FD56B1AD95C2900615C24 /* MDBarButton.m */,
+				0D0FD5C11AE2AA2700615C24 /* MDButton.h */,
+				0D0FD5C21AE2AA2700615C24 /* MDButton.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -938,6 +969,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D0FD5C01AE2A18800615C24 /* MDPhoneNumberSettingViewController.m in Sources */,
 				0D0FD5391AD4124C00615C24 /* MDRequestTableViewCell.m in Sources */,
 				0D0FD5741AD972CF00615C24 /* MDCreateProfileView.m in Sources */,
 				0DC16F8F1AC550DD0066FA0C /* MDDeliveryView.m in Sources */,
@@ -953,6 +985,7 @@
 				0D0FD59A1ADC0D7B00615C24 /* MDInputDestinationViewController.m in Sources */,
 				0D0FD58A1ADA6DB600615C24 /* MDLoginView.m in Sources */,
 				0D0FD5451AD56B3900615C24 /* MDAPI.m in Sources */,
+				0D0FD5C31AE2AA2700615C24 /* MDButton.m in Sources */,
 				0DC16F981AC582080066FA0C /* MDSettingViewController.m in Sources */,
 				0D5A38081ACABD1D0062F0C1 /* MDPreparePayView.m in Sources */,
 				0DC16F801AC54F7F0066FA0C /* MDViewController.m in Sources */,
@@ -980,6 +1013,7 @@
 				0D0FD55F1AD8F3BA00615C24 /* MDLoginViewController.m in Sources */,
 				0D0FD52F1AD3BDC400615C24 /* MDNoframeButton.m in Sources */,
 				0D0FD54D1AD8EC4400615C24 /* MDIndexView.m in Sources */,
+				0D0FD5BC1AE29D9900615C24 /* MDNameSettingViewController.m in Sources */,
 				0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */,
 				0D5A38141ACD99EA0062F0C1 /* MDCheckBox.m in Sources */,
 				0D0FD5861ADA1A4600615C24 /* MDCustomerDAO.m in Sources */,

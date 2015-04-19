@@ -14,9 +14,9 @@
 #define API_USER_CHECKNUMBER  @"users/check_number"
 #define API_USER_NEWPROFILE   @"users/new_profile"
 #define API_USER_LOGIN        @"users/login"
+#define API_USER_UPDATE_PHONE @"users/request_phone_number_change"
 #define API_PACKAGE_RESIGER   @"packages/user/register"
-
-
+#define API_PACKAGE_IMAGE     @"packages/user/upload_image"
 
 #define USER_DEVICE           @"ios"
 
@@ -48,5 +48,16 @@
 -(void) registerBaggageWithHash:(NSString *)hash
                      OnComplete:(void (^)(MKNetworkOperation *))complete
                           onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
+-(void) uploadImageWithHash:(NSString *)hash
+                  packageId:(NSString *)package_id
+                      image:(UIImage *)image
+                 OnComplete:(void (^)(MKNetworkOperation *))complete
+                    onError:(void (^)(MKNetworkOperation *, NSError *))error;
+-(void) updatePhoneNumberWithOldPhoneNumber:(NSString *)oldPhoneNumber
+                             newPhoneNumber:(NSString *)newPhoneNumber
+                              OnComplete:(void (^)(MKNetworkOperation *))complete
+                                 onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
 
 @end

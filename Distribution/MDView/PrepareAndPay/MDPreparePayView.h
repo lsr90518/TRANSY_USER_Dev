@@ -20,6 +20,8 @@
 
 -(void) backButtonPushed;
 -(void) initPackageNumber:(NSString *)packageNumber;
+-(void) setBoxImage:(UIImage *)image;
+-(void) updateData;
 
 @end
 
@@ -27,5 +29,9 @@
 
 @optional
 -(void) backButtonPushed;
+-(void) cameraButtonTouched;
+-(void) postData;
+-(void) requestPersonPushed;
+-(void) phoneNumberPushed;
 
 @end

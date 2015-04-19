@@ -52,8 +52,17 @@
                                                  httpMethod:method];
     
     [images enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSData *imageData = UIImagePNGRepresentation((UIImage *)obj);
-        [op addData:imageData forKey:[NSString stringWithFormat:@"image%lu",(unsigned long)idx] mimeType:@"image/jpeg" fileName:[NSString stringWithFormat:@"image%lu.jpeg",(unsigned long)idx]];
+        
+        NSData *imageData;
+                if (UIImagePNGRepresentation(obj) == nil)
+                {
+                    imageData = UIImageJPEGRepresentation(obj, 0.5);
+                }
+                else
+                {
+                    imageData = UIImagePNGRepresentation(obj);
+                }
+        [op addData:imageData forKey:@"image"];
     }];
     
     [op addCompletionHandler:response errorHandler:error];
@@ -157,6 +166,40 @@
     
     [self callApi:dic
           withUrl:API_PACKAGE_RESIGER
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) uploadImageWithHash:(NSString *)hash
+                  packageId:(NSString *)package_id
+                      image:(UIImage *)image
+                 OnComplete:(void (^)(MKNetworkOperation *))complete
+                    onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:package_id forKey:@"package_id"];
+    
+    [self callApi:dic
+          withUrl:API_PACKAGE_IMAGE
+       withImages:@[image]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) updatePhoneNumberWithOldPhoneNumber:(NSString *)oldPhoneNumber
+                             newPhoneNumber:(NSString *)newPhoneNumber
+                                 OnComplete:(void (^)(MKNetworkOperation *))complete
+                                    onError:(void (^)(MKNetworkOperation *, NSError *))error {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:oldPhoneNumber   forKey:@"phone"];
+    [dic setObject:newPhoneNumber   forKey:@"new_phone"];
+    
+    [self callApi:dic
+          withUrl:API_USER_UPDATE_PHONE
        withImages:@[]
    withHttpMethod:@"POST"
        onComplete:complete

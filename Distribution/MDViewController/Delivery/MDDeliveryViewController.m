@@ -60,45 +60,48 @@
     // 接下来做/packages/user/register
     //package_number
     
-                                                   MDPreparePayViewController * preparePayViewController = [[MDPreparePayViewController alloc]init];
-                                                   [self.navigationController pushViewController:preparePayViewController animated:YES];
     NSString *result = [_deliveryView checkInput];
-//    if (![result isEqualToString:@""]) {
-//        //警告
-//        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"未完成"
-//                                                                       message:[NSString stringWithFormat:@"%@を入力してください。", result]
-//                                                                preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-//                                                              handler:^(UIAlertAction * action) {}];
-//        [alert addAction:defaultAction];
-//        [self presentViewController:alert animated:YES completion:nil];
-//    } else {
-//        //ok
-//        [SVProgressHUD show];
-//        [[MDAPI sharedAPI] registerBaggageWithHash:[MDUser getInstance].userHash
-//                                       OnComplete:^(MKNetworkOperation *completeOperation) {
-//                                           [SVProgressHUD dismiss];
-//                                           
-//                                           if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-//                                               [MDCurrentPackage getInstance].package_id        =   [completeOperation responseJSON][@"package_id"];
-//                                               [MDCurrentPackage getInstance].package_number    =   [completeOperation responseJSON][@"package_number"];
-//                                               MDPreparePayViewController * preparePayViewController = [[MDPreparePayViewController alloc]init];
-//                                               [self.navigationController pushViewController:preparePayViewController animated:YES];
-//                                           } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
-//                                               //警告
-//                                               UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"荷物登録失敗"
-//                                                                                                              message:@"改めてログインしてください"
-//                                                                                                       preferredStyle:UIAlertControllerStyleAlert];
-//                                               UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-//                                                                                                     handler:^(UIAlertAction * action) {}];
-//                                               [alert addAction:defaultAction];
-//                                               [self presentViewController:alert animated:YES completion:nil];
-//                                           }
-//                                       
-//                                       } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
-//                                         NSLog(@"error --------------  %@", error);
-//                                       }];
-//    }
+    if (![result isEqualToString:@""]) {
+        //警告
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"未完成"
+                                                                       message:[NSString stringWithFormat:@"%@を入力してください。", result]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        //ok
+        [SVProgressHUD show];
+        [[MDAPI sharedAPI] registerBaggageWithHash:[MDUser getInstance].userHash
+                                       OnComplete:^(MKNetworkOperation *completeOperation) {
+                                           [SVProgressHUD dismiss];
+                                           
+                                           if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                               [MDCurrentPackage getInstance].package_id        =   [completeOperation responseJSON][@"package_id"];
+                                               [MDCurrentPackage getInstance].package_number    =   [completeOperation responseJSON][@"package_number"];
+                                               NSLog(@"%@", [MDCurrentPackage getInstance].package_number);
+                                        
+                                               MDPreparePayViewController * preparePayViewController = [[MDPreparePayViewController alloc]init];
+                                               
+                                               UINavigationController *prepareNavigationController = [[UINavigationController alloc]initWithRootViewController:preparePayViewController];
+                                               [self presentViewController:prepareNavigationController animated:YES completion:nil];
+                                               
+                                           } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
+                                               //警告
+                                               UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"荷物登録失敗"
+                                                                                                              message:@"改めてログインしてください"
+                                                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                               UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                                                     handler:^(UIAlertAction * action) {}];
+                                               [alert addAction:defaultAction];
+                                               [self presentViewController:alert animated:YES completion:nil];
+                                           }
+                                       
+                                       } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+                                         NSLog(@"error --------------  %@", error);
+                                       }];
+    }
 }
 
 -(void) selectButtonTouched:(MDSelect *)select {

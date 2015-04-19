@@ -15,6 +15,10 @@
 @implementation MDPreparePayView {
     UILabel *numberLeft;
     UILabel *numberRight;
+    UIButton *cameraButton;
+    UIImageView *uploadedImage;
+    MDSelect *phoneNumber;
+    MDSelect *requestPerson;
 }
 
 -(id) initWithFrame:(CGRect)frame {
@@ -81,22 +85,25 @@
         [boardLine addSubview:numberRight];
         
         //cameraButton
-        UIButton *cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 88, frame.size.width-20, 106)];
+        cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 88, frame.size.width-20, 106)];
         [cameraButton setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4]];
         UIImageView *cameraIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 42)];
         [cameraIcon setImage:[UIImage imageNamed:@"whiteCamera"]];
         [cameraIcon setCenter:CGPointMake(cameraButton.frame.size.width/2, cameraButton.frame.size.height/2)];
+        [cameraButton addTarget:self action:@selector(cameraButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [cameraButton addSubview:cameraIcon];
         [_scrollView addSubview:cameraButton];
         
-        MDSelect *requestPerson = [[MDSelect alloc]initWithFrame:CGRectMake(10, 204, frame.size.width-20, 50)];
+        requestPerson = [[MDSelect alloc]initWithFrame:CGRectMake(10, 204, frame.size.width-20, 50)];
         requestPerson.buttonTitle.text = @"依頼主名";
         requestPerson.selectLabel.text = [NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname];
+        [requestPerson addTarget:self action:@selector(requestPersonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestPerson];
         
-        MDSelect *phoneNumber = [[MDSelect alloc]initWithFrame:CGRectMake(10, 264, frame.size.width-20, 50)];
+        phoneNumber = [[MDSelect alloc]initWithFrame:CGRectMake(10, 264, frame.size.width-20, 50)];
         phoneNumber.buttonTitle.text = @"電話番号";
         phoneNumber.selectLabel.text = [NSString stringWithFormat:@"%@",user.phoneNumber];
+        [phoneNumber addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneNumber];
         
         MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 324, frame.size.width-20, 50)];
@@ -138,11 +145,18 @@
         [self.postButton setBackgroundColor:[UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1]];
         [self.postButton setTitle:@"以上で発注する" forState:UIControlStateNormal];
         self.postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:18];
+        [_postButton addTarget:self action:@selector(postButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:self.postButton];
         
         
     }
     return self;
+}
+
+-(void) updateData{
+    requestPerson.selectLabel.text = [NSString stringWithFormat:@"%@ %@",[MDUser getInstance].lastname,[MDUser getInstance].firstname];
+    
+    phoneNumber.selectLabel.text = [NSString stringWithFormat:@"%@",[MDUser getInstance].phoneNumber];
 }
 
 -(void) backButtonPushed {
@@ -152,8 +166,45 @@
 }
 
 -(void) initPackageNumber:(NSString *)packageNumber {
-    numberLeft.text  = [packageNumber substringToIndex:5];
-    numberRight.text = [packageNumber substringFromIndex:5];
+    NSString *tmpStr = [NSString stringWithFormat:@"%@",packageNumber];
+    numberLeft.text = [NSString stringWithFormat:@"%@", [tmpStr substringToIndex:5]];
+    numberRight.text = [NSString stringWithFormat:@"%@", [tmpStr substringFromIndex:5]];
+}
+
+-(void) cameraButtonTouched {
+    if([self.delegate respondsToSelector:@selector(cameraButtonTouched)]){
+        [self.delegate cameraButtonTouched];
+    }
+}
+
+-(void) setBoxImage:(UIImage *)image {
+    if (uploadedImage == nil) {
+        uploadedImage = [[UIImageView alloc]initWithImage:image];
+    }
+    float x = image.size.height/cameraButton.frame.size.height;
+    uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-uploadedImage.frame.size.width/x/2,
+                                     0,
+                                     uploadedImage.frame.size.width/x,
+                                     uploadedImage.frame.size.height/x);
+    [cameraButton addSubview:uploadedImage];
+}
+
+-(void) postButtonPushed {
+    if([self.delegate respondsToSelector:@selector(postData)]){
+        [self.delegate postData];
+    }
+}
+
+-(void) requestPersonTouched {
+    if([self.delegate respondsToSelector:@selector(requestPersonPushed)]){
+        [self.delegate requestPersonPushed];
+    }
+}
+
+-(void) phoneNumberTouched{
+    if([self.delegate respondsToSelector:@selector(phoneNumberPushed)]){
+        [self.delegate phoneNumberPushed];
+    }
 }
 
 @end

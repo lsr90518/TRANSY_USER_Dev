@@ -29,6 +29,7 @@
         self.zipField = [[UITextField alloc]initWithFrame:CGRectMake(42, 19, 92, 12)];
         self.zipField.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         self.zipField.placeholder = @"XXXXXXX";
+        self.zipField.keyboardType = UIKeyboardTypeNumberPad;
         [self.zipField setBackgroundColor:[UIColor whiteColor]];
         [self addSubview:self.zipField];
         
@@ -44,7 +45,7 @@
         //address input field
         self.addressField = [[UITextField alloc]initWithFrame:CGRectMake(19, 68, frame.size.width-40, 13)];
         self.addressField.font = [UIFont fontWithName:@"HiraKakuProN-w3" size:14];
-        self.addressField.placeholder = @"例: 東京都渋谷区";
+        self.addressField.placeholder = @"例: 東京都 渋谷区";
         
         [self addSubview:self.addressField];
         
@@ -64,7 +65,9 @@
         CLPlacemark *placemark = placemarks.firstObject;
         
         NSDictionary *addressDictionary = placemark.addressDictionary;
-        self.addressField.text = [NSString stringWithFormat:@"%@ %@ ",addressDictionary[(NSString *)kABPersonAddressStateKey],addressDictionary[(NSString *)kABPersonAddressCityKey]];
+        if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
+            self.addressField.text = [NSString stringWithFormat:@"%@ %@ ",addressDictionary[(NSString *)kABPersonAddressStateKey],addressDictionary[(NSString *)kABPersonAddressCityKey]];
+        }
     }];
     
 }
