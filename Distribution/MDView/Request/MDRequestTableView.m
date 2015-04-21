@@ -9,7 +9,9 @@
 #import "MDRequestTableView.h"
 #import "MDRequestTableViewCell.h"
 
-@implementation MDRequestTableView
+@implementation MDRequestTableView {
+    NSMutableArray *dataArray;
+}
 
 -(id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -17,11 +19,18 @@
         //delegate
         self.delegate = self;
         self.dataSource = self;
+        self.requestTableViewDelegate = self;
         self.separatorColor = [UIColor whiteColor];
     }
     
     return self;
 }
+
+-(void) initWithArray:(NSArray *)array{
+    dataArray = [[NSMutableArray alloc]initWithArray:array];
+    [self reloadData];
+}
+
 
 #pragma mark - TableView
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -31,7 +40,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return [dataArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -49,18 +58,23 @@
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(MDRequestTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [cell initCellWithData:_tableDataArray[indexPath.row]];
-//}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(MDRequestTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell initCellWithData:dataArray[indexPath.row]];
+}
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if ([self.tableDelegate respondsToSelector:@selector(tableView:selectCellWithData:)]) {
-//        [self.tableDelegate tableView:self selectCellWithData:_tableDataArray[indexPath.row]];
-//    }
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self sendData:[dataArray objectAtIndex:indexPath.row]];
+}
+
+-(void) sendData:(NSDictionary *)data{
+    if([self.requestTableViewDelegate respondsToSelector:@selector(didSelectedRowWithData:)]){
+        [self.requestTableViewDelegate didSelectedRowWithData:data];
+    }
+}
 
 
 @end

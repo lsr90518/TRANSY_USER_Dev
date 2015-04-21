@@ -59,13 +59,13 @@
 -(void) postData:(MDCreateProfileView *)createProfileView {
     if (![createProfileView.passwordInput.input.text isEqualToString:[NSString stringWithFormat:@"%@",createProfileView.repeatInput.input.text]]) {
         
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"パスワード"
-                                                                       message:@"パスワードをもう一回確認してください。"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"パスワード"
+                                                        message:@"パスワードをもう一回確認してください。"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
+        alert.delegate = self;
+        [alert show];
     } else {
         MDUser *user = [MDUser getInstance];
         user.lastname = createProfileView.lastnameInput.input.text;

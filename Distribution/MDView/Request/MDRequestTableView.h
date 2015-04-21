@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MDRequestTableViewDelegate;
+
 @interface MDRequestTableView : UITableView <UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, assign) id<MDRequestTableViewDelegate> requestTableViewDelegate;
+
+-(void) initWithArray:(NSArray *)array;
+
+@end
+
+@protocol MDRequestTableViewDelegate <NSObject>
+
+@optional
+-(void) didSelectedRowWithData:(NSDictionary *)data;
 
 @end

@@ -21,6 +21,7 @@
 @property (strong, nonatomic) MDDeliveryKindButton *packageButton;
 @property (strong, nonatomic) MDDeliveryKindButton *movingButton;
 @property (nonatomic, assign) id<DeliveryViewDelegate> delegate;
+@property (strong, nonatomic) UIView        *tabbar;
 
 -(void) postButtonTouched;
 -(void) initViewData:(MDCurrentPackage *)package;
@@ -35,5 +36,7 @@
 -(void) selectButtonTouched:(MDSelect *)select;
 -(void) gotoRequestAddressView;
 -(void) gotoDestinationAddressView;
+-(void) gotoRequestView;
+-(void) gotoSettingView;
 
 @end

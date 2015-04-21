@@ -63,10 +63,18 @@
     self.expire = (self.expire.length > 0) ? self.expire : @"3";
     
     //lat lng
-    self.to_lng = @"";
-    self.to_lat = @"";
-    self.from_lat = @"";
-    self.from_lng = @"";
+    if(self.to_lng.length < 1){
+        self.to_lng = @"";
+    }
+    if(self.to_lat.length < 1){
+        self.to_lat = @"";
+    }
+    if(self.from_lat.length < 1){
+        self.from_lat = @"";
+    }
+    if(self.from_lng.length < 1){
+        self.from_lng = @"";
+    }
 }
 
 @end

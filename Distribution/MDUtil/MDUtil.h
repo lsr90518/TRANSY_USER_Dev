@@ -15,4 +15,6 @@
 -(NSString *)internationalPhoneNumber:(NSString *)phoneNumber;
 -(NSString *)japanesePhoneNumber:(NSString *)phoneNumber;
 
+-(BOOL) isIos7;
+
 @end

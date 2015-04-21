@@ -14,6 +14,7 @@
 #import "MDSQLManager.h"
 #import "MDCustomerDAO.h"
 #import "MDUser.h"
+#import "MDDevice.h"
 
 @interface AppDelegate ()
 
@@ -62,7 +63,7 @@
     }
     
     [self configure];
-
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.viewController = [[MDIndexViewController alloc] init];
     self.window.rootViewController = self.viewController;
@@ -101,7 +102,21 @@
     
     MDUser *customer = [customerDAO findCustomer];
     [customer initDataClear];
-    NSLog(@"phone number%@",customer.phoneNumber);
+    
+    [self checkIOS7];
+    NSLog(@"%@",[MDDevice getInstance].iosVersion);
+}
+
+- (void)checkIOS7
+{
+    NSArray  *aOsVersions = [[[UIDevice currentDevice]systemVersion] componentsSeparatedByString:@"."];
+    NSInteger iOsVersionMajor  = [[aOsVersions objectAtIndex:0] intValue];
+    if (iOsVersionMajor == 7)
+    {
+        [MDDevice getInstance].iosVersion = @"7";
+    } else {
+        [MDDevice getInstance].iosVersion = @"8";
+    }
 }
 
 -(void)initDB {

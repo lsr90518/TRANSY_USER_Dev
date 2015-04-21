@@ -16,4 +16,6 @@
 @property (strong, nonatomic) UILabel *statusLabel;
 @property (strong, nonatomic) UIImageView *rightArrow;
 
+-(void) initCellWithData:(NSDictionary *)data;
+
 @end

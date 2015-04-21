@@ -7,6 +7,8 @@
 //
 
 #import "MDDeliveryViewController.h"
+#import "MDRequestViewController.h"
+#import "MDSettingViewController.h"
 #import <SVProgressHUD.h>
 
 
@@ -63,13 +65,13 @@
     NSString *result = [_deliveryView checkInput];
     if (![result isEqualToString:@""]) {
         //警告
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"未完成"
-                                                                       message:[NSString stringWithFormat:@"%@を入力してください。", result]
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"入力未完成"
+                                                        message:[NSString stringWithFormat:@"%@を入力してください",result]
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
+        alert.delegate = self;
+        [alert show];
     } else {
         //ok
         [SVProgressHUD show];
@@ -88,14 +90,14 @@
                                                [self presentViewController:prepareNavigationController animated:YES completion:nil];
                                                
                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                               //警告
-                                               UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"荷物登録失敗"
-                                                                                                              message:@"改めてログインしてください"
-                                                                                                       preferredStyle:UIAlertControllerStyleAlert];
-                                               UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                                                     handler:^(UIAlertAction * action) {}];
-                                               [alert addAction:defaultAction];
-                                               [self presentViewController:alert animated:YES completion:nil];
+//                                               //警告
+                                               UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"荷物登録失敗"
+                                                                                               message:@"改めてログインしてください。"
+                                                                                              delegate:self
+                                                                                     cancelButtonTitle:nil
+                                                                                     otherButtonTitles:@"OK", nil];
+                                               alert.delegate = self;
+                                               [alert show];
                                            }
                                        
                                        } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
@@ -147,5 +149,16 @@
     [self.navigationController pushViewController:dvc animated:YES];
 }
 
+-(void) gotoRequestView{
+    MDRequestViewController *rvc = [[MDRequestViewController alloc]init];
+    UINavigationController *rNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
+    [self presentViewController:rNavigationController animated:NO completion:nil];
+}
+
+-(void) gotoSettingView {
+    MDSettingViewController *rvc = [[MDSettingViewController alloc]init];
+    UINavigationController *rNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
+    [self presentViewController:rNavigationController animated:NO completion:nil];
+}
 
 @end

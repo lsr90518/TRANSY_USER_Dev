@@ -17,6 +17,7 @@
 #define API_USER_UPDATE_PHONE @"users/request_phone_number_change"
 #define API_PACKAGE_RESIGER   @"packages/user/register"
 #define API_PACKAGE_IMAGE     @"packages/user/upload_image"
+#define API_GET_MY_PACKAGE    @"packages/user/get_my_packages"
 
 #define USER_DEVICE           @"ios"
 
@@ -58,6 +59,10 @@
                              newPhoneNumber:(NSString *)newPhoneNumber
                               OnComplete:(void (^)(MKNetworkOperation *))complete
                                  onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
+-(void) getMyPackageWithHash:(NSString *)hash
+                  OnComplete:(void (^)(MKNetworkOperation *))complete
+                     onError:(void (^)(MKNetworkOperation *, NSError *))error;
 
 
 @end

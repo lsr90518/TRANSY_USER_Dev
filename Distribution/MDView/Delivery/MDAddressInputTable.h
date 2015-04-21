@@ -21,4 +21,6 @@
 @property (strong, nonatomic) NSString      *lat;
 
 -(void)setFrameColor:(UIColor *)color;
+
+-(void) setUnAvailable;
 @end

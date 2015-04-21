@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0F8A3D1AE5504600755A22 /* MDStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0F8A3C1AE5504600755A22 /* MDStatusLabel.m */; };
+		0D0F8A401AE5541000755A22 /* MDBigRed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0F8A3F1AE5541000755A22 /* MDBigRed.m */; };
 		0D0FD52F1AD3BDC400615C24 /* MDNoframeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD52E1AD3BDC400615C24 /* MDNoframeButton.m */; };
 		0D0FD5331AD4089B00615C24 /* MDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5321AD4089B00615C24 /* MDUtil.m */; };
 		0D0FD5361AD4122A00615C24 /* MDRequestTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5351AD4122A00615C24 /* MDRequestTableView.m */; };
@@ -48,6 +50,10 @@
 		0D0FD5BC1AE29D9900615C24 /* MDNameSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5BB1AE29D9900615C24 /* MDNameSettingViewController.m */; };
 		0D0FD5C01AE2A18800615C24 /* MDPhoneNumberSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5BF1AE2A18800615C24 /* MDPhoneNumberSettingViewController.m */; };
 		0D0FD5C31AE2AA2700615C24 /* MDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5C21AE2AA2700615C24 /* MDButton.m */; };
+		0D0FD5C51AE361FB00615C24 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0FD5C41AE361FB00615C24 /* MapKit.framework */; };
+		0D0FD5CA1AE37C2300615C24 /* MDRequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5C91AE37C2300615C24 /* MDRequestDetailViewController.m */; };
+		0D0FD5CE1AE37E9800615C24 /* MDRequestDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */; };
+		0D0FD5D11AE3F07F00615C24 /* taskRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FD5D01AE3F07F00615C24 /* taskRound.png */; };
 		0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */; };
 		0D5A37F61AC981EB0062F0C1 /* MDSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F51AC981EB0062F0C1 /* MDSelect.m */; };
 		0D5A37F91AC987840062F0C1 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5A37F81AC987840062F0C1 /* rightArrow.png */; };
@@ -65,7 +71,6 @@
 		0DC16F4E1AC536640066FA0C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F4D1AC536640066FA0C /* main.m */; };
 		0DC16F511AC536640066FA0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F501AC536640066FA0C /* AppDelegate.m */; };
 		0DC16F591AC536640066FA0C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DC16F581AC536640066FA0C /* Images.xcassets */; };
-		0DC16F5C1AC536640066FA0C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DC16F5A1AC536640066FA0C /* LaunchScreen.xib */; };
 		0DC16F681AC536640066FA0C /* DistributionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F671AC536640066FA0C /* DistributionTests.m */; };
 		0DC16F801AC54F7F0066FA0C /* MDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F7F1AC54F7F0066FA0C /* MDViewController.m */; };
 		0DC16F891AC5508D0066FA0C /* MDRequestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F881AC5508D0066FA0C /* MDRequestView.m */; };
@@ -85,6 +90,11 @@
 		0DC16FBF1AC7C0910066FA0C /* movingIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DC16FBD1AC7C0910066FA0C /* movingIcon.png */; };
 		0DC16FC01AC7C0910066FA0C /* packageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DC16FBE1AC7C0910066FA0C /* packageIcon.png */; };
 		0DC16FC31AC7C0C30066FA0C /* MDDeliveryKindButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16FC21AC7C0C30066FA0C /* MDDeliveryKindButton.m */; };
+		0DD885311AE4E0E900CEA79E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8852F1AE4E0E900CEA79E /* LaunchScreen.xib */; };
+		0DD885341AE522DC00CEA79E /* MDDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD885331AE522DC00CEA79E /* MDDevice.m */; };
+		0DD885381AE53F0800CEA79E /* completeProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885351AE53F0800CEA79E /* completeProcess.png */; };
+		0DD885391AE53F0800CEA79E /* distributionProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885361AE53F0800CEA79E /* distributionProcess.png */; };
+		0DD8853A1AE53F0800CEA79E /* matchingProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885371AE53F0800CEA79E /* matchingProcess.png */; };
 		8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB7D0B79A9C487081FC5650 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +109,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D0F8A3B1AE5504600755A22 /* MDStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDStatusLabel.h; path = MDView/Components/MDStatusLabel.h; sourceTree = "<group>"; };
+		0D0F8A3C1AE5504600755A22 /* MDStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDStatusLabel.m; path = MDView/Components/MDStatusLabel.m; sourceTree = "<group>"; };
+		0D0F8A3E1AE5541000755A22 /* MDBigRed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBigRed.h; path = MDUtil/MDBigRed.h; sourceTree = "<group>"; };
+		0D0F8A3F1AE5541000755A22 /* MDBigRed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBigRed.m; path = MDUtil/MDBigRed.m; sourceTree = "<group>"; };
 		0D0FD52D1AD3BDC400615C24 /* MDNoframeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDNoframeButton.h; path = MDView/Components/MDNoframeButton.h; sourceTree = "<group>"; };
 		0D0FD52E1AD3BDC400615C24 /* MDNoframeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDNoframeButton.m; path = MDView/Components/MDNoframeButton.m; sourceTree = "<group>"; };
 		0D0FD5311AD4089B00615C24 /* MDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDUtil.h; path = MDUtil/MDUtil.h; sourceTree = "<group>"; };
@@ -174,6 +188,12 @@
 		0D0FD5BF1AE2A18800615C24 /* MDPhoneNumberSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPhoneNumberSettingViewController.m; path = MDViewController/PhoneNumberSetting/MDPhoneNumberSettingViewController.m; sourceTree = "<group>"; };
 		0D0FD5C11AE2AA2700615C24 /* MDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDButton.h; sourceTree = "<group>"; };
 		0D0FD5C21AE2AA2700615C24 /* MDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDButton.m; sourceTree = "<group>"; };
+		0D0FD5C41AE361FB00615C24 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0D0FD5C81AE37C2300615C24 /* MDRequestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDRequestDetailViewController.h; path = MDViewController/RequestDetail/MDRequestDetailViewController.h; sourceTree = "<group>"; };
+		0D0FD5C91AE37C2300615C24 /* MDRequestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDRequestDetailViewController.m; path = MDViewController/RequestDetail/MDRequestDetailViewController.m; sourceTree = "<group>"; };
+		0D0FD5CC1AE37E9800615C24 /* MDRequestDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDRequestDetailView.h; path = MDView/RequestDetail/MDRequestDetailView.h; sourceTree = "<group>"; };
+		0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDRequestDetailView.m; path = MDView/RequestDetail/MDRequestDetailView.m; sourceTree = "<group>"; };
+		0D0FD5D01AE3F07F00615C24 /* taskRound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taskRound.png; sourceTree = "<group>"; };
 		0D5A37F11AC91D7E0062F0C1 /* MDAddressInputTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressInputTable.h; path = MDView/Delivery/MDAddressInputTable.h; sourceTree = "<group>"; };
 		0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressInputTable.m; path = MDView/Delivery/MDAddressInputTable.m; sourceTree = "<group>"; };
 		0D5A37F41AC981EB0062F0C1 /* MDSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSelect.h; path = MDView/Components/MDSelect.h; sourceTree = "<group>"; };
@@ -199,7 +219,6 @@
 		0DC16F4F1AC536640066FA0C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0DC16F501AC536640066FA0C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0DC16F581AC536640066FA0C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0DC16F5B1AC536640066FA0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0DC16F611AC536640066FA0C /* DistributionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DistributionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC16F661AC536640066FA0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DC16F671AC536640066FA0C /* DistributionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DistributionTests.m; sourceTree = "<group>"; };
@@ -230,6 +249,12 @@
 		0DC16FBE1AC7C0910066FA0C /* packageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = packageIcon.png; sourceTree = "<group>"; };
 		0DC16FC11AC7C0C30066FA0C /* MDDeliveryKindButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDeliveryKindButton.h; path = MDView/Delivery/MDDeliveryKindButton.h; sourceTree = "<group>"; };
 		0DC16FC21AC7C0C30066FA0C /* MDDeliveryKindButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDeliveryKindButton.m; path = MDView/Delivery/MDDeliveryKindButton.m; sourceTree = "<group>"; };
+		0DD885301AE4E0E900CEA79E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Distribution/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		0DD885321AE522DC00CEA79E /* MDDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDevice.h; path = MDModel/Device/MDDevice.h; sourceTree = "<group>"; };
+		0DD885331AE522DC00CEA79E /* MDDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDevice.m; path = MDModel/Device/MDDevice.m; sourceTree = "<group>"; };
+		0DD885351AE53F0800CEA79E /* completeProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = completeProcess.png; sourceTree = "<group>"; };
+		0DD885361AE53F0800CEA79E /* distributionProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distributionProcess.png; sourceTree = "<group>"; };
+		0DD885371AE53F0800CEA79E /* matchingProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = matchingProcess.png; sourceTree = "<group>"; };
 		9D5F79D547F2E977CB21B14C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ABB7D0B79A9C487081FC5650 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79CDEFC1A20916B813BD4A7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -240,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D0FD5C51AE361FB00615C24 /* MapKit.framework in Frameworks */,
 				8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +285,8 @@
 			children = (
 				0D0FD5311AD4089B00615C24 /* MDUtil.h */,
 				0D0FD5321AD4089B00615C24 /* MDUtil.m */,
+				0D0F8A3E1AE5541000755A22 /* MDBigRed.h */,
+				0D0F8A3F1AE5541000755A22 /* MDBigRed.m */,
 			);
 			name = MDUtil;
 			sourceTree = "<group>";
@@ -465,6 +493,35 @@
 			name = PhoneNumberSetting;
 			sourceTree = "<group>";
 		};
+		0D0FD5C61AE37BC500615C24 /* RequestDetail */ = {
+			isa = PBXGroup;
+			children = (
+				0D0FD5CC1AE37E9800615C24 /* MDRequestDetailView.h */,
+				0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */,
+			);
+			name = RequestDetail;
+			sourceTree = "<group>";
+		};
+		0D0FD5C71AE37BF000615C24 /* RequestDetail */ = {
+			isa = PBXGroup;
+			children = (
+				0D0FD5C81AE37C2300615C24 /* MDRequestDetailViewController.h */,
+				0D0FD5C91AE37C2300615C24 /* MDRequestDetailViewController.m */,
+			);
+			name = RequestDetail;
+			sourceTree = "<group>";
+		};
+		0D0FD5CF1AE3F04800615C24 /* RequestDetail */ = {
+			isa = PBXGroup;
+			children = (
+				0DD885351AE53F0800CEA79E /* completeProcess.png */,
+				0DD885361AE53F0800CEA79E /* distributionProcess.png */,
+				0DD885371AE53F0800CEA79E /* matchingProcess.png */,
+				0D0FD5D01AE3F07F00615C24 /* taskRound.png */,
+			);
+			name = RequestDetail;
+			sourceTree = "<group>";
+		};
 		0D5A37F71AC9854B0062F0C1 /* SelectButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,7 +580,7 @@
 				0DC16F721AC54CCA0066FA0C /* MDView */,
 				0DC16F711AC54CA90066FA0C /* MDAppDelegate */,
 				0DC16F581AC536640066FA0C /* Images.xcassets */,
-				0DC16F5A1AC536640066FA0C /* LaunchScreen.xib */,
+				0DD8852F1AE4E0E900CEA79E /* LaunchScreen.xib */,
 				0DC16F4B1AC536640066FA0C /* Supporting Files */,
 			);
 			path = Distribution;
@@ -567,6 +624,7 @@
 		0DC16F721AC54CCA0066FA0C /* MDView */ = {
 			isa = PBXGroup;
 			children = (
+				0D0FD5C61AE37BC500615C24 /* RequestDetail */,
 				0D0FD5871ADA6C9500615C24 /* Login */,
 				0D0FD5711AD9728900615C24 /* CreateProfile */,
 				0D0FD5471AD8EC0A00615C24 /* Index */,
@@ -582,6 +640,7 @@
 		0DC16F731AC54CF20066FA0C /* MDViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0D0FD5C71AE37BF000615C24 /* RequestDetail */,
 				0D0FD5BD1AE2A11C00615C24 /* PhoneNumberSetting */,
 				0D0FD5B91AE29D3E00615C24 /* NameSetting */,
 				0D0FD56D1AD9724A00615C24 /* CreateProfile */,
@@ -609,6 +668,8 @@
 				0D0FD58C1ADB822D00615C24 /* MDPackage.m */,
 				0D0FD58E1ADC096F00615C24 /* MDCurrentPackage.h */,
 				0D0FD58F1ADC096F00615C24 /* MDCurrentPackage.m */,
+				0DD885321AE522DC00CEA79E /* MDDevice.h */,
+				0DD885331AE522DC00CEA79E /* MDDevice.m */,
 			);
 			name = MDModel;
 			sourceTree = "<group>";
@@ -630,6 +691,7 @@
 		0DC16F761AC54D5F0066FA0C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0D0FD5CF1AE3F04800615C24 /* RequestDetail */,
 				0D0FD54E1AD8EC7700615C24 /* Index */,
 				0D0FD53A1AD4160900615C24 /* Request */,
 				0D5A37F71AC9854B0062F0C1 /* SelectButton */,
@@ -741,6 +803,8 @@
 				0D0FD56B1AD95C2900615C24 /* MDBarButton.m */,
 				0D0FD5C11AE2AA2700615C24 /* MDButton.h */,
 				0D0FD5C21AE2AA2700615C24 /* MDButton.m */,
+				0D0F8A3B1AE5504600755A22 /* MDStatusLabel.h */,
+				0D0F8A3C1AE5504600755A22 /* MDStatusLabel.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -805,6 +869,7 @@
 		6254F0B82D8C881008CED483 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D0FD5C41AE361FB00615C24 /* MapKit.framework */,
 				ABB7D0B79A9C487081FC5650 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -895,11 +960,12 @@
 			files = (
 				0DC16FB61AC7AE8B0066FA0C /* addressFrameImage.png in Resources */,
 				0DC16FBA1AC7B2B30066FA0C /* autoInput.png in Resources */,
+				0DD885391AE53F0800CEA79E /* distributionProcess.png in Resources */,
 				0D5A38111ACD940A0062F0C1 /* whiteCamera.png in Resources */,
-				0DC16F5C1AC536640066FA0C /* LaunchScreen.xib in Resources */,
 				0D0FD5A81ADEB26B00615C24 /* movingIconActive.png in Resources */,
 				0DC16F591AC536640066FA0C /* Images.xcassets in Resources */,
 				0D0FD5B61AE1E60100615C24 /* movingIconOn.png in Resources */,
+				0D0FD5D11AE3F07F00615C24 /* taskRound.png in Resources */,
 				0DC16FBF1AC7C0910066FA0C /* movingIcon.png in Resources */,
 				0D5A38101ACD940A0062F0C1 /* boardLine.png in Resources */,
 				0D0FD5B81AE1E63100615C24 /* packageIconOff.png in Resources */,
@@ -907,8 +973,10 @@
 				0D5A37F91AC987840062F0C1 /* rightArrow.png in Resources */,
 				0D0FD53E1AD4161C00615C24 /* grayRightArrow.png in Resources */,
 				0DC16FB41AC7AC7E0066FA0C /* packageButtonImage.png in Resources */,
+				0DD885381AE53F0800CEA79E /* completeProcess.png in Resources */,
 				0D5A38041AC9971B0062F0C1 /* setting_tab_active@2x.png in Resources */,
 				0D5A38001AC9971B0062F0C1 /* delivery_tab_active@2x.png in Resources */,
+				0DD885311AE4E0E900CEA79E /* LaunchScreen.xib in Resources */,
 				0D5A38051AC9971B0062F0C1 /* setting_tab_unactive@2x.png in Resources */,
 				0DC16FC01AC7C0910066FA0C /* packageIcon.png in Resources */,
 				0DC16FB81AC7B1FC0066FA0C /* zipcode.png in Resources */,
@@ -916,6 +984,7 @@
 				0D5A38021AC9971B0062F0C1 /* request_tab_active@2x.png in Resources */,
 				0D5A38011AC9971B0062F0C1 /* delivery_tab_unactive@2x.png in Resources */,
 				0DC16FAF1AC656C70066FA0C /* navigationBarBg.png in Resources */,
+				0DD8853A1AE53F0800CEA79E /* matchingProcess.png in Resources */,
 				0D0FD53D1AD4161C00615C24 /* cargo.png in Resources */,
 				0D0FD5501AD8EC8900615C24 /* firstBG.png in Resources */,
 				0DC16FAD1AC656BE0066FA0C /* statusBarBg.png in Resources */,
@@ -980,6 +1049,7 @@
 				0D0FD58D1ADB822D00615C24 /* MDPackage.m in Sources */,
 				0DC16FA21AC58FE30066FA0C /* MDTabButton.m in Sources */,
 				0DC16FC31AC7C0C30066FA0C /* MDDeliveryKindButton.m in Sources */,
+				0D0F8A401AE5541000755A22 /* MDBigRed.m in Sources */,
 				0D0FD56C1AD95C2900615C24 /* MDBarButton.m in Sources */,
 				0DC16F8C1AC550AB0066FA0C /* MDSettingView.m in Sources */,
 				0D0FD59A1ADC0D7B00615C24 /* MDInputDestinationViewController.m in Sources */,
@@ -989,8 +1059,10 @@
 				0DC16F981AC582080066FA0C /* MDSettingViewController.m in Sources */,
 				0D5A38081ACABD1D0062F0C1 /* MDPreparePayView.m in Sources */,
 				0DC16F801AC54F7F0066FA0C /* MDViewController.m in Sources */,
+				0DD885341AE522DC00CEA79E /* MDDevice.m in Sources */,
 				0D0FD5581AD8F36000615C24 /* MDCheckNumberViewController.m in Sources */,
 				0D0FD5831ADA0E0800615C24 /* MDCustomer.m in Sources */,
+				0D0FD5CA1AE37C2300615C24 /* MDRequestDetailViewController.m in Sources */,
 				0DC16F9B1AC582D30066FA0C /* MDRequestViewController.m in Sources */,
 				0D0FD5661AD8FD9E00615C24 /* MDInput.m in Sources */,
 				0D5A380D1ACABE0E0062F0C1 /* MDPreparePayViewController.m in Sources */,
@@ -1003,6 +1075,7 @@
 				0DC16F511AC536640066FA0C /* AppDelegate.m in Sources */,
 				0DC16F4E1AC536640066FA0C /* main.m in Sources */,
 				0D0FD57D1ADA025C00615C24 /* MDSQLManager.m in Sources */,
+				0D0F8A3D1AE5504600755A22 /* MDStatusLabel.m in Sources */,
 				0D0FD55B1AD8F38700615C24 /* MDPhoneViewController.m in Sources */,
 				0D0FD54A1AD8EC2A00615C24 /* MDIndexViewController.m in Sources */,
 				0D0FD5901ADC096F00615C24 /* MDCurrentPackage.m in Sources */,
@@ -1013,6 +1086,7 @@
 				0D0FD55F1AD8F3BA00615C24 /* MDLoginViewController.m in Sources */,
 				0D0FD52F1AD3BDC400615C24 /* MDNoframeButton.m in Sources */,
 				0D0FD54D1AD8EC4400615C24 /* MDIndexView.m in Sources */,
+				0D0FD5CE1AE37E9800615C24 /* MDRequestDetailView.m in Sources */,
 				0D0FD5BC1AE29D9900615C24 /* MDNameSettingViewController.m in Sources */,
 				0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */,
 				0D5A38141ACD99EA0062F0C1 /* MDCheckBox.m in Sources */,
@@ -1042,12 +1116,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0DC16F5A1AC536640066FA0C /* LaunchScreen.xib */ = {
+		0DD8852F1AE4E0E900CEA79E /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0DC16F5B1AC536640066FA0C /* Base */,
+				0DD885301AE4E0E900CEA79E /* Base */,
 			);
 			name = LaunchScreen.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1057,6 +1132,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1070,7 +1146,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1087,10 +1164,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
+				SDKROOT = iphoneos7.1;
 			};
 			name = Debug;
 		};
@@ -1098,6 +1176,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1111,7 +1190,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1122,9 +1202,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
+				SDKROOT = iphoneos7.1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1133,11 +1214,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D79CDEFC1A20916B813BD4A7 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
 				INFOPLIST_FILE = Distribution/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
 			};
 			name = Debug;
 		};
@@ -1145,11 +1230,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9D5F79D547F2E977CB21B14C /* Pods.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
 				INFOPLIST_FILE = Distribution/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
 			};
 			name = Release;
 		};

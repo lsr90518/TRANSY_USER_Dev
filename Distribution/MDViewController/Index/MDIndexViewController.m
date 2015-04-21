@@ -21,9 +21,10 @@
     _indexView = [[MDIndexView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _indexView.delegate = self;
     [self.view addSubview:_indexView];
-    
     //判断登陆，注册，直接使用
 }
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +48,8 @@
     UINavigationController *loginNavigationController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
     [self presentViewController:loginNavigationController animated:YES completion:nil];
 }
+
+
 
 
 @end

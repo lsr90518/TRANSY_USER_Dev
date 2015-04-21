@@ -7,6 +7,11 @@
 //
 
 #import "MDSettingViewController.h"
+#import "MDPhoneNumberSettingViewController.h"
+#import "MDNameSettingViewController.h"
+#import "MDPhoneViewController.h"
+#import "MDRequestViewController.h"
+#import "MDDeliveryViewController.h"
 
 @interface MDSettingViewController ()
 
@@ -18,6 +23,7 @@
     [super loadView];
     self.navigationItem.title = @"設定";
     _settingView = [[MDSettingView alloc]initWithFrame:self.view.frame];
+    _settingView.delegate = self;
     [self.view addSubview:_settingView];
 }
 
@@ -32,14 +38,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma delegate methods
+-(void) phoneNumberPushed {
+    MDPhoneViewController *phoneNumberSettingViewController = [[MDPhoneViewController alloc]init];
+    [self.navigationController pushViewController:phoneNumberSettingViewController animated:YES];
 }
-*/
+
+-(void) nameButtonPushed {
+    MDNameSettingViewController *nameSettingViewController = [[MDNameSettingViewController alloc]init];
+    [self.navigationController pushViewController:nameSettingViewController animated:YES];
+}
+
+-(void) gotoDeliveryView {
+    MDDeliveryViewController *rvc = [[MDDeliveryViewController alloc]init];
+    UINavigationController *rvcNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
+    [self presentViewController:rvcNavigationController animated:NO completion:nil];
+}
+-(void) gotoRequestView {
+    MDRequestViewController *rvc = [[MDRequestViewController alloc]init];
+    UINavigationController *rvcNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
+    [self presentViewController:rvcNavigationController animated:NO completion:nil];
+}
 
 @end

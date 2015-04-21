@@ -7,6 +7,7 @@
 //
 
 #import "MDTabButton.h"
+#import "MDDevice.h"
 
 @implementation MDTabButton
 {
@@ -39,7 +40,7 @@
         case TAB_REQUEST:
             _normalImage   = [UIImage imageNamed:@"request_tab_unactive@2x"];
             _selectedImage = [UIImage imageNamed:@"request_tab_active@2x"];
-            title.text = @"引き続け依頼";
+            title.text = @"引き受け依頼";
             break;
         case TAB_DELIVERY:
             _normalImage   = [UIImage imageNamed:@"delivery_tab_unactive@2x"];
@@ -54,11 +55,16 @@
         default:
             break;
     }
+    //判断ios7
     
-    _iconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(buttonFrame.size.width/2 - _normalImage.size.width/2,
-                                                                  buttonFrame.size.height/2 - _normalImage.size.height/2-6,
-                                                                  _normalImage.size.width,
-                                                                  _normalImage.size.height)];
+    int x = 1;
+    if ([[MDDevice getInstance].iosVersion isEqualToString:@"7"]) {
+        x = 2;
+    }
+    _iconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(buttonFrame.size.width/2 - _normalImage.size.width/(2*x),
+                                                                  buttonFrame.size.height/2 - _normalImage.size.height/(2*x)-6,
+                                                                  _normalImage.size.width/(1*x),
+                                                                  _normalImage.size.height/(1*x))];
     [self addSubview:_iconImageView];
     [self addSubview:title];
     

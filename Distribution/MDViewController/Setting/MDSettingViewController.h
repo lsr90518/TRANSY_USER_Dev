@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MDSettingView.h"
 
-@interface MDSettingViewController : UIViewController
+@interface MDSettingViewController : UIViewController<MDSettingViewDelegate>
 
 @property (strong, nonatomic) MDSettingView *settingView;
 

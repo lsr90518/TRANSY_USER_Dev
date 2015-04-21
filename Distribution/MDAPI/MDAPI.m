@@ -56,7 +56,7 @@
         NSData *imageData;
                 if (UIImagePNGRepresentation(obj) == nil)
                 {
-                    imageData = UIImageJPEGRepresentation(obj, 0.5);
+                    imageData = UIImageJPEGRepresentation(obj, 0.3);
                 }
                 else
                 {
@@ -160,10 +160,11 @@
     [dic setObject:[MDCurrentPackage getInstance].request_amount    forKey:@"request_amount"];
     [dic setObject:[MDCurrentPackage getInstance].note              forKey:@"note"];
     [dic setObject:[MDCurrentPackage getInstance].size              forKey:@"size"];
-    [dic setObject:[MDCurrentPackage getInstance].at_home_time      forKey:@"at_home_time"];
+    [dic setValue:[MDCurrentPackage getInstance].at_home_time       forKey:@"at_home_time"];
     [dic setObject:[MDCurrentPackage getInstance].deliver_limit     forKey:@"deliver_limit"];
     [dic setObject:[MDCurrentPackage getInstance].expire            forKey:@"expire"];
     
+    NSLog(@"/.../././././././././. %@",[MDCurrentPackage getInstance].from_lat);
     [self callApi:dic
           withUrl:API_PACKAGE_RESIGER
        withImages:@[]
@@ -202,6 +203,21 @@
           withUrl:API_USER_UPDATE_PHONE
        withImages:@[]
    withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void)getMyPackageWithHash:(NSString *)hash
+                 OnComplete:(void (^)(MKNetworkOperation *))complete
+                    onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    
+    [self callApi:dic
+          withUrl:API_GET_MY_PACKAGE
+       withImages:@[]
+   withHttpMethod:@"GET"
        onComplete:complete
           onError:error];
 }

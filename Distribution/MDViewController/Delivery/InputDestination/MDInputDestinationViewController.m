@@ -64,6 +64,7 @@
         {
             [MDCurrentPackage getInstance].to_lat = [NSString stringWithFormat:@"%f",aPlacemark.region.center.latitude];
             [MDCurrentPackage getInstance].to_lng = [NSString stringWithFormat:@"%f",aPlacemark.region.center.longitude];
+            NSLog(@"お届け%@", [MDCurrentPackage getInstance].to_lat);
             
         }
         [SVProgressHUD dismiss];

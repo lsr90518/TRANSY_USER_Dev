@@ -32,9 +32,10 @@
     [_phoneInput.title sizeToFit];
     [self.view addSubview:_phoneInput];
     
-    postButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 114, self.view.frame.size.width-20, 50)];
+    postButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 134, self.view.frame.size.width-20, 50)];
     [postButton setBackgroundColor:[UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1]];
     [postButton setTitle:@"電話番号の変更" forState:UIControlStateNormal];
+    postButton.layer.cornerRadius = 2.5;
     [postButton addTarget:self action:@selector(changePhoneNumber) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:postButton];
     
@@ -76,13 +77,13 @@
                                             }onError:^(MKNetworkOperation *completeOperarion, NSError *error){
                                                 
                                                 [SVProgressHUD dismiss];
-                                                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"番号の変更"
-                                                                                                               message:@"変更できませんでした。"
-                                                                                                        preferredStyle:UIAlertControllerStyleAlert];
-                                                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                                                      handler:^(UIAlertAction * action) {}];
-                                                [alert addAction:defaultAction];
-                                                [self presentViewController:alert animated:YES completion:nil];
+                                                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"番号変更"
+                                                                                                message:@"この番号は変更できません。"
+                                                                                               delegate:self
+                                                                                      cancelButtonTitle:nil
+                                                                                      otherButtonTitles:@"OK", nil];
+                                                alert.delegate = self;
+                                                [alert show];
                                                 
                                                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
                                             }];

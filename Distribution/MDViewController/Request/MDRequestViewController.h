@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MDRequestView.h"
+#import "MDAPI.h"
+#import "MDPackage.h"
+#import "MDUser.h"
+#import <SVProgressHUD.h>
 
-@interface MDRequestViewController : UIViewController
+@interface MDRequestViewController : UIViewController<MDRequestViewDelegate>
 
 @property (strong, nonatomic) MDRequestView *requestView;
 

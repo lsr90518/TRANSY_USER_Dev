@@ -27,7 +27,7 @@
         [user initDataClear];
         
         //scroll view
-        _scrollView = [[UIScrollView alloc]initWithFrame:frame];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height-50)];
         _scrollView.scrollEnabled = YES;
         _scrollView.delegate = self;
         [_scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height)];
@@ -41,7 +41,7 @@
         nameButton.buttonTitle.text = @"お名前";
         nameButton.selectLabel.text = [NSString stringWithFormat:@"%@ %@", user.lastname, user.firstname];
         [nameButton setUnactive];
-        [nameButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+        [nameButton addTarget:self action:@selector(nameButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:nameButton];
         
         //phone button
@@ -49,7 +49,7 @@
         phoneButton.buttonTitle.text = @"電話番号";
         phoneButton.selectLabel.text = [NSString stringWithFormat:@"%@", user.phoneNumber];
         [phoneButton setUnactive];
-        [phoneButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+        [phoneButton addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneButton];
         
         //pay button
@@ -94,14 +94,80 @@
         [protocolButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:protocolButton];
         
+        //tabbar
+        _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
+        //tab bar shadow
+        UIView *shadowView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0.5)];
+        [shadowView setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
+        [_tabbar addSubview:shadowView];
+        
+        //tab bar button
+        for (int i = 0; i < 3; i++) {
+            MDTabButton *tabButton = [[MDTabButton alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width / 3) * i, 0.5, ([UIScreen mainScreen].bounds.size.width / 3), 49.5) withTabType:i];
+            if (i == 2) {
+                [tabButton setButtonImage:YES];
+            } else {
+                [tabButton setButtonImage:NO];
+            }
+            [tabButton addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchDown];
+            [_tabbar addSubview:tabButton];
+        }
+        [self addSubview:_tabbar];
         
     }
     return self;
 }
 
--(void) nameButtonPushed {
-    NSLog(@"input name");
+-(void) nameButtonTouched {
+    if([self.delegate respondsToSelector:@selector(nameButtonPushed)]){
+        [self.delegate nameButtonPushed];
+    }
+}
+
+- (void) phoneNumberTouched {
+    if([self.delegate respondsToSelector:@selector(phoneNumberPushed)]){
+        [self.delegate phoneNumberPushed];
+    }
+}
+
+-(void) privacyButtonTouched {
+    if([self.delegate respondsToSelector:@selector(privacyButtonPushed)]){
+        [self.delegate privacyButtonPushed];
+    }
+}
+
+-(void) blockDriverTouched {
+    if([self.delegate respondsToSelector:@selector(blockDriverPushed)]){
+        [self.delegate blockDriverPushed];
+    }
+}
+
+-(void) changeTab:(MDTabButton *)button {
+    switch (button.type) {
+        case 0:
+            [self gotoRequestView];
+            break;
+        case 1:
+            [self gotoDeliveryView];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void) gotoRequestView{
+    if([self.delegate respondsToSelector:@selector(gotoRequestView)]) {
+        [self.delegate gotoRequestView];
+    }
+}
+
+-(void) gotoDeliveryView {
+    if([self.delegate respondsToSelector:@selector(gotoDeliveryView)]) {
+        [self.delegate gotoDeliveryView];
+    }
 }
 
 
+
 @end
+

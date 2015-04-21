@@ -11,6 +11,7 @@
 #import "MDCurrentPackage.h"
 #import "MDDeliveryViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <MapKit/MapKit.h>
 
 @interface MDInputRequestViewController (){
     MDAddressInputTable *requestAddressView;
@@ -64,8 +65,12 @@
     [geocoder geocodeAddressString:requestAddressView.addressField.text completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark* aPlacemark in placemarks)
         {
-            [MDCurrentPackage getInstance].from_lat = [NSString stringWithFormat:@"%f",aPlacemark.region.center.latitude];
-            [MDCurrentPackage getInstance].from_lng = [NSString stringWithFormat:@"%f",aPlacemark.region.center.longitude];
+            MKCoordinateRegion region;
+            region.center.latitude = aPlacemark.region.center.latitude;
+            region.center.longitude = aPlacemark.region.center.longitude;
+            
+            [MDCurrentPackage getInstance].from_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
+            [MDCurrentPackage getInstance].from_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
             
         }
         [SVProgressHUD dismiss];

@@ -72,4 +72,10 @@
     
 }
 
+-(void) setUnAvailable{
+    [self.zipField setUserInteractionEnabled:NO];
+    [self.autoInputButton setHidden:YES];
+    [self.addressField setUserInteractionEnabled:NO];
+}
+
 @end

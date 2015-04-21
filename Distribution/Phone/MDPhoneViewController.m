@@ -72,21 +72,21 @@
     if(range.length > 0) {
         
         //不正番号
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
-                                                                       message:@"ハイフン「-」を入力しないでください"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    } else if( _inputView.input.text.length != 11) {
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
-                                                                       message:@"11桁の携帯番号を入力してください"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+//        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
+//                                                                       message:@"ハイフン「-」を入力しないでください"
+//                                                                preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+//                                                              handler:^(UIAlertAction * action) {}];
+//        [alert addAction:defaultAction];
+//        [self presentViewController:alert animated:YES completion:nil];
+//    } else if( _inputView.input.text.length != 11) {
+//        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
+//                                                                       message:@"11桁の携帯番号を入力してください"
+//                                                                preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+//                                                              handler:^(UIAlertAction * action) {}];
+//        [alert addAction:defaultAction];
+//        [self presentViewController:alert animated:YES completion:nil];
     } else {
         
         //有効な電話番号
@@ -111,13 +111,13 @@
                                   MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
                                   [self.navigationController pushViewController:checkNumberController animated:YES];
                               } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
-                                                                                                 message:@"この番号もう登録した"
-                                                                                          preferredStyle:UIAlertControllerStyleAlert];
-                                  UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                                        handler:^(UIAlertAction * action) {}];
-                                  [alert addAction:defaultAction];
-                                  [self presentViewController:alert animated:YES completion:nil];
+                                  UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
+                                                                                  message:@"この番号もう登録した。"
+                                                                                 delegate:self
+                                                                        cancelButtonTitle:nil
+                                                                        otherButtonTitles:@"OK", nil];
+                                  alert.delegate = self;
+                                  [alert show];
                               }
                               
                           } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
@@ -129,7 +129,7 @@
 }
 
 -(void)backButtonPushed {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

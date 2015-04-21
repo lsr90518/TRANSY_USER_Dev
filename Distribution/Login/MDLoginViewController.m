@@ -11,6 +11,7 @@
 #import "MDAPI.h"
 #import <SVProgressHUD.h>
 #import "MDUtil.h"
+#import "MDDeliveryViewController.h"
 
 @interface MDLoginViewController ()
 
@@ -24,6 +25,21 @@
     _loginView = [[MDLoginView alloc]initWithFrame:self.view.frame];
     _loginView.delegate = self;
     [self.view addSubview:_loginView];
+    
+    [self initNavigationBar];
+}
+
+-(void)initNavigationBar {
+    self.navigationItem.title = @"ログイン";
+    //add right button item
+    UIButton *_backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_backButton setTitle:@"戻る" forState:UIControlStateNormal];
+    _backButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
+    _backButton.frame = CGRectMake(0, 0, 25, 44);
+    [_backButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
+    self.navigationItem.leftBarButtonItem = leftButton;
+    
 }
 
 - (void)viewDidLoad {
@@ -58,16 +74,21 @@
                                         user.lastname = nameArray[0];
                                         user.firstname = nameArray[1];
                                         
-                                        MDViewController *viewController = [[MDViewController alloc]init];
-                                        [self presentViewController:viewController animated:YES completion:nil];
+//                                        MDViewController *viewController = [[MDViewController alloc]init];
+//                                        [self presentViewController:viewController animated:YES completion:nil];
+                                        
+                                        MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
+                                        UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
+                                        [self presentViewController:deliveryNavigationController animated:YES completion:nil];
+                                        
                                     } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
-                                                                                                       message:@"この番号もう登録した"
-                                                                                                preferredStyle:UIAlertControllerStyleAlert];
-                                        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                                              handler:^(UIAlertAction * action) {}];
-                                        [alert addAction:defaultAction];
-                                        [self presentViewController:alert animated:YES completion:nil];
+                                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
+                                                                                        message:@"パスワードは正しくありません。"
+                                                                                        delegate:self
+                                                                                        cancelButtonTitle:nil
+                                                                                        otherButtonTitles:@"OK", nil];
+                                        alert.delegate = self;
+                                        [alert show];
                                     }
                                     
                                 } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
@@ -75,6 +96,9 @@
                                     [SVProgressHUD dismiss];
                                 }];
     
+}
+-(void) backButtonTouched {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
