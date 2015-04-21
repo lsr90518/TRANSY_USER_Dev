@@ -94,6 +94,12 @@
 }
 
 
+//かかみん ここ
+-(void) paymentButtonPushed {
+    
+}
+
+
 -(void)openMenu
 {
     myActionSheet = [[UIActionSheet alloc]

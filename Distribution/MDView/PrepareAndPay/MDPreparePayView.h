@@ -32,6 +32,7 @@
 -(void) cameraButtonTouched;
 -(void) postData;
 -(void) requestPersonPushed;
+-(void) paymentButtonPushed;
 -(void) phoneNumberPushed;
 
 @end

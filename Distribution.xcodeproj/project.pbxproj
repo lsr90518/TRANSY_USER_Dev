@@ -280,6 +280,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D0F8B891AE62C4A00755A22 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Payment;
+			sourceTree = "<group>";
+		};
 		0D0FD5301AD4086B00615C24 /* MDUtil */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,6 +647,7 @@
 		0DC16F731AC54CF20066FA0C /* MDViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0D0F8B891AE62C4A00755A22 /* Payment */,
 				0D0FD5C71AE37BF000615C24 /* RequestDetail */,
 				0D0FD5BD1AE2A11C00615C24 /* PhoneNumberSetting */,
 				0D0FD5B91AE29D3E00615C24 /* NameSetting */,

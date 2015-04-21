@@ -109,6 +109,7 @@
         MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 324, frame.size.width-20, 50)];
         pay.buttonTitle.text = @"お支払い方法";
         pay.selectLabel.text = [NSString stringWithFormat:@"%@",user.creditNumber];
+        [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:pay];
         
         //checkbox
@@ -204,6 +205,12 @@
 -(void) phoneNumberTouched{
     if([self.delegate respondsToSelector:@selector(phoneNumberPushed)]){
         [self.delegate phoneNumberPushed];
+    }
+}
+
+-(void) paymentButtonTouched {
+    if([self.delegate respondsToSelector:@selector(paymentButtonPushed)]){
+        [self.delegate paymentButtonPushed];
     }
 }
 
