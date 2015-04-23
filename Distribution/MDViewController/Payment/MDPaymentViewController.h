@@ -2,12 +2,12 @@
 //  MDPaymentViewController.h
 //  Distribution
 //
-//  Created by Lsr on 4/21/15.
-//  Copyright (c) 2015 Lsr. All rights reserved.
+//  Created by 各務 将士 on 2015/04/23.
+//  Copyright (c) 2015年 Lsr. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MDWebViewController.h"
 
-@interface MDPaymentViewController : UIViewController
+@interface MDPaymentViewController : MDWebViewController <UIWebViewDelegate>
 
 @end

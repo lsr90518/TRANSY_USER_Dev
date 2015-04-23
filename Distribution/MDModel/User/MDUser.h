@@ -11,6 +11,7 @@
 
 @interface MDUser : NSObject
 
+@property (nonatomic) NSInteger user_id;
 @property (strong, nonatomic) NSString *phoneNumber;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *creditNumber;
@@ -28,18 +29,12 @@
 //{
 //    "code": 0,
 //    "data": {
-//        "id": "11",
+//        "id": "1",
 //        "phone": "+819081593894",
-//        "name": "各務 将士",
-//        "walk": "1",
-//        "bike": "1",
-//        "motorbike": "0",
-//        "car": "1",
-//        "image": "https://distribution-dev.s3-ap-northeast-1.amazonaws.com/driver/images/11",
-//        "status": "0",
-//        "created": "2015-04-02 02:30:34"
+//        "name": "Masashi Kakami2",
+//        "created": "2015-04-03 02:16:37"
 //    },
-//    "hash": "eYIFmpw/pe+QKp50MnkgGA=="
+//    "hash": "3J5QRDMLSDDA0c4f9sB7RQ=="
 //}
 
 @end

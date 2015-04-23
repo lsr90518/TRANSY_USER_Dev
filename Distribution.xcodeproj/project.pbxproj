@@ -95,6 +95,8 @@
 		0DD885381AE53F0800CEA79E /* completeProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885351AE53F0800CEA79E /* completeProcess.png */; };
 		0DD885391AE53F0800CEA79E /* distributionProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885361AE53F0800CEA79E /* distributionProcess.png */; };
 		0DD8853A1AE53F0800CEA79E /* matchingProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885371AE53F0800CEA79E /* matchingProcess.png */; };
+		4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */; };
+		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
 		8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB7D0B79A9C487081FC5650 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -255,6 +257,10 @@
 		0DD885351AE53F0800CEA79E /* completeProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = completeProcess.png; sourceTree = "<group>"; };
 		0DD885361AE53F0800CEA79E /* distributionProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distributionProcess.png; sourceTree = "<group>"; };
 		0DD885371AE53F0800CEA79E /* matchingProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = matchingProcess.png; sourceTree = "<group>"; };
+		4873BCEA1AE8E3F6001C4F72 /* MDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDWebViewController.h; path = MDViewController/MDWebViewController/MDWebViewController.h; sourceTree = "<group>"; };
+		4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDWebViewController.m; path = MDViewController/MDWebViewController/MDWebViewController.m; sourceTree = "<group>"; };
+		4873BCF01AE8E800001C4F72 /* MDPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPaymentViewController.h; path = MDViewController/Payment/MDPaymentViewController.h; sourceTree = "<group>"; };
+		4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPaymentViewController.m; path = MDViewController/Payment/MDPaymentViewController.m; sourceTree = "<group>"; };
 		9D5F79D547F2E977CB21B14C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ABB7D0B79A9C487081FC5650 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79CDEFC1A20916B813BD4A7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -283,6 +289,8 @@
 		0D0F8B891AE62C4A00755A22 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
+				4873BCF01AE8E800001C4F72 /* MDPaymentViewController.h */,
+				4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */,
 			);
 			name = Payment;
 			sourceTree = "<group>";
@@ -648,6 +656,7 @@
 			isa = PBXGroup;
 			children = (
 				0D0F8B891AE62C4A00755A22 /* Payment */,
+				4873BCE91AE8E2F6001C4F72 /* MDWebViewController */,
 				0D0FD5C71AE37BF000615C24 /* RequestDetail */,
 				0D0FD5BD1AE2A11C00615C24 /* PhoneNumberSetting */,
 				0D0FD5B91AE29D3E00615C24 /* NameSetting */,
@@ -874,6 +883,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4873BCE91AE8E2F6001C4F72 /* MDWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4873BCEA1AE8E3F6001C4F72 /* MDWebViewController.h */,
+				4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */,
+			);
+			name = MDWebViewController;
+			sourceTree = "<group>";
+		};
 		6254F0B82D8C881008CED483 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1060,8 +1078,10 @@
 				0D0F8A401AE5541000755A22 /* MDBigRed.m in Sources */,
 				0D0FD56C1AD95C2900615C24 /* MDBarButton.m in Sources */,
 				0DC16F8C1AC550AB0066FA0C /* MDSettingView.m in Sources */,
+				4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */,
 				0D0FD59A1ADC0D7B00615C24 /* MDInputDestinationViewController.m in Sources */,
 				0D0FD58A1ADA6DB600615C24 /* MDLoginView.m in Sources */,
+				4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */,
 				0D0FD5451AD56B3900615C24 /* MDAPI.m in Sources */,
 				0D0FD5C31AE2AA2700615C24 /* MDButton.m in Sources */,
 				0DC16F981AC582080066FA0C /* MDSettingViewController.m in Sources */,

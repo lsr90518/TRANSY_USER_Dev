@@ -66,6 +66,7 @@
                                     [SVProgressHUD dismiss];
                                     if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                         MDUser *user = [MDUser getInstance];
+                                        user.user_id = [[completeOperation responseJSON][@"data"][@"id"] intValue];
                                         user.phoneNumber = [util japanesePhoneNumber:phoneNumber];
                                         user.password = password;
                                         user.userHash = [completeOperation responseJSON][@"hash"];
