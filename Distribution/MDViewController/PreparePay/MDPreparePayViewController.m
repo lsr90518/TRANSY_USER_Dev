@@ -13,6 +13,7 @@
 #import "MDNameSettingViewController.h"
 #import "MDPhoneNumberSettingViewController.h"
 #import "MDPhoneViewController.h"
+#import "MDPaymentViewController.h"
 
 @interface MDPreparePayViewController ()
 
@@ -96,7 +97,6 @@
 
 //かかみん ここ
 -(void) paymentButtonPushed {
-    
 }
 
 
