@@ -10,6 +10,7 @@
 #import "MDSelect.h"
 #import "MDAddressInputTable.h"
 #import "MDBigRed.h"
+#import <UIImageView+WebCache.h>
 
 @implementation MDRequestDetailView{
     UIView *processViews;
@@ -137,6 +138,8 @@
         [cameraButton addSubview:cameraIcon];
         [_scrollView addSubview:cameraButton];
         
+        
+        
         //address
         requestAddressView = [[MDAddressInputTable alloc]initWithFrame:CGRectMake(10, 301, frame.size.width-20, 100)];
         requestAddressView.layer.cornerRadius = 2.5;
@@ -251,8 +254,23 @@
 }
 
 -(void) makeupByData:(NSDictionary *)data{
-    NSLog(@"%@",data);
-    //image
+    //upload image
+    uploadedImage = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, 136, 136)];
+    [uploadedImage sd_setImageWithURL:[NSURL URLWithString:data[@"image"]] placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
+    
+//    if (uploadedImage == nil) {
+//        
+//        uploadedImage = [[UIImageView alloc]init];
+//        
+//    }
+//    float x = image.size.height/cameraButton.frame.size.height;
+    uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-136/2,
+                                     0,
+                                     136,
+                                     136);
+    [cameraButton addSubview:uploadedImage];
+    
+    
     //address
     requestAddressView.zipField.text = data[@"from_zip"];
     requestAddressView.addressField.text = data[@"from_addr"];

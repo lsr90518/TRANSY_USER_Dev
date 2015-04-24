@@ -103,16 +103,13 @@
                                     if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                         [self dismissViewControllerAnimated:YES completion:nil];
                                     }else{
-                                        UIAlertController *alertController = [UIAlertController
-                                                             alertControllerWithTitle:@"エラー"
-                                                                              message:@"支払い方法が登録されていません。"
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-                                        
-                                        [alertController addAction:
-                                         [UIAlertAction actionWithTitle:@"OK"
-                                                                  style:UIAlertActionStyleDefault
-                                                                handler:^(UIAlertAction *action) {}]];
-                                        [self presentViewController:alertController animated:YES completion:nil];
+                                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+                                                                                        message:@"支払い方法を登録されていません。"
+                                                                                       delegate:self
+                                                                              cancelButtonTitle:nil
+                                                                              otherButtonTitles:@"OK", nil];
+                                        alert.delegate = self;
+                                        [alert show];
                                         
                                     }
                                     [SVProgressHUD dismiss];
