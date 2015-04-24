@@ -14,5 +14,7 @@
 
 @property (strong, nonatomic) MDPreparePayView *preparePayView;
 
+@property (strong, nonatomic) UIImage *packageImage;
+
 
 @end

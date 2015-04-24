@@ -173,7 +173,7 @@
           onError:error];
 }
 
--(void) uploadImageWithHash:(NSString *)hash
+-(void) orderWithHash:(NSString *)hash
                   packageId:(NSString *)package_id
                       image:(UIImage *)image
                  OnComplete:(void (^)(MKNetworkOperation *))complete
@@ -184,7 +184,7 @@
     [dic setObject:package_id forKey:@"package_id"];
     
     [self callApi:dic
-          withUrl:API_PACKAGE_IMAGE
+          withUrl:API_PACKAGE_ORDER
        withImages:@[image]
    withHttpMethod:@"POST"
        onComplete:complete
