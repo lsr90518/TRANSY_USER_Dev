@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D0F8A3D1AE5504600755A22 /* MDStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0F8A3C1AE5504600755A22 /* MDStatusLabel.m */; };
 		0D0F8A401AE5541000755A22 /* MDBigRed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0F8A3F1AE5541000755A22 /* MDBigRed.m */; };
+		0D0F8B8C1AE6301100755A22 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0F8B8B1AE6301100755A22 /* MDPaymentViewController.m */; };
 		0D0FD52F1AD3BDC400615C24 /* MDNoframeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD52E1AD3BDC400615C24 /* MDNoframeButton.m */; };
 		0D0FD5331AD4089B00615C24 /* MDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5321AD4089B00615C24 /* MDUtil.m */; };
 		0D0FD5361AD4122A00615C24 /* MDRequestTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5351AD4122A00615C24 /* MDRequestTableView.m */; };
@@ -113,6 +114,8 @@
 		0D0F8A3C1AE5504600755A22 /* MDStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDStatusLabel.m; path = MDView/Components/MDStatusLabel.m; sourceTree = "<group>"; };
 		0D0F8A3E1AE5541000755A22 /* MDBigRed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBigRed.h; path = MDUtil/MDBigRed.h; sourceTree = "<group>"; };
 		0D0F8A3F1AE5541000755A22 /* MDBigRed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBigRed.m; path = MDUtil/MDBigRed.m; sourceTree = "<group>"; };
+		0D0F8B8A1AE6301100755A22 /* MDPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPaymentViewController.h; path = MDViewController/Payment/MDPaymentViewController.h; sourceTree = "<group>"; };
+		0D0F8B8B1AE6301100755A22 /* MDPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPaymentViewController.m; path = MDViewController/Payment/MDPaymentViewController.m; sourceTree = "<group>"; };
 		0D0FD52D1AD3BDC400615C24 /* MDNoframeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDNoframeButton.h; path = MDView/Components/MDNoframeButton.h; sourceTree = "<group>"; };
 		0D0FD52E1AD3BDC400615C24 /* MDNoframeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDNoframeButton.m; path = MDView/Components/MDNoframeButton.m; sourceTree = "<group>"; };
 		0D0FD5311AD4089B00615C24 /* MDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDUtil.h; path = MDUtil/MDUtil.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 		0D0F8B891AE62C4A00755A22 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
+				0D0F8B8A1AE6301100755A22 /* MDPaymentViewController.h */,
+				0D0F8B8B1AE6301100755A22 /* MDPaymentViewController.m */,
 			);
 			name = Payment;
 			sourceTree = "<group>";
@@ -1095,6 +1100,7 @@
 				0D0FD52F1AD3BDC400615C24 /* MDNoframeButton.m in Sources */,
 				0D0FD54D1AD8EC4400615C24 /* MDIndexView.m in Sources */,
 				0D0FD5CE1AE37E9800615C24 /* MDRequestDetailView.m in Sources */,
+				0D0F8B8C1AE6301100755A22 /* MDPaymentViewController.m in Sources */,
 				0D0FD5BC1AE29D9900615C24 /* MDNameSettingViewController.m in Sources */,
 				0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */,
 				0D5A38141ACD99EA0062F0C1 /* MDCheckBox.m in Sources */,
