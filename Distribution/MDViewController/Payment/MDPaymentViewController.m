@@ -7,6 +7,7 @@
 //
 
 #import "MDPaymentViewController.h"
+#import "MDAPI.h"
 #import "MDUser.h"
 
 @implementation MDPaymentViewController
@@ -20,6 +21,10 @@
     
     MDUser *user = [MDUser getInstance];
     [user initDataClear];
+    // 検証用クレジットカード番号
+    // 9191753589464621
+    // 有効期限(12/16)
+    // 名義は任意の文字列
     [self openWebpageWithUrl:@"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
                       method:@"POST"
                    parameter:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -27,8 +32,8 @@
                               [NSString stringWithFormat: @"u%ld", (long)user.user_id],@"sendid",
                               @"1500",@"money",
                               user.phoneNumber,@"usrtel",
-                              @"",@"usrmail",
-                              @"http://modelordistribution-dev.elasticbeanstalk.com/credit/auth_back.html",@"redirect_url",
+                              user.mailAddress,@"usrmail",
+                              [NSString stringWithFormat:@"http://%@/credit/auth_back.html",API_HOST_NAME],@"redirect_url",
                               nil]];
 }
 
@@ -50,7 +55,7 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
 navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog([NSString stringWithFormat:@"request sent. scheme: %@, host: %@", request.URL.scheme, request.URL.host]);
+    // NSLog([NSString stringWithFormat:@"request sent. scheme: %@, host: %@", request.URL.scheme, request.URL.host]);
     // schemeがnative だった場合
     if ([ request.URL.scheme isEqualToString:@"auth" ]) {
         [ self paymentAuthComplete: request ];
@@ -73,7 +78,7 @@ navigationType:(UIWebViewNavigationType)navigationType
     [user initDataClear];
     if ([request.URL.host isEqualToString:@"done"]) {
         // credit info of user updated here
-        // user.credit = 1;
+        user.credit = 1;
     }
     
     [self.navigationController popViewControllerAnimated:YES];

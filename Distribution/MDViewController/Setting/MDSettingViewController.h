@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MDSettingView.h"
+#import "MDUtil.h"
 
-@interface MDSettingViewController : UIViewController<MDSettingViewDelegate>
+@interface MDSettingViewController : UIViewController<MDSettingViewDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) MDSettingView *settingView;
 

@@ -13,14 +13,13 @@
 
 @property (nonatomic) NSInteger user_id;
 @property (strong, nonatomic) NSString *phoneNumber;
+@property (strong, nonatomic) NSString *mailAddress;
 @property (strong, nonatomic) NSString *password;
-@property (strong, nonatomic) NSString *creditNumber;
 @property (strong, nonatomic) NSString *lastname;
 @property (strong, nonatomic) NSString *firstname;
 @property (strong, nonatomic) NSString *checknumber;
 @property (strong, nonatomic) NSString *userHash;
-@property (strong, nonatomic) NSString *image;
-@property (strong, nonatomic) NSString *status;
+@property (nonatomic) NSInteger credit;
 
 +(MDUser *)getInstance;
 
@@ -29,12 +28,14 @@
 //{
 //    "code": 0,
 //    "data": {
-//        "id": "1",
+//        "id": "2",
 //        "phone": "+819081593894",
-//        "name": "Masashi Kakami2",
-//        "created": "2015-04-03 02:16:37"
+//        "name": "Masashi Kakami",
+//        "mail": "mkakami@modelor.com",    // 無ければnull
+//        "credit": "0",
+//        "created": "2015-04-04 04:44:36"
 //    },
-//    "hash": "3J5QRDMLSDDA0c4f9sB7RQ=="
+//    "hash": "QsyWWh4wNpFCwZAqLEdKcg=="
 //}
 
 @end

@@ -32,6 +32,8 @@
     _preparePayView.delegate = self;
     [self.view addSubview:_preparePayView];
     
+    self.navigationController.delegate = self;
+    
     //test よう
 //    [MDCurrentPackage getInstance].package_id = @"21";
 //    [MDCurrentPackage getInstance].package_number = @"1234567890";
@@ -97,9 +99,18 @@
 
 //かかみん ここ
 -(void) paymentButtonPushed {
-    NSLog(@"paymentButtonPushed");
+//    NSLog(@"paymentButtonPushed");
     MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] init];
     [self.navigationController pushViewController:paymentViewController animated:YES];
+}
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated{
+    // NSLog(@"navigationController delegate called!");
+    MDSelect *pay = (MDSelect *)[_preparePayView.scrollView viewWithTag:paymentSelect];
+    if(pay){
+        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+    }
 }
 
 

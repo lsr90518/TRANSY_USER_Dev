@@ -7,6 +7,7 @@
 //
 
 #import "MDUtil.h"
+#import "MDUser.h"
 #import <Security/Security.h>
 
 @implementation MDUtil
@@ -36,6 +37,16 @@
     }
     
     return phoneNumber;
+}
+
++(NSString *)getPaymentSelectLabel {
+    MDUser *user = [MDUser getInstance];
+    [user initDataClear];
+    if(user.credit == 0){
+        return @"新規登録";
+    }else{
+        return @"登録済み";
+    }
 }
 
 @end

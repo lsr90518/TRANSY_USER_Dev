@@ -68,12 +68,14 @@
                                         MDUser *user = [MDUser getInstance];
                                         user.user_id = [[completeOperation responseJSON][@"data"][@"id"] intValue];
                                         user.phoneNumber = [util japanesePhoneNumber:phoneNumber];
+                                        user.mailAddress = [completeOperation responseJSON][@"data"][@"mail"];
                                         user.password = password;
                                         user.userHash = [completeOperation responseJSON][@"hash"];
                                         NSString *username = [completeOperation responseJSON][@"data"][@"name"];
                                         NSArray *nameArray = [username componentsSeparatedByString:@" "];
                                         user.lastname = nameArray[0];
                                         user.firstname = nameArray[1];
+                                        user.credit =[[completeOperation responseJSON][@"data"][@"credit"] intValue];
                                         
 //                                        MDViewController *viewController = [[MDViewController alloc]init];
 //                                        [self presentViewController:viewController animated:YES completion:nil];

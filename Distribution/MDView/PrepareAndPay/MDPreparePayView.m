@@ -7,7 +7,6 @@
 //
 
 #import "MDPreparePayView.h"
-#import "MDSelect.h"
 #import "MDCheckBox.h"
 #import "MDNoframeButton.h"
 #import "MDUser.h"
@@ -27,6 +26,7 @@
         
         MDUser *user = [MDUser getInstance];
         [user initDataClear];
+        
         //init view
         [self setBackgroundColor:[UIColor whiteColor]];
         
@@ -108,8 +108,9 @@
         
         MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 324, frame.size.width-20, 50)];
         pay.buttonTitle.text = @"お支払い方法";
-        pay.selectLabel.text = [NSString stringWithFormat:@"%@",user.creditNumber];
+        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [pay setTag:paymentSelect];
         [_scrollView addSubview:pay];
         
         //checkbox
@@ -207,6 +208,7 @@
         [self.delegate phoneNumberPushed];
     }
 }
+
 
 -(void) paymentButtonTouched {
     if([self.delegate respondsToSelector:@selector(paymentButtonPushed)]){

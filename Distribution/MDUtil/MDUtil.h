@@ -10,10 +10,17 @@
 
 @interface MDUtil : NSObject
 
+typedef NS_ENUM (NSUInteger, viewTagNames) {
+    paymentSelect = 1000
+};
+
+
 +(MDUtil *)getInstance;
 
 -(NSString *)internationalPhoneNumber:(NSString *)phoneNumber;
 -(NSString *)japanesePhoneNumber:(NSString *)phoneNumber;
+
++(NSString *)getPaymentSelectLabel;
 
 -(BOOL) isIos7;
 

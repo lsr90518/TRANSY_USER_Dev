@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MDPreparePayView.h"
+#import "MDUtil.h"
 
 @interface MDPreparePayViewController : UIViewController <PreparePayViewDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) MDPreparePayView *preparePayView;
+
 
 @end
