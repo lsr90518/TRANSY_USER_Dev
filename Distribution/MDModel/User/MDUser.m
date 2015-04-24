@@ -24,20 +24,20 @@
     if(_phoneNumber.length < 1){
        _phoneNumber = @"";
     }
+    if([_mailAddress isEqual:[NSNull null]] || _mailAddress.length < 1){
+        _mailAddress = @"";
+    }
     if(_password.length < 1){
         _password = @"";
     }
-    if(_creditNumber.length < 1){
-        _creditNumber = @"";
+    if(_checknumber.length < 1){
+        _checknumber = @"";
     }
     if(_lastname.length < 1){
         _lastname = @"";
     }
     if(_firstname.length < 1){
         _firstname = @"";
-    }
-    if(_checknumber.length < 1){
-        _checknumber = @"";
     }
 }
 

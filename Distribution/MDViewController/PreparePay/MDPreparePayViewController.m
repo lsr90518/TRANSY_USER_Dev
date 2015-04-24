@@ -32,6 +32,8 @@
     _preparePayView.delegate = self;
     [self.view addSubview:_preparePayView];
     
+    self.navigationController.delegate = self;
+    
     //test よう
 //    [MDCurrentPackage getInstance].package_id = @"21";
 //    [MDCurrentPackage getInstance].package_number = @"1234567890";
@@ -90,13 +92,51 @@
 }
 
 -(void) postData {
-    //check
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [SVProgressHUD show];
+    MDUser *user = [MDUser getInstance];
+    [user initDataClear];
+    
+    [[MDAPI sharedAPI] orderWithHash:user.userHash
+                                 packageId:[MDCurrentPackage getInstance].package_id
+                                     image:_packageImage
+                                OnComplete:^(MKNetworkOperation *completeOperation){
+                                    if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                    }else{
+                                        UIAlertController *alertController = [UIAlertController
+                                                             alertControllerWithTitle:@"エラー"
+                                                                              message:@"支払い方法が登録されていません。"
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                        
+                                        [alertController addAction:
+                                         [UIAlertAction actionWithTitle:@"OK"
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction *action) {}]];
+                                        [self presentViewController:alertController animated:YES completion:nil];
+                                        
+                                    }
+                                    [SVProgressHUD dismiss];
+                                }onError:^(MKNetworkOperation *completeOperation, NSError *error){
+                                    NSLog(@"%@",error);
+                                    [SVProgressHUD dismiss];
+                                }];
 }
 
 
 //かかみん ここ
 -(void) paymentButtonPushed {
+//    NSLog(@"paymentButtonPushed");
+    MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] init];
+    [self.navigationController pushViewController:paymentViewController animated:YES];
+}
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated{
+    // NSLog(@"navigationController delegate called!");
+    MDSelect *pay = (MDSelect *)[_preparePayView.scrollView viewWithTag:paymentSelect];
+    if(pay){
+        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+    }
 }
 
 
@@ -157,7 +197,6 @@
 //当选择一张图片后进入这里
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [SVProgressHUD show];
     NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
     //当选择的类型是图片
     if ([type isEqualToString:@"public.image"])
@@ -186,22 +225,8 @@
         imagesize = image.size;
         
         [_preparePayView setBoxImage:image];
-        
-        //upload
-        
-        [[MDAPI sharedAPI] uploadImageWithHash:[MDUser getInstance].userHash
-                                     packageId:[MDCurrentPackage getInstance].package_id
-                                         image:image
-                                    OnComplete:^(MKNetworkOperation *completeOperation){
-                                        if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                            [picker dismissViewControllerAnimated:YES completion:nil];
-                                        }
-                                        [SVProgressHUD dismiss];
-                                    }onError:^(MKNetworkOperation *completeOperation, NSError *error){
-                                        NSLog(@"%@",error);
-                                        [picker dismissViewControllerAnimated:YES completion:nil];
-                                        [SVProgressHUD dismiss];
-                                    }];
+        _packageImage = image;
+        [picker dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

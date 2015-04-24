@@ -53,12 +53,13 @@
         [_scrollView addSubview:phoneButton];
         
         //pay button
-        MDSelect *payButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
-        payButton.buttonTitle.text = @"お支払い方法";
-        payButton.selectLabel.text = [NSString stringWithFormat:@"%@",user.creditNumber];
-        [payButton setUnactive];
-        [payButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
-        [_scrollView addSubview:payButton];
+        MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
+        pay.buttonTitle.text = @"お支払い方法";
+        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+        [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [pay setUnactive];
+        [pay setTag:paymentSelect];
+        [_scrollView addSubview:pay];
         
         //name button
         MDSelect *blockButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 190, frame.size.width-20, 50)];
@@ -127,6 +128,12 @@
 - (void) phoneNumberTouched {
     if([self.delegate respondsToSelector:@selector(phoneNumberPushed)]){
         [self.delegate phoneNumberPushed];
+    }
+}
+
+-(void) paymentButtonTouched {
+    if([self.delegate respondsToSelector:@selector(nameButtonPushed)]){
+        [self.delegate paymentButtonPushed];
     }
 }
 

@@ -27,7 +27,7 @@
 
 -(void)initNavigationBar {
     NSString *number = [NSString stringWithFormat:@"%@",_data[@"package_number"]];
-    int length = number.length/2;
+    int length = (int)number.length/2;
     NSString *numberLeft = [number substringToIndex:length];
     NSString *numberRight = [number substringFromIndex:length];
     self.navigationItem.title = [NSString stringWithFormat:@"番号: %@ - %@",numberLeft, numberRight];

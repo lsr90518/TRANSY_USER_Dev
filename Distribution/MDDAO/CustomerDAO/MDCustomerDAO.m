@@ -17,9 +17,11 @@
     MDCustomer *newcustomer = (MDCustomer *)[NSEntityDescription insertNewObjectForEntityForName:@"MDCustomer" inManagedObjectContext:sqlManager.managedObjectContext];
     
 //    newcustomer = customer;
+    [newcustomer setUser_id:customer.user_id];
     [newcustomer setPhonenumber:customer.phoneNumber];
+    [newcustomer setMailaddress:customer.mailAddress];
     [newcustomer setPassword:customer.password];
-    [newcustomer setCreditnumber:customer.creditNumber];
+    [newcustomer setCredit:customer.credit];
     [newcustomer setLastname:customer.lastname];
     [newcustomer setFirstname:customer.firstname];
     
@@ -45,9 +47,11 @@
     NSArray *fetchedObjects = [sqlManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
     for (NSManagedObject *customer in fetchedObjects) {
+        returnCustomer.user_id = [[customer valueForKey:@"id"] intValue];
         returnCustomer.phoneNumber = [NSString stringWithFormat:@"%@",[customer valueForKey:@"phonenumber"]];
+        returnCustomer.mailAddress = [NSString stringWithFormat:@"%@",[customer valueForKey:@"mailaddress"]];
         returnCustomer.password = [NSString stringWithFormat:@"%@",[customer valueForKey:@"password"]];
-        returnCustomer.creditNumber = [NSString stringWithFormat:@"%@",[customer valueForKey:@"creditnumber"]];
+        returnCustomer.credit = [[customer valueForKey:@"credit"] intValue];
         returnCustomer.lastname = [NSString stringWithFormat:@"%@",[customer valueForKey:@"lastname"]];
         returnCustomer.firstname = [NSString stringWithFormat:@"%@",[customer valueForKey:@"firstname"]];
     }

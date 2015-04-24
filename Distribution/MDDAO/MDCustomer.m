@@ -11,9 +11,11 @@
 
 @implementation MDCustomer
 
+@dynamic user_id;
 @dynamic phonenumber;
+@dynamic mailaddress;
 @dynamic password;
-@dynamic creditnumber;
+@dynamic credit;
 @dynamic lastname;
 @dynamic firstname;
 

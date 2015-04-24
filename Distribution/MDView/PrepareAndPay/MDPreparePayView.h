@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDSelect.h"
+#import "MDUtil.h"
 
 @protocol PreparePayViewDelegate;
 
@@ -15,6 +17,7 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIButton *postButton;
 @property (strong, nonatomic) UIButton *backButton;
+
 
 @property (nonatomic, assign) id<PreparePayViewDelegate> delegate;
 

@@ -16,7 +16,7 @@
 #define API_USER_LOGIN        @"users/login"
 #define API_USER_UPDATE_PHONE @"users/request_phone_number_change"
 #define API_PACKAGE_RESIGER   @"packages/user/register"
-#define API_PACKAGE_IMAGE     @"packages/user/upload_image"
+#define API_PACKAGE_ORDER     @"packages/user/order"
 #define API_GET_MY_PACKAGE    @"packages/user/get_my_packages"
 
 #define USER_DEVICE           @"ios"
@@ -50,7 +50,7 @@
                      OnComplete:(void (^)(MKNetworkOperation *))complete
                           onError:(void (^)(MKNetworkOperation *, NSError *))error;
 
--(void) uploadImageWithHash:(NSString *)hash
+-(void) orderWithHash:(NSString *)hash
                   packageId:(NSString *)package_id
                       image:(UIImage *)image
                  OnComplete:(void (^)(MKNetworkOperation *))complete

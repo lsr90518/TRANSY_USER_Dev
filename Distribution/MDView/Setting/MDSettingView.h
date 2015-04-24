@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MDSelect.h"
 #import "MDTabButton.h"
+#import "MDUtil.h"
 
 @protocol MDSettingViewDelegate;
 
@@ -26,6 +27,7 @@
 @optional
 -(void) nameButtonPushed;
 -(void) phoneNumberPushed;
+-(void) paymentButtonPushed;
 -(void) blockDriverPushed;
 -(void) aqButtonPushed;
 -(void) privacyButtonPushed;
