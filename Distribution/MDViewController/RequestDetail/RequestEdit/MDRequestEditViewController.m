@@ -95,7 +95,7 @@
 }
 
 -(void) setData:(NSDictionary *)data{
-    _data = data;
+    _data = [[NSMutableDictionary alloc]initWithDictionary:data];
 }
 
 -(void) backButtonPushed {
@@ -116,7 +116,7 @@
     [options removeAllObjects];
     [options addObjectsFromArray:button.options];
     
-    UIPickerView * pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(-2, self.view.frame.size.height, self.view.frame.size.width + 4, 500)];
+    UIPickerView * pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(-2, self.view.frame.size.height, self.view.frame.size.width + 4, 216)];
     pickerView.dataSource = self;
     pickerView.delegate = self;
     pickerView.layer.borderColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1].CGColor;
@@ -127,7 +127,7 @@
     
     [UIView animateWithDuration:0.3f
                      animations:^{
-                         [pickerView setFrame:CGRectMake(-2, self.view.frame.size.height - pickerView.frame.size.height + 2, self.view.frame.size.width+4, 500)];
+                         [pickerView setFrame:CGRectMake(-2, self.view.frame.size.height - pickerView.frame.size.height + 2, self.view.frame.size.width+4, 216)];
                      }];
     
 }
@@ -154,7 +154,6 @@ numberOfRowsInComponent:(NSInteger)component
 }
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     //input to mdcurrent
-    NSLog(@"%@", [options objectAtIndex:row]);
     
     NSDate *now = [NSDate date];
     //4時間後
@@ -163,7 +162,8 @@ numberOfRowsInComponent:(NSInteger)component
     NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
     [tmpFormatter setCalendar:gregorianCalendar];
     [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
-    [_data setValue:[tmpFormatter stringFromDate:nHoursAfter] forKey:@"expire"];
+    NSString *tmpStr = [tmpFormatter stringFromDate:nHoursAfter];
+    [_data setValue:tmpStr forKey:@"expire"];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView

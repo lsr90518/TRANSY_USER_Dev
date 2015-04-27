@@ -39,6 +39,17 @@
     return phoneNumber;
 }
 
+-(NSString *)getAnHourAfterDate:(NSString *)expire{
+    NSDate *now = [NSDate date];
+    //4時間後
+    NSDate *nHoursAfter = [now dateByAddingTimeInterval:[expire intValue]*60*60];
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
+    [tmpFormatter setCalendar:gregorianCalendar];
+    [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
+    return [tmpFormatter stringFromDate:nHoursAfter];
+}
+
 +(NSString *)getPaymentSelectLabel {
     MDUser *user = [MDUser getInstance];
     [user initDataClear];

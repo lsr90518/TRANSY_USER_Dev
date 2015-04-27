@@ -151,14 +151,12 @@ static CGRect oldframe;
 
 //かかみん ここ
 -(void) paymentButtonPushed {
-    //    NSLog(@"paymentButtonPushed");
     MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] init];
     [self.navigationController pushViewController:paymentViewController animated:YES];
 }
 - (void)navigationController:(UINavigationController *)navigationController
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
-    // NSLog(@"navigationController delegate called!");
     MDSelect *pay = (MDSelect *)[_preparePayView.scrollView viewWithTag:paymentSelect];
     if(pay){
         pay.selectLabel.text = [MDUtil getPaymentSelectLabel];

@@ -19,6 +19,7 @@ typedef NS_ENUM (NSUInteger, viewTagNames) {
 
 -(NSString *)internationalPhoneNumber:(NSString *)phoneNumber;
 -(NSString *)japanesePhoneNumber:(NSString *)phoneNumber;
+-(NSString *)getAnHourAfterDate:(NSString *)expire;
 
 +(NSString *)getPaymentSelectLabel;
 

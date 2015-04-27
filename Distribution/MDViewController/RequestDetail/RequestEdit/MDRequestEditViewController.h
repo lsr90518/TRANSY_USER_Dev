@@ -12,7 +12,7 @@
 
 @interface MDRequestEditViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (strong ,nonatomic) NSDictionary *data;
+@property (strong ,nonatomic) NSMutableDictionary *data;
 
 -(void) setData:(NSDictionary *)data;
 
