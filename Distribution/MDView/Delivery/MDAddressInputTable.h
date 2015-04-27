@@ -9,16 +9,22 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AddressBook/AddressBook.h>
+#import "MDButtonInput.h"
+#import "MDInput.h"
 
-@interface MDAddressInputTable : UIView
+@interface MDAddressInputTable : UIView<UIScrollViewDelegate>
 
-@property (strong, nonatomic) UIButton      *autoInputButton;
-@property (strong, nonatomic) UIImageView   *zipIcon;
-@property (strong, nonatomic) UITextField   *zipField;
-@property (strong, nonatomic) UITextField   *addressField;
+@property (strong, nonatomic) MDButtonInput   *zipField;
+@property (strong, nonatomic) MDInput   *metropolitanField;
+@property (strong, nonatomic) MDInput   *cityField;
+@property (strong, nonatomic) MDInput   *townField;
+@property (strong, nonatomic) MDInput   *houseField;
+@property (strong, nonatomic) MDInput   *buildingNameField;
 @property (strong, nonatomic) UIView        *rzaLine;
 @property (strong, nonatomic) NSString      *lng;
 @property (strong, nonatomic) NSString      *lat;
+
+@property (strong, nonatomic) UIScrollView  *scrollView;
 
 -(void)setFrameColor:(UIColor *)color;
 

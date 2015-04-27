@@ -18,6 +18,7 @@
     UIImageView *uploadedImage;
     MDSelect *phoneNumber;
     MDSelect *requestPerson;
+    BOOL isChecked;
 }
 
 -(id) initWithFrame:(CGRect)frame {
@@ -103,6 +104,7 @@
         phoneNumber = [[MDSelect alloc]initWithFrame:CGRectMake(10, 264, frame.size.width-20, 50)];
         phoneNumber.buttonTitle.text = @"電話番号";
         phoneNumber.selectLabel.text = [NSString stringWithFormat:@"%@",user.phoneNumber];
+        [phoneNumber.rightArrow setHidden:YES];
         [phoneNumber addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneNumber];
         
@@ -115,6 +117,7 @@
         
         //checkbox
         MDCheckBox *checkBox = [[MDCheckBox alloc]initWithFrame:CGRectMake(10, 392, 34, 34)];
+        [checkBox addTarget:self action:@selector(toggleCheck:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:checkBox];
         
 
@@ -167,6 +170,14 @@
     }
 }
 
+-(void) toggleCheck:(MDCheckBox *)box{
+    isChecked = [box toggleCheck];
+}
+
+-(BOOL)isChecked{
+    return isChecked;
+}
+
 -(void) initPackageNumber:(NSString *)packageNumber {
     NSString *tmpStr = [NSString stringWithFormat:@"%@",packageNumber];
     numberLeft.text = [NSString stringWithFormat:@"%@", [tmpStr substringToIndex:5]];
@@ -174,21 +185,34 @@
 }
 
 -(void) cameraButtonTouched {
-    if([self.delegate respondsToSelector:@selector(cameraButtonTouched)]){
-        [self.delegate cameraButtonTouched];
+    if(uploadedImage == nil){
+        if([self.delegate respondsToSelector:@selector(cameraButtonTouched)]){
+            [self.delegate cameraButtonTouched];
+        }
+    } else {
+        if([self.delegate respondsToSelector:@selector(updateImagePushed)]){
+            [self.delegate updateImagePushed];
+        }
+        
     }
 }
 
 -(void) setBoxImage:(UIImage *)image {
     if (uploadedImage == nil) {
         uploadedImage = [[UIImageView alloc]initWithImage:image];
+        [cameraButton addSubview:uploadedImage];
+        float x = image.size.height/cameraButton.frame.size.height;
+        uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-uploadedImage.frame.size.width/x/2,
+                                         0,
+                                         image.size.width/x,
+                                         image.size.height/x);
+    } else {
+        [uploadedImage setImage:image];
     }
-    float x = image.size.height/cameraButton.frame.size.height;
-    uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-uploadedImage.frame.size.width/x/2,
-                                     0,
-                                     uploadedImage.frame.size.width/x,
-                                     uploadedImage.frame.size.height/x);
-    [cameraButton addSubview:uploadedImage];
+}
+
+-(UIImageView *) getUploadedImage {
+    return uploadedImage;
 }
 
 -(void) postButtonPushed {

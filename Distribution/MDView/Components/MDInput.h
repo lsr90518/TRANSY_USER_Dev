@@ -8,9 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MDInput : UIView
+@protocol MDInputDelegate;
+
+@interface MDInput : UIView<UITextFieldDelegate>
 
 @property (strong, nonatomic) UILabel       *title;
 @property (strong, nonatomic) UITextField   *input;
+
+@property (nonatomic, assign) id<MDInputDelegate> delegate;
+
+@end
+
+@protocol MDInputDelegate <NSObject>
+
+@optional
+-(void) inputPushed:(MDInput *)input;
+-(void) endInput:(MDInput *)input;
 
 @end

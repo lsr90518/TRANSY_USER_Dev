@@ -58,11 +58,20 @@
 
 -(void) backButtonTouched {
     
+    if([amountInput.input.text intValue] < 100){
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"金額エラー"
+                                                        message:@"依頼金額を100円未満にすることは出来ません。"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
+        alert.delegate = self;
+        [alert show];
+    } else {
     
-    
-    [MDCurrentPackage getInstance].request_amount = amountInput.input.text;
-    
-    [self.navigationController popViewControllerAnimated:YES];
+        [MDCurrentPackage getInstance].request_amount = amountInput.input.text;
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

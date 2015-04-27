@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSArray       *options;
 
 -(void) setUnactive;
+-(void) setActive;
 -(void) setReadOnly;
 
 @end

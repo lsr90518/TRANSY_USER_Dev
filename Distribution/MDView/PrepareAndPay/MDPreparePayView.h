@@ -25,6 +25,8 @@
 -(void) initPackageNumber:(NSString *)packageNumber;
 -(void) setBoxImage:(UIImage *)image;
 -(void) updateData;
+-(BOOL) isChecked;
+-(UIImageView *) getUploadedImage;
 
 @end
 
@@ -37,5 +39,6 @@
 -(void) requestPersonPushed;
 -(void) paymentButtonPushed;
 -(void) phoneNumberPushed;
+-(void) updateImagePushed;
 
 @end

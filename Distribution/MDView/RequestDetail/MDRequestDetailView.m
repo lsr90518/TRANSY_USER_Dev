@@ -8,7 +8,7 @@
 
 #import "MDRequestDetailView.h"
 #import "MDSelect.h"
-#import "MDAddressInputTable.h"
+#import "MDAddressTable.h"
 #import "MDBigRed.h"
 #import <UIImageView+WebCache.h>
 
@@ -25,8 +25,8 @@
     MDSelect *requestTerm;
     MDSelect *beCarefulPicker;
     UIButton *cameraButton;
-    MDAddressInputTable *requestAddressView;
-    MDAddressInputTable *destinationAddressView;
+    MDAddressTable *requestAddressView;
+    MDAddressTable *destinationAddressView;
     UILabel *matchingProcessLabel;
     UILabel *distributionProcessLabel;
     UILabel *completeProcessLabel;
@@ -134,14 +134,14 @@
         UIImageView *cameraIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 42)];
         [cameraIcon setImage:[UIImage imageNamed:@"whiteCamera"]];
         [cameraIcon setCenter:CGPointMake(cameraButton.frame.size.width/2, cameraButton.frame.size.height/2)];
-//        [cameraButton addTarget:self action:@selector(cameraButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [cameraButton addTarget:self action:@selector(cameraButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [cameraButton addSubview:cameraIcon];
         [_scrollView addSubview:cameraButton];
         
         
         
         //address
-        requestAddressView = [[MDAddressInputTable alloc]initWithFrame:CGRectMake(10, 301, frame.size.width-20, 100)];
+        requestAddressView = [[MDAddressTable alloc]initWithFrame:CGRectMake(10, 301, frame.size.width-20, 100)];
         requestAddressView.layer.cornerRadius = 2.5;
         requestAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         requestAddressView.layer.borderWidth = 0.5;
@@ -152,7 +152,7 @@
         
         //destination address
         
-        destinationAddressView = [[MDAddressInputTable alloc]initWithFrame:CGRectMake(10, 400, frame.size.width-20, 100)];
+        destinationAddressView = [[MDAddressTable alloc]initWithFrame:CGRectMake(10, 400, frame.size.width-20, 100)];
         [destinationAddressView setBackgroundColor:[UIColor whiteColor]];
         destinationAddressView.layer.cornerRadius = 2.5;
         destinationAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
@@ -257,13 +257,6 @@
     //upload image
     uploadedImage = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, 136, 136)];
     [uploadedImage sd_setImageWithURL:[NSURL URLWithString:data[@"image"]] placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
-    
-//    if (uploadedImage == nil) {
-//        
-//        uploadedImage = [[UIImageView alloc]init];
-//        
-//    }
-//    float x = image.size.height/cameraButton.frame.size.height;
     uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-136/2,
                                      0,
                                      136,
@@ -309,6 +302,16 @@
     } else {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"%d時間以内",hour+1];
     }
+}
+
+-(void) cameraButtonTouched {
+        if([self.delegate respondsToSelector:@selector(cameraButtonTouched)]){
+            [self.delegate cameraButtonTouched];
+        }
+}
+
+-(UIImageView*) getUploadedImage{
+    return uploadedImage;
 }
 
 

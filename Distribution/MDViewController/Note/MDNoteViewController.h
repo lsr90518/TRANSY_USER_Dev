@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MDNoteViewController : UIViewController
+@interface MDNoteViewController : UIViewController<UITextViewDelegate>
+@property (strong, nonatomic) UITextView *serviceInputView;
 
 @end

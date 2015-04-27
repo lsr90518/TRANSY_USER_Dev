@@ -68,6 +68,9 @@
 		0D5A38101ACD940A0062F0C1 /* boardLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5A380E1ACD940A0062F0C1 /* boardLine.png */; };
 		0D5A38111ACD940A0062F0C1 /* whiteCamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5A380F1ACD940A0062F0C1 /* whiteCamera.png */; };
 		0D5A38141ACD99EA0062F0C1 /* MDCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A38131ACD99EA0062F0C1 /* MDCheckBox.m */; };
+		0D7D07E21AECD56F002C7056 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7D07E11AECD56F002C7056 /* check.png */; };
+		0D7D07E71AEDCE51002C7056 /* MDRequestEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D7D07E61AEDCE51002C7056 /* MDRequestEditViewController.m */; };
+		0D7D07EA1AEDD454002C7056 /* MDRequestEditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D7D07E91AEDD454002C7056 /* MDRequestEditNoteViewController.m */; };
 		0DC16F4E1AC536640066FA0C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F4D1AC536640066FA0C /* main.m */; };
 		0DC16F511AC536640066FA0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F501AC536640066FA0C /* AppDelegate.m */; };
 		0DC16F591AC536640066FA0C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DC16F581AC536640066FA0C /* Images.xcassets */; };
@@ -95,6 +98,8 @@
 		0DD885381AE53F0800CEA79E /* completeProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885351AE53F0800CEA79E /* completeProcess.png */; };
 		0DD885391AE53F0800CEA79E /* distributionProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885361AE53F0800CEA79E /* distributionProcess.png */; };
 		0DD8853A1AE53F0800CEA79E /* matchingProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885371AE53F0800CEA79E /* matchingProcess.png */; };
+		0DDDA6431AEBD19100067016 /* MDAddressTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6421AEBD19100067016 /* MDAddressTable.m */; };
+		0DDDA6461AEBD49B00067016 /* MDButtonInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6451AEBD49B00067016 /* MDButtonInput.m */; };
 		4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */; };
 		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
 		8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB7D0B79A9C487081FC5650 /* libPods.a */; };
@@ -215,6 +220,11 @@
 		0D5A380F1ACD940A0062F0C1 /* whiteCamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteCamera.png; sourceTree = "<group>"; };
 		0D5A38121ACD99EA0062F0C1 /* MDCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDCheckBox.h; path = MDView/Components/MDCheckBox.h; sourceTree = "<group>"; };
 		0D5A38131ACD99EA0062F0C1 /* MDCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDCheckBox.m; path = MDView/Components/MDCheckBox.m; sourceTree = "<group>"; };
+		0D7D07E11AECD56F002C7056 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		0D7D07E51AEDCE51002C7056 /* MDRequestEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDRequestEditViewController.h; path = MDViewController/RequestDetail/RequestEdit/MDRequestEditViewController.h; sourceTree = "<group>"; };
+		0D7D07E61AEDCE51002C7056 /* MDRequestEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDRequestEditViewController.m; path = MDViewController/RequestDetail/RequestEdit/MDRequestEditViewController.m; sourceTree = "<group>"; };
+		0D7D07E81AEDD454002C7056 /* MDRequestEditNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDRequestEditNoteViewController.h; path = MDViewController/RequestDetail/RequestEdit/MDRequestEditNoteViewController.h; sourceTree = "<group>"; };
+		0D7D07E91AEDD454002C7056 /* MDRequestEditNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDRequestEditNoteViewController.m; path = MDViewController/RequestDetail/RequestEdit/MDRequestEditNoteViewController.m; sourceTree = "<group>"; };
 		0DC16F481AC536640066FA0C /* Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Distribution.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC16F4C1AC536640066FA0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DC16F4D1AC536640066FA0C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -257,6 +267,10 @@
 		0DD885351AE53F0800CEA79E /* completeProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = completeProcess.png; sourceTree = "<group>"; };
 		0DD885361AE53F0800CEA79E /* distributionProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distributionProcess.png; sourceTree = "<group>"; };
 		0DD885371AE53F0800CEA79E /* matchingProcess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = matchingProcess.png; sourceTree = "<group>"; };
+		0DDDA6411AEBD19100067016 /* MDAddressTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressTable.h; path = MDView/Delivery/AddressTable/MDAddressTable.h; sourceTree = "<group>"; };
+		0DDDA6421AEBD19100067016 /* MDAddressTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressTable.m; path = MDView/Delivery/AddressTable/MDAddressTable.m; sourceTree = "<group>"; };
+		0DDDA6441AEBD49B00067016 /* MDButtonInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDButtonInput.h; path = MDView/Components/MDButtonInput.h; sourceTree = "<group>"; };
+		0DDDA6451AEBD49B00067016 /* MDButtonInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDButtonInput.m; path = MDView/Components/MDButtonInput.m; sourceTree = "<group>"; };
 		4873BCEA1AE8E3F6001C4F72 /* MDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDWebViewController.h; path = MDViewController/MDWebViewController/MDWebViewController.h; sourceTree = "<group>"; };
 		4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDWebViewController.m; path = MDViewController/MDWebViewController/MDWebViewController.m; sourceTree = "<group>"; };
 		4873BCF01AE8E800001C4F72 /* MDPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPaymentViewController.h; path = MDViewController/Payment/MDPaymentViewController.h; sourceTree = "<group>"; };
@@ -404,20 +418,6 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
-		0D0FD5911ADC0AA300615C24 /* InputRequest */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = InputRequest;
-			sourceTree = "<group>";
-		};
-		0D0FD5921ADC0AB600615C24 /* InputDestination */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = InputDestination;
-			sourceTree = "<group>";
-		};
 		0D0FD5931ADC0AD000615C24 /* InputRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +520,7 @@
 		0D0FD5C71AE37BF000615C24 /* RequestDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0D7D07E41AEDCE1D002C7056 /* RequestEdit */,
 				0D0FD5C81AE37C2300615C24 /* MDRequestDetailViewController.h */,
 				0D0FD5C91AE37C2300615C24 /* MDRequestDetailViewController.m */,
 			);
@@ -561,6 +562,25 @@
 				0D5A380C1ACABE0E0062F0C1 /* MDPreparePayViewController.m */,
 			);
 			name = PreparePay;
+			sourceTree = "<group>";
+		};
+		0D7D07E31AECD57F002C7056 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0D7D07E11AECD56F002C7056 /* check.png */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		0D7D07E41AEDCE1D002C7056 /* RequestEdit */ = {
+			isa = PBXGroup;
+			children = (
+				0D7D07E51AEDCE51002C7056 /* MDRequestEditViewController.h */,
+				0D7D07E61AEDCE51002C7056 /* MDRequestEditViewController.m */,
+				0D7D07E81AEDD454002C7056 /* MDRequestEditNoteViewController.h */,
+				0D7D07E91AEDD454002C7056 /* MDRequestEditNoteViewController.m */,
+			);
+			name = RequestEdit;
 			sourceTree = "<group>";
 		};
 		0DC16F3F1AC536640066FA0C = {
@@ -708,6 +728,7 @@
 		0DC16F761AC54D5F0066FA0C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0D7D07E31AECD57F002C7056 /* Common */,
 				0D0FD5CF1AE3F04800615C24 /* RequestDetail */,
 				0D0FD54E1AD8EC7700615C24 /* Index */,
 				0D0FD53A1AD4160900615C24 /* Request */,
@@ -741,14 +762,14 @@
 		0DC16F851AC54FEE0066FA0C /* Delivery */ = {
 			isa = PBXGroup;
 			children = (
-				0D0FD5921ADC0AB600615C24 /* InputDestination */,
-				0D0FD5911ADC0AA300615C24 /* InputRequest */,
 				0DC16F8D1AC550DD0066FA0C /* MDDeliveryView.h */,
 				0DC16F8E1AC550DD0066FA0C /* MDDeliveryView.m */,
 				0DC16FC11AC7C0C30066FA0C /* MDDeliveryKindButton.h */,
 				0DC16FC21AC7C0C30066FA0C /* MDDeliveryKindButton.m */,
 				0D5A37F11AC91D7E0062F0C1 /* MDAddressInputTable.h */,
 				0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */,
+				0DDDA6411AEBD19100067016 /* MDAddressTable.h */,
+				0DDDA6421AEBD19100067016 /* MDAddressTable.m */,
 			);
 			name = Delivery;
 			sourceTree = "<group>";
@@ -822,6 +843,8 @@
 				0D0FD5C21AE2AA2700615C24 /* MDButton.m */,
 				0D0F8A3B1AE5504600755A22 /* MDStatusLabel.h */,
 				0D0F8A3C1AE5504600755A22 /* MDStatusLabel.m */,
+				0DDDA6441AEBD49B00067016 /* MDButtonInput.h */,
+				0DDDA6451AEBD49B00067016 /* MDButtonInput.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -952,7 +975,7 @@
 				TargetAttributes = {
 					0DC16F471AC536640066FA0C = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = GVV2Z2J27L;
+						DevelopmentTeam = 58DG48DA72;
 					};
 					0DC16F601AC536640066FA0C = {
 						CreatedOnToolsVersion = 6.2;
@@ -989,6 +1012,7 @@
 				0DD885391AE53F0800CEA79E /* distributionProcess.png in Resources */,
 				0D5A38111ACD940A0062F0C1 /* whiteCamera.png in Resources */,
 				0D0FD5A81ADEB26B00615C24 /* movingIconActive.png in Resources */,
+				0D7D07E21AECD56F002C7056 /* check.png in Resources */,
 				0DC16F591AC536640066FA0C /* Images.xcassets in Resources */,
 				0D0FD5B61AE1E60100615C24 /* movingIconOn.png in Resources */,
 				0D0FD5D11AE3F07F00615C24 /* taskRound.png in Resources */,
@@ -1071,8 +1095,10 @@
 				0D0FD5971ADC0B5300615C24 /* MDInputRequestViewController.m in Sources */,
 				0D0FD59E1ADD4A7800615C24 /* MDSizeInputViewController.m in Sources */,
 				0DC16F9E1AC5861C0066FA0C /* MDDeliveryViewController.m in Sources */,
+				0D7D07EA1AEDD454002C7056 /* MDRequestEditNoteViewController.m in Sources */,
 				0D0FD5331AD4089B00615C24 /* MDUtil.m in Sources */,
 				0D0FD58D1ADB822D00615C24 /* MDPackage.m in Sources */,
+				0DDDA6431AEBD19100067016 /* MDAddressTable.m in Sources */,
 				0DC16FA21AC58FE30066FA0C /* MDTabButton.m in Sources */,
 				0DC16FC31AC7C0C30066FA0C /* MDDeliveryKindButton.m in Sources */,
 				0D0F8A401AE5541000755A22 /* MDBigRed.m in Sources */,
@@ -1103,6 +1129,7 @@
 				0DC16F511AC536640066FA0C /* AppDelegate.m in Sources */,
 				0DC16F4E1AC536640066FA0C /* main.m in Sources */,
 				0D0FD57D1ADA025C00615C24 /* MDSQLManager.m in Sources */,
+				0D7D07E71AEDCE51002C7056 /* MDRequestEditViewController.m in Sources */,
 				0D0F8A3D1AE5504600755A22 /* MDStatusLabel.m in Sources */,
 				0D0FD55B1AD8F38700615C24 /* MDPhoneViewController.m in Sources */,
 				0D0FD54A1AD8EC2A00615C24 /* MDIndexViewController.m in Sources */,
@@ -1114,6 +1141,7 @@
 				0D0FD55F1AD8F3BA00615C24 /* MDLoginViewController.m in Sources */,
 				0D0FD52F1AD3BDC400615C24 /* MDNoframeButton.m in Sources */,
 				0D0FD54D1AD8EC4400615C24 /* MDIndexView.m in Sources */,
+				0DDDA6461AEBD49B00067016 /* MDButtonInput.m in Sources */,
 				0D0FD5CE1AE37E9800615C24 /* MDRequestDetailView.m in Sources */,
 				0D0FD5BC1AE29D9900615C24 /* MDNameSettingViewController.m in Sources */,
 				0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */,
@@ -1174,8 +1202,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yosuke Nishida (RP973VNQN8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yosuke Nishida (RP973VNQN8)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1195,7 +1223,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
+				PROVISIONING_PROFILE = "89f2ead7-9862-4e65-8d94-0a7506d35cc9";
 				SDKROOT = iphoneos7.1;
 			};
 			name = Debug;
@@ -1218,8 +1246,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yosuke Nishida (RP973VNQN8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yosuke Nishida (RP973VNQN8)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1232,7 +1260,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
+				PROVISIONING_PROFILE = "89f2ead7-9862-4e65-8d94-0a7506d35cc9";
 				SDKROOT = iphoneos7.1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1244,13 +1272,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Distribution/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1260,13 +1288,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (367CEE3EZY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Distribution/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d88ac562-24f8-42a6-82ca-343b39c401a8";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

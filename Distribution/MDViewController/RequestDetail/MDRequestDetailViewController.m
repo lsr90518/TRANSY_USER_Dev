@@ -18,6 +18,7 @@
     [super loadView];
     _requestDetailView = [[MDRequestDetailView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:_requestDetailView];
+    _requestDetailView.delegate = self;
     
     [_requestDetailView setStatus:[_data[@"status"] intValue]];
     
@@ -73,7 +74,48 @@
 }
 
 -(void) editDetail {
+    MDRequestEditViewController *revc = [[MDRequestEditViewController alloc]init];
+    [revc setData:_data];
     
+    [self.navigationController pushViewController:revc animated:YES];
+}
+
+-(void) cameraButtonTouched {
+    //open camera or カメラロール
+    [self expendImage];
+}
+
+-(void) expendImage{
+    
+    UIImageView *imageView = [[UIImageView alloc]init];
+    [imageView setImage:[_requestDetailView getUploadedImage].image];
+    
+    
+    
+    UIView *backgroundView = [[UIView alloc]initWithFrame:self.view.frame];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.8]];
+    
+    [backgroundView addSubview:imageView];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
+    [backgroundView addGestureRecognizer: tap];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
+        imageView.center = backgroundView.center;
+        [self.view addSubview:backgroundView];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+-(void)hideImage:(UITapGestureRecognizer*)tap{
+    
+    UIView *backgroundView=tap.view;
+    [UIView animateWithDuration:0.3 animations:^{
+        backgroundView.alpha=0;
+    } completion:^(BOOL finished) {
+        [backgroundView removeFromSuperview];
+    }];
 }
 
 @end

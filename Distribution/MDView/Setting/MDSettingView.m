@@ -67,7 +67,7 @@
         [blockButton.buttonTitle sizeToFit];
         blockButton.selectLabel.text = @"";
         [blockButton setUnactive];
-        [blockButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+//        [blockButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:blockButton];
         
         //name button
@@ -75,7 +75,7 @@
         qaButton.buttonTitle.text = @"よくある質問";
         qaButton.selectLabel.text = @"";
         [qaButton setUnactive];
-        [qaButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+//        [qaButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:qaButton];
         
         //name button
@@ -84,15 +84,15 @@
         [privateButton.buttonTitle sizeToFit];
         privateButton.selectLabel.text = @"";
         [privateButton setUnactive];
-        [privateButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+//        [privateButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:privateButton];
         
         //name button
         MDSelect *protocolButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 370, frame.size.width-20, 50)];
-        protocolButton.buttonTitle.text = @"利用契約";
+        protocolButton.buttonTitle.text = @"利用規約";
         protocolButton.selectLabel.text = @"";
         [protocolButton setUnactive];
-        [protocolButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+//        [protocolButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:protocolButton];
         
         //tabbar

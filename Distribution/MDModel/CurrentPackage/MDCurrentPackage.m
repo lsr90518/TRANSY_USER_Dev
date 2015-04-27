@@ -39,7 +39,9 @@
     if(self.deliver_limit == nil) {
         //4時間後
         NSDate *fiveHoursAfter = [now dateByAddingTimeInterval:5*60*60];
+        NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
+        [tmpFormatter setCalendar:gregorianCalendar];
         [tmpFormatter setLocale:[NSLocale systemLocale]];
         [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
         self.deliver_limit = [tmpFormatter stringFromDate:fiveHoursAfter];
@@ -50,7 +52,9 @@
     if(self.expire == nil) {
         //4時間後
         NSDate *threeHoursAfter = [now dateByAddingTimeInterval:3*60*60];
+        NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
+        [tmpFormatter setCalendar:gregorianCalendar];
         [tmpFormatter setLocale:[NSLocale systemLocale]];
         [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
         self.expire = [tmpFormatter stringFromDate:threeHoursAfter];

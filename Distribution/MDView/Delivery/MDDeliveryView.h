@@ -10,10 +10,11 @@
 #import "MDSelect.h"
 #import "MDCurrentPackage.h"
 #import "MDDeliveryKindButton.h"
+#import "MDInput.h"
 
 @protocol DeliveryViewDelegate;
 
-@interface MDDeliveryView : UIView <UIScrollViewAccessibilityDelegate,UIScrollViewDelegate>
+@interface MDDeliveryView : UIView <UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDInputDelegate>
 
 @property (strong, nonatomic) UIButton      *postButton;
 @property (strong, nonatomic) UIScrollView  *scrollView;

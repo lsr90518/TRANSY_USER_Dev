@@ -1,21 +1,27 @@
 //
-//  MDNoteViewController.m
+//  MDRequestEditNoteViewController.m
 //  Distribution
 //
-//  Created by Lsr on 4/14/15.
+//  Created by Lsr on 4/27/15.
 //  Copyright (c) 2015 Lsr. All rights reserved.
 //
 
-#import "MDNoteViewController.h"
-#import "MDCurrentPackage.h"
+#import "MDRequestEditNoteViewController.h"
 
-@interface MDNoteViewController () {
-    
-}
+@interface MDRequestEditNoteViewController ()
 
 @end
 
-@implementation MDNoteViewController
+@implementation MDRequestEditNoteViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 -(void) loadView {
     [super loadView];
@@ -26,8 +32,10 @@
     self.serviceInputView.returnKeyType = UIReturnKeyDefault;
     self.serviceInputView.keyboardType = UIKeyboardTypeDefault;
     self.serviceInputView.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
-    self.serviceInputView.text = [MDCurrentPackage getInstance].note;
     [self.view addSubview:self.serviceInputView];
+    
+    
+    self.serviceInputView.text = _contentText;
     
     [self.serviceInputView becomeFirstResponder];
     [self initNavigationBar];
@@ -37,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [self.serviceInputView setFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 200)];
+    //    [self.serviceInputView setFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 200)];
 }
 
 -(void) initNavigationBar {
@@ -50,13 +58,28 @@
     [_backButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = leftButton;
+    
+    UIButton *_postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_postButton setTitle:@"保存" forState:UIControlStateNormal];
+    _postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
+    _postButton.frame = CGRectMake(0, 0, 25, 44);
+    [_postButton addTarget:self action:@selector(saveDetail) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:_postButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
 -(void) backButtonTouched {
-//    [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.text;
-    [MDCurrentPackage getInstance].note = self.serviceInputView.text;
+    //    [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.text;
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void) saveDetail{
+    //call api
+}
+
+-(void) setText:(NSString *)text{
+    self.serviceInputView.text = text;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,14 +87,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

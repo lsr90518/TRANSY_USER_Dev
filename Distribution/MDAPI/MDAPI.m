@@ -152,8 +152,10 @@
     [dic setObject:USER_DEVICE  forKey:@"client"];
     [dic setObject:[MDCurrentPackage getInstance].requestType       forKey:@"type"];
     [dic setObject:[MDCurrentPackage getInstance].from_addr         forKey:@"from_addr"];
+    [dic setObject:[MDCurrentPackage getInstance].from_zip          forKey:@"from_zip"];
     [dic setObject:[MDCurrentPackage getInstance].from_lat          forKey:@"from_lat"];
     [dic setObject:[MDCurrentPackage getInstance].from_lng          forKey:@"from_lng"];
+    [dic setObject:[MDCurrentPackage getInstance].to_zip            forKey:@"to_zip"];
     [dic setObject:[MDCurrentPackage getInstance].to_addr           forKey:@"to_addr"];
     [dic setObject:[MDCurrentPackage getInstance].to_lat            forKey:@"to_lat"];
     [dic setObject:[MDCurrentPackage getInstance].to_lng            forKey:@"to_lng"];
@@ -164,7 +166,6 @@
     [dic setObject:[MDCurrentPackage getInstance].deliver_limit     forKey:@"deliver_limit"];
     [dic setObject:[MDCurrentPackage getInstance].expire            forKey:@"expire"];
     
-    NSLog(@"/.../././././././././. %@",[MDCurrentPackage getInstance].from_lat);
     [self callApi:dic
           withUrl:API_PACKAGE_RESIGER
        withImages:@[]

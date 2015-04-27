@@ -15,8 +15,10 @@
     NSMutableArray* time;
     NSMutableArray* realDate;
     NSMutableArray* date;
+    NSMutableArray* minute;
     MDInput *dateInput;
     MDInput *timeInput;
+    MDInput *minuteInput;
 }
 
 @end
@@ -34,14 +36,23 @@
     dateInput.input.placeholder = @"日付";
     [self.view addSubview:dateInput];
     
-    timeInput = [[MDInput alloc]initWithFrame:CGRectMake(10, self.view.frame.origin.y+123, self.view.frame.size.width-20, 50)];
+    timeInput = [[MDInput alloc]initWithFrame:CGRectMake(10, dateInput.frame.origin.y+49, self.view.frame.size.width-20, 50)];
+    [timeInput setBackgroundColor:[UIColor whiteColor]];
     timeInput.title.text = @"時刻";
     [timeInput.title sizeToFit];
     [timeInput.input setUserInteractionEnabled:NO];
     timeInput.input.placeholder = @"時刻";
-    
     [self.view addSubview:timeInput];
-    dataPicker = [[UIPickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-350, self.view.frame.size.width, 150)];
+    
+    minuteInput = [[MDInput alloc]initWithFrame:CGRectMake(10, timeInput.frame.origin.y+49, self.view.frame.size.width-20, 50)];
+    [minuteInput setBackgroundColor:[UIColor whiteColor]];
+    minuteInput.title.text = @"分";
+    [minuteInput.title sizeToFit];
+    [minuteInput.input setUserInteractionEnabled:NO];
+    minuteInput.input.placeholder = @"分";
+    [self.view addSubview:minuteInput];
+    
+    dataPicker = [[UIPickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-300, self.view.frame.size.width, 150)];
     [self.view addSubview:dataPicker];
 }
 
@@ -76,7 +87,9 @@
     dateInput.input.text = [NSString stringWithFormat:@"%d月%d日",
                             [dateStrArray[1] intValue],
                             [dateStrArray[2] intValue]];
-    timeInput.input.text = [NSString stringWithFormat:@"%@時", [tmpStr[1] substringToIndex:2]];
+    NSString *timeStr = tmpStr[1];
+    timeInput.input.text = [NSString stringWithFormat:@"%@時", [timeStr componentsSeparatedByString:@":"][0]];
+    minuteInput.input.text = [NSString stringWithFormat:@"%@分", [timeStr componentsSeparatedByString:@":"][1]];
 }
 
 -(void) initData {
@@ -108,6 +121,10 @@
     
     date = [NSMutableArray arrayWithArray:eightArr];
     time = [NSMutableArray arrayWithObjects:@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"00", nil];
+    minute = [[NSMutableArray alloc]init];
+    for(int i = 0; i < 60;i++){
+        [minute addObject:(i < 10) ? [NSString stringWithFormat:@"0%d",i] :  [NSString stringWithFormat:@"%d",i]];
+    }
 }
 
 -(void) backButtonTouched {
@@ -124,7 +141,7 @@
 #pragma UIPicker
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView
@@ -132,16 +149,22 @@ numberOfRowsInComponent:(NSInteger)component
 {
     if (component == 0) {
         return date.count;
+    } else if(component == 1){
+        return time.count;
+    } else {
+        return minute.count;
     }
-    return time.count;
 }
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:
 (NSInteger)row forComponent:(NSInteger)component
 {
     if (component == 0) {
         return [date objectAtIndex:row];
+    } else if(component == 1) {
+        return [NSString stringWithFormat:@"%@時",[time objectAtIndex:row]];
+    } else {
+        return [NSString stringWithFormat:@"%@分",[minute objectAtIndex:row]];
     }
-    return [NSString stringWithFormat:@"%@時",[time objectAtIndex:row]];
 }
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:
 (NSInteger)row inComponent:(NSInteger)component
@@ -155,12 +178,20 @@ numberOfRowsInComponent:(NSInteger)component
         NSString *newDeliveryStr = [NSString stringWithFormat:@"%@ %@",[realDate objectAtIndex:row], oldTime];
         [MDCurrentPackage getInstance].deliver_limit = newDeliveryStr;
         
-    } else {
+    } else if(component == 1) {
         timeInput.input.text = [NSString stringWithFormat:@"%@時",[time objectAtIndex:row]];
         
         //make string
         NSString *oldDate = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@" "][0];
-        NSString *newDeliveryStr = [NSString stringWithFormat:@"%@ %@:00:00",oldDate, [time objectAtIndex:row]];
+        NSString *oldTime = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@" "][1];
+        NSString *oldMinute = [oldTime componentsSeparatedByString:@":"][1];
+        NSString *newDeliveryStr = [NSString stringWithFormat:@"%@ %@:%@:00",oldDate, [time objectAtIndex:row], oldMinute];
+        [MDCurrentPackage getInstance].deliver_limit = newDeliveryStr;
+    } else {
+        minuteInput.input.text = [NSString stringWithFormat:@"%@分", [minute objectAtIndex:row]];
+        
+        NSString *oldDate = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@":"][0];
+        NSString *newDeliveryStr = [NSString stringWithFormat:@"%@:%@:00",oldDate, [minute objectAtIndex:row]];
         [MDCurrentPackage getInstance].deliver_limit = newDeliveryStr;
     }
 }
@@ -169,8 +200,11 @@ numberOfRowsInComponent:(NSInteger)component
     widthForComponent:(NSInteger)component
 {
     if (component == 0) {
-        return self.view.frame.size.width/2;
+        return self.view.frame.size.width/3;
+    } else if(component == 1) {
+        return self.view.frame.size.width/3;
+    } else {
+        return self.view.frame.size.width/3;
     }
-    return self.view.frame.size.width/2;
 }
 @end

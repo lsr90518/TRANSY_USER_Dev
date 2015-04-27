@@ -44,6 +44,11 @@
 -(void) setUnactive {
     self.selectLabel.textColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
 }
+
+-(void) setActive {
+    self.selectLabel.textColor = [UIColor blackColor];
+}
+
 -(void) setReadOnly {
     [self.rightArrow setHidden:YES];
     [self setUserInteractionEnabled:NO];

@@ -26,12 +26,16 @@
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    requestAddressView = [[MDAddressInputTable alloc]initWithFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 100)];
-    requestAddressView.layer.cornerRadius = 2.5;
-    requestAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
-    requestAddressView.layer.borderWidth = 0.5;
-    requestAddressView.addressField.text = [MDCurrentPackage getInstance].from_addr;
-    requestAddressView.zipField.text = [MDCurrentPackage getInstance].from_zip;
+    requestAddressView = [[MDAddressInputTable alloc]initWithFrame:self.view.frame];
+//    requestAddressView.addressField.text = [MDCurrentPackage getInstance].from_addr;
+    NSArray *addressArray = [[MDCurrentPackage getInstance].from_addr componentsSeparatedByString:@" "];
+    requestAddressView.metropolitanField.input.text = addressArray[0];
+    requestAddressView.cityField.input.text = addressArray[1];
+    requestAddressView.townField.input.text = addressArray[2];
+    requestAddressView.houseField.input.text = addressArray[3];
+    requestAddressView.buildingNameField.input.text = addressArray[4];
+    
+    requestAddressView.zipField.input.text = [MDCurrentPackage getInstance].from_zip;
     [self.view addSubview:requestAddressView];
     
     [self initNavigationBar];
@@ -57,12 +61,16 @@
 
 
 -(void) backButtonTouched {
-    [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.text;
-    [MDCurrentPackage getInstance].from_addr = requestAddressView.addressField.text;
+    [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.input.text;
+    [MDCurrentPackage getInstance].from_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", requestAddressView.metropolitanField.input.text,
+                                                                                          requestAddressView.cityField.input.text,
+                                                                                          requestAddressView.townField.input.text,
+                                                                                          requestAddressView.houseField.input.text,
+                                                requestAddressView.buildingNameField.input.text];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [SVProgressHUD show];
-    [geocoder geocodeAddressString:requestAddressView.addressField.text completionHandler:^(NSArray *placemarks, NSError *error) {
+    [geocoder geocodeAddressString:[MDCurrentPackage getInstance].from_addr completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark* aPlacemark in placemarks)
         {
             MKCoordinateRegion region;

@@ -9,6 +9,7 @@
 #import "MDInputDestinationViewController.h"
 #import "MDAddressInputTable.h"
 #import "MDCurrentPackage.h"
+#import <MapKit/MapKit.h>
 #import <SVProgressHUD.h>
 
 @interface MDInputDestinationViewController (){
@@ -24,12 +25,16 @@
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    destinationAddressView = [[MDAddressInputTable alloc]initWithFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 100)];
-    destinationAddressView.layer.cornerRadius = 2.5;
-    destinationAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
-    destinationAddressView.layer.borderWidth = 0.5;
-    destinationAddressView.addressField.text = [MDCurrentPackage getInstance].to_addr;
-    destinationAddressView.zipField.text = [MDCurrentPackage getInstance].to_zip;
+    destinationAddressView = [[MDAddressInputTable alloc]initWithFrame:self.view.frame];
+//    destinationAddressView.addressField.text = [MDCurrentPackage getInstance].to_addr;
+    NSArray *addressArray = [[MDCurrentPackage getInstance].to_addr componentsSeparatedByString:@" "];
+    destinationAddressView.metropolitanField.input.text = addressArray[0];
+    destinationAddressView.cityField.input.text = addressArray[1];
+    destinationAddressView.townField.input.text = addressArray[2];
+    destinationAddressView.houseField.input.text = addressArray[3];
+    destinationAddressView.buildingNameField.input.text = addressArray[4];
+    
+    destinationAddressView.zipField.input.text = [MDCurrentPackage getInstance].to_zip;
     [self.view addSubview:destinationAddressView];
     
     [self initNavigationBar];
@@ -55,16 +60,27 @@
 
 
 -(void) backButtonTouched {
-    [MDCurrentPackage getInstance].to_zip = destinationAddressView.zipField.text;
-    [MDCurrentPackage getInstance].to_addr = destinationAddressView.addressField.text;
+
+    [MDCurrentPackage getInstance].to_zip = destinationAddressView.zipField.input.text;
+    [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", destinationAddressView.metropolitanField.input.text,
+                                                destinationAddressView.cityField.input.text,
+                                                destinationAddressView.townField.input.text,
+                                                destinationAddressView.houseField.input.text,
+                                                destinationAddressView.buildingNameField.input.text];
+
+    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [SVProgressHUD show];
-    [geocoder geocodeAddressString:destinationAddressView.addressField.text completionHandler:^(NSArray *placemarks, NSError *error) {
+    [geocoder geocodeAddressString:[MDCurrentPackage getInstance].to_addr completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark* aPlacemark in placemarks)
         {
-            [MDCurrentPackage getInstance].to_lat = [NSString stringWithFormat:@"%f",aPlacemark.region.center.latitude];
-            [MDCurrentPackage getInstance].to_lng = [NSString stringWithFormat:@"%f",aPlacemark.region.center.longitude];
-            NSLog(@"お届け%@", [MDCurrentPackage getInstance].to_lat);
+            MKCoordinateRegion region;
+            region.center.latitude = aPlacemark.region.center.latitude;
+            region.center.longitude = aPlacemark.region.center.longitude;
+            
+            [MDCurrentPackage getInstance].to_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
+            [MDCurrentPackage getInstance].to_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
+            NSLog(@"%@ %@",[MDCurrentPackage getInstance].from_lat , [MDCurrentPackage getInstance].from_lng);
             
         }
         [SVProgressHUD dismiss];

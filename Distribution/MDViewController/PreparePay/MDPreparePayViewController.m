@@ -14,11 +14,13 @@
 #import "MDPhoneNumberSettingViewController.h"
 #import "MDPhoneViewController.h"
 #import "MDPaymentViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface MDPreparePayViewController ()
 
 @end
 
+static CGRect oldframe;
 @implementation MDPreparePayViewController
 {
     UIActionSheet *myActionSheet;
@@ -35,8 +37,8 @@
     self.navigationController.delegate = self;
     
     //test よう
-//    [MDCurrentPackage getInstance].package_id = @"21";
-//    [MDCurrentPackage getInstance].package_number = @"1234567890";
+    //    [MDCurrentPackage getInstance].package_id = @"21";
+    //    [MDCurrentPackage getInstance].package_number = @"1234567890";
     [_preparePayView initPackageNumber:[MDCurrentPackage getInstance].package_number];
     
     //add right button item
@@ -67,7 +69,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-//    [_preparePayView updateData];
+    //    [_preparePayView updateData];
 }
 
 
@@ -78,7 +80,11 @@
 
 -(void) cameraButtonTouched {
     //open camera or カメラロール
-    [self openMenu];
+    [self openCameraMenu];
+}
+
+-(void) updateImagePushed{
+    [self openUpdateMenu];
 }
 
 -(void) requestPersonPushed {
@@ -87,42 +93,65 @@
 }
 
 -(void) phoneNumberPushed{
-    MDPhoneViewController *phoneViewController = [[MDPhoneViewController alloc]init];
-    [self.navigationController pushViewController:phoneViewController animated:YES];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"変更できません"
+                                                    message:@"電話番号の設定を変更するには設定から変更をお願い致します。"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK", nil];
+    alert.delegate = self;
+    [alert show];
 }
 
 -(void) postData {
-    [SVProgressHUD show];
-    MDUser *user = [MDUser getInstance];
-    [user initDataClear];
-    
-    [[MDAPI sharedAPI] orderWithHash:user.userHash
-                                 packageId:[MDCurrentPackage getInstance].package_id
-                                     image:_packageImage
-                                OnComplete:^(MKNetworkOperation *completeOperation){
-                                    if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                        [self dismissViewControllerAnimated:YES completion:nil];
-                                    }else{
-                                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"エラー"
-                                                                                        message:@"支払い方法を登録されていません。"
-                                                                                       delegate:self
-                                                                              cancelButtonTitle:nil
-                                                                              otherButtonTitles:@"OK", nil];
-                                        alert.delegate = self;
-                                        [alert show];
-                                        
-                                    }
-                                    [SVProgressHUD dismiss];
-                                }onError:^(MKNetworkOperation *completeOperation, NSError *error){
-                                    NSLog(@"%@",error);
-                                    [SVProgressHUD dismiss];
-                                }];
+    if(_packageImage == nil){
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"写真が必要"
+                                                        message:@"写真を撮らないと荷物登録はできません。"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
+        alert.delegate = self;
+        [alert show];
+    } else if(![_preparePayView isChecked]){
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"利用規約確認"
+                                                        message:@"利用規約とプライバシーポリシーを確認お願い致します。"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
+        alert.delegate = self;
+        [alert show];
+    } else {
+        [SVProgressHUD show];
+        MDUser *user = [MDUser getInstance];
+        [user initDataClear];
+        
+        [[MDAPI sharedAPI] orderWithHash:user.userHash
+                               packageId:[MDCurrentPackage getInstance].package_id
+                                   image:_packageImage
+                              OnComplete:^(MKNetworkOperation *completeOperation){
+                                  if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                      [self dismissViewControllerAnimated:YES completion:nil];
+                                  }else{
+                                      UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+                                                                                      message:@"支払い方法を登録されていません。"
+                                                                                     delegate:self
+                                                                            cancelButtonTitle:nil
+                                                                            otherButtonTitles:@"OK", nil];
+                                      alert.delegate = self;
+                                      [alert show];
+                                      
+                                  }
+                                  [SVProgressHUD dismiss];
+                              }onError:^(MKNetworkOperation *completeOperation, NSError *error){
+                                  NSLog(@"%@",error);
+                                  [SVProgressHUD dismiss];
+                              }];
+    }
 }
 
 
 //かかみん ここ
 -(void) paymentButtonPushed {
-//    NSLog(@"paymentButtonPushed");
+    //    NSLog(@"paymentButtonPushed");
     MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] init];
     [self.navigationController pushViewController:paymentViewController animated:YES];
 }
@@ -137,8 +166,7 @@
 }
 
 
--(void)openMenu
-{
+-(void)openCameraMenu {
     myActionSheet = [[UIActionSheet alloc]
                      initWithTitle:nil
                      delegate:self
@@ -148,11 +176,20 @@
     [myActionSheet showInView:self.view];
 }
 
+-(void) openUpdateMenu {
+    myActionSheet = [[UIActionSheet alloc]
+                     initWithTitle:nil
+                     delegate:self
+                     cancelButtonTitle:@"キャンセル"
+                     destructiveButtonTitle:nil
+                     otherButtonTitles: @"写真を撮る", @"カメラロール", @"写真を拡大", nil];
+    [myActionSheet showInView:self.view];
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
-    switch (buttonIndex)
-    {
+    switch (buttonIndex) {
         case 0:  //打开照相机拍照
             isCamera = YES;
             [self takePhoto];
@@ -161,7 +198,44 @@
             isCamera = NO;
             [self LocalPhoto];
             break;
+        case 2:
+            [self expendImage];
     }
+}
+
+-(void) expendImage{
+    
+    UIImageView *imageView = [[UIImageView alloc]init];
+    [imageView setImage:[_preparePayView getUploadedImage].image];
+    
+    
+    
+    UIView *backgroundView = [[UIView alloc]initWithFrame:self.view.frame];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.8]];
+    
+    [backgroundView addSubview:imageView];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
+    [backgroundView addGestureRecognizer: tap];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
+        imageView.center = backgroundView.center;
+        [self.view addSubview:backgroundView];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+-(void)hideImage:(UITapGestureRecognizer*)tap{
+    
+    UIView *backgroundView=tap.view;
+    UIImageView *imageView=(UIImageView*)[tap.view viewWithTag:1];
+    [UIView animateWithDuration:0.3 animations:^{
+        imageView.frame=oldframe;
+        backgroundView.alpha=0;
+    } completion:^(BOOL finished) {
+        [backgroundView removeFromSuperview];
+    }];
 }
 
 //开始拍照
@@ -198,25 +272,23 @@
     //当选择的类型是图片
     if ([type isEqualToString:@"public.image"])
     {
-        UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        UIImage* image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
         NSData *data;
-        if(isCamera) {
-//        //先把图片转成NSData
-            if (UIImagePNGRepresentation(image) == nil)
-            {
-                data = UIImageJPEGRepresentation(image, 0.3);
-            }
-            else
-            {
-                data = UIImagePNGRepresentation(image);
-            }
-            UIImageWriteToSavedPhotosAlbum(image, self, nil, NULL);
-            
+        //transfer image to data
+        if (UIImagePNGRepresentation(image) == nil) {
+            data = UIImageJPEGRepresentation(image, 0.3);
+        } else {
+            data = UIImagePNGRepresentation(image);
         }
         
+        if(isCamera) {
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, NULL);
+        }
+        
+        
         CGSize imagesize = image.size;
-        imagesize.height = imagesize.height/10;
-        imagesize.width = imagesize.width/10;
+        imagesize.height = imagesize.height/5;
+        imagesize.width = imagesize.width/5;
         image = [self imageWithImage:image scaledToSize:imagesize];
         
         imagesize = image.size;

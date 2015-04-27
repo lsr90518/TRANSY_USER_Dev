@@ -15,6 +15,8 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        [self setBackgroundColor:[UIColor whiteColor]];
+        
         //border
         self.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         self.layer.borderWidth = 0.5;
@@ -29,14 +31,26 @@
         
         //input
         self.input = [[UITextField alloc]initWithFrame:CGRectMake(frame.size.width-150, 19, 130, 15)];
-        self.input.placeholder = @"090XXXXXXXX";
         self.input.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         self.input.textAlignment = NSTextAlignmentRight;
+        self.input.delegate = self;
         [self addSubview:self.input];
         
     }
     
     return self;
 }
+
+-(void) textFieldDidBeginEditing:(UITextField *)textField{
+    if ([self.delegate respondsToSelector:@selector(inputPushed:)]){
+        [self.delegate inputPushed:self];
+    }
+}
+-(void) textFieldDidEndEditing:(UITextField *)textField{
+    if ([self.delegate respondsToSelector:@selector(endInput:)]){
+        [self.delegate endInput:self];
+    }
+}
+
 
 @end
