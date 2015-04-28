@@ -41,4 +41,17 @@
     }
 }
 
+-(void) setLogin {
+    self.loginStatus = @"YES";
+}
+
+-(void) setLogout {
+    self.loginStatus = @"NO";
+}
+
+-(BOOL) isLogin {
+    return ([self.loginStatus isEqualToString:@"YES"]) ? YES : NO;
+}
+
+
 @end
