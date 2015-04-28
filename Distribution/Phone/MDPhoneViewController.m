@@ -8,6 +8,7 @@
 
 #import "MDPhoneViewController.h"
 #import "MDUser.h"
+#import "MDDevice.h"
 #import <SVProgressHUD.h>
 
 @interface MDPhoneViewController ()
@@ -26,6 +27,7 @@
     _inputView = [[MDInput alloc]initWithFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 50)];
     _inputView.title.text = @"携帯番号";
     [_inputView.title sizeToFit];
+    _inputView.input.placeholder = @"090XXXXXXXX";
     [self.view addSubview:_inputView];
     
     //well
@@ -67,11 +69,22 @@
 }
 
 -(void) postButtonTouched {
-    // "-" 判断
-    NSRange range = [_inputView.input.text rangeOfString:@"-"];
-    if(range.length > 0) {
-        
-        //不正番号
+    if(_inputView.input.text.length > 0){
+        // "-" 判断
+        NSRange range = [_inputView.input.text rangeOfString:@"-"];
+        if(range.length > 0) {
+            
+            if([[MDDevice getInstance].iosVersion isEqualToString:@"7"]){
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
+                                                                message:@"電話番号を入力してください。"
+                                                               delegate:self
+                                                      cancelButtonTitle:nil
+                                                      otherButtonTitles:@"OK", nil];
+                alert.delegate = self;
+                [alert show];
+            }
+            
+            //不正番号
 //        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
 //                                                                       message:@"ハイフン「-」を入力しないでください"
 //                                                                preferredStyle:UIAlertControllerStyleAlert];
@@ -87,49 +100,54 @@
 //                                                              handler:^(UIAlertAction * action) {}];
 //        [alert addAction:defaultAction];
 //        [self presentViewController:alert animated:YES completion:nil];
-    } else {
-        
-        //有効な電話番号
-        NSString *phoneNumber = [NSString stringWithFormat:@"+81%@",[_inputView.input.text substringFromIndex:1]];
-        
-        //test
-        if([phoneNumber isEqualToString:@"+819028280392"]){
-            MDUser *user = [MDUser getInstance];
-            user.phoneNumber = phoneNumber;
-            MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
-            [self.navigationController pushViewController:checkNumberController animated:YES];
         } else {
-        
-            [SVProgressHUD show];
-            [[MDAPI sharedAPI] createUserWithPhone:phoneNumber
-                          onComplete:^(MKNetworkOperation *completeOperation) {
-                              NSLog(@"%ld",(long)[[completeOperation responseJSON][@"code"] integerValue]);
-                              [SVProgressHUD dismiss];
-                              if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                  MDUser *user = [MDUser getInstance];
-                                  user.phoneNumber = phoneNumber;
-                                  MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
-                                  [self.navigationController pushViewController:checkNumberController animated:YES];
-                              } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                  UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
-                                                                                  message:@"この番号もう登録した。"
-                                                                                 delegate:self
-                                                                        cancelButtonTitle:nil
-                                                                        otherButtonTitles:@"OK", nil];
-                                  alert.delegate = self;
-                                  [alert show];
-                              }
-                              
-                          } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
-                                 NSLog(@"error --------------  %@", error);
-                                 [SVProgressHUD dismiss];
-                             }];
+            
+            //有効な電話番号
+            NSString *phoneNumber = [NSString stringWithFormat:@"+81%@",[_inputView.input.text substringFromIndex:1]];
+            
+            //test
+            if([phoneNumber isEqualToString:@"+819028280392"]){
+                MDUser *user = [MDUser getInstance];
+                user.phoneNumber = phoneNumber;
+                MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
+                [self.navigationController pushViewController:checkNumberController animated:YES];
+            } else {
+            
+                [SVProgressHUD show];
+                [[MDAPI sharedAPI] createUserWithPhone:phoneNumber
+                              onComplete:^(MKNetworkOperation *completeOperation) {
+                                  NSLog(@"%ld",(long)[[completeOperation responseJSON][@"code"] integerValue]);
+                                  [SVProgressHUD dismiss];
+                                  if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                      MDUser *user = [MDUser getInstance];
+                                      user.phoneNumber = phoneNumber;
+                                      MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
+                                      [self.navigationController pushViewController:checkNumberController animated:YES];
+                                  } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
+                                      UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
+                                                                                      message:@"この番号もう登録した。"
+                                                                                     delegate:self
+                                                                            cancelButtonTitle:nil
+                                                                            otherButtonTitles:@"OK", nil];
+                                      alert.delegate = self;
+                                      [alert show];
+                                  }
+                                  
+                              } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+                                     NSLog(@"error --------------  %@", error);
+                                     [SVProgressHUD dismiss];
+                                 }];
+            }
         }
     }
 }
 
 -(void)backButtonPushed {
-    [self.navigationController popViewControllerAnimated:YES];
+    if([[MDUser getInstance] isLogin]){
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end

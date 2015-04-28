@@ -111,6 +111,7 @@
         sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 210, frame.size.width-20, 50)];
         sizePicker.buttonTitle.text = @"サイズ";
         sizePicker.selectLabel.text = @"120";
+        sizePicker.delegate = self;
         sizePicker.options = [[NSArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160",@"180",@"200",@"220",@"240",@"260",@"相談", nil];
         [sizePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:sizePicker];
@@ -144,6 +145,7 @@
         cusTodyTimePicker.buttonTitle.text = @"預かり時刻";
         cusTodyTimePicker.selectLabel.text = @"いつでも";
         cusTodyTimePicker.tag = 1;
+        cusTodyTimePicker.delegate = self;
         [cusTodyTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:cusTodyTimePicker];
         
@@ -151,6 +153,7 @@
         destinateTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 450, frame.size.width-20, 50)];
         destinateTimePicker.buttonTitle.text = @"お届け期限";
         destinateTimePicker.tag = 2;
+        destinateTimePicker.delegate = self;
         [destinateTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:destinateTimePicker];
         
@@ -159,6 +162,7 @@
         //list
         requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, 510, frame.size.width-20, 50)];
         requestTerm.buttonTitle.text = @"依頼期限";
+        requestTerm.delegate = self;
         requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
         [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         requestTerm.tag = 3;
@@ -488,7 +492,13 @@
 
 -(void) endInput:(MDInput *)input{
     [MDCurrentPackage getInstance].request_amount = input.input.text;
-    NSLog(@"%@", [MDCurrentPackage getInstance].request_amount);
+}
+
+#pragma MDSelect delegate
+-(void) buttonPushed:(MDSelect *)view{
+    int offset = view.frame.origin.y + view.frame.size.height + 60 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    CGPoint point = CGPointMake(0, offset);
+    [_scrollView setContentOffset:point animated:YES];
 }
 
 #pragma UIPicker

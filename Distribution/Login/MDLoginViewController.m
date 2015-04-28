@@ -82,6 +82,7 @@
                                         
                                         MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
                                         UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
+                                        [[MDUser getInstance] setLogin];
                                         [self presentViewController:deliveryNavigationController animated:YES completion:nil];
                                         
                                     } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){

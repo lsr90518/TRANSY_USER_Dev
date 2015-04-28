@@ -14,6 +14,8 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        [self addTarget:self action:@selector(buttonTouched) forControlEvents:UIControlEventTouchUpInside];
+        
         //add frame
         self.layer.cornerRadius = 2.5;
         self.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
@@ -54,5 +56,12 @@
     [self setUserInteractionEnabled:NO];
     
 }
+
+-(void) buttonTouched {
+    if ([self.delegate respondsToSelector:@selector(buttonPushed:)]){
+        [self.delegate buttonPushed:self];
+    }
+}
+
 
 @end

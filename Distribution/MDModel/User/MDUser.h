@@ -19,11 +19,16 @@
 @property (strong, nonatomic) NSString *firstname;
 @property (strong, nonatomic) NSString *checknumber;
 @property (strong, nonatomic) NSString *userHash;
+@property (strong, nonatomic) NSString *loginStatus;
 @property (nonatomic) NSInteger credit;
 
 +(MDUser *)getInstance;
 
 -(void) initDataClear;
+
+-(void) setLogin;
+-(void) setLogout;
+-(BOOL) isLogin;
 
 //{
 //    "code": 0,

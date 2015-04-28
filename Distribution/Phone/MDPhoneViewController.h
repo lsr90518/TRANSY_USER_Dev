@@ -18,5 +18,6 @@
 
 @property (strong, nonatomic) MDInput *inputView;
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+@property (strong, nonatomic) NSString *status;
 
 @end
