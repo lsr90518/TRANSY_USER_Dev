@@ -984,6 +984,7 @@
 					};
 					0DC16F601AC536640066FA0C = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 58DG48DA72;
 						TestTargetID = 0DC16F471AC536640066FA0C;
 					};
 				};
@@ -1229,7 +1230,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "add9bb42-7070-4175-943f-529c1e0ff8f0";
+				PROVISIONING_PROFILE = "117d7bdf-d41a-4246-b9c0-77c8ad9bd438";
 				SDKROOT = iphoneos7.1;
 			};
 			name = Debug;
@@ -1266,7 +1267,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "add9bb42-7070-4175-943f-529c1e0ff8f0";
+				PROVISIONING_PROFILE = "117d7bdf-d41a-4246-b9c0-77c8ad9bd438";
 				SDKROOT = iphoneos7.1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1284,7 +1285,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "add9bb42-7070-4175-943f-529c1e0ff8f0";
+				PROVISIONING_PROFILE = "117d7bdf-d41a-4246-b9c0-77c8ad9bd438";
 			};
 			name = Debug;
 		};
@@ -1300,7 +1301,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "add9bb42-7070-4175-943f-529c1e0ff8f0";
+				PROVISIONING_PROFILE = "117d7bdf-d41a-4246-b9c0-77c8ad9bd438";
 			};
 			name = Release;
 		};
@@ -1308,6 +1309,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1319,6 +1322,7 @@
 				INFOPLIST_FILE = DistributionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Distribution.app/Distribution";
 			};
 			name = Debug;
@@ -1327,6 +1331,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1334,6 +1340,7 @@
 				INFOPLIST_FILE = DistributionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Distribution.app/Distribution";
 			};
 			name = Release;
