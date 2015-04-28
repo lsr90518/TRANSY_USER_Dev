@@ -62,7 +62,6 @@
         _scrollView = [[UIScrollView alloc]initWithFrame:frame];
         _scrollView.scrollEnabled = YES;
         _scrollView.delegate = self;
-        [_scrollView setContentSize:CGSizeMake(frame.size.width, 886)];
         _scrollView.bounces = YES;
         _scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         [self addSubview:_scrollView];
@@ -168,6 +167,8 @@
         requestTerm.tag = 3;
         [_scrollView addSubview:requestTerm];
         
+        [_scrollView setContentSize:CGSizeMake(frame.size.width, requestTerm.frame.origin.y + requestTerm.frame.size.height + 70)];
+        
         //tabbar
         _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
         //tab bar shadow
@@ -241,7 +242,7 @@
     costPicker.input.text = [NSString stringWithFormat:@"%@",[MDCurrentPackage getInstance].request_amount];
     //at home time;
     NSArray *dateStr = [[MDCurrentPackage getInstance].at_home_time[0][0] componentsSeparatedByString:@"-"];
-    cusTodyTimePicker.selectLabel.text = [NSString stringWithFormat:@"%d月%d日 %@時-%@時", [dateStr[1] intValue], [dateStr[2] intValue], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
+    cusTodyTimePicker.selectLabel.text = [NSString stringWithFormat:@"%d月%d日 %@時~%@時", [dateStr[1] intValue], [dateStr[2] intValue], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
     
 //    destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@時", [[MDCurrentPackage getInstance].deliver_limit substringToIndex:13]];
     destinateTimePicker.selectLabel.text = [self getInitStr];
@@ -295,7 +296,7 @@
     NSArray *strArr = [[MDCurrentPackage getInstance].at_home_time[0][0] componentsSeparatedByString:@"-"];
     returnStr = [NSString stringWithFormat:@"%d月%d日", [strArr[1] intValue], [strArr[2] intValue]];
     
-    returnStr = [NSString stringWithFormat:@"%@ %@時%@時",returnStr,
+    returnStr = [NSString stringWithFormat:@"%@ %@時~%@時",returnStr,
                             [MDCurrentPackage getInstance].at_home_time[0][1],
                             [MDCurrentPackage getInstance].at_home_time[0][2]];
     //bug
@@ -335,9 +336,9 @@
     }
     
     date = [NSMutableArray arrayWithArray:eightArr];
-    time = [NSMutableArray arrayWithObjects:@"いつでも" , @"10時-12時" , @"12時-14時"
-            , @"14時-16時",@"16時-18時", @"18時-20時", @"20時-22時",
-            @"22時-24時", @"0時-2時" , @"2時-4時",@"4時-6時",@"6時-8時",@"8時-10時", nil];
+    time = [NSMutableArray arrayWithObjects:@"いつでも" , @"10時~12時" , @"12時~14時"
+            , @"14時~16時",@"16時~18時", @"18時~20時", @"20時~22時",
+            @"22時~24時", @"0時~2時" , @"2時~4時",@"4時~6時",@"6時~8時",@"8時~10時", nil];
 }
 
 -(NSString *) getInitStr {
@@ -346,13 +347,9 @@
     NSArray *tmpStr = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@" "];
     NSString *dateStr = tmpStr[0];
     NSArray *dateStrArray = [dateStr componentsSeparatedByString:@"-"];
-//    dateInput.input.text = [NSString stringWithFormat:@"%d月%d日",
-//                            [dateStrArray[1] intValue],
-//                            [dateStrArray[2] intValue]];
+
     NSString *timeStr = tmpStr[1];
-//    timeInput.input.text = [NSString stringWithFormat:@"%@時", [timeStr componentsSeparatedByString:@":"][0]];
-//    minuteInput.input.text = [NSString stringWithFormat:@"%@分", [timeStr componentsSeparatedByString:@":"][1]];
-    showStr = [NSString stringWithFormat:@"%d月%d日 %@:%@",
+    showStr = [NSString stringWithFormat:@"%d月%d日 %@時%@分迄",
                                         [dateStrArray[1] intValue],
                                         [dateStrArray[2] intValue],
                                         [timeStr componentsSeparatedByString:@":"][0],
@@ -485,7 +482,7 @@
 
 #pragma MDInput delegate
 -(void) inputPushed:(MDInput *)input{
-    int offset = input.frame.origin.y + input.frame.size.height + 60 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    int offset = input.frame.origin.y + input.frame.size.height + 10 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
     [_scrollView setContentOffset:point animated:YES];
 }
@@ -496,7 +493,7 @@
 
 #pragma MDSelect delegate
 -(void) buttonPushed:(MDSelect *)view{
-    int offset = view.frame.origin.y + view.frame.size.height + 60 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    int offset = view.frame.origin.y + view.frame.size.height + 10 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
     [_scrollView setContentOffset:point animated:YES];
 }
@@ -599,7 +596,6 @@ numberOfRowsInComponent:(NSInteger)component
             NSString *newDeliveryStr = [NSString stringWithFormat:@"%@:%@:00",oldDate, [minute objectAtIndex:row]];
             [MDCurrentPackage getInstance].deliver_limit = newDeliveryStr;
         }
-        NSLog(@"%@", [MDCurrentPackage getInstance].deliver_limit);
         destinateTimePicker.selectLabel.text = [self getInitStr];
     } else {
         if(component == 0){
@@ -617,13 +613,15 @@ numberOfRowsInComponent:(NSInteger)component
             NSArray *tmpArray;
             if([[tmp objectAtIndex:row] isEqualToString:@"いつでも"]){
                 tmpArray = [NSArray arrayWithObjects:@"0", @"24", nil];
+                
+                [MDCurrentPackage getInstance].at_home_time[0][1] = tmpArray[0]; //時間 から
+                [MDCurrentPackage getInstance].at_home_time[0][2] = tmpArray[1]; //時間 まで
             } else {
+                
                 tmpArray = [[tmp objectAtIndex:row] componentsSeparatedByString:@"時"];
+                [MDCurrentPackage getInstance].at_home_time[0][1] = tmpArray[0]; //時間 から
+                [MDCurrentPackage getInstance].at_home_time[0][2] = [tmpArray[1] substringFromIndex:1]; //時間 まで
             }
-            
-            [MDCurrentPackage getInstance].at_home_time[0][1] = tmpArray[0]; //時間 から
-            [MDCurrentPackage getInstance].at_home_time[0][2] = tmpArray[1]; //時間 まで
-            
         }
         cusTodyTimePicker.selectLabel.text = [self getReciveTimeStr];
     }

@@ -29,6 +29,9 @@
     [self.view addSubview:_settingView];
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [_settingView setViewData:[MDUser getInstance]];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

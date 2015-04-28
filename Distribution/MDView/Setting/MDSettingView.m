@@ -7,9 +7,13 @@
 //
 
 #import "MDSettingView.h"
-#import "MDUser.h"
 
-@implementation MDSettingView
+@implementation MDSettingView{
+    MDSelect *nameButton;
+    MDSelect *pay;
+    MDSelect *phoneButton;
+    MDSelect *blockButton;
+}
 
 #pragma mark - View Life Cycle
 
@@ -37,32 +41,27 @@
         [self addSubview:_scrollView];
         
         //name button
-        MDSelect *nameButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 10, frame.size.width-20, 50)];
+        nameButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 10, frame.size.width-20, 50)];
         nameButton.buttonTitle.text = @"お名前";
-        nameButton.selectLabel.text = [NSString stringWithFormat:@"%@ %@", user.lastname, user.firstname];
-        [nameButton setUnactive];
         [nameButton addTarget:self action:@selector(nameButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:nameButton];
         
         //phone button
-        MDSelect *phoneButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 70, frame.size.width-20, 50)];
+        phoneButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 70, frame.size.width-20, 50)];
         phoneButton.buttonTitle.text = @"電話番号";
-        phoneButton.selectLabel.text = [NSString stringWithFormat:@"%@", user.phoneNumber];
-        [phoneButton setUnactive];
         [phoneButton addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneButton];
         
         //pay button
-        MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
+        pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
         pay.buttonTitle.text = @"お支払い方法";
         pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-        [pay setUnactive];
         [pay setTag:paymentSelect];
         [_scrollView addSubview:pay];
         
         //name button
-        MDSelect *blockButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 190, frame.size.width-20, 50)];
+        blockButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 190, frame.size.width-20, 50)];
         blockButton.buttonTitle.text = @"ブロックドライバー";
         [blockButton.buttonTitle sizeToFit];
         blockButton.selectLabel.text = @"";
@@ -174,6 +173,10 @@
     }
 }
 
+-(void) setViewData:(MDUser *)user{
+    nameButton.selectLabel.text = [NSString stringWithFormat:@"%@ %@", user.lastname, user.firstname];
+    phoneButton.selectLabel.text = [NSString stringWithFormat:@"%@", user.phoneNumber];
+}
 
 
 @end

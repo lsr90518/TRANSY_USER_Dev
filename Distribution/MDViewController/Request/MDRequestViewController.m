@@ -68,9 +68,11 @@
 }
 
 -(void) makeUpData:(NSDictionary *)data{
-    MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
-    rdvc.data = data;
-    [self.navigationController pushViewController:rdvc animated:YES];
+    if(data != nil){
+        MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
+        rdvc.data = data;
+        [self.navigationController pushViewController:rdvc animated:YES];
+    }
 }
 
 

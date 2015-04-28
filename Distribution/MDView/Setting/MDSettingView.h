@@ -10,6 +10,7 @@
 #import "MDSelect.h"
 #import "MDTabButton.h"
 #import "MDUtil.h"
+#import "MDUser.h"
 
 @protocol MDSettingViewDelegate;
 
@@ -19,6 +20,8 @@
 @property (strong, nonatomic) UIView        *tabbar;
 
 @property (nonatomic, assign) id<MDSettingViewDelegate> delegate;
+
+-(void) setViewData:(MDUser *)data;
 
 @end
 

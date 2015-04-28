@@ -33,7 +33,7 @@
         
         UIButton *postButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 194, frame.size.width-20, 50)];
         [postButton setBackgroundColor:[UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1]];
-        [postButton setTitle:@"以上で登録" forState:UIControlStateNormal];
+        [postButton setTitle:@"ログイン" forState:UIControlStateNormal];
         postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:18];
         [postButton addTarget:self action:@selector(postData) forControlEvents:UIControlEventTouchUpInside];
         postButton.layer.cornerRadius = 2.5;

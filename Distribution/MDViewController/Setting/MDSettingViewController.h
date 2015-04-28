@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MDSettingView.h"
 #import "MDUtil.h"
+#import "MDUser.h"
 
 @interface MDSettingViewController : UIViewController<MDSettingViewDelegate, UINavigationControllerDelegate>
 

@@ -14,6 +14,7 @@
 #import "MDPhoneNumberSettingViewController.h"
 #import "MDPhoneViewController.h"
 #import "MDPaymentViewController.h"
+#import "MDRequestViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface MDPreparePayViewController ()
@@ -40,6 +41,8 @@ static CGRect oldframe;
     //    [MDCurrentPackage getInstance].package_id = @"21";
     //    [MDCurrentPackage getInstance].package_number = @"1234567890";
     [_preparePayView initPackageNumber:[MDCurrentPackage getInstance].package_number];
+    
+    myActionSheet.delegate = self;
     
     //add right button item
     [self initNavigationBar];
@@ -88,8 +91,13 @@ static CGRect oldframe;
 }
 
 -(void) requestPersonPushed {
-    MDNameSettingViewController *nameSettingViewController = [[MDNameSettingViewController alloc]init];
-    [self.navigationController pushViewController:nameSettingViewController animated:YES];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"名前をできません"
+                                                    message:@"名前の設定を変更するには設定から変更をお願い致します。"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK", nil];
+    alert.delegate = self;
+    [alert show];
 }
 
 -(void) phoneNumberPushed{
@@ -130,6 +138,8 @@ static CGRect oldframe;
                               OnComplete:^(MKNetworkOperation *completeOperation){
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                       [self dismissViewControllerAnimated:YES completion:nil];
+                                      
+                                      
                                   }else{
                                       UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"エラー"
                                                                                       message:@"支払い方法を登録されていません。"
@@ -186,7 +196,6 @@ static CGRect oldframe;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
     switch (buttonIndex) {
         case 0:  //打开照相机拍照
             isCamera = YES;
@@ -197,7 +206,12 @@ static CGRect oldframe;
             [self LocalPhoto];
             break;
         case 2:
-            [self expendImage];
+            if([[actionSheet buttonTitleAtIndex:2] isEqualToString:@"写真を拡大"]){
+                [self expendImage];
+            }
+            break;
+        default:
+            break;
     }
 }
 
