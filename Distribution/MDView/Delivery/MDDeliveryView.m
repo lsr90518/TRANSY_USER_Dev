@@ -586,7 +586,7 @@ numberOfRowsInComponent:(NSInteger)component
     
     if (pickerView.tag == 3) {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"%@時間以内",options[row]];
-        [MDCurrentPackage getInstance].expire = [[MDUtil getInstance] getAnHourAfterDate:[options objectAtIndex:row]];
+        [MDCurrentPackage getInstance].expire = [MDUtil getAnHourAfterDate:[options objectAtIndex:row]];
     } else if(pickerView.tag == 2){
         //input to mdcurrent
         //お届け期限

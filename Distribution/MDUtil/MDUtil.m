@@ -21,7 +21,7 @@
     return sharedInstance;
 }
 
--(NSString *)internationalPhoneNumber:(NSString *)phoneNumber {
++(NSString *)internationalPhoneNumber:(NSString *)phoneNumber {
     if ( ![[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
         NSString *tmpNumber = [NSString stringWithFormat:@"+81%@",[phoneNumber substringFromIndex:1]];
         phoneNumber = tmpNumber;
@@ -30,7 +30,7 @@
     return phoneNumber;
 }
 
--(NSString *)japanesePhoneNumber:(NSString *)phoneNumber {
++(NSString *)japanesePhoneNumber:(NSString *)phoneNumber {
     if ( [[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
         NSString *tmpNumber = [NSString stringWithFormat:@"0%@",[phoneNumber substringFromIndex:3]];
         phoneNumber = tmpNumber;
@@ -39,7 +39,7 @@
     return phoneNumber;
 }
 
--(NSString *)getAnHourAfterDate:(NSString *)expire{
++(NSString *)getAnHourAfterDate:(NSString *)expire{
     NSDate *now = [NSDate date];
     //4時間後
     NSDate *nHoursAfter = [now dateByAddingTimeInterval:[expire intValue]*60*60];
@@ -57,6 +57,30 @@
         return @"新規登録";
     }else{
         return @"登録済み";
+    }
+}
+
++(float)getOSVersion {
+    return [[[UIDevice currentDevice] systemVersion] floatValue];
+}
+
++(void)makeAlertWithTitle:(NSString *)title message:(NSString *)message done:(NSString *)done viewController:(UIViewController *)viewController{
+    if([self getOSVersion] < 8.0){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:viewController
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:done, nil];
+        [alertView show];
+    }else{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:done style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            // ボタンが押された時の処理
+            if([viewController respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]){
+                [(UIViewController <UIAlertViewDelegate> *)viewController alertView:nil clickedButtonAtIndex:0];
+            }
+        }]];
+        [viewController presentViewController:alertController animated:YES completion:nil];
     }
 }
 

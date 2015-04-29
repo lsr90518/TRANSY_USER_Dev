@@ -60,8 +60,18 @@
         [pay setTag:paymentSelect];
         [_scrollView addSubview:pay];
         
+        UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        creditAutoCompletionButton.frame = CGRectMake(30, 188, frame.size.width-60, 15);
+        creditAutoCompletionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [creditAutoCompletionButton setTitle:@">クレジットカードのスキャン入力" forState:UIControlStateNormal];
+        [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+        [creditAutoCompletionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
+        [creditAutoCompletionButton addTarget:self action:@selector(showCardIO) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:creditAutoCompletionButton];
+        
         //name button
-        blockButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 190, frame.size.width-20, 50)];
+        blockButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 220, frame.size.width-20, 50)];
         blockButton.buttonTitle.text = @"ブロックドライバー";
         [blockButton.buttonTitle sizeToFit];
         blockButton.selectLabel.text = @"";
@@ -70,7 +80,7 @@
         [_scrollView addSubview:blockButton];
         
         //name button
-        MDSelect *qaButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 250, frame.size.width-20, 50)];
+        MDSelect *qaButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 280, frame.size.width-20, 50)];
         qaButton.buttonTitle.text = @"よくある質問";
         qaButton.selectLabel.text = @"";
         [qaButton setUnactive];
@@ -78,7 +88,7 @@
         [_scrollView addSubview:qaButton];
         
         //name button
-        MDSelect *privateButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 310, frame.size.width-20, 50)];
+        MDSelect *privateButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 340, frame.size.width-20, 50)];
         privateButton.buttonTitle.text = @"プライバシーポリシー";
         [privateButton.buttonTitle sizeToFit];
         privateButton.selectLabel.text = @"";
@@ -87,7 +97,7 @@
         [_scrollView addSubview:privateButton];
         
         //name button
-        MDSelect *protocolButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 370, frame.size.width-20, 50)];
+        MDSelect *protocolButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 400, frame.size.width-20, 50)];
         protocolButton.buttonTitle.text = @"利用規約";
         protocolButton.selectLabel.text = @"";
         [protocolButton setUnactive];
@@ -133,6 +143,11 @@
 -(void) paymentButtonTouched {
     if([self.delegate respondsToSelector:@selector(nameButtonPushed)]){
         [self.delegate paymentButtonPushed];
+    }
+}
+-(void) showCardIO {
+    if([self.delegate respondsToSelector:@selector(showCardIO)]){
+        [self.delegate showCardIO];
     }
 }
 

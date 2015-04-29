@@ -115,8 +115,18 @@
         [pay setTag:paymentSelect];
         [_scrollView addSubview:pay];
         
+        UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        creditAutoCompletionButton.frame = CGRectMake(30, 382, frame.size.width-60, 15);
+        creditAutoCompletionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [creditAutoCompletionButton setTitle:@">クレジットカードのスキャン入力" forState:UIControlStateNormal];
+        [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+        [creditAutoCompletionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
+        [creditAutoCompletionButton addTarget:self action:@selector(showCardIO) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:creditAutoCompletionButton];
+        
         //checkbox
-        MDCheckBox *checkBox = [[MDCheckBox alloc]initWithFrame:CGRectMake(10, 392, 34, 34)];
+        MDCheckBox *checkBox = [[MDCheckBox alloc]initWithFrame:CGRectMake(10, 414, 34, 34)];
         [checkBox addTarget:self action:@selector(toggleCheck:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:checkBox];
         
@@ -146,7 +156,7 @@
         [_scrollView addSubview:niLabel];
         
         //button
-        self.postButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.origin.x+10, 449, frame.size.width-20, 60)];
+        self.postButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.origin.x+10, 471, frame.size.width-20, 60)];
         [self.postButton setBackgroundColor:[UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1]];
         [self.postButton setTitle:@"以上で発注する" forState:UIControlStateNormal];
         self.postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:18];
@@ -237,6 +247,11 @@
 -(void) paymentButtonTouched {
     if([self.delegate respondsToSelector:@selector(paymentButtonPushed)]){
         [self.delegate paymentButtonPushed];
+    }
+}
+-(void) showCardIO {
+    if([self.delegate respondsToSelector:@selector(showCardIO)]){
+        [self.delegate showCardIO];
     }
 }
 

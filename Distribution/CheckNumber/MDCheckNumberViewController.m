@@ -28,6 +28,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     _inputView = [[MDInput alloc]initWithFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 50)];
     _inputView.title.text = @"認証番号";
+    [_inputView.input setKeyboardType:UIKeyboardTypeNumberPad];
     [_inputView.title sizeToFit];
     _inputView.input.placeholder = @"5桁の番号";
     [self.view addSubview:_inputView];
@@ -66,15 +67,19 @@
 
 -(void) postButtonTouched {
     [SVProgressHUD show];
-    [[MDAPI sharedAPI] checkUserWithPhone:[MDUser getInstance].phoneNumber
+    [[MDAPI sharedAPI] checkUserWithPhone:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
                                  withCode:_inputView.input.text
                                onComplete:^(MKNetworkOperation *completeOperation) {
                                    [SVProgressHUD dismiss];
                                    NSLog(@"%@",[completeOperation responseJSON]);
                                    if([[completeOperation responseJSON][@"code"] integerValue] == 0) {
-                                       MDUser *user = [MDUser getInstance];
-                                       user.checknumber = _inputView.input.text;
-                                       [self checkHash];
+                                       if([[completeOperation responseJSON][@"check"] integerValue] == 1){
+                                           MDUser *user = [MDUser getInstance];
+                                           user.checknumber = _inputView.input.text;
+                                           [self checkHash];
+                                       }else{
+                                           [MDUtil makeAlertWithTitle:@"エラー" message:@"認証番号が異なります。" done:@"OK" viewController:self];
+                                       }
                                    }
                                }
                                   onError:^(MKNetworkOperation *completeOperartion, NSError *error){

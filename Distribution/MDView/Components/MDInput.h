@@ -17,6 +17,9 @@
 
 @property (nonatomic, assign) id<MDInputDelegate> delegate;
 
+-(void) setKeyboardToolbar;     // initWithFrame内でsetされる
+-(void) disableKeyboardToolbar; // 必要ない場合はこれを呼ぶ
+
 @end
 
 @protocol MDInputDelegate <NSObject>

@@ -109,18 +109,32 @@
               onComplete:(void (^)(MKNetworkOperation *))complete
                  onError:(void (^)(MKNetworkOperation *, NSError *))error{
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setValue:user.phoneNumber forKey:@"phone"];
+    [dic setValue:[MDUtil internationalPhoneNumber: user.phoneNumber] forKey:@"phone"];
     [dic setValue:user.checknumber forKey:@"check_number"];
     [dic setValue:[NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname] forKey:@"name"];
     [dic setValue:user.password forKey:@"password"];
-    [dic setValue:@"0" forKey:@"walk"];
-    [dic setValue:@"0" forKey:@"bike"];
-    [dic setValue:@"0" forKey:@"motorbike"];
-    [dic setValue:@"0" forKey:@"car"];
     [dic setValue:@"ios" forKey:@"client"];
     
     [self callApi:dic
           withUrl:API_USER_NEWPROFILE
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) updateProfileByUser:(MDUser *)user
+               sendPassword:(BOOL) sendPassword
+                 onComplete:(void (^)(MKNetworkOperation *))complete
+                    onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:user.userHash forKey:@"hash"];
+    [dic setValue:[NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname] forKey:@"name"];
+    if(sendPassword)[dic setValue:user.password forKey:@"password"];
+    [dic setValue:@"ios" forKey:@"client"];
+    
+    [self callApi:dic
+          withUrl:API_USER_UPDATEPROFILE
        withImages:@[]
    withHttpMethod:@"POST"
        onComplete:complete
@@ -150,21 +164,21 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:hash         forKey:@"hash"];
     [dic setObject:USER_DEVICE  forKey:@"client"];
+    [dic setObject:[MDCurrentPackage getInstance].requestType       forKey:@"type"];
+    [dic setObject:[MDCurrentPackage getInstance].from_pref         forKey:@"from_pref"];
     [dic setObject:[MDCurrentPackage getInstance].from_addr         forKey:@"from_addr"];
     [dic setObject:[MDCurrentPackage getInstance].from_zip          forKey:@"from_zip"];
     [dic setObject:[MDCurrentPackage getInstance].from_lat          forKey:@"from_lat"];
     [dic setObject:[MDCurrentPackage getInstance].from_lng          forKey:@"from_lng"];
-    [dic setObject:[MDCurrentPackage getInstance].from_pref         forKey:@"from_pref"];
     [dic setObject:[MDCurrentPackage getInstance].to_zip            forKey:@"to_zip"];
+    [dic setObject:[MDCurrentPackage getInstance].to_pref           forKey:@"to_pref"];
     [dic setObject:[MDCurrentPackage getInstance].to_addr           forKey:@"to_addr"];
     [dic setObject:[MDCurrentPackage getInstance].to_lat            forKey:@"to_lat"];
     [dic setObject:[MDCurrentPackage getInstance].to_lng            forKey:@"to_lng"];
-    [dic setObject:[MDCurrentPackage getInstance].to_pref           forKey:@"to_pref"];
     [dic setObject:[MDCurrentPackage getInstance].request_amount    forKey:@"request_amount"];
     [dic setObject:[MDCurrentPackage getInstance].note              forKey:@"note"];
     [dic setObject:[MDCurrentPackage getInstance].size              forKey:@"size"];
-    [dic setObject:[MDCurrentPackage getInstance].requestType       forKey:@"type"];
-    [dic setObject:[MDCurrentPackage getInstance].at_home_time       forKey:@"at_home_time"];
+    [dic setValue: [MDCurrentPackage getInstance].at_home_time      forKey:@"at_home_time"];
     [dic setObject:[MDCurrentPackage getInstance].deliver_limit     forKey:@"deliver_limit"];
     [dic setObject:[MDCurrentPackage getInstance].expire            forKey:@"expire"];
     

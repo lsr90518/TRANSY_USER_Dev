@@ -10,6 +10,7 @@
 #import "MDUser.h"
 #import "MDViewController.h"
 #import "MDAPI.h"
+#import "MDPaymentViewController.h"
 #import <SVProgressHUD.h>
 
 @interface MDCreateProfileViewController ()
@@ -21,10 +22,11 @@
 -(void) loadView {
     [super loadView];
     
+    self.navigationController.delegate = self;
+    
     _createProfileView = [[MDCreateProfileView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:_createProfileView];
     _createProfileView.delegate = self;
-    [_createProfileView.creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
     
     [self initNavigationBar];
 }
@@ -57,15 +59,13 @@
 }
 
 -(void) postData:(MDCreateProfileView *)createProfileView {
-    if (![createProfileView.passwordInput.input.text isEqualToString:[NSString stringWithFormat:@"%@",createProfileView.repeatInput.input.text]]) {
-        
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"パスワード"
-                                                        message:@"パスワードをもう一回確認してください。"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:@"OK", nil];
-        alert.delegate = self;
-        [alert show];
+    if([createProfileView.lastnameInput.input.text length] == 0
+       || [createProfileView.givennameInput.input.text length] == 0) {
+        [MDUtil makeAlertWithTitle:@"名前" message:@"名前を入力してください。" done:@"OK" viewController:self];
+    } else if (![createProfileView.passwordInput.input.text isEqualToString:[NSString stringWithFormat:@"%@",createProfileView.repeatInput.input.text]]) {
+        [MDUtil makeAlertWithTitle:@"パスワード" message:@"パスワードをもう一度確認してください。" done:@"OK" viewController:self];
+    } else if([createProfileView.passwordInput.input.text length] < 6) {
+        [MDUtil makeAlertWithTitle:@"パスワード" message:@"パスワードは6文字以上で設定してください。" done:@"OK" viewController:self];
     } else {
         MDUser *user = [MDUser getInstance];
         user.lastname = createProfileView.lastnameInput.input.text;
@@ -75,15 +75,19 @@
         [SVProgressHUD show];
         [[MDAPI sharedAPI] newProfileByUser:user
                                     onComplete:^(MKNetworkOperation *completeOperation) {
-                                        user.userHash = [completeOperation responseJSON][@"hash"];
-                                        MDViewController *viewcontroller = [[MDViewController alloc]init];
-                                        [self presentViewController:viewcontroller animated:YES completion:nil];
+                                        // NSLog(@"%@",[completeOperation responseJSON]);
+                                        [SVProgressHUD dismiss];
+                                        if([[completeOperation responseJSON][@"code"] intValue] == 0){
+                                            user.userHash = [completeOperation responseJSON][@"hash"];
+                                            [user setLogin];
+                                            MDViewController *viewcontroller = [[MDViewController alloc]init];
+                                            [self presentViewController:viewcontroller animated:YES completion:nil];
+                                        }else{
+                                            [MDUtil makeAlertWithTitle:@"エラー" message:@"エラーが発生しました。最初からやり直してください。" done:@"OK" viewController:self];
+                                        }
                                     } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
                                         NSLog(@"error --------------  %@", error);
-                                        
                                     }];
-        
-//        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
@@ -96,7 +100,22 @@
 }
 
 -(void) showCreditView {
-    NSLog(@"credit view");
+    MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] init];
+    [self.navigationController pushViewController:paymentViewController animated:YES];
+}
+-(void) showCardIO {
+    MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] initWithCardIO];
+    [self.navigationController pushViewController:paymentViewController animated:YES];
+}
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated{
+    // NSLog(@"navigationController delegate called!");
+    MDSelect *pay = (MDSelect *)[_createProfileView.scrollView viewWithTag:paymentSelect];
+    if(pay){
+        // NSLog(@"pay changed!");
+        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+    }
 }
 
 @end

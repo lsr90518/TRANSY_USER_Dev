@@ -38,6 +38,7 @@
 -(void) postData;
 -(void) requestPersonPushed;
 -(void) paymentButtonPushed;
+-(void) showCardIO;
 -(void) phoneNumberPushed;
 -(void) updateImagePushed;
 

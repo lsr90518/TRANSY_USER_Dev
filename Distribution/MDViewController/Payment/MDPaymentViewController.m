@@ -11,30 +11,41 @@
 #import "MDUser.h"
 
 @implementation MDPaymentViewController
+- (MDPaymentViewController *)init{
+    self = [super init];
+    _withCardIO = NO;
+    return self;
+}
+- (MDPaymentViewController *)initWithCardIO {
+    self = [super init];
+    _withCardIO = YES;
+    return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [CardIOUtilities preload];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self initNavigationBar];
     
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    
     // デリゲートを指定
     super.webView.delegate = self;
     
-    MDUser *user = [MDUser getInstance];
-    [user initDataClear];
-    // 検証用クレジットカード番号
-    // 9191753589464621
-    // 有効期限(12/16)
-    // 名義は任意の文字列
-    [self openWebpageWithUrl:@"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
-                      method:@"POST"
-                   parameter:[NSDictionary dictionaryWithObjectsAndKeys:
-                              @"00044",@"clientip",
-                              [NSString stringWithFormat: @"u%ld", (long)user.user_id],@"sendid",
-                              @"1500",@"money",
-                              user.phoneNumber,@"usrtel",
-                              user.mailAddress,@"usrmail",
-                              [NSString stringWithFormat:@"http://%@/credit/auth_back.html",API_HOST_NAME],@"redirect_url",
-                              nil]];
+    if(!_withCardIO){
+        [self openPaymentView];
+    }else{
+        if([CardIOUtilities canReadCardWithCamera]){
+            [self scanCard:nil];
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
+            [MDUtil makeAlertWithTitle:@"エラー" message:@"お使いの端末ではスキャンを使用できません" done:@"OK" viewController:self];
+        }
+    }
 }
 
 -(void)initNavigationBar {
@@ -69,7 +80,33 @@ navigationType:(UIWebViewNavigationType)navigationType
 }
 
 #pragma PaymentView
+- (IBAction)scanCard:(id)sender {
+    _cardIOView = [[CardIOView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    _cardIOView.delegate = self;
+    [_cardIOView setBackgroundColor:[UIColor blackColor]];
+    
+    [self.view addSubview:_cardIOView];
+}
+-(void)openPaymentView {
+    MDUser *user = [MDUser getInstance];
+    [user initDataClear];
+    // 検証用クレジットカード番号
+    // 9191753589464621
+    // 有効期限(12/16)
+    // 名義は任意の文字列
+    [self openWebpageWithUrl:@"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
+                      method:@"POST"
+                   parameter:[NSDictionary dictionaryWithObjectsAndKeys:
+                              @"00044",@"clientip",
+                              [NSString stringWithFormat: @"u%ld", (long)user.user_id],@"sendid",
+                              @"1500",@"money",
+                              user.phoneNumber,@"usrtel",
+                              user.mailAddress,@"usrmail",
+                              [NSString stringWithFormat:@"http://%@/credit/auth_back.html",API_HOST_NAME],@"redirect_url",
+                              nil]];
+}
 -(void)backButtonPushed {
+    if(_cardIOView)[_cardIOView removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -82,6 +119,28 @@ navigationType:(UIWebViewNavigationType)navigationType
     }
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma CardIODelegate
+- (void)cardIOView:(CardIOView *)cardIOView didScanCard:(CardIOCreditCardInfo *)info {
+    if (info) {
+        // The full card number is available as info.cardNumber, but don't log that!
+         NSLog(@"Received card info. Number: %@, expiry: %02lu/%lu, cvv: %@.", info.cardNumber, (unsigned long)info.expiryMonth, (unsigned long)info.expiryYear, info.cvv);
+        // NSLog(@"%ld",info.cardType);
+        // Use the card info...
+        [MDUtil makeAlertWithTitle:@"カード情報(Debug)"
+                           message:[NSString stringWithFormat:@"Number: %@\n expiry: %02lu/%lu",info.cardNumber,(unsigned long)info.expiryMonth, (unsigned long)info.expiryYear]
+                              done:@"OK"
+                    viewController:self];
+    }
+    else {
+        NSLog(@"User cancelled payment info");
+        [cardIOView removeFromSuperview];
+        return;
+    }
+    
+    [cardIOView removeFromSuperview];
+    [self openPaymentView];
 }
 
 @end

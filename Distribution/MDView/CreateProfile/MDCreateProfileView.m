@@ -39,10 +39,21 @@
         [_creditButton setBackgroundColor:[UIColor whiteColor]];
         _creditButton.buttonTitle.text = @"お支払い方法";
         [_creditButton.buttonTitle sizeToFit];
-        _creditButton.selectLabel.text = @"1234567801234567";
-        [_creditButton.selectLabel sizeToFit];
+        _creditButton.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [_creditButton setUnactive];
+        [_creditButton setTag:paymentSelect];
+        [_creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:_creditButton];
+        
+        _creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _creditAutoCompletionButton.frame = CGRectMake(30, 183, frame.size.width-60, 15);
+        _creditAutoCompletionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [_creditAutoCompletionButton setTitle:@">クレジットカードのスキャン入力" forState:UIControlStateNormal];
+        [_creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [_creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+        [_creditAutoCompletionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
+        [_creditAutoCompletionButton addTarget:self action:@selector(showCardIO) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:_creditAutoCompletionButton];
         
         _passwordInput = [[MDInput alloc]initWithFrame:CGRectMake(10, 215, frame.size.width-20, 50)];
         [_passwordInput setBackgroundColor:[UIColor whiteColor]];
@@ -110,6 +121,17 @@
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if([self.delegate respondsToSelector:@selector(scrollDidMove:)]) {
         [self.delegate scrollDidMove:self];
+    }
+}
+
+-(void)showCreditView {
+    if([self.delegate respondsToSelector:@selector(showCreditView)]){
+        [self.delegate showCreditView];
+    }
+}
+-(void)showCardIO {
+    if([self.delegate respondsToSelector:@selector(showCardIO)]){
+        [self.delegate showCardIO];
     }
 }
 
