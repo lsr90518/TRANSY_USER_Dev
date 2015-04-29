@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MDInput.h"
 #import "MDUser.h"
+#import "MDAPI.h"
 
 @interface MDNameSettingViewController : UIViewController
 

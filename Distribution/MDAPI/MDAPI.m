@@ -113,14 +113,28 @@
     [dic setValue:user.checknumber forKey:@"check_number"];
     [dic setValue:[NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname] forKey:@"name"];
     [dic setValue:user.password forKey:@"password"];
-    [dic setValue:@"0" forKey:@"walk"];
-    [dic setValue:@"0" forKey:@"bike"];
-    [dic setValue:@"0" forKey:@"motorbike"];
-    [dic setValue:@"0" forKey:@"car"];
     [dic setValue:@"ios" forKey:@"client"];
     
     [self callApi:dic
           withUrl:API_USER_NEWPROFILE
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) updateProfileByUser:(MDUser *)user
+               sendPassword:(BOOL) sendPassword
+                 onComplete:(void (^)(MKNetworkOperation *))complete
+                    onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:user.userHash forKey:@"hash"];
+    [dic setValue:[NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname] forKey:@"name"];
+    if(sendPassword)[dic setValue:user.password forKey:@"password"];
+    [dic setValue:@"ios" forKey:@"client"];
+    
+    [self callApi:dic
+          withUrl:API_USER_UPDATEPROFILE
        withImages:@[]
    withHttpMethod:@"POST"
        onComplete:complete

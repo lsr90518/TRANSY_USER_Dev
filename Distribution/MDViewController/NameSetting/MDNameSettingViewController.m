@@ -7,6 +7,7 @@
 //
 
 #import "MDNameSettingViewController.h"
+#import <SVProgressHUD.h>
 
 @interface MDNameSettingViewController ()
 
@@ -60,7 +61,16 @@
 -(void) backButtonPushed{
     [MDUser getInstance].lastname = _lastnameInput.input.text;
     [MDUser getInstance].firstname = _firstnameInput.input.text;
-    [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD show];
+    [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
+                              sendPassword:NO
+                                onComplete:^(MKNetworkOperation *completeOperarion) {
+                                    [SVProgressHUD dismiss];
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                } onError:^(MKNetworkOperation *completeOperarion, NSError *error) {
+                                    NSLog(@"error --------------  %@", error);
+                                    [SVProgressHUD dismiss];
+                                }];
 }
 
 
