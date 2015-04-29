@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MKNetworkKit.h>
+#import "MDUtil.h"
 #import "MDUser.h"
 
 #define API_USER_CREATE       @"users/create"

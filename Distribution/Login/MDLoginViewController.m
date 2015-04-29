@@ -55,8 +55,7 @@
 
 -(void)postData:(MDLoginView *)loginView {
     
-    MDUtil *util = [[MDUtil alloc]init];
-    NSString *phoneNumber = [util internationalPhoneNumber:loginView.phoneInput.input.text];
+    NSString *phoneNumber = [MDUtil internationalPhoneNumber:loginView.phoneInput.input.text];
     NSString *password = loginView.passwordInput.input.text;
     
     [SVProgressHUD show];
@@ -67,7 +66,7 @@
                                     if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                         MDUser *user = [MDUser getInstance];
                                         user.user_id = [[completeOperation responseJSON][@"data"][@"id"] intValue];
-                                        user.phoneNumber = [util japanesePhoneNumber:phoneNumber];
+                                        user.phoneNumber = [MDUtil japanesePhoneNumber:phoneNumber];
                                         user.mailAddress = [completeOperation responseJSON][@"data"][@"mail"];
                                         user.password = password;
                                         user.userHash = [completeOperation responseJSON][@"hash"];

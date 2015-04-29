@@ -57,15 +57,13 @@
 }
 
 -(void) postData:(MDCreateProfileView *)createProfileView {
-    if (![createProfileView.passwordInput.input.text isEqualToString:[NSString stringWithFormat:@"%@",createProfileView.repeatInput.input.text]]) {
-        
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"パスワード"
-                                                        message:@"パスワードをもう一回確認してください。"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:@"OK", nil];
-        alert.delegate = self;
-        [alert show];
+    if([createProfileView.lastnameInput.input.text length] == 0
+       || [createProfileView.givennameInput.input.text length] == 0) {
+        [MDUtil makeAlertWithTitle:@"名前" message:@"名前を入力してください。" done:@"OK" viewController:self];
+    } else if (![createProfileView.passwordInput.input.text isEqualToString:[NSString stringWithFormat:@"%@",createProfileView.repeatInput.input.text]]) {
+        [MDUtil makeAlertWithTitle:@"パスワード" message:@"パスワードをもう一度確認してください。" done:@"OK" viewController:self];
+    } else if([createProfileView.passwordInput.input.text length] < 6) {
+        [MDUtil makeAlertWithTitle:@"パスワード" message:@"パスワードは6文字以上で設定してください。" done:@"OK" viewController:self];
     } else {
         MDUser *user = [MDUser getInstance];
         user.lastname = createProfileView.lastnameInput.input.text;
@@ -75,12 +73,18 @@
         [SVProgressHUD show];
         [[MDAPI sharedAPI] newProfileByUser:user
                                     onComplete:^(MKNetworkOperation *completeOperation) {
-                                        user.userHash = [completeOperation responseJSON][@"hash"];
-                                        MDViewController *viewcontroller = [[MDViewController alloc]init];
-                                        [self presentViewController:viewcontroller animated:YES completion:nil];
+                                        // NSLog(@"%@",[completeOperation responseJSON]);
+                                        [SVProgressHUD dismiss];
+                                        if([[completeOperation responseJSON][@"code"] intValue] == 0){
+                                            user.userHash = [completeOperation responseJSON][@"hash"];
+                                            [user setLogin];
+                                            MDViewController *viewcontroller = [[MDViewController alloc]init];
+                                            [self presentViewController:viewcontroller animated:YES completion:nil];
+                                        }else{
+                                            [MDUtil makeAlertWithTitle:@"エラー" message:@"エラーが発生しました。最初からやり直してください。" done:@"OK" viewController:self];
+                                        }
                                     } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
                                         NSLog(@"error --------------  %@", error);
-                                        
                                     }];
         
 //        [self.navigationController dismissViewControllerAnimated:YES completion:nil];

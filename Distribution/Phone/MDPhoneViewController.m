@@ -26,6 +26,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     _inputView = [[MDInput alloc]initWithFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 50)];
     _inputView.title.text = @"携帯番号";
+    [_inputView.input setKeyboardType:UIKeyboardTypeNumberPad];
     [_inputView.title sizeToFit];
     _inputView.input.placeholder = @"090XXXXXXXX";
     [self.view addSubview:_inputView];
@@ -33,8 +34,7 @@
     //well
     MDWell *well = [[MDWell alloc]initWithFrame:CGRectMake(10, 122, self.view.frame.size.width-20, 82)];
     [self.view addSubview:well];
-    
-    
+
 }
 
 - (void)viewDidLoad {
@@ -69,46 +69,23 @@
 }
 
 -(void) postButtonTouched {
-    if(_inputView.input.text.length > 0){
+    if(_inputView.input.text.length == 0){
+        [MDUtil makeAlertWithTitle:@"未入力" message:@"電話番号を入力してください。" done:@"OK" viewController:self];
+    }else{
         // "-" 判断
         NSRange range = [_inputView.input.text rangeOfString:@"-"];
         if(range.length > 0) {
-            
-            if([[MDDevice getInstance].iosVersion isEqualToString:@"7"]){
-                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
-                                                                message:@"電話番号を入力してください。"
-                                                               delegate:self
-                                                      cancelButtonTitle:nil
-                                                      otherButtonTitles:@"OK", nil];
-                alert.delegate = self;
-                [alert show];
-            }
-            
-            //不正番号
-//        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
-//                                                                       message:@"ハイフン「-」を入力しないでください"
-//                                                                preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-//                                                              handler:^(UIAlertAction * action) {}];
-//        [alert addAction:defaultAction];
-//        [self presentViewController:alert animated:YES completion:nil];
-//    } else if( _inputView.input.text.length != 11) {
-//        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不正番号"
-//                                                                       message:@"11桁の携帯番号を入力してください"
-//                                                                preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-//                                                              handler:^(UIAlertAction * action) {}];
-//        [alert addAction:defaultAction];
-//        [self presentViewController:alert animated:YES completion:nil];
+            [MDUtil makeAlertWithTitle:@"不正な番号" message:@"ハイフン「-」の除いた電話番号を入力してください。" done:@"OK" viewController:self];
+        } else if( _inputView.input.text.length != 11) {
+            [MDUtil makeAlertWithTitle:@"不正な番号" message:@"11桁の携帯番号を入力してください。" done:@"OK" viewController:self];
         } else {
-            
             //有効な電話番号
-            NSString *phoneNumber = [NSString stringWithFormat:@"+81%@",[_inputView.input.text substringFromIndex:1]];
+            NSString *phoneNumber = [MDUtil internationalPhoneNumber:_inputView.input.text];
             
             //test
             if([phoneNumber isEqualToString:@"+819028280392"]){
                 MDUser *user = [MDUser getInstance];
-                user.phoneNumber = phoneNumber;
+                user.phoneNumber = [MDUtil japanesePhoneNumber: phoneNumber];
                 MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
                 [self.navigationController pushViewController:checkNumberController animated:YES];
             } else {
@@ -120,17 +97,11 @@
                                   [SVProgressHUD dismiss];
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                       MDUser *user = [MDUser getInstance];
-                                      user.phoneNumber = phoneNumber;
+                                      user.phoneNumber = [MDUtil japanesePhoneNumber: phoneNumber];;
                                       MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
                                       [self.navigationController pushViewController:checkNumberController animated:YES];
                                   } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                      UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
-                                                                                      message:@"この番号もう登録した。"
-                                                                                     delegate:self
-                                                                            cancelButtonTitle:nil
-                                                                            otherButtonTitles:@"OK", nil];
-                                      alert.delegate = self;
-                                      [alert show];
+                                      [MDUtil makeAlertWithTitle:@"既存の番号" message:@"この電話番号は既に登録されています。" done:@"OK" viewController:self];
                                   }
                                   
                               } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
@@ -143,6 +114,7 @@
 }
 
 -(void)backButtonPushed {
+//    NSLog([NSString stringWithFormat:@"login status: %@",[[MDUser getInstance] loginStatus]]);
     if([[MDUser getInstance] isLogin]){
         [self.navigationController popViewControllerAnimated:YES];
     } else {

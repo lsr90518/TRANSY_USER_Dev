@@ -21,7 +21,7 @@
     return sharedInstance;
 }
 
--(NSString *)internationalPhoneNumber:(NSString *)phoneNumber {
++(NSString *)internationalPhoneNumber:(NSString *)phoneNumber {
     if ( ![[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
         NSString *tmpNumber = [NSString stringWithFormat:@"+81%@",[phoneNumber substringFromIndex:1]];
         phoneNumber = tmpNumber;
@@ -30,7 +30,7 @@
     return phoneNumber;
 }
 
--(NSString *)japanesePhoneNumber:(NSString *)phoneNumber {
++(NSString *)japanesePhoneNumber:(NSString *)phoneNumber {
     if ( [[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
         NSString *tmpNumber = [NSString stringWithFormat:@"0%@",[phoneNumber substringFromIndex:3]];
         phoneNumber = tmpNumber;
@@ -39,7 +39,7 @@
     return phoneNumber;
 }
 
--(NSString *)getAnHourAfterDate:(NSString *)expire{
++(NSString *)getAnHourAfterDate:(NSString *)expire{
     NSDate *now = [NSDate date];
     //4時間後
     NSDate *nHoursAfter = [now dateByAddingTimeInterval:[expire intValue]*60*60];

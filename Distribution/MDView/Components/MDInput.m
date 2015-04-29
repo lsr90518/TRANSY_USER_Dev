@@ -36,9 +36,38 @@
         self.input.delegate = self;
         [self addSubview:self.input];
         
+        //default toolbar
+        [self setKeyboardToolbar];
+        
     }
     
     return self;
+}
+
+-(void) setKeyboardToolbar {
+    // ツールバーの作成
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    toolBar.barStyle = UIBarStyleDefault; // スタイルを設定
+    [toolBar sizeToFit];
+    
+    // フレキシブルスペースの作成（Doneボタンを右端に配置したいため）
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
+    // Doneボタンの作成
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"完了" style:UIBarButtonItemStyleDone target:self action:@selector(closeKeyboard:)];
+    
+    // ボタンをToolbarに設定
+    NSArray *items = [NSArray arrayWithObjects:spacer, done, nil];
+    [toolBar setItems:items animated:YES];
+    
+    // ToolbarをUITextFieldのinputAccessoryViewに設定
+    _input.inputAccessoryView = toolBar;
+}
+-(void)closeKeyboard:(id)sender {
+    [_input resignFirstResponder];
+}
+-(void) disableKeyboardToolbar {
+    _input.inputAccessoryView = nil;
 }
 
 -(void) textFieldDidBeginEditing:(UITextField *)textField{

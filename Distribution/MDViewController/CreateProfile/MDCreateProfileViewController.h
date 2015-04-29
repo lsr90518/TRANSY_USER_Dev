@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDUtil.h"
 #import "MDCreateProfileView.h"
 
 @interface MDCreateProfileViewController : UIViewController<CreateProfileViewDelegate>
