@@ -91,42 +91,18 @@ static CGRect oldframe;
 }
 
 -(void) requestPersonPushed {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"名前をできません"
-                                                    message:@"名前の設定を変更するには設定から変更をお願い致します。"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"OK", nil];
-    alert.delegate = self;
-    [alert show];
+    [MDUtil makeAlertWithTitle:@"変更できません" message:@"名前の設定を変更するには設定から変更をお願い致します。" done:@"OK" viewController:self];
 }
 
 -(void) phoneNumberPushed{
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"変更できません"
-                                                    message:@"電話番号の設定を変更するには設定から変更をお願い致します。"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"OK", nil];
-    alert.delegate = self;
-    [alert show];
+    [MDUtil makeAlertWithTitle:@"変更できません" message:@"電話番号の設定を変更するには設定から変更をお願い致します。" done:@"OK" viewController:self];
 }
 
 -(void) postData {
     if(_packageImage == nil){
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"写真が必要"
-                                                        message:@"写真を撮らないと荷物登録はできません。"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:@"OK", nil];
-        alert.delegate = self;
-        [alert show];
+        [MDUtil makeAlertWithTitle:@"写真が必須です" message:@"荷物の写真を登録してください。" done:@"OK" viewController:self];
     } else if(![_preparePayView isChecked]){
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"利用規約確認"
-                                                        message:@"利用規約とプライバシーポリシーを確認お願い致します。"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:@"OK", nil];
-        alert.delegate = self;
-        [alert show];
+        [MDUtil makeAlertWithTitle:@"利用規約確認" message:@"利用規約とプライバシーポリシーの確認をお願いします。" done:@"OK" viewController:self];
     } else {
         [SVProgressHUD show];
         MDUser *user = [MDUser getInstance];
@@ -138,16 +114,8 @@ static CGRect oldframe;
                               OnComplete:^(MKNetworkOperation *completeOperation){
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                       [self dismissViewControllerAnimated:YES completion:nil];
-                                      
-                                      
                                   }else{
-                                      UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"エラー"
-                                                                                      message:@"支払い方法を登録されていません。"
-                                                                                     delegate:self
-                                                                            cancelButtonTitle:nil
-                                                                            otherButtonTitles:@"OK", nil];
-                                      alert.delegate = self;
-                                      [alert show];
+                                      [MDUtil makeAlertWithTitle:@"エラー" message:@"支払い方法が登録されていません。" done:@"OK" viewController:self];
                                       
                                   }
                                   [SVProgressHUD dismiss];

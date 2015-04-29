@@ -65,13 +65,7 @@
     NSString *result = [_deliveryView checkInput];
     if (![result isEqualToString:@""]) {
         //警告
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"入力未完成"
-                                                        message:[NSString stringWithFormat:@"%@を入力してください",result]
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:@"OK", nil];
-        alert.delegate = self;
-        [alert show];
+        [MDUtil makeAlertWithTitle:@"入力未完成" message:[NSString stringWithFormat:@"%@を入力してください",result] done:@"OK" viewController:self];
     } else {
         //ok
         [SVProgressHUD show];
@@ -90,14 +84,8 @@
                                                [self presentViewController:prepareNavigationController animated:YES completion:nil];
                                                
                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
-//                                               //警告
-                                               UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"荷物登録失敗"
-                                                                                               message:@"改めてログインしてください。"
-                                                                                              delegate:self
-                                                                                     cancelButtonTitle:nil
-                                                                                     otherButtonTitles:@"OK", nil];
-                                               alert.delegate = self;
-                                               [alert show];
+//                                              //警告
+                                               [MDUtil makeAlertWithTitle:@"荷物登録失敗" message:@"改めてログインしてください。" done:@"OK" viewController:self];
                                            }
                                        
                                        } onError:^(MKNetworkOperation *completeOperarion, NSError *error){

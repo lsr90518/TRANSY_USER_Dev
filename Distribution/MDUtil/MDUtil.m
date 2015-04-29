@@ -60,4 +60,28 @@
     }
 }
 
++(float)getOSVersion {
+    return [[[UIDevice currentDevice] systemVersion] floatValue];
+}
+
++(void)makeAlertWithTitle:(NSString *)title message:(NSString *)message done:(NSString *)done viewController:(UIViewController *)viewController{
+    if([self getOSVersion] < 8.0){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:viewController
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:done, nil];
+        [alertView show];
+    }else{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:done style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            // ボタンが押された時の処理
+            if([viewController respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]){
+                [(UIViewController <UIAlertViewDelegate> *)viewController alertView:nil clickedButtonAtIndex:0];
+            }
+        }]];
+        [viewController presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
 @end

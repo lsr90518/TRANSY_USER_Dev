@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface MDUtil : NSObject
 
@@ -23,6 +24,10 @@ typedef NS_ENUM (NSUInteger, viewTagNames) {
 
 +(NSString *)getPaymentSelectLabel;
 
--(BOOL) isIos7;
++(float) getOSVersion;
+
+// 1ボタンアラートの生成
+// 指定のviewControllerをUIAlertViewのdelegateとして扱う(iOS8以上でも同じ動作にしてある)
++(void) makeAlertWithTitle: (NSString *)title message: (NSString *)message done:(NSString *)done viewController:(UIViewController *)viewController;
 
 @end

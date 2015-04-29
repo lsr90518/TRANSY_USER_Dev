@@ -23,7 +23,7 @@
 #import "MDExpireViewController.h"
 #import "MDDeliveryLimitViewController.h"
 
-@interface MDDeliveryViewController : UIViewController <DeliveryViewDelegate>
+@interface MDDeliveryViewController : UIViewController <DeliveryViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) MDDeliveryView *deliveryView;
 
