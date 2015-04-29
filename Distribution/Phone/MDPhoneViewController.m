@@ -82,33 +82,26 @@
             //有効な電話番号
             NSString *phoneNumber = [MDUtil internationalPhoneNumber:_inputView.input.text];
             
-            //test
-            if([phoneNumber isEqualToString:@"+819028280392"]){
-                MDUser *user = [MDUser getInstance];
-                user.phoneNumber = [MDUtil japanesePhoneNumber: phoneNumber];
-                MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
-                [self.navigationController pushViewController:checkNumberController animated:YES];
-            } else {
-            
-                [SVProgressHUD show];
-                [[MDAPI sharedAPI] createUserWithPhone:phoneNumber
-                              onComplete:^(MKNetworkOperation *completeOperation) {
-                                  NSLog(@"%ld",(long)[[completeOperation responseJSON][@"code"] integerValue]);
-                                  [SVProgressHUD dismiss];
-                                  if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                      MDUser *user = [MDUser getInstance];
-                                      user.phoneNumber = [MDUtil japanesePhoneNumber: phoneNumber];;
-                                      MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
-                                      [self.navigationController pushViewController:checkNumberController animated:YES];
-                                  } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                      [MDUtil makeAlertWithTitle:@"既存の番号" message:@"この電話番号は既に登録されています。" done:@"OK" viewController:self];
-                                  }
-                                  
-                              } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
-                                     NSLog(@"error --------------  %@", error);
-                                     [SVProgressHUD dismiss];
-                                 }];
-            }
+            [SVProgressHUD show];
+            [[MDAPI sharedAPI] createUserWithPhone:phoneNumber
+                          onComplete:^(MKNetworkOperation *completeOperation) {
+                              // NSLog(@"%ld",(long)[[completeOperation responseJSON][@"code"] integerValue]);
+                              [SVProgressHUD dismiss];
+                              if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                  MDUser *user = [MDUser getInstance];
+                                  // NSLog(@"user_id: %d", [[completeOperation responseJSON][@"user_id"] intValue]);
+                                  user.user_id = [[completeOperation responseJSON][@"user_id"] intValue];
+                                  user.phoneNumber = [MDUtil japanesePhoneNumber: phoneNumber];
+                                  MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
+                                  [self.navigationController pushViewController:checkNumberController animated:YES];
+                              } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
+                                  [MDUtil makeAlertWithTitle:@"既存の番号" message:@"この電話番号は既に登録されています。" done:@"OK" viewController:self];
+                              }
+                              
+                          } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+                                 NSLog(@"error --------------  %@", error);
+                                 [SVProgressHUD dismiss];
+                             }];
         }
     }
 }
