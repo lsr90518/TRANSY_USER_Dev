@@ -43,6 +43,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        
         [_scrollView setShowsVerticalScrollIndicator:NO];
         [_scrollView setShowsHorizontalScrollIndicator:NO];
         _scrollView.delegate = self;
@@ -109,9 +111,9 @@
         //list
         sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 210, frame.size.width-20, 50)];
         sizePicker.buttonTitle.text = @"サイズ";
-        sizePicker.selectLabel.text = @"120";
+        sizePicker.selectLabel.text = @"合計120以内";
         sizePicker.delegate = self;
-        sizePicker.options = [[NSArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160",@"180",@"200",@"220",@"240",@"260",@"相談", nil];
+        sizePicker.options = [[NSArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160",@"180",@"200",@"220",@"240",@"260", nil];
         [sizePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:sizePicker];
         
@@ -127,7 +129,7 @@
         beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 270, frame.size.width-20, 50)];
         beCarefulPicker.buttonTitle.text = @"取扱説明書";
         beCarefulPicker.selectLabel.text = @"特になし";
-        [beCarefulPicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [beCarefulPicker addTarget:self action:@selector(changeViewButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:beCarefulPicker];
         
         //list
@@ -135,7 +137,7 @@
         costPicker.title.text = @"依頼金額";
         [costPicker.title sizeToFit];
         costPicker.input.text = @"1400";
-        costPicker.delegate = self;
+        costPicker.input.delegate = self;
         [costPicker.input setKeyboardType:UIKeyboardTypeNumberPad];
         [_scrollView addSubview:costPicker];
         
@@ -160,7 +162,7 @@
         
         //list
         requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, 510, frame.size.width-20, 50)];
-        requestTerm.buttonTitle.text = @"依頼期限";
+        requestTerm.buttonTitle.text = @"掲載期限";
         requestTerm.delegate = self;
         requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
         [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
@@ -201,6 +203,10 @@
         
         [self addSubview:_pickerView];
         
+        //test picker
+        _MDPicker = [[MDPicker alloc]initWithFrame:frame];
+        [self addSubview:_MDPicker];
+        
     }
     return self;
 }
@@ -239,7 +245,7 @@
     //取扱説明書
     beCarefulPicker.selectLabel.text = ([MDCurrentPackage getInstance].note == nil) ? @"特になし" : [MDCurrentPackage getInstance].note;
     //price
-    costPicker.input.text = [NSString stringWithFormat:@"%@",[MDCurrentPackage getInstance].request_amount];
+    costPicker.input.text = [NSString stringWithFormat:@"¥%@",[MDCurrentPackage getInstance].request_amount];
     //at home time;
     NSArray *dateStr = [[MDCurrentPackage getInstance].at_home_time[0][0] componentsSeparatedByString:@"-"];
     cusTodyTimePicker.selectLabel.text = [NSString stringWithFormat:@"%d月%d日 %@時~%@時", [dateStr[1] intValue], [dateStr[2] intValue], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
@@ -268,6 +274,12 @@
 -(void) postButtonTouched {
     if([self.delegate respondsToSelector:@selector(postButtonTouched)]) {
         [self.delegate postButtonTouched];
+    }
+}
+
+-(void) changeViewButtonTouched:(MDSelect *)select {
+    if([self.delegate respondsToSelector:@selector(selectButtonTouched:)]){
+        [self.delegate selectButtonTouched:select];
     }
 }
 
@@ -482,6 +494,7 @@
 
 #pragma MDInput delegate
 -(void) inputPushed:(MDInput *)input{
+    NSLog(@"%@",input);
     int offset = input.frame.origin.y + input.frame.size.height + 10 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
     [_scrollView setContentOffset:point animated:YES];
@@ -623,6 +636,7 @@ numberOfRowsInComponent:(NSInteger)component
                 [MDCurrentPackage getInstance].at_home_time[0][2] = [tmpArray[1] substringFromIndex:1]; //時間 まで
             }
         }
+        NSLog(@"%@", [MDCurrentPackage getInstance].at_home_time);
         cusTodyTimePicker.selectLabel.text = [self getReciveTimeStr];
     }
     
@@ -644,5 +658,34 @@ numberOfRowsInComponent:(NSInteger)component
         return self.frame.size.width/2;
     }
 }
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(![textField.text hasPrefix:@"¥"]){
+        textField.text = [NSString stringWithFormat:@"¥%@", textField.text];
+    }
+    return YES;
+}
+
+-(void) textFieldDidEndEditing:(UITextField *)textField{
+    if([textField.text hasPrefix:@"¥"]){
+        if([[textField.text substringFromIndex:1] intValue] < 100){
+            if([self.delegate respondsToSelector:@selector(amountNotEnough)]){
+                textField.text = @"¥100";
+                [self.delegate amountNotEnough];
+            }
+        }
+        [MDCurrentPackage getInstance].request_amount = [textField.text substringFromIndex:1];
+    } else {
+        [MDCurrentPackage getInstance].request_amount = textField.text;
+    }
+}
+
+-(void) textFieldDidBeginEditing:(UITextField *)textField{
+    int offset = textField.frame.origin.y + 10;//键盘高度216
+    CGPoint point = CGPointMake(0, offset);
+    [_scrollView setContentOffset:point animated:YES];
+}
+
+
 
 @end

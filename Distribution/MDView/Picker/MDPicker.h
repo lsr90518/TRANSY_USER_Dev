@@ -8,10 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MDPicker : UIView
+@protocol MDPickerDelegate;
+
+@interface MDPicker : UIView<UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) UIPickerView  *pickerView;
 @property (strong, nonatomic) UIButton      *doneButton;
 @property (strong, nonatomic) UIButton      *cancelButton;
+
+@property (strong, nonatomic) id<MDPickerDelegate> delegate;
+
+-(void) setOptions:(NSMutableArray *)dataArray:(int)col;
+
+@end
+
+@protocol MDPickerDelegate <NSObject>
+
+@optional
+-(NSString *)didSelectedRow;
 
 @end

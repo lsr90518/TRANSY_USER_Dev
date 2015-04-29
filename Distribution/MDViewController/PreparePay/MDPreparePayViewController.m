@@ -47,6 +47,8 @@ static CGRect oldframe;
     //add right button item
     [self initNavigationBar];
     
+    [MDCurrentPackage getInstance].status = @"1";
+    
 }
 
 -(void)initNavigationBar {
@@ -137,8 +139,10 @@ static CGRect oldframe;
                                    image:_packageImage
                               OnComplete:^(MKNetworkOperation *completeOperation){
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                      [self dismissViewControllerAnimated:YES completion:nil];
-                                      
+                                      [MDCurrentPackage getInstance].status = @"2";
+//                                      [self dismissViewControllerAnimated:YES completion:nil];
+                                      MDRequestViewController *rvc = [[MDRequestViewController alloc]init];
+                                      [self.navigationController pushViewController:rvc animated:YES];
                                       
                                   }else{
                                       UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"エラー"
@@ -272,7 +276,6 @@ static CGRect oldframe;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
-    //设置选择后的图片可被编辑
     picker.allowsEditing = YES;
     [self presentViewController:picker animated:YES completion:nil];
 }
@@ -299,8 +302,8 @@ static CGRect oldframe;
         
         
         CGSize imagesize = image.size;
-        imagesize.height = imagesize.height/5;
-        imagesize.width = imagesize.width/5;
+        imagesize.height = imagesize.height/3;
+        imagesize.width = imagesize.width/3;
         image = [self imageWithImage:image scaledToSize:imagesize];
         
         imagesize = image.size;

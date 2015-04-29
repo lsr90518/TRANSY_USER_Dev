@@ -11,10 +11,11 @@
 #import "MDCurrentPackage.h"
 #import "MDDeliveryKindButton.h"
 #import "MDInput.h"
+#import "MDPicker.h"
 
 @protocol DeliveryViewDelegate;
 
-@interface MDDeliveryView : UIView <UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDInputDelegate,MDSelectDelegate,UIPickerViewDelegate, UIPickerViewDataSource>
+@interface MDDeliveryView : UIView <UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDInputDelegate,MDSelectDelegate,UIPickerViewDelegate, UIPickerViewDataSource,UITextFieldDelegate>
 
 @property (strong, nonatomic) UIButton      *postButton;
 @property (strong, nonatomic) UIScrollView  *scrollView;
@@ -24,6 +25,7 @@
 @property (nonatomic, assign) id<DeliveryViewDelegate> delegate;
 @property (strong, nonatomic) UIView        *tabbar;
 @property (strong, nonatomic) UIPickerView  *pickerView;
+@property (strong, nonatomic) MDPicker      *MDPicker;
 
 
 -(void) postButtonTouched;
@@ -41,5 +43,6 @@
 -(void) gotoDestinationAddressView;
 -(void) gotoRequestView;
 -(void) gotoSettingView;
+-(void) amountNotEnough;
 
 @end

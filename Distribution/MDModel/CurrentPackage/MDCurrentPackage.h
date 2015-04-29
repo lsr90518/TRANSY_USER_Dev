@@ -13,10 +13,12 @@
 @property (strong, nonatomic) NSString *package_id;
 @property (strong, nonatomic) NSString *user_d;
 @property (strong, nonatomic) NSString *from_addr;
+@property (strong, nonatomic) NSString *from_pref;
 @property (strong, nonatomic) NSString *from_lat;
 @property (strong, nonatomic) NSString *from_lng;
 @property (strong, nonatomic) NSString *from_zip;
 @property (strong, nonatomic) NSString *to_addr;
+@property (strong, nonatomic) NSString *to_pref;
 @property (strong, nonatomic) NSString *to_lat;
 @property (strong, nonatomic) NSString *to_lng;
 @property (strong, nonatomic) NSString *to_zip;
@@ -27,7 +29,7 @@
 @property (strong, nonatomic) NSString *note;
 @property (strong, nonatomic) NSMutableArray *at_home_time; //預かり時刻
 @property (strong, nonatomic) NSString *image;
-@property (strong, nonatomic) NSString *status;
+@property (strong, nonatomic) NSString *status;             //0:初期, 1:編集中, 2:発送した
 @property (strong, nonatomic) NSString *driver_id;
 @property (strong, nonatomic) NSString *package_number;
 @property (strong, nonatomic) NSString *review;

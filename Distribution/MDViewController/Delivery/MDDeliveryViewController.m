@@ -26,7 +26,8 @@
     [self initNavigationBar];
     
     [self.view addSubview:_deliveryView];
-    MDCurrentPackage *currentPackage = [[MDCurrentPackage alloc]init];
+    
+    [MDCurrentPackage getInstance].status = @"0";
 }
 
 - (void)viewDidLoad {
@@ -37,6 +38,15 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     [_deliveryView initViewData:[MDCurrentPackage getInstance]];
+    
+}
+
+-(void) viewDidAppear:(BOOL)animated{
+//    [self gotoRequestView];
+//    if([[MDCurrentPackage getInstance].status isEqualToString:@"2"]){
+//        [MDCurrentPackage getInstance].status = @"0";
+//        [self gotoRequestView];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,7 +71,7 @@
 -(void) postRequest {
     // 接下来做/packages/user/register
     //package_number
-    
+    MDCurrentPackage *package = [MDCurrentPackage getInstance];
     NSString *result = [_deliveryView checkInput];
     if (![result isEqualToString:@""]) {
         //警告
@@ -76,13 +86,15 @@
         //ok
         [SVProgressHUD show];
         [[MDAPI sharedAPI] registerBaggageWithHash:[MDUser getInstance].userHash
-                                       OnComplete:^(MKNetworkOperation *completeOperation) {
+                                        OnComplete:^(MKNetworkOperation *completeOperation) {
+                                            NSLog(@"%@", [completeOperation responseJSON]);
                                            [SVProgressHUD dismiss];
                                            
                                            if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                               NSLog(@"%@", [completeOperation responseJSON]);
                                                [MDCurrentPackage getInstance].package_id        =   [completeOperation responseJSON][@"package_id"];
                                                [MDCurrentPackage getInstance].package_number    =   [completeOperation responseJSON][@"package_number"];
-                                               NSLog(@"%@", [MDCurrentPackage getInstance].package_number);
+//                                               NSLog(@"%@", [MDCurrentPackage getInstance].package_number);
                                         
                                                MDPreparePayViewController * preparePayViewController = [[MDPreparePayViewController alloc]init];
                                                
@@ -159,6 +171,16 @@
     MDSettingViewController *rvc = [[MDSettingViewController alloc]init];
     UINavigationController *rNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
     [self presentViewController:rNavigationController animated:NO completion:nil];
+}
+
+-(void) amountNotEnough{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"金額不足"
+                                                    message:@"金額が100円以上に設定してください。"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK", nil];
+    alert.delegate = self;
+    [alert show];
 }
 
 @end

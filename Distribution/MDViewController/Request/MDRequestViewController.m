@@ -20,10 +20,10 @@
 -(void)loadView{
     [super loadView];
     
-    self.navigationItem.title = @"依頼一覧";
     _requestView = [[MDRequestView alloc]initWithFrame:self.view.frame];
     _requestView.delegate = self;
     [self.view addSubview:_requestView];
+    [self initNavigationBar];
 }
 
 - (void)viewDidLoad {
@@ -47,6 +47,11 @@
                                         NSLog(@"error ------------------------ %@", error);
                                         [SVProgressHUD dismiss];
                                     }];
+}
+
+-(void) initNavigationBar {
+    self.navigationItem.title = @"依頼一覧";
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)didReceiveMemoryWarning {

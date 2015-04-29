@@ -56,21 +56,33 @@
     [_backButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = leftButton;
+    
+    //right button
+    UIButton *_postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_postButton setTitle:@"次へ" forState:UIControlStateNormal];
+    _postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
+    _postButton.frame = CGRectMake(0, 0, 25, 44);
+    [_postButton addTarget:self action:@selector(postButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:_postButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
 
--(void) backButtonTouched {
-
-    [MDCurrentPackage getInstance].to_zip = destinationAddressView.zipField.input.text;
+-(void) postButtonTouched {
+    if([destinationAddressView.zipField.input.text hasPrefix:@"〒"]){
+        [MDCurrentPackage getInstance].from_zip = [destinationAddressView.zipField.input.text substringFromIndex:1];
+    } else {
+        [MDCurrentPackage getInstance].from_zip = destinationAddressView.zipField.input.text;
+    }
     [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", destinationAddressView.metropolitanField.input.text,
                                                 destinationAddressView.cityField.input.text,
                                                 destinationAddressView.townField.input.text,
                                                 destinationAddressView.houseField.input.text,
                                                 destinationAddressView.buildingNameField.input.text];
+    [MDCurrentPackage getInstance].to_pref = destinationAddressView.metropolitanField.input.text;
 
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [SVProgressHUD show];
     [geocoder geocodeAddressString:[MDCurrentPackage getInstance].to_addr completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark* aPlacemark in placemarks)
         {
@@ -80,12 +92,14 @@
             
             [MDCurrentPackage getInstance].to_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
             [MDCurrentPackage getInstance].to_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
-            NSLog(@"%@ %@",[MDCurrentPackage getInstance].from_lat , [MDCurrentPackage getInstance].from_lng);
             
         }
-        [SVProgressHUD dismiss];
         [self.navigationController popViewControllerAnimated:YES];
     }];
+}
+
+-(void) backButtonTouched {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

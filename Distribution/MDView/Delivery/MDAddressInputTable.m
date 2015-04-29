@@ -21,10 +21,11 @@
         
         //郵便番号
         _zipField = [[MDButtonInput alloc]initWithFrame:CGRectMake(10, 10, frame.size.width-20, 50)];
-        _zipField.input.placeholder = @"例) 1540002";
+        _zipField.input.placeholder = @"例) 〒1540002";
         _zipField.title.text = @"郵便番号";
         [_zipField.input setKeyboardType:UIKeyboardTypeNumberPad];
         [_zipField.title sizeToFit];
+        _zipField.input.delegate = self;
         [_zipField.button addTarget:self action:@selector(autoInputAddress) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:_zipField];
         
@@ -111,6 +112,16 @@
             [tmpView.input resignFirstResponder];
         }
     }
+}
+
+-(BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(![textField.text hasPrefix:@"〒"]){
+        textField.text = [NSString stringWithFormat:@"〒%@", textField.text];
+    }
+    if(textField.text.length > 8){
+        textField.text = [textField.text substringToIndex:8];
+    }
+    return YES;
 }
 
 @end

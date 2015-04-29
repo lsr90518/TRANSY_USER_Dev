@@ -150,19 +150,21 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:hash         forKey:@"hash"];
     [dic setObject:USER_DEVICE  forKey:@"client"];
-    [dic setObject:[MDCurrentPackage getInstance].requestType       forKey:@"type"];
     [dic setObject:[MDCurrentPackage getInstance].from_addr         forKey:@"from_addr"];
     [dic setObject:[MDCurrentPackage getInstance].from_zip          forKey:@"from_zip"];
     [dic setObject:[MDCurrentPackage getInstance].from_lat          forKey:@"from_lat"];
     [dic setObject:[MDCurrentPackage getInstance].from_lng          forKey:@"from_lng"];
+    [dic setObject:[MDCurrentPackage getInstance].from_pref         forKey:@"from_pref"];
     [dic setObject:[MDCurrentPackage getInstance].to_zip            forKey:@"to_zip"];
     [dic setObject:[MDCurrentPackage getInstance].to_addr           forKey:@"to_addr"];
     [dic setObject:[MDCurrentPackage getInstance].to_lat            forKey:@"to_lat"];
     [dic setObject:[MDCurrentPackage getInstance].to_lng            forKey:@"to_lng"];
+    [dic setObject:[MDCurrentPackage getInstance].to_pref           forKey:@"to_pref"];
     [dic setObject:[MDCurrentPackage getInstance].request_amount    forKey:@"request_amount"];
     [dic setObject:[MDCurrentPackage getInstance].note              forKey:@"note"];
     [dic setObject:[MDCurrentPackage getInstance].size              forKey:@"size"];
-    [dic setValue:[MDCurrentPackage getInstance].at_home_time       forKey:@"at_home_time"];
+    [dic setObject:[MDCurrentPackage getInstance].requestType       forKey:@"type"];
+    [dic setObject:[MDCurrentPackage getInstance].at_home_time       forKey:@"at_home_time"];
     [dic setObject:[MDCurrentPackage getInstance].deliver_limit     forKey:@"deliver_limit"];
     [dic setObject:[MDCurrentPackage getInstance].expire            forKey:@"expire"];
     
