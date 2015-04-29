@@ -132,6 +132,10 @@ static CGRect oldframe;
     MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] init];
     [self.navigationController pushViewController:paymentViewController animated:YES];
 }
+-(void) showCardIO {
+    MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] initWithCardIO];
+    [self.navigationController pushViewController:paymentViewController animated:YES];
+}
 - (void)navigationController:(UINavigationController *)navigationController
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{

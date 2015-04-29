@@ -19,6 +19,7 @@
 @property (strong, nonatomic) MDInput       *lastnameInput;
 @property (strong, nonatomic) MDInput       *givennameInput;
 @property (strong, nonatomic) MDSelect      *creditButton;
+@property (strong, nonatomic) UIButton      *creditAutoCompletionButton;
 @property (strong, nonatomic) MDInput       *passwordInput;
 @property (strong, nonatomic) MDInput       *repeatInput;
 
@@ -34,4 +35,5 @@
 -(void) postData:(MDCreateProfileView *)createProfileView;
 -(void) scrollDidMove:(MDCreateProfileView *)createProfileView;
 -(void) showCreditView;
+-(void) showCardIO;
 @end

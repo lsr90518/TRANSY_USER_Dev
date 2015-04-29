@@ -31,11 +31,11 @@
 -(void) nameButtonPushed;
 -(void) phoneNumberPushed;
 -(void) paymentButtonPushed;
+-(void) showCardIO;
 -(void) blockDriverPushed;
 -(void) aqButtonPushed;
 -(void) privacyButtonPushed;
 -(void) agreementButtonPushed;
 -(void) gotoRequestView;
 -(void) gotoDeliveryView;
-
 @end

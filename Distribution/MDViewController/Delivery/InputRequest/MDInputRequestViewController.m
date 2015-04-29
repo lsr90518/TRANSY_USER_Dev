@@ -62,11 +62,12 @@
 
 -(void) backButtonTouched {
     [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.input.text;
-    [MDCurrentPackage getInstance].from_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", requestAddressView.metropolitanField.input.text,
-                                                                                          requestAddressView.cityField.input.text,
-                                                                                          requestAddressView.townField.input.text,
-                                                                                          requestAddressView.houseField.input.text,
-                                                requestAddressView.buildingNameField.input.text];
+    [MDCurrentPackage getInstance].from_pref = [NSString stringWithFormat:@"%@", requestAddressView.metropolitanField.input.text];
+    [MDCurrentPackage getInstance].from_addr = [NSString stringWithFormat:@"%@ %@ %@ %@",
+                                                    requestAddressView.cityField.input.text,
+                                                    requestAddressView.townField.input.text,
+                                                    requestAddressView.houseField.input.text,
+                                                    requestAddressView.buildingNameField.input.text];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [SVProgressHUD show];

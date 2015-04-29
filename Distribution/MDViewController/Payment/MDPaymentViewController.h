@@ -7,7 +7,13 @@
 //
 
 #import "MDWebViewController.h"
+#import "CardIO.h"
 
-@interface MDPaymentViewController : MDWebViewController <UIWebViewDelegate>
+@interface MDPaymentViewController : MDWebViewController <UIWebViewDelegate, CardIOViewDelegate>
 
+@property (nonatomic) BOOL withCardIO;
+@property (strong,nonatomic) CardIOView *cardIOView;
+
+-(MDPaymentViewController *) initWithCardIO;
+-(void)openPaymentView;
 @end

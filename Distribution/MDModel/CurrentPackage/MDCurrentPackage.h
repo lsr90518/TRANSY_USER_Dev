@@ -12,10 +12,12 @@
 
 @property (strong, nonatomic) NSString *package_id;
 @property (strong, nonatomic) NSString *user_d;
+@property (strong, nonatomic) NSString *from_pref;
 @property (strong, nonatomic) NSString *from_addr;
 @property (strong, nonatomic) NSString *from_lat;
 @property (strong, nonatomic) NSString *from_lng;
 @property (strong, nonatomic) NSString *from_zip;
+@property (strong, nonatomic) NSString *to_pref;
 @property (strong, nonatomic) NSString *to_addr;
 @property (strong, nonatomic) NSString *to_lat;
 @property (strong, nonatomic) NSString *to_lng;

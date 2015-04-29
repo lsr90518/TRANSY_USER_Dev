@@ -62,7 +62,8 @@
 -(void) backButtonTouched {
 
     [MDCurrentPackage getInstance].to_zip = destinationAddressView.zipField.input.text;
-    [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", destinationAddressView.metropolitanField.input.text,
+    [MDCurrentPackage getInstance].to_pref = [NSString stringWithFormat:@"%@",destinationAddressView.metropolitanField.input.text];
+    [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@" ,
                                                 destinationAddressView.cityField.input.text,
                                                 destinationAddressView.townField.input.text,
                                                 destinationAddressView.houseField.input.text,
