@@ -10,6 +10,7 @@
 #import "MDUser.h"
 #import "MDViewController.h"
 #import "MDAPI.h"
+#import "MDPaymentViewController.h"
 #import <SVProgressHUD.h>
 
 @interface MDCreateProfileViewController ()
@@ -21,10 +22,11 @@
 -(void) loadView {
     [super loadView];
     
+    self.navigationController.delegate = self;
+    
     _createProfileView = [[MDCreateProfileView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:_createProfileView];
     _createProfileView.delegate = self;
-    [_createProfileView.creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
     
     [self initNavigationBar];
 }
@@ -86,8 +88,6 @@
                                     } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
                                         NSLog(@"error --------------  %@", error);
                                     }];
-        
-//        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
@@ -100,7 +100,18 @@
 }
 
 -(void) showCreditView {
-    NSLog(@"credit view");
+    MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] init];
+    [self.navigationController pushViewController:paymentViewController animated:YES];
+}
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated{
+    // NSLog(@"navigationController delegate called!");
+    MDSelect *pay = (MDSelect *)[_createProfileView.scrollView viewWithTag:paymentSelect];
+    if(pay){
+        // NSLog(@"pay changed!");
+        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+    }
 }
 
 @end

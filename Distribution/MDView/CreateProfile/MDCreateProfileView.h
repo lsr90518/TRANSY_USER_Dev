@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDUtil.h"
 #import "MDInput.h"
 #import "MDSelect.h"
 
@@ -32,5 +33,5 @@
 @optional
 -(void) postData:(MDCreateProfileView *)createProfileView;
 -(void) scrollDidMove:(MDCreateProfileView *)createProfileView;
-
+-(void) showCreditView;
 @end

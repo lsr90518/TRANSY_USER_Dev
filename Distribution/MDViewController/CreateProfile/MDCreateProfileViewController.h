@@ -10,7 +10,7 @@
 #import "MDUtil.h"
 #import "MDCreateProfileView.h"
 
-@interface MDCreateProfileViewController : UIViewController<CreateProfileViewDelegate>
+@interface MDCreateProfileViewController : UIViewController<CreateProfileViewDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) MDCreateProfileView *createProfileView;
 

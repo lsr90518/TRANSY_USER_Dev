@@ -39,9 +39,10 @@
         [_creditButton setBackgroundColor:[UIColor whiteColor]];
         _creditButton.buttonTitle.text = @"お支払い方法";
         [_creditButton.buttonTitle sizeToFit];
-        _creditButton.selectLabel.text = @"1234567801234567";
-        [_creditButton.selectLabel sizeToFit];
+        _creditButton.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [_creditButton setUnactive];
+        [_creditButton setTag:paymentSelect];
+        [_creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:_creditButton];
         
         _passwordInput = [[MDInput alloc]initWithFrame:CGRectMake(10, 215, frame.size.width-20, 50)];
@@ -110,6 +111,12 @@
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if([self.delegate respondsToSelector:@selector(scrollDidMove:)]) {
         [self.delegate scrollDidMove:self];
+    }
+}
+
+-(void)showCreditView {
+    if([self.delegate respondsToSelector:@selector(showCreditView)]){
+        [self.delegate showCreditView];
     }
 }
 
