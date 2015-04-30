@@ -204,8 +204,8 @@
         [self addSubview:_pickerView];
         
         //test picker
-        _MDPicker = [[MDPicker alloc]initWithFrame:frame];
-        [self addSubview:_MDPicker];
+//        _MDPicker = [[MDPicker alloc]initWithFrame:frame];
+//        [self addSubview:_MDPicker];
         
     }
     return self;
