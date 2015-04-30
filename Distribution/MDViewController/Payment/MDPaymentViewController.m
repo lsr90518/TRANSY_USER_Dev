@@ -89,7 +89,9 @@ navigationType:(UIWebViewNavigationType)navigationType
 
 #pragma PaymentView
 - (IBAction)scanCard:(id)sender {
-    _cardIOView = [[CardIOView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    CGRect rect = self.view.frame;
+    rect.size.height -= (self.navigationController.navigationBar.bounds.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height);
+    _cardIOView = [[CardIOView alloc] initWithFrame:rect];
     _cardIOView.delegate = self;
     [_cardIOView setBackgroundColor:[UIColor blackColor]];
     
@@ -102,8 +104,8 @@ navigationType:(UIWebViewNavigationType)navigationType
     // 9191753589464621
     // 有効期限(12/16)
     // 名義は任意の文字列
-    // @"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
-    [self openWebpageWithUrl:@"https://modelor.com/TRANSY/credit_test"
+    // for debug page: @"https://modelor.com/TRANSY/credit_test"
+    [self openWebpageWithUrl:@"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
                       method:@"POST"
                    parameter:[NSDictionary dictionaryWithObjectsAndKeys:
                               @"00044",@"clientip",
@@ -146,6 +148,7 @@ navigationType:(UIWebViewNavigationType)navigationType
     else {
         NSLog(@"User cancelled payment info");
         [cardIOView removeFromSuperview];
+        [self.navigationController popViewControllerAnimated:YES];
         return;
     }
     

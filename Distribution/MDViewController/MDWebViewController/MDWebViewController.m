@@ -15,10 +15,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])self.edgesForExtendedLayout = UIRectEdgeNone;
     
     // UIWebViewのインスタンス化
     CGRect rect = self.view.frame;
-    _webView = [[UIWebView alloc]initWithFrame:rect];
+    rect.size.height -= (self.navigationController.navigationBar.bounds.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height);
+    _webView = [[UIWebView alloc]initWithFrame: rect];
     
     // Webページの大きさを自動的に画面にフィットさせる
     _webView.scalesPageToFit = YES;
