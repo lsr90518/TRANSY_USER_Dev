@@ -166,7 +166,6 @@
         sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 510, frame.size.width-20, 50)];
         sizePicker.buttonTitle.text = @"サイズ";
         sizePicker.selectLabel.text = @"120";
-        sizePicker.options = [[NSArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160", nil];
 //        [sizePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:sizePicker];
         
@@ -183,7 +182,7 @@
         //list
         costPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 630, frame.size.width-20, 50)];
         costPicker.buttonTitle.text = @"依頼金額";
-        costPicker.selectLabel.text = @"1400円";
+        costPicker.selectLabel.text = @"1400";
 //        [costPicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [costPicker setReadOnly];
         [_scrollView addSubview:costPicker];
@@ -192,7 +191,6 @@
         cusTodyTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 690, frame.size.width-20, 50)];
         cusTodyTimePicker.buttonTitle.text = @"預かり時刻";
         cusTodyTimePicker.selectLabel.text = @"いつでも";
-        [cusTodyTimePicker setUnactive];
 //        [cusTodyTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [cusTodyTimePicker setReadOnly];
         [_scrollView addSubview:cusTodyTimePicker];
@@ -200,7 +198,6 @@
         //list
         destinateTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 750, frame.size.width-20, 50)];
         destinateTimePicker.buttonTitle.text = @"お届け期限";
-        [destinateTimePicker setUnactive];
 //        [destinateTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [destinateTimePicker setReadOnly];
         [_scrollView addSubview:destinateTimePicker];
@@ -209,7 +206,6 @@
         //list
         requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, 810, frame.size.width-20, 50)];
         requestTerm.buttonTitle.text = @"依頼期限";
-        requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
 //        [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [requestTerm setReadOnly];
         [_scrollView addSubview:requestTerm];

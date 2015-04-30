@@ -15,16 +15,20 @@
 @property (strong, nonatomic) UIPickerView  *pickerView;
 @property (strong, nonatomic) UIButton      *doneButton;
 @property (strong, nonatomic) UIButton      *cancelButton;
+@property (strong, nonatomic) UIView *buttonView;
 
 @property (strong, nonatomic) id<MDPickerDelegate> delegate;
 
--(void) setOptions:(NSMutableArray *)dataArray:(int)col;
+-(void) setOptions:(NSArray *)dataArray:(int)col:(int)tag;
+-(void) closeView;
+-(void) showView;
 
 @end
 
 @protocol MDPickerDelegate <NSObject>
 
 @optional
--(NSString *)didSelectedRow;
+-(void)didSelectedRow: (NSMutableArray *)resultList :(int)tag;
+-(void)didClosed;
 
 @end

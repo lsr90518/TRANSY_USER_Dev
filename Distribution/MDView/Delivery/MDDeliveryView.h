@@ -15,7 +15,7 @@
 
 @protocol DeliveryViewDelegate;
 
-@interface MDDeliveryView : UIView <UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDInputDelegate,MDSelectDelegate,UIPickerViewDelegate, UIPickerViewDataSource,UITextFieldDelegate>
+@interface MDDeliveryView : UIView <UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDInputDelegate,MDSelectDelegate,UITextFieldDelegate,MDPickerDelegate>
 
 @property (strong, nonatomic) UIButton      *postButton;
 @property (strong, nonatomic) UIScrollView  *scrollView;
@@ -24,7 +24,6 @@
 @property (strong, nonatomic) MDDeliveryKindButton *movingButton;
 @property (nonatomic, assign) id<DeliveryViewDelegate> delegate;
 @property (strong, nonatomic) UIView        *tabbar;
-@property (strong, nonatomic) UIPickerView  *pickerView;
 @property (strong, nonatomic) MDPicker      *MDPicker;
 
 

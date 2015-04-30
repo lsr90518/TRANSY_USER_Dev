@@ -124,4 +124,11 @@
     return YES;
 }
 
+-(void)clearData {
+    _zipField.input.text = @"";
+    _metropolitanField.input.text = @"";
+    _cityField.input.text = @"";
+    _townField.input.text = @"";
+}
+
 @end

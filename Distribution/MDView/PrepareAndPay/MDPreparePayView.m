@@ -16,6 +16,7 @@
     UILabel *numberRight;
     UIButton *cameraButton;
     UIImageView *uploadedImage;
+    UIImageView *cameraIcon;
     MDSelect *phoneNumber;
     MDSelect *requestPerson;
     BOOL isChecked;
@@ -86,29 +87,29 @@
         [boardLine addSubview:numberRight];
         
         //cameraButton
-        cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 88, frame.size.width-20, 106)];
+        cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 88, frame.size.width-20, (frame.size.width-20)*0.6)];
         [cameraButton setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4]];
-        UIImageView *cameraIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 42)];
+        cameraIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 42)];
         [cameraIcon setImage:[UIImage imageNamed:@"whiteCamera"]];
         [cameraIcon setCenter:CGPointMake(cameraButton.frame.size.width/2, cameraButton.frame.size.height/2)];
         [cameraButton addTarget:self action:@selector(cameraButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [cameraButton addSubview:cameraIcon];
         [_scrollView addSubview:cameraButton];
         
-        requestPerson = [[MDSelect alloc]initWithFrame:CGRectMake(10, 204, frame.size.width-20, 50)];
+        requestPerson = [[MDSelect alloc]initWithFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, frame.size.width-20, 50)];
         requestPerson.buttonTitle.text = @"依頼主名";
         requestPerson.selectLabel.text = [NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname];
         [requestPerson addTarget:self action:@selector(requestPersonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestPerson];
         
-        phoneNumber = [[MDSelect alloc]initWithFrame:CGRectMake(10, 264, frame.size.width-20, 50)];
+        phoneNumber = [[MDSelect alloc]initWithFrame:CGRectMake(10, requestPerson.frame.origin.y + requestPerson.frame.size.height + 10, frame.size.width-20, 50)];
         phoneNumber.buttonTitle.text = @"電話番号";
         phoneNumber.selectLabel.text = [NSString stringWithFormat:@"%@",user.phoneNumber];
         [phoneNumber.rightArrow setHidden:YES];
         [phoneNumber addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneNumber];
         
-        MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 324, frame.size.width-20, 50)];
+        MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneNumber.frame.origin.y + phoneNumber.frame.size.height + 10, frame.size.width-20, 50)];
         pay.buttonTitle.text = @"お支払い方法";
         pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
@@ -116,7 +117,7 @@
         [_scrollView addSubview:pay];
         
         UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        creditAutoCompletionButton.frame = CGRectMake(30, 382, frame.size.width-60, 15);
+        creditAutoCompletionButton.frame = CGRectMake(30, pay.frame.origin.y + pay.frame.size.height + 8, frame.size.width-60, 15);
         creditAutoCompletionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [creditAutoCompletionButton setTitle:@">クレジットカードのスキャン入力" forState:UIControlStateNormal];
         [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
@@ -126,7 +127,7 @@
         [_scrollView addSubview:creditAutoCompletionButton];
         
         //checkbox
-        MDCheckBox *checkBox = [[MDCheckBox alloc]initWithFrame:CGRectMake(10, 414, 34, 34)];
+        MDCheckBox *checkBox = [[MDCheckBox alloc]initWithFrame:CGRectMake(10, creditAutoCompletionButton.frame.origin.y + creditAutoCompletionButton.frame.size.height + 10, 34, 34)];
         [checkBox addTarget:self action:@selector(toggleCheck:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:checkBox];
         
@@ -156,7 +157,7 @@
         [_scrollView addSubview:niLabel];
         
         //button
-        self.postButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.origin.x+10, 471, frame.size.width-20, 60)];
+        self.postButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.origin.x+10, checkBox.frame.origin.y + checkBox.frame.size.height + 10, frame.size.width-20, 60)];
         [self.postButton setBackgroundColor:[UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1]];
         [self.postButton setTitle:@"以上で発注する" forState:UIControlStateNormal];
         self.postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:18];
@@ -211,14 +212,17 @@
     if (uploadedImage == nil) {
         uploadedImage = [[UIImageView alloc]initWithImage:image];
         [cameraButton addSubview:uploadedImage];
-        float x = image.size.height/cameraButton.frame.size.height;
-        uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-uploadedImage.frame.size.width/x/2,
-                                         0,
-                                         image.size.width/x,
-                                         image.size.height/x);
+        [cameraIcon setHidden:YES];
+//        float x = image.size.height/cameraButton.frame.size.height;
+//        uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-uploadedImage.frame.size.width/x/2,
+//                                         0,
+//                                         image.size.width/x,
+//                                         image.size.height/x);
     } else {
         [uploadedImage setImage:image];
     }
+//    [cameraButton setBackgroundImage:image forState:UIControlStateNormal];
+//    [cameraButton setImage:image forState:UIControlStateNormal];
 }
 
 -(UIImageView *) getUploadedImage {

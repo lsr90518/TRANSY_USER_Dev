@@ -113,6 +113,7 @@ static CGRect oldframe;
                                    image:_packageImage
                               OnComplete:^(MKNetworkOperation *completeOperation){
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                      [MDCurrentPackage getInstance].status = @"2";
                                       [self dismissViewControllerAnimated:YES completion:nil];
                                   }else{
                                       [MDUtil makeAlertWithTitle:@"エラー" message:@"支払い方法が登録されていません。" done:@"OK" viewController:self];
@@ -260,7 +261,7 @@ static CGRect oldframe;
         NSData *data;
         //transfer image to data
         if (UIImagePNGRepresentation(image) == nil) {
-            data = UIImageJPEGRepresentation(image, 0.3);
+            data = UIImageJPEGRepresentation(image, 0.5);
         } else {
             data = UIImagePNGRepresentation(image);
         }

@@ -29,7 +29,12 @@
     NSMutableArray* time;
     NSMutableArray* realDate;
     NSMutableArray* date;
+    NSMutableArray *cusTodyDate;
+    NSMutableArray *destinateDate;
     NSMutableArray* minute;
+    NSMutableArray *cusTodyTime;
+    NSMutableArray *destinateMinute;
+    NSMutableArray *destinateTime;
 }
 
 #pragma mark - View Life Cycle
@@ -113,17 +118,13 @@
         sizePicker.buttonTitle.text = @"サイズ";
         sizePicker.selectLabel.text = @"合計120以内";
         sizePicker.delegate = self;
-        sizePicker.options = [[NSArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160",@"180",@"200",@"220",@"240",@"260", nil];
+        NSMutableArray *sizePickerOptions = [[NSMutableArray alloc]init];
+        NSMutableArray *sizePickerFirstOptions = [[NSMutableArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160",@"180",@"200",@"220",@"240",@"260", nil];
+        [sizePickerOptions addObject:sizePickerFirstOptions];
+        [sizePicker setOptions:sizePickerOptions :@"合計" :@"cm以内"];
+        sizePicker.tag = 0;
         [sizePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:sizePicker];
-        
-        //list
-//        additionalServicePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 270, frame.size.width-20, 50)];
-//        additionalServicePicker.buttonTitle.text = @"付帯サービス";
-//        additionalServicePicker.selectLabel.text = @"なし";
-//        [additionalServicePicker setUnactive];
-//        [additionalServicePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-//        [_scrollView addSubview:additionalServicePicker];
         
         //list
         beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 270, frame.size.width-20, 50)];
@@ -141,12 +142,17 @@
         [costPicker.input setKeyboardType:UIKeyboardTypeNumberPad];
         [_scrollView addSubview:costPicker];
         
-        //list
+        //在宅時間
         cusTodyTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 390, frame.size.width-20, 50)];
         cusTodyTimePicker.buttonTitle.text = @"預かり時刻";
         cusTodyTimePicker.selectLabel.text = @"いつでも";
         cusTodyTimePicker.tag = 1;
         cusTodyTimePicker.delegate = self;
+        NSMutableArray *cusTodyTimePickerOptions = [[NSMutableArray alloc]init];
+        [self initReciveTimeData];
+        [cusTodyTimePickerOptions addObject:date];
+        [cusTodyTimePickerOptions addObject:cusTodyTime];
+        [cusTodyTimePicker setOptions:cusTodyTimePickerOptions :@"" :@""];
         [cusTodyTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:cusTodyTimePicker];
         
@@ -155,6 +161,12 @@
         destinateTimePicker.buttonTitle.text = @"お届け期限";
         destinateTimePicker.tag = 2;
         destinateTimePicker.delegate = self;
+        NSMutableArray *destinateTimePickerOptions = [[NSMutableArray alloc]init];
+        [self initDeliveryLimitData];
+        [destinateTimePickerOptions addObject:date];
+        [destinateTimePickerOptions addObject:destinateTime];
+        [destinateTimePickerOptions addObject:destinateMinute];
+        [destinateTimePicker setOptions:destinateTimePickerOptions :@"" :@""];
         [destinateTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:destinateTimePicker];
         
@@ -164,9 +176,13 @@
         requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, 510, frame.size.width-20, 50)];
         requestTerm.buttonTitle.text = @"掲載期限";
         requestTerm.delegate = self;
-        requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
-        [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+//        requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
+        NSMutableArray *requestTermOptions = [[NSMutableArray alloc]init];
+        NSMutableArray *requestTermFirstOptions = [[NSMutableArray alloc]initWithObjects:@"0.5",@"1",@"3",@"6",@"12",@"24",@"72", nil];
+        [requestTermOptions addObject:requestTermFirstOptions];
+        [requestTerm setOptions:requestTermOptions :@"" :@"時間"];
         requestTerm.tag = 3;
+        [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestTerm];
         
         [_scrollView setContentSize:CGSizeMake(frame.size.width, requestTerm.frame.origin.y + requestTerm.frame.size.height + 70)];
@@ -190,22 +206,6 @@
             [_tabbar addSubview:tabButton];
         }
         [self addSubview:_tabbar];
-        
-        
-        //pickerView
-        _pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(-2, frame.size.height, frame.size.width + 4, 216)];
-        [_pickerView setBackgroundColor:[UIColor whiteColor]];
-        _pickerView.dataSource = self;
-        _pickerView.delegate = self;
-        _pickerView.layer.borderColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1].CGColor;
-        _pickerView.layer.borderWidth = 2.0;
-        _pickerView.tag = 0;
-        
-        [self addSubview:_pickerView];
-        
-        //test picker
-//        _MDPicker = [[MDPicker alloc]initWithFrame:frame];
-//        [self addSubview:_MDPicker];
         
     }
     return self;
@@ -239,7 +239,7 @@
     //お届け先
     destinationButton.selectLabel.text = [NSString stringWithFormat:@"〒%@",[MDCurrentPackage getInstance].to_zip];
     //size
-    sizePicker.selectLabel.text = [NSString stringWithFormat:@"%@cm以内",[MDCurrentPackage getInstance].size];
+    sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計%@cm以内",[MDCurrentPackage getInstance].size];
     //note
 //    additionalServicePicker.selectLabel.text = [MDCurrentPackage getInstance].note;
     //取扱説明書
@@ -284,23 +284,23 @@
 }
 
 -(void) pickerButtonTouched:(MDSelect*)select {
-    if(select.tag == 3){
-    //init data
-        [options removeAllObjects];
-        [options addObjectsFromArray:select.options];
-    } else if(select.tag == 2){
-        [self initDeliveryLimitData];
-    } else {
-        [self initReciveTimeData];
-    }
-    //reload view;
-    _pickerView.tag = select.tag;
-    [_pickerView reloadAllComponents];
-    [UIView animateWithDuration:0.3f
-                     animations:^{
-                         [_pickerView setFrame:CGRectMake(-2, self.frame.size.height - _pickerView.frame.size.height + 2, self.frame.size.width+4, 216)];
-                     }];
     
+    _MDPicker = [[MDPicker alloc]initWithFrame:self.frame];
+    _MDPicker.delegate = self;
+    [self addSubview:_MDPicker];
+    
+    
+    if(select.tag == 0){
+        [_MDPicker setOptions:sizePicker.showOptions : 1 : 0];
+    } else if(select.tag == 1){
+        [_MDPicker setOptions:cusTodyTimePicker.options : 2 : 1];
+    } else if(select.tag == 2){
+        [_MDPicker setOptions:destinateTimePicker.options :3 :2];
+    } else if(select.tag == 3){
+        [_MDPicker setOptions:requestTerm.showOptions :1 :3];
+    }
+    
+    [_MDPicker showView];
 }
 
 -(NSString *) getReciveTimeStr {
@@ -348,7 +348,7 @@
     }
     
     date = [NSMutableArray arrayWithArray:eightArr];
-    time = [NSMutableArray arrayWithObjects:@"いつでも" , @"10時~12時" , @"12時~14時"
+    cusTodyTime = [NSMutableArray arrayWithObjects:@"いつでも" , @"10時~12時" , @"12時~14時"
             , @"14時~16時",@"16時~18時", @"18時~20時", @"20時~22時",
             @"22時~24時", @"0時~2時" , @"2時~4時",@"4時~6時",@"6時~8時",@"8時~10時", nil];
 }
@@ -397,10 +397,10 @@
     }
     
     date = [NSMutableArray arrayWithArray:eightArr];
-    time = [NSMutableArray arrayWithObjects:@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"00", nil];
-    minute = [[NSMutableArray alloc]init];
+    destinateTime = [NSMutableArray arrayWithObjects:@"01時",@"02時",@"03時",@"04時",@"05時",@"06時",@"07時",@"08時",@"09時",@"10時",@"11時",@"12時",@"13時",@"14時",@"15時",@"16時",@"17時",@"18時",@"19時",@"20時",@"21時",@"22時",@"23時",@"00時", nil];
+    destinateMinute = [[NSMutableArray alloc]init];
     for(int i = 0; i < 60;i++){
-        [minute addObject:(i < 10) ? [NSString stringWithFormat:@"0%d",i] :  [NSString stringWithFormat:@"%d",i]];
+        [destinateMinute addObject:(i < 10) ? [NSString stringWithFormat:@"0%d分",i] :  [NSString stringWithFormat:@"%d分",i]];
     }
 }
 
@@ -438,10 +438,6 @@
             [tmpView.input resignFirstResponder];
         }
     }
-    [UIView animateWithDuration:0.3f
-                     animations:^{
-                         [_pickerView setFrame:CGRectMake(-2, self.frame.size.height, self.frame.size.width+4, 216)];
-                     }];
 }
 
 -(void)gotoRequestAddressView {
@@ -494,8 +490,7 @@
 
 #pragma MDInput delegate
 -(void) inputPushed:(MDInput *)input{
-    NSLog(@"%@",input);
-    int offset = input.frame.origin.y + input.frame.size.height + 10 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    int offset = input.frame.origin.y + input.frame.size.height + 40 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
     [_scrollView setContentOffset:point animated:YES];
 }
@@ -506,158 +501,12 @@
 
 #pragma MDSelect delegate
 -(void) buttonPushed:(MDSelect *)view{
-    int offset = view.frame.origin.y + view.frame.size.height + 10 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    int offset = view.frame.origin.y + view.frame.size.height + 40 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
     [_scrollView setContentOffset:point animated:YES];
 }
 
-#pragma UIPicker
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView
-{
-    int componentCount = 0;
-    switch (pickerView.tag) {
-        case 3:
-            componentCount = 1;
-            break;
-        case 2:
-            componentCount = 3;
-            break;
-        case 1:
-            componentCount = 2;
-            break;
-        default:
-            break;
-    }
-    if(pickerView.tag == 3){
-        componentCount = 1;
-    }
-    return componentCount;
-}
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView
-numberOfRowsInComponent:(NSInteger)component
-{
-    if(pickerView.tag == 3){
-        return [options count];
-    } else if(pickerView.tag == 2){
-        if (component == 0) {
-            return date.count;
-        } else if(component == 1){
-            return time.count;
-        } else {
-            return minute.count;
-        }
-    } else {
-        if (component == 0) {
-            return date.count;
-        }
-        return time.count;
-    }
-}
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:
-(NSInteger)row forComponent:(NSInteger)component {
-    NSString *returnStr;
-    switch (pickerView.tag) {
-        case 3:
-            returnStr = [NSString stringWithFormat:@"%@時間以内",options[row]];
-            break;
-        case 2:
-            if (component == 0) {
-                return [date objectAtIndex:row];
-            } else if(component == 1) {
-                return [NSString stringWithFormat:@"%@時",[time objectAtIndex:row]];
-            } else {
-                return [NSString stringWithFormat:@"%@分",[minute objectAtIndex:row]];
-            }
-            break;
-        case 1:
-            if (component == 0) {
-                return [date objectAtIndex:row];
-            }
-            return [time objectAtIndex:row];
-            break;
-        default:
-            break;
-    }
-    return returnStr;
-}
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    //input to mdcurrent
-    
-    if (pickerView.tag == 3) {
-        requestTerm.selectLabel.text = [NSString stringWithFormat:@"%@時間以内",options[row]];
-        [MDCurrentPackage getInstance].expire = [MDUtil getAnHourAfterDate:[options objectAtIndex:row]];
-    } else if(pickerView.tag == 2){
-        //input to mdcurrent
-        //お届け期限
-        if(component == 0){
-            
-            NSString *oldTime = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@" "][1];
-            NSString *newDeliveryStr = [NSString stringWithFormat:@"%@ %@",[realDate objectAtIndex:row], oldTime];
-            [MDCurrentPackage getInstance].deliver_limit = newDeliveryStr;
-            
-        } else if(component == 1) {
-            
-            //make string
-            NSString *oldDate = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@" "][0];
-            NSString *oldTime = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@" "][1];
-            NSString *oldMinute = [oldTime componentsSeparatedByString:@":"][1];
-            NSString *newDeliveryStr = [NSString stringWithFormat:@"%@ %@:%@:00",oldDate, [time objectAtIndex:row], oldMinute];
-            [MDCurrentPackage getInstance].deliver_limit = newDeliveryStr;
-        } else {
-            NSString *oldDate = [[MDCurrentPackage getInstance].deliver_limit componentsSeparatedByString:@":"][0];
-            NSString *newDeliveryStr = [NSString stringWithFormat:@"%@:%@:00",oldDate, [minute objectAtIndex:row]];
-            [MDCurrentPackage getInstance].deliver_limit = newDeliveryStr;
-        }
-        destinateTimePicker.selectLabel.text = [self getInitStr];
-    } else {
-        if(component == 0){
-            //        NSArray* tmp = date;
-            //        NSString *title = @"日付";
-//            dateInput.input.text = [date objectAtIndex:row];
-            
-            [realDate objectAtIndex:row];
-            
-            [MDCurrentPackage getInstance].at_home_time[0][0] = [realDate objectAtIndex:row];
-            
-        } else {
-            NSArray *tmp = time;
-//            timeInput.input.text = [tmp objectAtIndex:row];
-            NSArray *tmpArray;
-            if([[tmp objectAtIndex:row] isEqualToString:@"いつでも"]){
-                tmpArray = [NSArray arrayWithObjects:@"0", @"24", nil];
-                
-                [MDCurrentPackage getInstance].at_home_time[0][1] = tmpArray[0]; //時間 から
-                [MDCurrentPackage getInstance].at_home_time[0][2] = tmpArray[1]; //時間 まで
-            } else {
-                
-                tmpArray = [[tmp objectAtIndex:row] componentsSeparatedByString:@"時"];
-                [MDCurrentPackage getInstance].at_home_time[0][1] = tmpArray[0]; //時間 から
-                [MDCurrentPackage getInstance].at_home_time[0][2] = [tmpArray[1] substringFromIndex:1]; //時間 まで
-            }
-        }
-        NSLog(@"%@", [MDCurrentPackage getInstance].at_home_time);
-        cusTodyTimePicker.selectLabel.text = [self getReciveTimeStr];
-    }
-    
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView
-    widthForComponent:(NSInteger)component {
-    if(pickerView.tag == 3){
-        return self.frame.size.width;
-    } else if(pickerView.tag == 2){
-        if (component == 0) {
-            return self.frame.size.width/3;
-        } else if(component == 1) {
-            return self.frame.size.width/3;
-        } else {
-            return self.frame.size.width/3;
-        }
-    } else {
-        return self.frame.size.width/2;
-    }
-}
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if(![textField.text hasPrefix:@"¥"]){
@@ -686,6 +535,82 @@ numberOfRowsInComponent:(NSInteger)component
     [_scrollView setContentOffset:point animated:YES];
 }
 
+#pragma MDPicker
+-(void) didSelectedRow:(NSMutableArray *)resultList :(int)tag{
+    
+    switch (tag) {
+        case 0:
+            sizePicker.selectLabel.text = [[sizePicker.showOptions objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]];
+            [MDCurrentPackage getInstance].size = [[sizePicker.options objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]];
+            break;
+        case 1:
+//            cusTodyTimePicker.options
+            //date
+            [MDCurrentPackage getInstance].at_home_time[0][0] = [realDate objectAtIndex:[resultList[0][0] integerValue]];
+            cusTodyTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@ %@",
+                                                  [[cusTodyTimePicker.options objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]],
+                                                  [[cusTodyTimePicker.options objectAtIndex:1] objectAtIndex:[resultList[1][0] integerValue]]];
+            
+            [self convertReciveTimeToSave];
+            break;
+        case 2:
+            destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@ %@%@迄",
+                                                    [[destinateTimePicker.options objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]],
+                                                    [[destinateTimePicker.options objectAtIndex:1] objectAtIndex:[resultList[1][0] integerValue]],
+                                                    [[destinateTimePicker.options objectAtIndex:2] objectAtIndex:[resultList[2][0] integerValue]]];
+            
+            [self convertDestinateTimeToSave:
+             [realDate objectAtIndex:[resultList[0][0] integerValue]]:
+             [[destinateTimePicker.options objectAtIndex:1] objectAtIndex:[resultList[1][0] integerValue]]:
+             [[destinateTimePicker.options objectAtIndex:2] objectAtIndex:[resultList[2][0] integerValue]]];
+            
+            break;
+        case 3:
+            requestTerm.selectLabel.text = [[requestTerm.showOptions objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]];
+            [self convertRequestTermToSave:(NSString *)[[requestTerm.options objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]]];
+            
+            break;
+        default:
+            break;
+    }
+    
+}
+
+-(void)convertReciveTimeToSave {
+    NSArray *cusTodyTimePickerTextArray = [cusTodyTimePicker.selectLabel.text componentsSeparatedByString:@" "];
+    NSArray *tmpArray;
+    if([cusTodyTimePickerTextArray[1] isEqualToString:@"いつでも"]){
+        tmpArray = [NSArray arrayWithObjects:@"0", @"24", nil];
+        
+        [MDCurrentPackage getInstance].at_home_time[0][1] = tmpArray[0]; //時間 から
+        [MDCurrentPackage getInstance].at_home_time[0][2] = tmpArray[1]; //時間 まで
+    } else {
+        
+        tmpArray = [cusTodyTimePickerTextArray[1] componentsSeparatedByString:@"時"];
+        [MDCurrentPackage getInstance].at_home_time[0][1] = tmpArray[0]; //時間 から
+        [MDCurrentPackage getInstance].at_home_time[0][2] = [tmpArray[1] substringFromIndex:1]; //時間 まで
+    }
+}
+
+-(void) convertDestinateTimeToSave:(NSString*)newDate:(NSString*)newHour:(NSString*)newMinute {
+    
+    NSString *stardardHour = [newHour substringToIndex:2];
+    NSString *stardardMinute = [newMinute substringToIndex:2];
+    
+    [MDCurrentPackage getInstance].deliver_limit = [NSString stringWithFormat:@"%@ %@:%@:00",newDate, stardardHour, stardardMinute];
+    NSLog(@"%@",[MDCurrentPackage getInstance].deliver_limit);
+}
+
+-(void) convertRequestTermToSave:(NSString *)term{
+    NSDate *now = [NSDate date];
+    //n時間後
+    NSDate *nHoursAfter = [now dateByAddingTimeInterval:[term intValue]*60*60];
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
+    [tmpFormatter setCalendar:gregorianCalendar];
+    [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
+    [MDCurrentPackage getInstance].expire = [tmpFormatter stringFromDate:nHoursAfter];
+}
 
 
 @end

@@ -34,6 +34,7 @@
     requestAddressView.townField.input.text = addressArray[2];
     requestAddressView.houseField.input.text = addressArray[3];
     requestAddressView.buildingNameField.input.text = addressArray[4];
+    [requestAddressView.zipField.input becomeFirstResponder];
     
     requestAddressView.zipField.input.text = [MDCurrentPackage getInstance].from_zip;
     [self.view addSubview:requestAddressView];
@@ -60,16 +61,16 @@
     
     //right button
     UIButton *_postButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_postButton setTitle:@"次へ" forState:UIControlStateNormal];
+    [_postButton setTitle:@"クリア" forState:UIControlStateNormal];
     _postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
-    _postButton.frame = CGRectMake(0, 0, 25, 44);
-    [_postButton addTarget:self action:@selector(postButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    _postButton.frame = CGRectMake(0, 0, 38, 44);
+    [_postButton addTarget:self action:@selector(clearFormData) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:_postButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
 
--(void) postButtonTouched {
+-(void) backButtonTouched {
     if([requestAddressView.zipField.input.text hasPrefix:@"〒"]){
         [MDCurrentPackage getInstance].from_zip = [requestAddressView.zipField.input.text substringFromIndex:1];
     } else {
@@ -100,8 +101,12 @@
     
 }
 
--(void) bakcButtonTouched{
-    [self.navigationController popViewControllerAnimated:YES];
+-(void) clearFormData {
+    [requestAddressView clearData];
+    [MDCurrentPackage getInstance].from_lng = @"";
+    [MDCurrentPackage getInstance].from_lat = @"";
+    [MDCurrentPackage getInstance].from_addr = @"";
+    [MDCurrentPackage getInstance].from_pref = @"";
 }
 @end
 

@@ -27,6 +27,7 @@
 @property (strong, nonatomic) UIScrollView  *scrollView;
 
 -(void)setFrameColor:(UIColor *)color;
+-(void)clearData;
 
 -(void) setUnAvailable;
 @end

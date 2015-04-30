@@ -33,6 +33,7 @@
     destinationAddressView.townField.input.text = addressArray[2];
     destinationAddressView.houseField.input.text = addressArray[3];
     destinationAddressView.buildingNameField.input.text = addressArray[4];
+    [destinationAddressView.zipField.input becomeFirstResponder];
     
     destinationAddressView.zipField.input.text = [MDCurrentPackage getInstance].to_zip;
     [self.view addSubview:destinationAddressView];
@@ -59,20 +60,20 @@
     
     //right button
     UIButton *_postButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_postButton setTitle:@"次へ" forState:UIControlStateNormal];
+    [_postButton setTitle:@"クリア" forState:UIControlStateNormal];
     _postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
-    _postButton.frame = CGRectMake(0, 0, 25, 44);
-    [_postButton addTarget:self action:@selector(postButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    _postButton.frame = CGRectMake(0, 0, 38, 44);
+    [_postButton addTarget:self action:@selector(clearFormData) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:_postButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
 
--(void) postButtonTouched {
+-(void) backButtonTouched {
     if([destinationAddressView.zipField.input.text hasPrefix:@"〒"]){
-        [MDCurrentPackage getInstance].from_zip = [destinationAddressView.zipField.input.text substringFromIndex:1];
+        [MDCurrentPackage getInstance].to_zip = [destinationAddressView.zipField.input.text substringFromIndex:1];
     } else {
-        [MDCurrentPackage getInstance].from_zip = destinationAddressView.zipField.input.text;
+        [MDCurrentPackage getInstance].to_zip = destinationAddressView.zipField.input.text;
     }
     [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", destinationAddressView.metropolitanField.input.text,
                                                 destinationAddressView.cityField.input.text,
@@ -80,7 +81,6 @@
                                                 destinationAddressView.houseField.input.text,
                                                 destinationAddressView.buildingNameField.input.text];
     [MDCurrentPackage getInstance].to_pref = destinationAddressView.metropolitanField.input.text;
-
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressString:[MDCurrentPackage getInstance].to_addr completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -98,8 +98,12 @@
     }];
 }
 
--(void) backButtonTouched {
-    [self.navigationController popViewControllerAnimated:YES];
+-(void) clearFormData {
+    [destinationAddressView clearData];
+    [MDCurrentPackage getInstance].to_lat = @"";
+    [MDCurrentPackage getInstance].to_lng = @"";
+    [MDCurrentPackage getInstance].to_addr = @"";
+    [MDCurrentPackage getInstance].to_zip = @"";
 }
 
 @end

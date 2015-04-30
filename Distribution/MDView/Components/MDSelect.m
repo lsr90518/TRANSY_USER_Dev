@@ -63,5 +63,26 @@
     }
 }
 
+-(void) setOptions:(NSMutableArray *)options :(NSString *)startStr :(NSString *)lastStr{
+    if(_options == nil){
+        _options = [[NSMutableArray alloc]init];
+    }
+    if(_showOptions == nil){
+        _showOptions = [[NSMutableArray alloc]init];
+    }
+    
+    [_options removeAllObjects];
+    [_showOptions removeAllObjects];
+    
+    for (int i = 0; i<[options count]; i++) {
+        _options[i] = [[NSMutableArray alloc]init];
+        _showOptions[i] = [[NSMutableArray alloc]init];
+        for(int j = 0;j<[options[i] count];j++) {
+            [_options[i] addObject:options[i][j]];
+            [_showOptions[i] addObject:[NSString stringWithFormat:@"%@%@%@",startStr,options[i][j],lastStr]];
+        }
+    }
+}
+
 
 @end

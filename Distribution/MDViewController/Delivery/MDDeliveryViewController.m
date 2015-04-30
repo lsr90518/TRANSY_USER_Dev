@@ -42,11 +42,10 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-//    [self gotoRequestView];
-//    if([[MDCurrentPackage getInstance].status isEqualToString:@"2"]){
-//        [MDCurrentPackage getInstance].status = @"0";
-//        [self gotoRequestView];
-//    }
+    if([[MDCurrentPackage getInstance].status isEqualToString:@"2"]){
+        [MDCurrentPackage getInstance].status = @"0";
+        [self gotoRequestView];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
