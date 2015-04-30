@@ -79,13 +79,13 @@
                                         
                                         [[MDUser getInstance] setLogin];
                                         
-                                        MDViewController *viewController = [[MDViewController alloc]init];
-                                        [self presentViewController:viewController animated:YES completion:nil];
+//                                        MDViewController *viewController = [[MDViewController alloc]init];
+//                                        [self presentViewController:viewController animated:YES completion:nil];
                                         
-//                                        MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
-//                                        UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
-//                                        [[MDUser getInstance] setLogin];
-//                                        [self presentViewController:deliveryNavigationController animated:YES completion:nil];
+                                        MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
+                                        UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
+                                        [[MDUser getInstance] setLogin];
+                                        [self presentViewController:deliveryNavigationController animated:YES completion:nil];
                                         
                                     } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
                                         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
