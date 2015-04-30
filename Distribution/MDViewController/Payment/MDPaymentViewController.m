@@ -78,6 +78,14 @@ navigationType:(UIWebViewNavigationType)navigationType
         return YES;
     }
 }
+/**
+ ** webView読み込み完了時のDelegate
+ **/
+- (void)webViewDidFinishLoad:(UIWebView*)webView
+{
+    [super webViewDidFinishLoad:webView];
+    if(_cardInfo)[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"cardNumberAutoComplete(%@,%lu,%lu);",_cardInfo.cardNumber,(unsigned long)_cardInfo.expiryMonth,(unsigned long)_cardInfo.expiryYear]];
+}
 
 #pragma PaymentView
 - (IBAction)scanCard:(id)sender {
@@ -94,7 +102,8 @@ navigationType:(UIWebViewNavigationType)navigationType
     // 9191753589464621
     // 有効期限(12/16)
     // 名義は任意の文字列
-    [self openWebpageWithUrl:@"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
+    // @"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
+    [self openWebpageWithUrl:@"https://modelor.com/TRANSY/credit_test"
                       method:@"POST"
                    parameter:[NSDictionary dictionaryWithObjectsAndKeys:
                               @"00044",@"clientip",
@@ -125,13 +134,14 @@ navigationType:(UIWebViewNavigationType)navigationType
 - (void)cardIOView:(CardIOView *)cardIOView didScanCard:(CardIOCreditCardInfo *)info {
     if (info) {
         // The full card number is available as info.cardNumber, but don't log that!
-         NSLog(@"Received card info. Number: %@, expiry: %02lu/%lu, cvv: %@.", info.cardNumber, (unsigned long)info.expiryMonth, (unsigned long)info.expiryYear, info.cvv);
+         NSLog(@"Received card info. Number: %@, expiry: %02lu/%lu, cvv: %@.", info.redactedCardNumber, (unsigned long)info.expiryMonth, (unsigned long)info.expiryYear, info.cvv);
         // NSLog(@"%ld",info.cardType);
         // Use the card info...
-        [MDUtil makeAlertWithTitle:@"カード情報(Debug)"
-                           message:[NSString stringWithFormat:@"Number: %@\n expiry: %02lu/%lu",info.cardNumber,(unsigned long)info.expiryMonth, (unsigned long)info.expiryYear]
-                              done:@"OK"
-                    viewController:self];
+//        [MDUtil makeAlertWithTitle:@"カード情報(Debug)"
+//                           message:[NSString stringWithFormat:@"Number: %@\n expiry: %02lu/%lu",info.cardNumber,(unsigned long)info.expiryMonth, (unsigned long)info.expiryYear]
+//                              done:@"OK"
+//                    viewController:self];
+        _cardInfo = info;
     }
     else {
         NSLog(@"User cancelled payment info");
