@@ -12,6 +12,7 @@
 @interface MDPaymentViewController : MDWebViewController <UIWebViewDelegate, CardIOViewDelegate>
 
 @property (nonatomic) BOOL withCardIO;
+@property (nonatomic) CardIOCreditCardInfo *cardInfo;
 @property (strong,nonatomic) CardIOView *cardIOView;
 
 -(MDPaymentViewController *) initWithCardIO;
