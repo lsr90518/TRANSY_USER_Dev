@@ -29,6 +29,7 @@
 -(void) setLogin;
 -(void) setLogout;
 -(BOOL) isLogin;
+-(void) copyDataFromUser:(MDUser *)newUser;
 
 //{
 //    "code": 0,

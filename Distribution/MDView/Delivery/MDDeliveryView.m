@@ -138,7 +138,7 @@
         costPicker.title.text = @"依頼金額";
         [costPicker.title sizeToFit];
         costPicker.input.text = @"1400";
-        costPicker.input.delegate = self;
+        costPicker.delegate = self;
         [costPicker.input setKeyboardType:UIKeyboardTypeNumberPad];
         [_scrollView addSubview:costPicker];
         
@@ -490,7 +490,7 @@
 
 #pragma MDInput delegate
 -(void) inputPushed:(MDInput *)input{
-    int offset = input.frame.origin.y + input.frame.size.height + 40 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    int offset = input.frame.origin.y + input.frame.size.height + 54 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
     [_scrollView setContentOffset:point animated:YES];
 }

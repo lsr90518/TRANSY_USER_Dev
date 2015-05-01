@@ -39,6 +39,8 @@
     [postButton addTarget:self action:@selector(changePhoneNumber) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:postButton];
     
+    [self initNavigationBar];
+    
 }
 
 - (void)viewDidLoad {
@@ -70,6 +72,7 @@
     [[MDAPI sharedAPI] updatePhoneNumberWithOldPhoneNumber:[MDUser getInstance].phoneNumber
                                             newPhoneNumber:_phoneInput.input.text OnComplete:^(MKNetworkOperation *completeOperation) {
                                                 if( [[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                                    NSLog(@"%@", [completeOperation responseJSON]);
                                                     [SVProgressHUD dismiss];
                                                     
                                                     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -85,13 +88,13 @@
                                                 alert.delegate = self;
                                                 [alert show];
                                                 
-                                                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+//                                                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
                                             }];
     
 }
 
 -(void) backButtonTouched {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

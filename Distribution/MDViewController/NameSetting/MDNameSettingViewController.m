@@ -59,13 +59,17 @@
 }
 
 -(void) backButtonPushed{
-    [MDUser getInstance].lastname = _lastnameInput.input.text;
-    [MDUser getInstance].firstname = _firstnameInput.input.text;
     [SVProgressHUD show];
-    [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
+    MDUser *newUser = [[MDUser alloc]init];
+    [newUser copyDataFromUser:[MDUser getInstance]];
+    newUser.lastname = _lastnameInput.input.text;
+    newUser.firstname = _firstnameInput.input.text;
+    [[MDAPI sharedAPI] updateProfileByUser:newUser
                               sendPassword:NO
                                 onComplete:^(MKNetworkOperation *completeOperarion) {
                                     [SVProgressHUD dismiss];
+                                    [MDUser getInstance].lastname = _lastnameInput.input.text;
+                                    [MDUser getInstance].firstname = _firstnameInput.input.text;
                                     [self.navigationController popViewControllerAnimated:YES];
                                 } onError:^(MKNetworkOperation *completeOperarion, NSError *error) {
                                     NSLog(@"error --------------  %@", error);

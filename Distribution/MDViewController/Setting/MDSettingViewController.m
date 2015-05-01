@@ -13,6 +13,7 @@
 #import "MDRequestViewController.h"
 #import "MDDeliveryViewController.h"
 #import "MDPaymentViewController.h"
+#import "MDPhoneNumberSettingViewController.h"
 
 @interface MDSettingViewController ()
 
@@ -45,7 +46,7 @@
 
 #pragma delegate methods
 -(void) phoneNumberPushed {
-    MDPhoneViewController *phoneNumberSettingViewController = [[MDPhoneViewController alloc]init];
+    MDPhoneNumberSettingViewController *phoneNumberSettingViewController = [[MDPhoneNumberSettingViewController alloc]init];
     [self.navigationController pushViewController:phoneNumberSettingViewController animated:YES];
 }
 

@@ -53,5 +53,15 @@
     return ([self.loginStatus isEqualToString:@"YES"]) ? YES : NO;
 }
 
+-(void) copyDataFromUser:(MDUser *)newUser{
+    _phoneNumber = newUser.phoneNumber;
+    _mailAddress = newUser.mailAddress;
+    _password = newUser.password;
+    _lastname = newUser.lastname;
+    _firstname = newUser.firstname;
+    _checknumber = newUser.checknumber;
+    _userHash = newUser.userHash;
+    _loginStatus = newUser.loginStatus;
+}
 
 @end
