@@ -138,7 +138,7 @@
         costPicker.title.text = @"依頼金額";
         [costPicker.title sizeToFit];
         costPicker.input.text = @"1400";
-        costPicker.delegate = self;
+        costPicker.input.delegate = self;
         [costPicker.input setKeyboardType:UIKeyboardTypeNumberPad];
         [_scrollView addSubview:costPicker];
         
@@ -506,7 +506,11 @@
     [_scrollView setContentOffset:point animated:YES];
 }
 
-
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    int offset = costPicker.frame.origin.y + costPicker.frame.size.height + 54 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    CGPoint point = CGPointMake(0, offset);
+    [_scrollView setContentOffset:point animated:YES];
+}
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if(![textField.text hasPrefix:@"¥"]){
@@ -529,11 +533,11 @@
     }
 }
 
--(void) textFieldDidBeginEditing:(UITextField *)textField{
-    int offset = textField.frame.origin.y + 10;//键盘高度216
-    CGPoint point = CGPointMake(0, offset);
-    [_scrollView setContentOffset:point animated:YES];
-}
+//-(void) textFieldDidBeginEditing:(UITextField *)textField{
+//    int offset = textField.frame.origin.y + 10;//键盘高度216
+//    CGPoint point = CGPointMake(0, offset);
+//    [_scrollView setContentOffset:point animated:YES];
+//}
 
 #pragma MDPicker
 -(void) didSelectedRow:(NSMutableArray *)resultList :(int)tag{
