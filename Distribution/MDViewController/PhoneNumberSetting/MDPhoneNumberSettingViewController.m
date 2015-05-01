@@ -73,6 +73,8 @@
                                                     [SVProgressHUD dismiss];
                                                     
                                                     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                                } else if([[completeOperation responseJSON][@"code"] integerValue] == -99){
+                                                    [MDUtil makeAlertWithTitle:@"連続送信禁止" message:@"悪用防止のため連続での送信はお控えください。しばらくお待ちいただいてから再度お試しください。" done:@"OK" viewController:self];
                                                 }
                                             }onError:^(MKNetworkOperation *completeOperarion, NSError *error){
                                                 
