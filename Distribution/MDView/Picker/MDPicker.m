@@ -26,7 +26,7 @@
         //
         [self setAlpha:0];
         [self setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
-        
+                        
         //add pickerview
         _pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(frame.origin.x, frame.size.height + 30, frame.size.width, 216)];
         [_pickerView setBackgroundColor:[UIColor whiteColor]];
@@ -48,7 +48,7 @@
         
         
         _doneButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.size.width - 50, 0, 40, 30)];
-        [_doneButton setTitle:@"完成" forState:UIControlStateNormal];
+        [_doneButton setTitle:@"完了" forState:UIControlStateNormal];
         [_doneButton addTarget:self action:@selector(sendData) forControlEvents:UIControlEventTouchUpInside];
         _doneButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
         [_doneButton setTitleColor:[UIColor colorWithRed:238.0/255.0 green:160.0/255.0 blue:24.0/255.0 alpha:1] forState:UIControlStateNormal];
@@ -131,7 +131,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 -(void) sendData{
     if([self.delegate respondsToSelector:@selector(didSelectedRow::)]){
-        [self.delegate didSelectedRow:resultList:_pickerView.tag];
+        [self.delegate didSelectedRow:resultList:(int)_pickerView.tag];
     }
     [self closeView];
 }

@@ -575,6 +575,16 @@
     }
     
 }
+-(void)didClosed {
+    // 下に空白ができたらスクロールで調整
+    int scrollOffset = [_scrollView contentOffset].y;
+    int contentBottomOffset = _scrollView.contentSize.height - _scrollView.frame.size.height;
+    // NSLog(@"sizes: %f,%f",_scrollView.contentSize.height,_scrollView.frame.size.height);
+    if(scrollOffset > contentBottomOffset){
+        CGPoint point = CGPointMake(0, contentBottomOffset);
+        [_scrollView setContentOffset:point animated:YES];
+    }
+}
 
 -(void)convertReciveTimeToSave {
     NSArray *cusTodyTimePickerTextArray = [cusTodyTimePicker.selectLabel.text componentsSeparatedByString:@" "];
