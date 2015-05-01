@@ -34,9 +34,6 @@
     self.serviceInputView.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     [self.view addSubview:self.serviceInputView];
     
-    
-    self.serviceInputView.text = _contentText;
-    
     [self.serviceInputView becomeFirstResponder];
     [self initNavigationBar];
     
@@ -68,14 +65,17 @@
     self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    _serviceInputView.text = _data[@"note"];
+}
+
 -(void) backButtonTouched {
-    //    [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.text;
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void) saveDetail{
-    //call api
+    [_data setValue:_serviceInputView.text forKey:@"note"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void) setText:(NSString *)text{

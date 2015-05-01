@@ -13,6 +13,6 @@
 @interface MDRequestDetailViewController : UIViewController<MDRequestDetailViewDelegate>
 
 @property (strong, nonatomic) MDRequestDetailView   *requestDetailView;
-@property (strong, nonatomic) NSDictionary          *data;
+@property (strong, nonatomic) NSMutableDictionary          *data;
 
 @end

@@ -71,6 +71,7 @@
     // 接下来做/packages/user/register
     //package_number
     MDCurrentPackage *package = [MDCurrentPackage getInstance];
+    NSLog(@"%@", package);
     NSString *result = [_deliveryView checkInput];
     if (![result isEqualToString:@""]) {
         //警告

@@ -75,7 +75,7 @@
 -(void) makeUpData:(NSDictionary *)data{
     if(data != nil){
         MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
-        rdvc.data = data;
+        rdvc.data = [[NSMutableDictionary alloc]initWithDictionary:data];
         [self.navigationController pushViewController:rdvc animated:YES];
     }
 }

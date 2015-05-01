@@ -20,6 +20,7 @@
 #define API_PACKAGE_RESIGER   @"packages/user/register"
 #define API_PACKAGE_ORDER     @"packages/user/order"
 #define API_GET_MY_PACKAGE    @"packages/user/get_my_packages"
+#define API_EDIT_MY_PACKAGE   @"packages/user/edit_my_package"
 
 #define USER_DEVICE           @"ios"
 
@@ -71,6 +72,11 @@
 -(void) getMyPackageWithHash:(NSString *)hash
                   OnComplete:(void (^)(MKNetworkOperation *))complete
                      onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
+-(void) editMyPackageWithHash:(NSString *)hash
+                      Package:(NSDictionary *)package
+                   OnComplete:(void (^)(MKNetworkOperation *))complete
+                      onError:(void (^)(MKNetworkOperation *, NSError *))error;
 
 
 @end

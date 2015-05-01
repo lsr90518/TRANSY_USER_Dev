@@ -74,6 +74,10 @@
     
 }
 
+-(void) endInput:(MDInput *)input{
+    
+}
+
 -(void)autoInputAddress {
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -122,6 +126,10 @@
         textField.text = [textField.text substringToIndex:8];
     }
     return YES;
+}
+
+-(void) textFieldDidEndEditing:(UITextField *)textField{
+    [self autoInputAddress];
 }
 
 -(void)clearData {

@@ -11,6 +11,7 @@
 @interface MDRequestEditNoteViewController : UIViewController<UITextViewDelegate>
 @property (strong, nonatomic) UITextView *serviceInputView;
 @property (strong, nonatomic) NSString *contentText;
+@property (strong, nonatomic) NSDictionary *data;
 
 -(void) setText:(NSString *)text;
 

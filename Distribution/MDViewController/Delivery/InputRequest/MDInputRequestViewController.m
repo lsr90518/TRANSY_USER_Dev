@@ -108,5 +108,8 @@
     [MDCurrentPackage getInstance].from_addr = @"";
     [MDCurrentPackage getInstance].from_pref = @"";
 }
+
+
+
 @end
 

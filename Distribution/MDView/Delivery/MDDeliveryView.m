@@ -236,21 +236,23 @@
     }
     
     requestButton.selectLabel.text = [NSString stringWithFormat:@"〒%@",[MDCurrentPackage getInstance].from_zip];
+    
     //お届け先
     destinationButton.selectLabel.text = [NSString stringWithFormat:@"〒%@",[MDCurrentPackage getInstance].to_zip];
+    
     //size
     sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計%@cm以内",[MDCurrentPackage getInstance].size];
-    //note
-//    additionalServicePicker.selectLabel.text = [MDCurrentPackage getInstance].note;
+    
     //取扱説明書
     beCarefulPicker.selectLabel.text = ([MDCurrentPackage getInstance].note == nil) ? @"特になし" : [MDCurrentPackage getInstance].note;
+    
     //price
     costPicker.input.text = [NSString stringWithFormat:@"¥%@",[MDCurrentPackage getInstance].request_amount];
+    
     //at home time;
     NSArray *dateStr = [[MDCurrentPackage getInstance].at_home_time[0][0] componentsSeparatedByString:@"-"];
     cusTodyTimePicker.selectLabel.text = [NSString stringWithFormat:@"%d月%d日 %@時~%@時", [dateStr[1] intValue], [dateStr[2] intValue], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
     
-//    destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@時", [[MDCurrentPackage getInstance].deliver_limit substringToIndex:13]];
     destinateTimePicker.selectLabel.text = [self getInitStr];
     
     //expire
@@ -260,10 +262,12 @@
 
 -(void) setExpireTime:(NSString *)expire{
     NSDate * now = [NSDate date];
-    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setLocale:[NSLocale systemLocale]];
-    [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:00"];
-    NSDate *expireDate =[dateFormat dateFromString:expire];
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
+    [tmpFormatter setCalendar:gregorianCalendar];
+    [tmpFormatter setLocale:[NSLocale systemLocale]];
+    [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
+    NSDate *expireDate =[tmpFormatter dateFromString:expire];
     NSTimeInterval timeBetween = [expireDate timeIntervalSinceDate:now];
     int hour = timeBetween/60/60;
     requestTerm.selectLabel.text = [NSString stringWithFormat:@"%d時間以内",hour+1];
@@ -533,11 +537,6 @@
     }
 }
 
-//-(void) textFieldDidBeginEditing:(UITextField *)textField{
-//    int offset = textField.frame.origin.y + 10;//键盘高度216
-//    CGPoint point = CGPointMake(0, offset);
-//    [_scrollView setContentOffset:point animated:YES];
-//}
 
 #pragma MDPicker
 -(void) didSelectedRow:(NSMutableArray *)resultList :(int)tag{
@@ -622,8 +621,10 @@
     NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
     [tmpFormatter setCalendar:gregorianCalendar];
+    [tmpFormatter setLocale:[NSLocale systemLocale]];
     [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
     [MDCurrentPackage getInstance].expire = [tmpFormatter stringFromDate:nHoursAfter];
+    NSLog(@"%@",[MDCurrentPackage getInstance].expire);
 }
 
 

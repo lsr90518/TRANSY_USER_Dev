@@ -22,7 +22,6 @@
     
     [_requestDetailView setStatus:[_data[@"status"] intValue]];
     
-    [_requestDetailView makeupByData:_data];
     
 }
 
@@ -62,6 +61,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [self initNavigationBar];
+    [_requestDetailView makeupByData:_data];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,8 +75,7 @@
 
 -(void) editDetail {
     MDRequestEditViewController *revc = [[MDRequestEditViewController alloc]init];
-    [revc setData:_data];
-    
+    revc.data = _data;
     [self.navigationController pushViewController:revc animated:YES];
 }
 

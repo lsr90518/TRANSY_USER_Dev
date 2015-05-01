@@ -12,7 +12,7 @@
 #import "MDButtonInput.h"
 #import "MDInput.h"
 
-@interface MDAddressInputTable : UIView<UIScrollViewDelegate,UITextFieldDelegate>
+@interface MDAddressInputTable : UIView<UIScrollViewDelegate,UITextFieldDelegate,MDInputDelegate>
 
 @property (strong, nonatomic) MDButtonInput   *zipField;
 @property (strong, nonatomic) MDInput   *metropolitanField;

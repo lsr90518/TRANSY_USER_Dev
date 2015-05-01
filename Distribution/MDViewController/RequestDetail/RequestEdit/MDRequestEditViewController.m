@@ -8,10 +8,14 @@
 
 #import "MDRequestEditViewController.h"
 #import "MDRequestEditNoteViewController.h"
+#import "MDPicker.h"
+#import <SVProgressHUD.h>
+#import "MDAPI.h"
 
 @interface MDRequestEditViewController () {
     MDSelect *beCarefulPicker;
     MDSelect *requestTerm;
+    MDPicker *picker;
     
     NSMutableArray *options;
 }
@@ -42,15 +46,20 @@
     [self.view addSubview:beCarefulPicker];
     
     //list
+    //list
     requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, beCarefulPicker.frame.origin.y + beCarefulPicker.frame.size.height + 10, self.view.frame.size.width-20, 50)];
-    requestTerm.buttonTitle.text = @"依頼期限";
-    [requestTerm.rightArrow setHidden:YES];
-    requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
-    [requestTerm addTarget:self action:@selector(showExpireView:) forControlEvents:UIControlEventTouchUpInside];
-//    [requestTerm setReadOnly];
+    requestTerm.buttonTitle.text = @"掲載期限";
+    requestTerm.delegate = self;
+    //        requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
+    NSMutableArray *requestTermOptions = [[NSMutableArray alloc]init];
+    NSMutableArray *requestTermFirstOptions = [[NSMutableArray alloc]initWithObjects:@"0.5",@"1",@"3",@"6",@"12",@"24",@"72", nil];
+    [requestTermOptions addObject:requestTermFirstOptions];
+    [requestTerm setOptions:requestTermOptions :@"" :@"時間以内"];
+    requestTerm.tag = 3;
+    [requestTerm addTarget:self action:@selector(showPickerView:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:requestTerm];
     
-    [self initData];
+    
     [self initNavigationBar];
 }
 
@@ -68,6 +77,10 @@
     
     //説明書
     beCarefulPicker.selectLabel.text = _data[@"note"];
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [self initData];
 }
 
 -(void)initNavigationBar {
@@ -94,18 +107,24 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) setData:(NSDictionary *)data{
-    _data = [[NSMutableDictionary alloc]initWithDictionary:data];
-}
-
 -(void) backButtonPushed {
+    //call API
+    [SVProgressHUD show];
+    [[MDAPI sharedAPI] editMyPackageWithHash:[MDUser getInstance].userHash
+                                     Package:_data
+                                  OnComplete:^(MKNetworkOperation *completeOperation){
+                                      [SVProgressHUD dismiss];
+                                  } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+                                  }];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void) editNote{
     
     MDRequestEditNoteViewController *renvc = [[MDRequestEditNoteViewController alloc]init];
-    [renvc setContentText:_data[@"note"]];
+    renvc.data = _data;
+//    [renvc setContentText:_data[@"note"]];
     [self.navigationController pushViewController:renvc animated:YES];
 }
 
@@ -115,61 +134,34 @@
     }
     [options removeAllObjects];
     [options addObjectsFromArray:button.options];
-    
-    UIPickerView * pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(-2, self.view.frame.size.height, self.view.frame.size.width + 4, 216)];
-    pickerView.dataSource = self;
-    pickerView.delegate = self;
-    pickerView.layer.borderColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1].CGColor;
-    pickerView.layer.borderWidth = 2.0;
-    pickerView.tag = 3;
-    
-    [self.view addSubview:pickerView];
-    
-    [UIView animateWithDuration:0.3f
-                     animations:^{
-                         [pickerView setFrame:CGRectMake(-2, self.view.frame.size.height - pickerView.frame.size.height + 2, self.view.frame.size.width+4, 216)];
-                     }];
-    
 }
 
-#pragma UIPicker
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView
-{
-    int componentCount = 0;
-    if(pickerView.tag == 3){
-        componentCount = 1;
-    }
-    return componentCount;
+-(void) showPickerView:(MDSelect *)select {
+    
+    picker = [[MDPicker alloc]initWithFrame:self.view.frame];
+    picker.delegate = self;
+    [self.view addSubview:picker];
+    
+    [picker setOptions:select.showOptions :1 :3];
+    [picker showView];
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView
-numberOfRowsInComponent:(NSInteger)component
-{
-    return [options count];
+#pragma MDPickerDelegate
+-(void) didSelectedRow:(NSMutableArray *)resultList :(int)tag{
+    requestTerm.selectLabel.text = [[requestTerm.showOptions objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]];
+    [self convertRequestTermToSave:(NSString *)[[requestTerm.options objectAtIndex:0] objectAtIndex:[resultList[0][0] integerValue]]];
 }
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:
-(NSInteger)row forComponent:(NSInteger)component {
-    
-    return [NSString stringWithFormat:@"%@時間以内",options[row]];
-}
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    //input to mdcurrent
-    
+
+-(void) convertRequestTermToSave:(NSString *)term{
     NSDate *now = [NSDate date];
-    //4時間後
-    NSDate *nHoursAfter = [now dateByAddingTimeInterval:[[options objectAtIndex:row] intValue]*60*60];
+    //n時間後
+    NSDate *nHoursAfter = [now dateByAddingTimeInterval:[term intValue]*60*60];
     NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
     [tmpFormatter setCalendar:gregorianCalendar];
+    [tmpFormatter setLocale:[NSLocale systemLocale]];
     [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
-    NSString *tmpStr = [tmpFormatter stringFromDate:nHoursAfter];
-    [_data setValue:tmpStr forKey:@"expire"];
+    [_data setValue:[tmpFormatter stringFromDate:nHoursAfter] forKey:@"expire"];
 }
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView
-    widthForComponent:(NSInteger)component {
-    return self.view.frame.size.width;
-}
-
 
 @end

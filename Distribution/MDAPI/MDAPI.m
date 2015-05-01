@@ -239,4 +239,23 @@
           onError:error];
 }
 
+-(void) editMyPackageWithHash:(NSString *)hash
+                      Package:(NSDictionary *)package
+                   OnComplete:(void (^)(MKNetworkOperation *))complete
+                      onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:package[@"id"] forKey:@"package_id"];
+    [dic setObject:package[@"expire"] forKey:@"expire"];
+    [dic setObject:package[@"note"] forKey:@"note"];
+    
+    [self callApi:dic
+          withUrl:API_EDIT_MY_PACKAGE
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
 @end

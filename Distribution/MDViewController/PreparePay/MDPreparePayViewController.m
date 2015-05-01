@@ -272,9 +272,9 @@ static CGRect oldframe;
         
         
         CGSize imagesize = image.size;
-        imagesize.height = imagesize.height/5;
-        imagesize.width = imagesize.width/5;
-        image = [self imageWithImage:image scaledToSize:imagesize];
+        imagesize.height = imagesize.height/2;
+        imagesize.width = imagesize.width/2;
+//        image = [self imageWithImage:image scaledToSize:imagesize];
         
         imagesize = image.size;
         

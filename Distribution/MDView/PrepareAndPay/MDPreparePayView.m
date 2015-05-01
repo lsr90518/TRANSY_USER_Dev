@@ -211,15 +211,18 @@
 -(void) setBoxImage:(UIImage *)image {
     if (uploadedImage == nil) {
         uploadedImage = [[UIImageView alloc]initWithImage:image];
-        [cameraButton addSubview:uploadedImage];
+//        [cameraButton addSubview:uploadedImage];
+        [cameraButton setImage:image forState:UIControlStateNormal];
         [cameraIcon setHidden:YES];
-//        float x = image.size.height/cameraButton.frame.size.height;
-//        uploadedImage.frame = CGRectMake(cameraButton.frame.size.width/2-uploadedImage.frame.size.width/x/2,
+//        float x = image.size.width/cameraButton.frame.size.width;
+//        uploadedImage.frame = CGRectMake(0,
 //                                         0,
 //                                         image.size.width/x,
 //                                         image.size.height/x);
+//        uploadedImage.center = cameraButton.center;
     } else {
-        [uploadedImage setImage:image];
+        [cameraButton setImage:image forState:UIControlStateNormal];
+//        [uploadedImage setImage:image];
     }
 //    [cameraButton setBackgroundImage:image forState:UIControlStateNormal];
 //    [cameraButton setImage:image forState:UIControlStateNormal];
