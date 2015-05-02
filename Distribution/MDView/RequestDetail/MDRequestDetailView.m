@@ -163,7 +163,6 @@
         sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height + 10, frame.size.width-20, 50)];
         sizePicker.buttonTitle.text = @"サイズ";
         sizePicker.selectLabel.text = @"120";
-//        [sizePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:sizePicker];
         
         
@@ -171,8 +170,6 @@
         beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 10, frame.size.width-20, 50)];
         beCarefulPicker.buttonTitle.text = @"取扱説明書";
         beCarefulPicker.selectLabel.text = @"特になし";
-        [beCarefulPicker setUnactive];
-//        [beCarefulPicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [beCarefulPicker setReadOnly];
         [_scrollView addSubview:beCarefulPicker];
         
@@ -180,7 +177,6 @@
         costPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, beCarefulPicker.frame.origin.y + beCarefulPicker.frame.size.height + 10, frame.size.width-20, 50)];
         costPicker.buttonTitle.text = @"依頼金額";
         costPicker.selectLabel.text = @"1400";
-//        [costPicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [costPicker setReadOnly];
         [_scrollView addSubview:costPicker];
         

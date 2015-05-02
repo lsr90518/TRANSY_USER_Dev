@@ -40,7 +40,6 @@
     
     beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 50)];
     beCarefulPicker.buttonTitle.text = @"取扱説明書";
-    [beCarefulPicker setUnactive];
     [beCarefulPicker addTarget:self action:@selector(editNote) forControlEvents:UIControlEventTouchUpInside];
 //    [beCarefulPicker setReadOnly];
     [self.view addSubview:beCarefulPicker];
