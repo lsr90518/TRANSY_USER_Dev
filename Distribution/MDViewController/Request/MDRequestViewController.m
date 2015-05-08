@@ -35,10 +35,11 @@
     
     //call api
     [SVProgressHUD show];
+    NSLog(@"userHash %@", [MDUser getInstance].userHash);
     [[MDAPI sharedAPI] getMyPackageWithHash:[MDUser getInstance].userHash
                                  OnComplete:^(MKNetworkOperation *complete){
                                      if([[complete responseJSON][@"code"] integerValue] == 0){
-                                         
+                                         NSLog(@"%@", [complete responseJSON][@"Packages"]);
                                          [_requestView initWithArray:[complete responseJSON][@"Packages"]];
                                      }
                                      [SVProgressHUD dismiss];

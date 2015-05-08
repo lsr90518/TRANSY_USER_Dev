@@ -61,7 +61,7 @@
 
 -(void) orderWithHash:(NSString *)hash
                   packageId:(NSString *)package_id
-                      image:(UIImage *)image
+                  imageData:(NSData *)image_data
                  OnComplete:(void (^)(MKNetworkOperation *))complete
                     onError:(void (^)(MKNetworkOperation *, NSError *))error;
 -(void) updatePhoneNumberWithOldPhoneNumber:(NSString *)oldPhoneNumber

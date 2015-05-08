@@ -178,7 +178,9 @@
     [dic setObject:[MDCurrentPackage getInstance].request_amount    forKey:@"request_amount"];
     [dic setObject:[MDCurrentPackage getInstance].note              forKey:@"note"];
     [dic setObject:[MDCurrentPackage getInstance].size              forKey:@"size"];
-    [dic setValue: [MDCurrentPackage getInstance].at_home_time      forKey:@"at_home_time"];
+    NSString *at_home_time = [NSString stringWithFormat:@"[%@,%@,%@]",[MDCurrentPackage getInstance].at_home_time[0][0], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
+    NSLog(@"at home time %@", at_home_time);
+    [dic setObject:at_home_time      forKey:@"at_home_time"];
     [dic setObject:[MDCurrentPackage getInstance].deliver_limit     forKey:@"deliver_limit"];
     [dic setObject:[MDCurrentPackage getInstance].expire            forKey:@"expire"];
     
@@ -192,7 +194,7 @@
 
 -(void) orderWithHash:(NSString *)hash
                   packageId:(NSString *)package_id
-                      image:(UIImage *)image
+                      imageData:(NSData *)image_data
                  OnComplete:(void (^)(MKNetworkOperation *))complete
                     onError:(void (^)(MKNetworkOperation *, NSError *))error{
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
@@ -200,12 +202,14 @@
     [dic setObject:USER_DEVICE forKey:@"client"];
     [dic setObject:package_id forKey:@"package_id"];
     
-    [self callApi:dic
-          withUrl:API_PACKAGE_ORDER
-       withImages:@[image]
-   withHttpMethod:@"POST"
-       onComplete:complete
-          onError:error];
+    MKNetworkOperation *op     = [_engine operationWithPath:API_PACKAGE_ORDER
+                                                     params:dic
+                                                 httpMethod:@"POST"];
+    
+    [op addData:image_data forKey:@"image"];
+    
+    [op addCompletionHandler:complete errorHandler:error];
+    [_engine enqueueOperation:op];
 }
 
 -(void) updatePhoneNumberWithOldPhoneNumber:(NSString *)oldPhoneNumber

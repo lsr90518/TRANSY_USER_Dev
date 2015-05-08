@@ -29,6 +29,7 @@
 @property (strong, nonatomic) NSString *note;
 @property (strong, nonatomic) NSMutableArray *at_home_time; //預かり時刻
 @property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSData    *image_data;
 @property (strong, nonatomic) NSString *status;             //0:初期, 1:編集中, 2:発送した
 @property (strong, nonatomic) NSString *driver_id;
 @property (strong, nonatomic) NSString *package_number;

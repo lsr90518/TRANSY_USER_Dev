@@ -110,7 +110,7 @@ static CGRect oldframe;
         
         [[MDAPI sharedAPI] orderWithHash:user.userHash
                                packageId:[MDCurrentPackage getInstance].package_id
-                                   image:_packageImage
+                               imageData:[MDCurrentPackage getInstance].image_data
                               OnComplete:^(MKNetworkOperation *completeOperation){
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                       [MDCurrentPackage getInstance].status = @"2";
@@ -280,6 +280,7 @@ static CGRect oldframe;
         
         [_preparePayView setBoxImage:image];
         _packageImage = image;
+        [MDCurrentPackage getInstance].image_data = data;
         [picker dismissViewControllerAnimated:YES completion:nil];
     }
 }
