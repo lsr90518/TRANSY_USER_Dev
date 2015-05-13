@@ -56,7 +56,7 @@
     if(user.credit == 0){
         return @"新規登録";
     }else{
-        return @"登録済み";
+        return @"ご登録済みのカード";
     }
 }
 

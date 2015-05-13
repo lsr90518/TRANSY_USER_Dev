@@ -11,10 +11,11 @@
 #import "MDTabButton.h"
 #import "MDUtil.h"
 #import "MDUser.h"
+#import "MDCreditView.h"
 
 @protocol MDSettingViewDelegate;
 
-@interface MDSettingView : UIView <UIScrollViewAccessibilityDelegate, UIScrollViewDelegate>
+@interface MDSettingView : UIView <UIScrollViewAccessibilityDelegate, UIScrollViewDelegate, MDCreditViewDelegate>
 
 @property (strong, nonatomic) UIScrollView  *scrollView;
 @property (strong, nonatomic) UIView        *tabbar;

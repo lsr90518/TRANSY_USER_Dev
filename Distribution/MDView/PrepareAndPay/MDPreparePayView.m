@@ -19,6 +19,7 @@
     UIImageView *cameraIcon;
     MDSelect *phoneNumber;
     MDSelect *requestPerson;
+    MDSelect *pay;
     BOOL isChecked;
 }
 
@@ -109,11 +110,17 @@
         [phoneNumber addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneNumber];
         
-        MDSelect *pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneNumber.frame.origin.y + phoneNumber.frame.size.height + 10, frame.size.width-20, 50)];
+        MDCreditView *payInner = [[MDCreditView alloc]initWithFrame:CGRectMake(10, phoneNumber.frame.origin.y + phoneNumber.frame.size.height + 10, frame.size.width-20, 50)];
+        payInner.creditDelegate = self;
+        [_scrollView addSubview:payInner];
+        
+        pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneNumber.frame.origin.y + phoneNumber.frame.size.height + 10, frame.size.width-20, 50)];
         pay.buttonTitle.text = @"お支払い方法";
         pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [pay setTag:paymentSelect];
+        [pay.selectLabel setAlpha: 0.0f];
+        [pay setBackgroundColor:[UIColor clearColor]];
         [_scrollView addSubview:pay];
         
         UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -260,6 +267,14 @@
     if([self.delegate respondsToSelector:@selector(showCardIO)]){
         [self.delegate showCardIO];
     }
+}
+
+
+/*
+ * MDCreditViewDelegate
+ */
+-(void)hasNoAuthorizedCard {
+    [pay.selectLabel setAlpha: 1.0f];
 }
 
 @end
