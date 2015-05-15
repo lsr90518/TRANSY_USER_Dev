@@ -104,7 +104,7 @@ static CGRect oldframe;
     } else if(![_preparePayView isChecked]){
         [MDUtil makeAlertWithTitle:@"利用規約確認" message:@"利用規約とプライバシーポリシーの確認をお願いします。" done:@"OK" viewController:self];
     } else {
-        [SVProgressHUD show];
+        [SVProgressHUD showWithStatus:@"荷物登録中..." maskType:SVProgressHUDMaskTypeBlack];
         MDUser *user = [MDUser getInstance];
         [user initDataClear];
         
@@ -114,6 +114,7 @@ static CGRect oldframe;
                               OnComplete:^(MKNetworkOperation *completeOperation){
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                       [MDCurrentPackage getInstance].status = @"2";
+                                      [SVProgressHUD dismiss];
                                       [self dismissViewControllerAnimated:YES completion:nil];
                                   }else{
                                       [MDUtil makeAlertWithTitle:@"エラー" message:@"支払い方法が登録されていません。" done:@"OK" viewController:self];

@@ -21,6 +21,7 @@
 @property (nonatomic, assign) id<MDRequestViewDelegate>   delegate;
 
 -(void) initWithArray:(NSArray *)array;
+-(void) endRefresh;
 
 @end
 
@@ -29,6 +30,7 @@
 @optional
 -(void) gotoDeliveryView;
 -(void) gotoSettingView;
--(void) makeUpData:(NSDictionary *)data;
+-(void) makeUpData:(MDPackage *)data;
+-(void) refreshData;
 
 @end

@@ -96,16 +96,19 @@
         [cameraButton addSubview:cameraIcon];
         [_scrollView addSubview:cameraButton];
         
-        requestPerson = [[MDSelect alloc]initWithFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, frame.size.width-20, 50)];
-        requestPerson.buttonTitle.text = @"依頼主名";
-        requestPerson.selectLabel.text = [NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname];
+        requestPerson = [[MDSelect alloc]initWithFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, frame.size.width/2-10, 50)];
+        requestPerson.buttonTitle.text = [NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname];
+        requestPerson.buttonTitle.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
+        [requestPerson.buttonTitle sizeToFit];
+        [requestPerson setReadOnly];
         [requestPerson addTarget:self action:@selector(requestPersonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestPerson];
         
-        phoneNumber = [[MDSelect alloc]initWithFrame:CGRectMake(10, requestPerson.frame.origin.y + requestPerson.frame.size.height + 10, frame.size.width-20, 50)];
-        phoneNumber.buttonTitle.text = @"電話番号";
-        phoneNumber.selectLabel.text = [NSString stringWithFormat:@"%@",user.phoneNumber];
-        [phoneNumber.rightArrow setHidden:YES];
+        phoneNumber = [[MDSelect alloc]initWithFrame:CGRectMake(requestPerson.frame.origin.x + requestPerson.frame.size.width + 10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, frame.size.width/2-20, 50)];
+        phoneNumber.buttonTitle.text = [NSString stringWithFormat:@"%@",user.phoneNumber];
+        phoneNumber.buttonTitle.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
+        [phoneNumber.buttonTitle sizeToFit];
+        [phoneNumber setReadOnly];
         [phoneNumber addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneNumber];
         
@@ -157,10 +160,11 @@
         [_scrollView addSubview:niLabel];
         
         //button
-        self.postButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.origin.x+10, checkBox.frame.origin.y + checkBox.frame.size.height + 10, frame.size.width-20, 60)];
+        self.postButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.origin.x+10, checkBox.frame.origin.y + checkBox.frame.size.height + 23, frame.size.width-20, 60)];
         [self.postButton setBackgroundColor:[UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1]];
         [self.postButton setTitle:@"以上で発注する" forState:UIControlStateNormal];
         self.postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:18];
+        self.postButton.layer.cornerRadius = 2.5;
         [_postButton addTarget:self action:@selector(postButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:self.postButton];
         
@@ -213,6 +217,7 @@
         uploadedImage = [[UIImageView alloc]initWithImage:image];
 //        [cameraButton addSubview:uploadedImage];
         [cameraButton setImage:image forState:UIControlStateNormal];
+        cameraButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
         [cameraIcon setHidden:YES];
 //        float x = image.size.width/cameraButton.frame.size.width;
 //        uploadedImage.frame = CGRectMake(0,

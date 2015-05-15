@@ -69,13 +69,13 @@
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setLocale:[NSLocale systemLocale]];
     [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:00"];
-    NSDate *expireDate =[dateFormat dateFromString:_data[@"expire"]];
+    NSDate *expireDate =[dateFormat dateFromString:_package.expire];
     NSTimeInterval timeBetween = [expireDate timeIntervalSinceDate:now];
     int hour = timeBetween/60/60;
     requestTerm.selectLabel.text = [NSString stringWithFormat:@"%d時間以内",hour+1];
     
     //説明書
-    beCarefulPicker.selectLabel.text = _data[@"note"];
+    beCarefulPicker.selectLabel.text = _package.note;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -108,22 +108,22 @@
 
 -(void) backButtonPushed {
     //call API
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:@"保存" maskType:SVProgressHUDMaskTypeBlack];
     [[MDAPI sharedAPI] editMyPackageWithHash:[MDUser getInstance].userHash
-                                     Package:_data
+                                     Package:_package
                                   OnComplete:^(MKNetworkOperation *completeOperation){
                                       [SVProgressHUD dismiss];
+                                      [self.navigationController popViewControllerAnimated:YES];
                                   } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
                                   }];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 -(void) editNote{
     
     MDRequestEditNoteViewController *renvc = [[MDRequestEditNoteViewController alloc]init];
-    renvc.data = _data;
-//    [renvc setContentText:_data[@"note"]];
+    renvc.package = _package;
     [self.navigationController pushViewController:renvc animated:YES];
 }
 
@@ -160,7 +160,7 @@
     [tmpFormatter setCalendar:gregorianCalendar];
     [tmpFormatter setLocale:[NSLocale systemLocale]];
     [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
-    [_data setValue:[tmpFormatter stringFromDate:nHoursAfter] forKey:@"expire"];
+    _package.expire = [tmpFormatter stringFromDate:nHoursAfter];
 }
 
 @end

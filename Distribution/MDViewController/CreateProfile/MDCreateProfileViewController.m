@@ -72,7 +72,7 @@
         user.firstname = createProfileView.givennameInput.input.text;
         user.password = createProfileView.passwordInput.input.text;
         //call api
-        [SVProgressHUD show];
+        [SVProgressHUD showWithStatus:@"登録中" maskType:SVProgressHUDMaskTypeBlack];
         [[MDAPI sharedAPI] newProfileByUser:user
                                     onComplete:^(MKNetworkOperation *completeOperation) {
                                         // NSLog(@"%@",[completeOperation responseJSON]);

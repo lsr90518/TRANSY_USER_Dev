@@ -59,7 +59,7 @@
 }
 
 -(void) backButtonPushed{
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:@"保存" maskType:SVProgressHUDMaskTypeBlack];
     MDUser *newUser = [[MDUser alloc]init];
     [newUser copyDataFromUser:[MDUser getInstance]];
     newUser.lastname = _lastnameInput.input.text;

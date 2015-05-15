@@ -19,6 +19,7 @@
     MDSelect *requestButton;
     MDSelect *destinationButton;
     MDSelect *sizePicker;
+    UIButton *sizeDescriptionButton;
     MDSelect *additionalServicePicker;
     MDSelect *costPicker;
     MDSelect *cusTodyTimePicker;
@@ -37,6 +38,8 @@
     UIImageView *completeImageView;
     
     UIImageView *uploadedImage;
+    
+    UIButton *cancelButton;
 }
 
 -(id) initWithFrame:(CGRect)frame {
@@ -163,11 +166,19 @@
         sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height + 10, frame.size.width-20, 50)];
         sizePicker.buttonTitle.text = @"サイズ";
         sizePicker.selectLabel.text = @"120";
+        [sizePicker setReadOnly];
         [_scrollView addSubview:sizePicker];
-        
+        sizeDescriptionButton = [[UIButton alloc]initWithFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 5, sizePicker.frame.size.width, 10)];
+        sizeDescriptionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [sizeDescriptionButton setTitle:@"荷物サイズの測り方 >" forState:UIControlStateNormal];
+        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+        [sizeDescriptionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
+        [sizeDescriptionButton addTarget:self action:@selector(sizeDescriptionButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:sizeDescriptionButton];
         
         //list
-        beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 10, frame.size.width-20, 50)];
+        beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, sizeDescriptionButton.frame.origin.y + sizeDescriptionButton.frame.size.height + 10, frame.size.width-20, 50)];
         beCarefulPicker.buttonTitle.text = @"取扱説明書";
         beCarefulPicker.selectLabel.text = @"特になし";
         [beCarefulPicker setReadOnly];
@@ -198,18 +209,43 @@
         
         //list
         requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, frame.size.width-20, 50)];
-        requestTerm.buttonTitle.text = @"依頼期限";
+        requestTerm.buttonTitle.text = @"掲載期限";
 //        [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [requestTerm setReadOnly];
         [_scrollView addSubview:requestTerm];
         
-        [_scrollView setContentSize:CGSizeMake(frame.size.width, requestTerm.frame.origin.y + requestTerm.frame.size.height + 10)];
-        [self addSubview:_scrollView];
         
+        cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(10, requestTerm.frame.origin.y + requestTerm.frame.size.height + 10, self.frame.size.width - 20, 50)];
+        [cancelButton setBackgroundColor:[UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1]];
+        cancelButton.layer.cornerRadius = 2.0;
+        [cancelButton setTitle:@"掲載をキャンセルする" forState:UIControlStateNormal];
+        cancelButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:14];
+        [cancelButton addTarget:self action:@selector(cancelButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:cancelButton];
+        
+        //scroll view
+        [_scrollView setContentSize:CGSizeMake(frame.size.width, cancelButton.frame.origin.y + cancelButton.frame.size.height + 10)];
+        [self addSubview:_scrollView];
         
     }
     return self;
 }
+
+-(void) resizeSubviews{
+    //address
+    [requestAddressView setFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, self.frame.size.width-20, 100)];
+    [destinationAddressView setFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height + 10, self.frame.size.width-20, 100)];
+    [sizePicker setFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height + 10, self.frame.size.width-20, 50)];
+    [sizeDescriptionButton setFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 5, sizePicker.frame.size.width, 10)];
+    
+    [beCarefulPicker setFrame:CGRectMake(10, sizeDescriptionButton.frame.origin.y + sizeDescriptionButton.frame.size.height + 10, self.frame.size.width-20, 50)];
+    
+    [costPicker setFrame:CGRectMake(10, beCarefulPicker.frame.origin.y + beCarefulPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
+    [cusTodyTimePicker setFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
+    [destinateTimePicker setFrame:CGRectMake(10, cusTodyTimePicker.frame.origin.y + cusTodyTimePicker.frame.size.height + 10, self.frame.size.width-20, 50)];
+    [requestTerm setFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, self.frame.size.width-20, 50)];
+}
+
 
 -(void) setStatus:(int)status {
     switch (status) {
@@ -220,6 +256,19 @@
             [matchingImageView setHidden:NO];
             [distributionImageView setHidden:YES];
             [completeImageView setHidden:YES];
+            [statusButton addTarget:self action:@selector(matchButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        case 1:
+            matchingProcessLabel.textColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
+            distributionProcessLabel.textColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0/255.0 alpha:1];
+            completeProcessLabel.textColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
+            [matchingImageView setHidden:YES];
+            [distributionImageView setHidden:NO];
+            [completeImageView setHidden:YES];
+            statusButton.buttonTitle.text = @"配送員";
+            [cancelButton setHidden:YES];
+            statusButton.selectLabel.text = @"09028280392";
+            [statusButton addTarget:self action:@selector(seeDriverProfile) forControlEvents:UIControlEventTouchUpInside];
             break;
         case 2:
             matchingProcessLabel.textColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
@@ -228,6 +277,10 @@
             [matchingImageView setHidden:YES];
             [distributionImageView setHidden:NO];
             [completeImageView setHidden:YES];
+            statusButton.buttonTitle.text = @"配送員";
+            statusButton.selectLabel.text = @"09028280392";
+            [cancelButton setHidden:YES];
+            [statusButton addTarget:self action:@selector(seeDriverProfile) forControlEvents:UIControlEventTouchUpInside];
             break;
         case 3:
             matchingProcessLabel.textColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
@@ -236,57 +289,95 @@
             [matchingImageView setHidden:YES];
             [distributionImageView setHidden:YES];
             [completeImageView setHidden:NO];
+            statusButton.buttonTitle.text = @"依頼者評価";
+            statusButton.selectLabel.text = @"";
+            [cancelButton setHidden:YES];
+            [statusButton addTarget:self action:@selector(reviewButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        case 4:
+            [statusButton setHidden:YES];
+            [cancelButton setHidden:YES];
+            //状態のボタン
+            [cameraButton setFrame:CGRectMake(statusButton.frame.origin.x, statusButton.frame.origin.y, cameraButton.frame.size.width, cameraButton.frame.size.height)];
+            [self resizeSubviews];
+            break;
+        case -1:
+            [statusButton setHidden:YES];
+            [cancelButton setHidden:YES];
+            //状態のボタン
+            [cameraButton setFrame:CGRectMake(statusButton.frame.origin.x, statusButton.frame.origin.y, cameraButton.frame.size.width, cameraButton.frame.size.height)];
+            [self resizeSubviews];
             break;
         default:
             break;
     }
 }
 
--(void) makeupByData:(NSDictionary *)data{
+-(void) makeupByData:(MDPackage *)package{
     //upload image
     uploadedImage = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, 136, 136)];
-    [uploadedImage sd_setImageWithURL:[NSURL URLWithString:data[@"image"]] placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
-
-    [cameraButton sd_setImageWithURL:[NSURL URLWithString:data[@"image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
+    [uploadedImage sd_setImageWithURL:[NSURL URLWithString:package.image] placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
+    
+    cameraButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [cameraButton sd_setImageWithURL:[NSURL URLWithString:package.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
     
     
     //address
-    requestAddressView.zipField.text = data[@"from_zip"];
-    requestAddressView.addressField.text = data[@"from_addr"];
-    destinationAddressView.zipField.text = data[@"to_zip"];
-    destinationAddressView.addressField.text = data[@"to_addr"];
+    requestAddressView.zipField.text = package.from_zip;
+    requestAddressView.addressField.text = package.from_addr;
+    destinationAddressView.zipField.text = package.to_zip;
+    destinationAddressView.addressField.text = package.to_addr;
     
     //size
-    sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計%@以内", data[@"size"]];
+    sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計%@cm以内", package.size];
     
     //at_home_time
-    //
+    //cusTodyTimePicker
+    if([package.at_home_time[0][0] isEqualToString:@"-1"]){
+        NSLog(@"at_home_time null");
+    } else {
+        NSString *at_home_hour = [NSString stringWithFormat:@"%@", package.at_home_time[0][1]];
+        NSString *at_home_time_str = @"";
+        if([at_home_hour isEqualToString:@"-1"]){
+            at_home_time_str = [NSString stringWithFormat:@"%@ いつでも", package.at_home_time[0][0]];
+        } else {
+            at_home_time_str = [NSString stringWithFormat:@"%@ %@時〜%@時", package.at_home_time[0][0], package.at_home_time[0][1], package.at_home_time[0][2]];
+        }
+        cusTodyTimePicker.selectLabel.text = at_home_time_str;
+    }
     
     //note
     //    additionalServicePicker.selectLabel.text = [MDCurrentPackage getInstance].note;
     //取扱説明書
-    beCarefulPicker.selectLabel.text = (data[@"note"] == nil) ? @"特になし" : data[@"note"];
+    beCarefulPicker.selectLabel.text = (package.note == nil) ? @"特になし" : package.note;
     //price
-    costPicker.selectLabel.text = [NSString stringWithFormat:@"%@円",data[@"request_amount"]];
+    costPicker.selectLabel.text = [NSString stringWithFormat:@"%@円",package.request_amount];
     //at home time;
     
-    NSString *deliver_limit = [NSString stringWithFormat:@"%@",data[@"deliver_limit"]];
+    NSString *deliver_limit = [NSString stringWithFormat:@"%@",package.deliver_limit];
     destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@時", [deliver_limit substringToIndex:13]];
     
     //expire
-    NSLog(@"%@", data[@"expire"]);
     NSDate * now = [NSDate date];
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setLocale:[NSLocale systemLocale]];
     [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:00"];
-    NSDate *expireDate =[dateFormat dateFromString:data[@"expire"]];
-    NSTimeInterval timeBetween = [expireDate timeIntervalSinceDate:now];
+    NSDate *expireDate =[dateFormat dateFromString:package.expire];
+    NSTimeInterval timeBetween = [expireDate timeIntervalSinceNow];
     int hour = timeBetween/60/60;
-    if (hour < 1) {
+    if (timeBetween < 0) {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"期限で取消された"];
     } else {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"%d時間以内",hour+1];
     }
+}
+
+-(void) setDriverData:(MDDriver *)driver{
+    _driver = driver;
+    statusButton.selectLabel.text = driver.name;
+    statusButton.buttonTitle.text = @"配送員";
+    [statusButton setActive];
+    
 }
 
 -(void) cameraButtonTouched {
@@ -297,6 +388,36 @@
 
 -(UIImageView*) getUploadedImage{
     return uploadedImage;
+}
+
+-(void) reviewButtonTouched{
+    if([self.delegate respondsToSelector:@selector(reviewButtonPushed)]){
+        [self.delegate reviewButtonPushed];
+    }
+}
+
+-(void) seeDriverProfile{
+    if([self.delegate respondsToSelector:@selector(profileButtonPushed)]){
+        [self.delegate profileButtonPushed];
+    }
+}
+
+-(void) sizeDescriptionButtonTouched{
+    if([self.delegate respondsToSelector:@selector(sizeDescriptionButtonPushed)]){
+        [self.delegate sizeDescriptionButtonPushed];
+    }
+}
+
+-(void) matchButtonTouched{
+    if([self.delegate respondsToSelector:@selector(matchButtonPushed)]){
+        [self.delegate matchButtonPushed];
+    }
+}
+
+-(void) cancelButtonTouched{
+    if([self.delegate respondsToSelector:@selector(cancelButtonPushed)]){
+        [self.delegate cancelButtonPushed];
+    }
 }
 
 

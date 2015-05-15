@@ -70,7 +70,7 @@
     [self sendData:[dataArray objectAtIndex:indexPath.row]];
 }
 
--(void) sendData:(NSDictionary *)data{
+-(void) sendData:(MDPackage *)data{
     if([self.requestTableViewDelegate respondsToSelector:@selector(didSelectedRowWithData:)]){
         [self.requestTableViewDelegate didSelectedRowWithData:data];
     }

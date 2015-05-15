@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDPackage.h"
+#import "MDDriver.h"
 
 @protocol MDRequestDetailViewDelegate;
 
@@ -15,9 +17,12 @@
 @property (strong, nonatomic) UIScrollView  *scrollView;
 @property (strong, nonatomic) NSString      *process;
 @property (strong, nonatomic) id<MDRequestDetailViewDelegate> delegate;
+@property (strong, nonatomic) MDPackage     *package;
+@property (strong, nonatomic) MDDriver      *driver;
 
 -(void) setStatus:(int) status;
--(void) makeupByData:(NSDictionary *)data;
+-(void) makeupByData:(MDPackage *)package;
+-(void) setDriverData:(MDDriver *)driver;
 -(UIImageView *) getUploadedImage;
 
 
@@ -27,5 +32,10 @@
 
 @optional
 -(void) cameraButtonTouched;
+-(void) reviewButtonPushed;
+-(void) profileButtonPushed;
+-(void) sizeDescriptionButtonPushed;
+-(void) matchButtonPushed;
+-(void) cancelButtonPushed;
 
 @end

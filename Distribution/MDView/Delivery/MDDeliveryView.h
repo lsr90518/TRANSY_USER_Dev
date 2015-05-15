@@ -43,5 +43,6 @@
 -(void) gotoRequestView;
 -(void) gotoSettingView;
 -(void) amountNotEnough;
+-(void) sizeDescriptionButtonPushed;
 
 @end

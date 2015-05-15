@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDPackage.h"
 
 @interface MDRequestTableViewCell : UITableViewCell
 
@@ -16,6 +17,6 @@
 @property (strong, nonatomic) UILabel *statusLabel;
 @property (strong, nonatomic) UIImageView *rightArrow;
 
--(void) initCellWithData:(NSDictionary *)data;
+-(void) initCellWithData:(MDPackage *)data;
 
 @end

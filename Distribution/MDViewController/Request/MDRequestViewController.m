@@ -32,15 +32,17 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    _packageService = [[MDPackageService alloc]init];
     
     //call api
     [SVProgressHUD show];
-    NSLog(@"userHash %@", [MDUser getInstance].userHash);
+    
     [[MDAPI sharedAPI] getMyPackageWithHash:[MDUser getInstance].userHash
                                  OnComplete:^(MKNetworkOperation *complete){
                                      if([[complete responseJSON][@"code"] integerValue] == 0){
-                                         NSLog(@"%@", [complete responseJSON][@"Packages"]);
-                                         [_requestView initWithArray:[complete responseJSON][@"Packages"]];
+                                         //
+                                         [_packageService initDataWithArray:[complete responseJSON][@"Packages"] SortByDate:YES];
+                                         [_requestView initWithArray:_packageService.packageList];
                                      }
                                      [SVProgressHUD dismiss];
                                  }
@@ -48,6 +50,13 @@
                                         NSLog(@"error ------------------------ %@", error);
                                         [SVProgressHUD dismiss];
                                     }];
+}
+
+-(void) viewDidAppear:(BOOL)animated{
+    if([[MDCurrentPackage getInstance].status isEqualToString:@"2"]){
+        [MDCurrentPackage getInstance].status = @"0";
+        [MDUtil makeAlertWithTitle:@"荷物の依頼を掲載しました。" message:@"条件が会う配送員が見つかり次第、通知を致します。お手数ですが、今しばらくお待ち下さい。" done:@"OK" viewController:self];
+    }
 }
 
 -(void) initNavigationBar {
@@ -73,13 +82,31 @@
     
 }
 
--(void) makeUpData:(NSDictionary *)data{
+-(void) makeUpData:(MDPackage *)data{
     if(data != nil){
         MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
-        rdvc.data = [[NSMutableDictionary alloc]initWithDictionary:data];
+        //ここ
+        NSLog(@"%@", data);
+//        MDPackage *tmpPackage = [[MDPackage alloc]initWithData:data];
+        rdvc.package = data;
         [self.navigationController pushViewController:rdvc animated:YES];
     }
 }
 
+-(void) refreshData {
+    [[MDAPI sharedAPI] getMyPackageWithHash:[MDUser getInstance].userHash
+                                 OnComplete:^(MKNetworkOperation *complete){
+                                     if([[complete responseJSON][@"code"] integerValue] == 0){
+                                         //
+                                         [_packageService initDataWithArray:[complete responseJSON][@"Packages"] SortByDate:YES];
+                                         [_requestView initWithArray:_packageService.packageList];
+                                         [_requestView endRefresh];
+                                     }
+                                 }
+                                    onError:^(MKNetworkOperation *complete, NSError *error){
+                                        NSLog(@"error ------------------------ %@", error);
+                                        [SVProgressHUD dismiss];
+                                    }];
+}
 
 @end

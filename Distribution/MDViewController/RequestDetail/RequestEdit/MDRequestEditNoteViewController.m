@@ -66,7 +66,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    _serviceInputView.text = _data[@"note"];
+    _serviceInputView.text = _package.note;
 }
 
 -(void) backButtonTouched {
@@ -74,7 +74,7 @@
 }
 
 -(void) saveDetail{
-    [_data setValue:_serviceInputView.text forKey:@"note"];
+    _package.note = _serviceInputView.text;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -10,10 +10,11 @@
 #import "MDInput.h"
 #import "MDSelect.h"
 #import "MDPicker.h"
+#import "MDPackage.h"
 
 @interface MDRequestEditViewController : UIViewController<MDSelectDelegate,MDPickerDelegate>
 
-@property (strong ,nonatomic) NSDictionary *data;
+@property (strong ,nonatomic) MDPackage *package;
 
 -(void) setData:(NSDictionary *)data;
 

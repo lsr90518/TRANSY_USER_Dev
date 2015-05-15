@@ -17,18 +17,18 @@
         [self addTarget:self action:@selector(buttonTouched) forControlEvents:UIControlEventTouchUpInside];
         
         //add frame
-        self.layer.cornerRadius = 2.5;
+        self.layer.cornerRadius = 2.0;
         self.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         self.layer.borderWidth = 0.5;
         
         
         //add title
-        self.buttonTitle = [[UILabel alloc]initWithFrame:CGRectMake(19, 18, 90, 14)];
+        self.buttonTitle = [[UILabel alloc]initWithFrame:CGRectMake(19, 17, 90, 17)];
         self.buttonTitle.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:14];
         [self addSubview:self.buttonTitle];
         
         //add select
-        self.selectLabel = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width-180, 19, 149, 13)];
+        self.selectLabel = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width-180, 17, 149, 18)];
         self.selectLabel.textAlignment = NSTextAlignmentRight;
         self.selectLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         [self addSubview:self.selectLabel];
@@ -53,6 +53,7 @@
 
 -(void) setReadOnly {
     [self.rightArrow setHidden:YES];
+    [self.selectLabel setFrame:CGRectMake(self.frame.size.width-180, 19, 160, 13)];
     [self setUserInteractionEnabled:NO];
     
 }
@@ -82,6 +83,12 @@
             [_showOptions[i] addObject:[NSString stringWithFormat:@"%@%@%@",startStr,options[i][j],lastStr]];
         }
     }
+}
+
+-(void) setNoArrow{
+    [self.rightArrow setHidden:YES];
+    //add select
+    [self.selectLabel setFrame:CGRectMake(self.frame.size.width-180, 19, 180, 13)];
 }
 
 

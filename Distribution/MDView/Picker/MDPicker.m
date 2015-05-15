@@ -47,17 +47,17 @@
         [_buttonView addSubview:topLine];
         
         
-        _doneButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.size.width - 50, 0, 40, 30)];
+        _doneButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.size.width - frame.size.width*0.2 - 10, 0, frame.size.width*0.2, frame.size.width*0.1)];
         [_doneButton setTitle:@"完了" forState:UIControlStateNormal];
         [_doneButton addTarget:self action:@selector(sendData) forControlEvents:UIControlEventTouchUpInside];
-        _doneButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
+        _doneButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:frame.size.width*0.05];
         [_doneButton setTitleColor:[UIColor colorWithRed:238.0/255.0 green:160.0/255.0 blue:24.0/255.0 alpha:1] forState:UIControlStateNormal];
         [_buttonView addSubview:_doneButton];
         
-        _cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 0, 40, 30)];
+        _cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 0, frame.size.width*0.2, frame.size.width*0.1)];
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(closeView) forControlEvents:UIControlEventTouchUpInside];
-        _cancelButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
+        _cancelButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:frame.size.width*0.05];
         [_cancelButton setTitleColor:[UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1] forState:UIControlStateNormal];
         [_buttonView addSubview:_cancelButton];
         

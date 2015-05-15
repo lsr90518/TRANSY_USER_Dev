@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDPackage.h"
 
 @protocol MDRequestTableViewDelegate;
 
@@ -21,6 +22,6 @@
 @protocol MDRequestTableViewDelegate <NSObject>
 
 @optional
--(void) didSelectedRowWithData:(NSDictionary *)data;
+-(void) didSelectedRowWithData:(MDPackage *)data;
 
 @end

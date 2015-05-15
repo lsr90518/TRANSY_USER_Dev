@@ -25,6 +25,9 @@
     MDSelect *requestTerm;
     MDSelect *beCarefulPicker;
     
+    UIButton *sizeDescriptionButton;
+    UIButton *moneyDescriptionButton;
+    
     NSMutableArray *options;
     NSMutableArray* time;
     NSMutableArray* realDate;
@@ -76,18 +79,18 @@
         //package moving buttons
         UIView *tabButtonView = [[UIView alloc]initWithFrame:CGRectMake(10, 10, frame.size.width-20, 80)];
             //package
-            _packageButton = [[MDDeliveryKindButton alloc]initWithFrame:CGRectMake(0, 0, tabButtonView.frame.size.width/2, 80)];
-            [_packageButton setActive];
-            [_packageButton setIconImage:[UIImage imageNamed:@"packageIcon"]];
-            [_packageButton addTarget:self action:@selector(changeType:) forControlEvents:UIControlEventTouchUpInside];
-            [tabButtonView addSubview:_packageButton];
-            //moving
-            _movingButton = [[MDDeliveryKindButton alloc]initWithFrame:CGRectMake(tabButtonView.frame.size.width/2, 0, tabButtonView.frame.size.width/2, 80)];
-            [_movingButton setIconImage:[UIImage imageNamed:@"movingIcon"]];
-            _movingButton.buttonTitle.text = @"引っ越し";
-            [_movingButton addTarget:self action:@selector(showSorryAlert) forControlEvents:UIControlEventTouchUpInside];
-        
-            [tabButtonView addSubview:_movingButton];
+        _packageButton = [[MDDeliveryKindButton alloc]initWithFrame:CGRectMake(0, 0, tabButtonView.frame.size.width/2, 80)];
+        [_packageButton setActive];
+        [_packageButton setIconImage:[UIImage imageNamed:@"packageIcon"]];
+        [_packageButton addTarget:self action:@selector(changeType:) forControlEvents:UIControlEventTouchUpInside];
+        [tabButtonView addSubview:_packageButton];
+        //moving
+        _movingButton = [[MDDeliveryKindButton alloc]initWithFrame:CGRectMake(tabButtonView.frame.size.width/2, 0, tabButtonView.frame.size.width/2, 80)];
+        [_movingButton setIconImage:[UIImage imageNamed:@"movingIcon"]];
+        _movingButton.buttonTitle.text = @"引っ越し";
+        [_movingButton addTarget:self action:@selector(showSorryAlert) forControlEvents:UIControlEventTouchUpInside];
+    
+        [tabButtonView addSubview:_movingButton];
         UIView *tabIsolationLine = [[UIView alloc]initWithFrame:CGRectMake(tabButtonView.frame.size.width/2, 0, _frameWidth, tabButtonView.frame.size.height)];
         [tabIsolationLine setBackgroundColor:self.frameColor];
         [tabButtonView addSubview:tabIsolationLine];
@@ -103,47 +106,9 @@
         [requestButton addTarget:self action:@selector(gotoRequestAddressView) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestButton];
         
-        
-        destinationButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 149, frame.size.width-20, 50)];
-        [destinationButton setBackgroundColor:[UIColor whiteColor]];
-        destinationButton.buttonTitle.text = @"お届け先";
-        destinationButton.selectLabel.text = @"〒";
-        [destinationButton addTarget:self action:@selector(gotoDestinationAddressView) forControlEvents:UIControlEventTouchUpInside];
-        [_scrollView addSubview:destinationButton];
-        
-        
-        
-        //list
-        sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 210, frame.size.width-20, 50)];
-        sizePicker.buttonTitle.text = @"サイズ";
-        sizePicker.selectLabel.text = @"合計120以内";
-        sizePicker.delegate = self;
-        NSMutableArray *sizePickerOptions = [[NSMutableArray alloc]init];
-        NSMutableArray *sizePickerFirstOptions = [[NSMutableArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160",@"180",@"200",@"220",@"240",@"260", nil];
-        [sizePickerOptions addObject:sizePickerFirstOptions];
-        [sizePicker setOptions:sizePickerOptions :@"合計" :@"cm以内"];
-        sizePicker.tag = 0;
-        [sizePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [_scrollView addSubview:sizePicker];
-        
-        //list
-        beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 270, frame.size.width-20, 50)];
-        beCarefulPicker.buttonTitle.text = @"取扱説明書";
-        beCarefulPicker.selectLabel.text = @"特になし";
-        [beCarefulPicker addTarget:self action:@selector(changeViewButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [_scrollView addSubview:beCarefulPicker];
-        
-        //list
-        costPicker = [[MDInput alloc]initWithFrame:CGRectMake(10, 330, frame.size.width-20, 50)];
-        costPicker.title.text = @"依頼金額";
-        [costPicker.title sizeToFit];
-        costPicker.input.text = @"1400";
-        costPicker.input.delegate = self;
-        [costPicker.input setKeyboardType:UIKeyboardTypeNumberPad];
-        [_scrollView addSubview:costPicker];
-        
         //在宅時間
-        cusTodyTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 390, frame.size.width-20, 50)];
+        cusTodyTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, requestButton.frame.origin.y + requestButton.frame.size.height -2, frame.size.width-20, 50)];
+        [cusTodyTimePicker setBackgroundColor:[UIColor whiteColor]];
         cusTodyTimePicker.buttonTitle.text = @"預かり時刻";
         cusTodyTimePicker.selectLabel.text = @"いつでも";
         cusTodyTimePicker.tag = 1;
@@ -156,11 +121,21 @@
         [cusTodyTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:cusTodyTimePicker];
         
+        
+        destinationButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, cusTodyTimePicker.frame.origin.y + cusTodyTimePicker.frame.size.height + 10, frame.size.width-20, 50)];
+        [destinationButton setBackgroundColor:[UIColor whiteColor]];
+        destinationButton.buttonTitle.text = @"お届け先";
+        destinationButton.selectLabel.text = @"〒";
+        [destinationButton addTarget:self action:@selector(gotoDestinationAddressView) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:destinationButton];
+        
         //list
-        destinateTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, 450, frame.size.width-20, 50)];
+        destinateTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinationButton.frame.origin.y + destinationButton.frame.size.height - 2, frame.size.width-20, 50)];
+        [destinateTimePicker setBackgroundColor:[UIColor whiteColor]];
         destinateTimePicker.buttonTitle.text = @"お届け期限";
         destinateTimePicker.tag = 2;
         destinateTimePicker.delegate = self;
+        [destinateTimePicker setUnactive];
         NSMutableArray *destinateTimePickerOptions = [[NSMutableArray alloc]init];
         [self initDeliveryLimitData];
         [destinateTimePickerOptions addObject:date];
@@ -173,7 +148,58 @@
         
         
         //list
-        requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, 510, frame.size.width-20, 50)];
+        sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, frame.size.width-20, 50)];
+        sizePicker.buttonTitle.text = @"サイズ";
+        sizePicker.selectLabel.text = @"合計120以内";
+        sizePicker.delegate = self;
+        NSMutableArray *sizePickerOptions = [[NSMutableArray alloc]init];
+        NSMutableArray *sizePickerFirstOptions = [[NSMutableArray alloc]initWithObjects:@"60",@"80",@"100",@"120",@"140",@"160",@"180",@"200",@"220",@"240",@"260", nil];
+        [sizePickerOptions addObject:sizePickerFirstOptions];
+        [sizePicker setOptions:sizePickerOptions :@"合計" :@"cm以内"];
+        sizePicker.tag = 0;
+        [sizePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:sizePicker];
+        
+        sizeDescriptionButton = [[UIButton alloc]initWithFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 10, sizePicker.frame.size.width - 20, 10)];
+        sizeDescriptionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [sizeDescriptionButton setTitle:@"> 荷物サイズの測り方" forState:UIControlStateNormal];
+        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+        [sizeDescriptionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
+        [sizeDescriptionButton addTarget:self action:@selector(sizeDescriptionButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:sizeDescriptionButton];
+        
+        
+        //list
+        costPicker = [[MDInput alloc]initWithFrame:CGRectMake(10, sizeDescriptionButton.frame.origin.y + sizeDescriptionButton.frame.size.height + 17, frame.size.width-20, 50)];
+        costPicker.title.text = @"依頼金額";
+        [costPicker.title sizeToFit];
+        costPicker.input.text = @"1400";
+        costPicker.input.delegate = self;
+        [costPicker.input setKeyboardType:UIKeyboardTypeNumberPad];
+        [_scrollView addSubview:costPicker];
+        
+        
+        moneyDescriptionButton = [[UIButton alloc]initWithFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, costPicker.frame.size.width - 20, 10)];
+        moneyDescriptionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [moneyDescriptionButton setTitle:@"> 依頼金額について" forState:UIControlStateNormal];
+        [moneyDescriptionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [moneyDescriptionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+        [moneyDescriptionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
+        [moneyDescriptionButton addTarget:self action:@selector(sizeDescriptionButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:moneyDescriptionButton];
+        
+        //list
+        beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, moneyDescriptionButton.frame.origin.y + moneyDescriptionButton.frame.size.height + 17, frame.size.width-20, 50)];
+        beCarefulPicker.buttonTitle.text = @"取扱注意事項";
+        beCarefulPicker.selectLabel.text = @"特になし";
+        [beCarefulPicker addTarget:self action:@selector(changeViewButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:beCarefulPicker];
+        
+        
+        
+        //list
+        requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, beCarefulPicker.frame.origin.y + beCarefulPicker.frame.size.height + 10, frame.size.width-20, 50)];
         requestTerm.buttonTitle.text = @"掲載期限";
         requestTerm.delegate = self;
 //        requestTerm.options = [[NSArray alloc]initWithObjects:@"3",@"6",@"9",@"12",@"15",@"18",@"21",@"24", nil];
@@ -224,21 +250,23 @@
     //預かり先
     if([MDCurrentPackage getInstance].from_zip.length < 1){
         [MDCurrentPackage getInstance].from_zip = @"";
+        requestButton.selectLabel.text = @"選択してください";
         [requestButton setUnactive];
     } else {
+        requestButton.selectLabel.text = [NSString stringWithFormat:@"〒%@",[MDCurrentPackage getInstance].from_zip];
         [requestButton setActive];
     }
+    
+    //to_zip
     if([MDCurrentPackage getInstance].to_zip.length < 1) {
         [MDCurrentPackage getInstance].to_zip = @"";
+        destinationButton.selectLabel.text = @"選択してください";
         [destinationButton setUnactive];
     } else {
+        NSLog(@"to_zip %@", [MDCurrentPackage getInstance].to_zip);
+        destinationButton.selectLabel.text = [NSString stringWithFormat:@"〒%@",[MDCurrentPackage getInstance].to_zip];
         [destinationButton setActive];
     }
-    
-    requestButton.selectLabel.text = [NSString stringWithFormat:@"〒%@",[MDCurrentPackage getInstance].from_zip];
-    
-    //お届け先
-    destinationButton.selectLabel.text = [NSString stringWithFormat:@"〒%@",[MDCurrentPackage getInstance].to_zip];
     
     //size
     sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計%@cm以内",[MDCurrentPackage getInstance].size];
@@ -251,9 +279,22 @@
     
     //at home time;
     NSArray *dateStr = [[MDCurrentPackage getInstance].at_home_time[0][0] componentsSeparatedByString:@"-"];
-    cusTodyTimePicker.selectLabel.text = [NSString stringWithFormat:@"%d月%d日 %@時~%@時", [dateStr[1] intValue], [dateStr[2] intValue], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
+    NSString *at_home_time_str = @"";
+    if([[MDCurrentPackage getInstance].at_home_time[0][2] isEqualToString:@"-1"]){
+        at_home_time_str = [NSString stringWithFormat:@"%d月%d日 いつでも", [dateStr[1] intValue], [dateStr[2] intValue]];
+    } else {
+        at_home_time_str = [NSString stringWithFormat:@"%d月%d日 %@時~%@時", [dateStr[1] intValue], [dateStr[2] intValue], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
+    }
+    cusTodyTimePicker.selectLabel.text = at_home_time_str;
     
-    destinateTimePicker.selectLabel.text = [self getInitStr];
+    if([MDCurrentPackage getInstance].deliver_limit.length < 1){
+        destinateTimePicker.selectLabel.text = @"選択してください";
+        [destinateTimePicker setUnactive];
+    } else {
+    
+        destinateTimePicker.selectLabel.text = [self getInitStr];
+//        [destinateTimePicker setActive];
+    }
     
     //expire
     [self setExpireTime:[MDCurrentPackage getInstance].expire];
@@ -375,7 +416,7 @@
 
 -(void) initDeliveryLimitData {
     
-    [self getInitStr];
+//    [self getInitStr];
     
     NSMutableArray *eightArr = [[NSMutableArray alloc] init];
     realDate = [[NSMutableArray alloc]init];
@@ -483,8 +524,8 @@
 }
 
 -(void) showSorryAlert {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"引っ越し"
-                                                    message:@"引っ越しは近日リリース予定です。お手数をおかけしますが、今しばらくお待ち下さい。"
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"引っ越し機能は近日リリース予定です"
+                                                    message:@"お手数をおかけいたしますが、今しばらくお待ちください。"
                                                    delegate:self
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"OK", nil];
@@ -566,6 +607,7 @@
              [realDate objectAtIndex:[resultList[0][0] integerValue]]:
              [[destinateTimePicker.options objectAtIndex:1] objectAtIndex:[resultList[1][0] integerValue]]:
              [[destinateTimePicker.options objectAtIndex:2] objectAtIndex:[resultList[2][0] integerValue]]];
+            [destinateTimePicker setActive];
             
             break;
         case 3:
@@ -582,11 +624,18 @@
     // 下に空白ができたらスクロールで調整
     int scrollOffset = [_scrollView contentOffset].y;
     int contentBottomOffset = _scrollView.contentSize.height - _scrollView.frame.size.height;
-    // NSLog(@"sizes: %f,%f",_scrollView.contentSize.height,_scrollView.frame.size.height);
-    if(scrollOffset > contentBottomOffset){
-        CGPoint point = CGPointMake(0, contentBottomOffset);
+    
+    if(contentBottomOffset > 0){
+        if(scrollOffset > contentBottomOffset){
+            CGPoint point = CGPointMake(0, contentBottomOffset);
+            [_scrollView setContentOffset:point animated:YES];
+        }
+    } else {
+        
+        CGPoint point = CGPointMake(0, -64);
         [_scrollView setContentOffset:point animated:YES];
     }
+
 }
 
 -(void)convertReciveTimeToSave {
@@ -611,7 +660,7 @@
     NSString *stardardMinute = [newMinute substringToIndex:2];
     
     [MDCurrentPackage getInstance].deliver_limit = [NSString stringWithFormat:@"%@ %@:%@:00",newDate, stardardHour, stardardMinute];
-    NSLog(@"%@",[MDCurrentPackage getInstance].deliver_limit);
+    NSLog(@"deliver_limit :  %@",[MDCurrentPackage getInstance].deliver_limit);
 }
 
 -(void) convertRequestTermToSave:(NSString *)term{
@@ -626,6 +675,13 @@
     [MDCurrentPackage getInstance].expire = [tmpFormatter stringFromDate:nHoursAfter];
     NSLog(@"%@",[MDCurrentPackage getInstance].expire);
 }
+
+-(void) sizeDescriptionButtonTouched {
+    if([self.delegate respondsToSelector:@selector(sizeDescriptionButtonPushed)]){
+        [self.delegate sizeDescriptionButtonPushed];
+    }
+}
+
 
 
 @end

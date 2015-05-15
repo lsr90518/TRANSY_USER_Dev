@@ -9,6 +9,7 @@
 #import "MDDeliveryViewController.h"
 #import "MDRequestViewController.h"
 #import "MDSettingViewController.h"
+#import "MDSizeDescriptionViewController.h"
 #import <SVProgressHUD.h>
 
 
@@ -43,7 +44,7 @@
 
 -(void) viewDidAppear:(BOOL)animated{
     if([[MDCurrentPackage getInstance].status isEqualToString:@"2"]){
-        [MDCurrentPackage getInstance].status = @"0";
+//        [MDCurrentPackage getInstance].status = @"0";
         [self gotoRequestView];
     }
 }
@@ -77,10 +78,11 @@
         [MDUtil makeAlertWithTitle:@"入力未完成" message:[NSString stringWithFormat:@"%@を入力してください",result] done:@"OK" viewController:self];
     } else {
         //ok
-        [SVProgressHUD show];
+        [SVProgressHUD showWithStatus:@"荷物を登録中" maskType:SVProgressHUDMaskTypeClear];
         [[MDAPI sharedAPI] registerBaggageWithHash:[MDUser getInstance].userHash
                                         OnComplete:^(MKNetworkOperation *completeOperation) {
                                             NSLog(@"%@", [completeOperation responseJSON]);
+                                            
                                            [SVProgressHUD dismiss];
                                            
                                            if([[completeOperation responseJSON][@"code"] integerValue] == 0){
@@ -168,6 +170,11 @@
                                           otherButtonTitles:@"OK", nil];
     alert.delegate = self;
     [alert show];
+}
+
+-(void) sizeDescriptionButtonPushed{
+    MDSizeDescriptionViewController *sdvc = [[MDSizeDescriptionViewController alloc]init];
+    [self.navigationController pushViewController:sdvc animated:YES];
 }
 
 @end

@@ -26,16 +26,24 @@
     self.note = (self.note.length > 0) ? self.note : @"特になし";
     
     NSDate *now = [NSDate date];
+    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+//    NSMutableArray *defaultTime = [NSMutableArray arrayWithObjects:@"-1",@"-1",@"-1", nil];
+//    self.at_home_time = [[NSMutableArray alloc]initWithCapacity:10];
+//    [self.at_home_time addObject:defaultTime];
+    
+    
     //預かり時刻
     if(self.at_home_time == nil){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-        NSMutableArray *defaultTime = [NSMutableArray arrayWithObjects:[dateFormatter stringFromDate:now],@"0",@"24", nil];
+        NSMutableArray *defaultTime = [NSMutableArray arrayWithObjects:[dateFormatter stringFromDate:now],@"-1",@"-1", nil];
         
         self.at_home_time = [[NSMutableArray alloc]initWithCapacity:10];
         [self.at_home_time addObject:defaultTime];
     }
-    //届け時刻
+//    //届け時刻
     if(self.deliver_limit == nil) {
         //4時間後
         NSDate *fiveHoursAfter = [now dateByAddingTimeInterval:5*60*60];
@@ -47,7 +55,7 @@
         self.deliver_limit = [tmpFormatter stringFromDate:fiveHoursAfter];
         
     }
-    
+//
     //期限
     if(self.expire == nil) {
         //4時間後

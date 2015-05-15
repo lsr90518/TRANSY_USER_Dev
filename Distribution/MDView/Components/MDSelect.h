@@ -23,6 +23,7 @@
 -(void) setActive;
 -(void) setReadOnly;
 -(void) setOptions:(NSMutableArray *)options :(NSString *)startStr:(NSString *)lastStr;
+-(void) setNoArrow;
 
 @end
 

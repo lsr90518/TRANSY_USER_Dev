@@ -7,6 +7,7 @@
 //
 
 #import "MDRequestView.h"
+#import <MJRefresh.h>
 
 @implementation MDRequestView
 
@@ -32,6 +33,9 @@
         
         [self addSubview:_requestTableView];
         _requestTableView.requestTableViewDelegate = self;
+        
+        [_requestTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
+        _requestTableView.header.updatedTimeHidden = YES;
         
         //tabbar
         _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
@@ -85,9 +89,19 @@
     }
 }
 
--(void) didSelectedRowWithData:(NSDictionary *)data {
+-(void) didSelectedRowWithData:(MDPackage *)data {
     if([self.delegate respondsToSelector:@selector(makeUpData:)]){
         [self.delegate makeUpData:data];
+    }
+}
+
+-(void) endRefresh{
+    [_requestTableView.header endRefreshing];
+}
+
+-(void) pullRefresh{
+    if([self.delegate respondsToSelector:@selector(refreshData)]){
+        [self.delegate refreshData];
     }
 }
 

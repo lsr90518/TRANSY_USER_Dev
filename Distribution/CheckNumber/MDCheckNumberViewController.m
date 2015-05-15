@@ -66,7 +66,7 @@
 }
 
 -(void) postButtonTouched {
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:@"認証中" maskType:SVProgressHUDMaskTypeBlack];
     [[MDAPI sharedAPI] checkUserWithPhone:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
                                  withCode:_inputView.input.text
                                onComplete:^(MKNetworkOperation *completeOperation) {

@@ -9,6 +9,7 @@
 #import "MDAPI.h"
 #import "MDUser.h"
 #import "MDCurrentPackage.h"
+#import "MDPackage.h"
 
 @implementation MDAPI {
     MKNetworkEngine *_engine;
@@ -178,9 +179,8 @@
     [dic setObject:[MDCurrentPackage getInstance].request_amount    forKey:@"request_amount"];
     [dic setObject:[MDCurrentPackage getInstance].note              forKey:@"note"];
     [dic setObject:[MDCurrentPackage getInstance].size              forKey:@"size"];
-    NSString *at_home_time = [NSString stringWithFormat:@"[%@,%@,%@]",[MDCurrentPackage getInstance].at_home_time[0][0], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
-    NSLog(@"at home time %@", at_home_time);
-    [dic setObject:at_home_time      forKey:@"at_home_time"];
+    NSString *at_home_time = [NSString stringWithFormat:@"%@,%@,%@",[MDCurrentPackage getInstance].at_home_time[0][0], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
+    [dic setObject:at_home_time      forKey:@"at_home_time[]"];
     [dic setObject:[MDCurrentPackage getInstance].deliver_limit     forKey:@"deliver_limit"];
     [dic setObject:[MDCurrentPackage getInstance].expire            forKey:@"expire"];
     
@@ -244,18 +244,108 @@
 }
 
 -(void) editMyPackageWithHash:(NSString *)hash
-                      Package:(NSDictionary *)package
+                      Package:(MDPackage *)package
                    OnComplete:(void (^)(MKNetworkOperation *))complete
                       onError:(void (^)(MKNetworkOperation *, NSError *))error{
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:hash forKey:@"hash"];
     [dic setObject:USER_DEVICE forKey:@"client"];
-    [dic setObject:package[@"id"] forKey:@"package_id"];
-    [dic setObject:package[@"expire"] forKey:@"expire"];
-    [dic setObject:package[@"note"] forKey:@"note"];
+    [dic setObject:package.package_id forKey:@"package_id"];
+    [dic setObject:package.expire forKey:@"expire"];
+    [dic setObject:package.note forKey:@"note"];
     
     [self callApi:dic
           withUrl:API_EDIT_MY_PACKAGE
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) cancelMyPackageWithHash:(NSString *)hash
+                        Package:(MDPackage *)package
+                     OnComplete:(void (^)(MKNetworkOperation *))complete
+                        onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:package.package_id forKey:@"package_id"];
+    
+    [self callApi:dic
+          withUrl:API_CANCEL_MY_PACKAGE
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) getDriverDataWithHash:(NSString *)hash
+                     dirverId:(NSString *)driver_id
+                   OnComplete:(void (^)(MKNetworkOperation *))complete
+                      onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:driver_id forKey:@"driver_id"];
+    
+    [self callApi:dic
+          withUrl:API_USER_GET_DRIVER_DATA
+       withImages:@[]
+   withHttpMethod:@"GET"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) blockDriverWithHash:(NSString *)hash
+                   dirverId:(NSString *)driver_id
+                 OnComplete:(void (^)(MKNetworkOperation *))complete
+                    onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:driver_id forKey:@"driver_id"];
+    
+    [self callApi:dic
+          withUrl:API_USER_BLOCK_DRIVER
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) postReviewWithHash:(NSString *)hash
+                 packageId:(NSString *)package_id
+                      star:(NSString *)star
+                      text:(NSString *)text
+                OnComplete:(void (^)(MKNetworkOperation *))complete
+                   onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:package_id forKey:@"package_id"];
+    [dic setObject:star forKey:@"star"];
+    [dic setObject:text forKey:@"text"];
+    
+    [self callApi:dic
+          withUrl:API_USER_POST_REVIEW
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+-(void) reportDeiverWithHash:(NSString *)hash
+                    driverId:(NSString *)driver_id
+                        text:(NSString *)text
+                  OnComplete:(void (^)(MKNetworkOperation *))complete
+                     onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:driver_id forKey:@"driver_id"];
+    [dic setObject:text forKey:@"text"];
+    
+    [self callApi:dic
+          withUrl:API_REPORT_DRIVER
        withImages:@[]
    withHttpMethod:@"POST"
        onComplete:complete

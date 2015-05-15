@@ -7,6 +7,9 @@
 //
 
 #import "MDRequestDetailViewController.h"
+#import "MDReviewViewController.h"
+#import "MDSizeDescriptionViewController.h"
+#import "MDProfileViewController.h"
 
 @interface MDRequestDetailViewController ()
 
@@ -19,14 +22,10 @@
     _requestDetailView = [[MDRequestDetailView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:_requestDetailView];
     _requestDetailView.delegate = self;
-    
-    [_requestDetailView setStatus:[_data[@"status"] intValue]];
-    
-    
 }
 
 -(void)initNavigationBar {
-    NSString *number = [NSString stringWithFormat:@"%@",_data[@"package_number"]];
+    NSString *number = [NSString stringWithFormat:@"%@",_package.package_number];
     int length = (int)number.length/2;
     NSString *numberLeft = [number substringToIndex:length];
     NSString *numberRight = [number substringFromIndex:length];
@@ -42,7 +41,7 @@
     
     //add right button item
     
-    if ([_data[@"status"] intValue] == 0) {
+    if ([_package.status intValue] == 0) {
         UIButton *_postButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_postButton setTitle:@"編集" forState:UIControlStateNormal];
         _postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
@@ -61,7 +60,28 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [self initNavigationBar];
-    [_requestDetailView makeupByData:_data];
+    
+    [_requestDetailView setStatus:[_package.status intValue]];
+    
+    if([_package.status intValue] != 0){
+        [self getDriverData];
+    }
+    
+    [_requestDetailView makeupByData:_package];
+    
+}
+
+-(void) getDriverData{
+    //call api
+    [[MDAPI sharedAPI] getDriverDataWithHash:[MDUser getInstance].userHash
+                                    dirverId:_package.driver_id
+                                  OnComplete:^(MKNetworkOperation *complete) {
+                                      _driver = [[MDDriver alloc]init];
+                                      [_driver initWithData:[complete responseJSON][@"Driver"]];
+                                      [_requestDetailView setDriverData:_driver];
+                                  } onError:^(MKNetworkOperation *operation, NSError *error) {
+        
+                                  }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,7 +95,7 @@
 
 -(void) editDetail {
     MDRequestEditViewController *revc = [[MDRequestEditViewController alloc]init];
-    revc.data = _data;
+    revc.package = _package;
     [self.navigationController pushViewController:revc animated:YES];
 }
 
@@ -115,6 +135,45 @@
     } completion:^(BOOL finished) {
         [backgroundView removeFromSuperview];
     }];
+}
+
+-(void) reviewButtonPushed{
+    MDReviewViewController *rvc = [[MDReviewViewController alloc]init];
+    rvc.package = _package;
+    rvc.driver = _driver;
+    [self.navigationController pushViewController:rvc animated:YES];
+    
+}
+
+-(void) profileButtonPushed{
+    MDProfileViewController *pvc = [[MDProfileViewController alloc]init];
+    pvc.driver = _driver;
+    [self.navigationController pushViewController:pvc animated:YES];
+}
+
+-(void) sizeDescriptionButtonPushed{
+    MDSizeDescriptionViewController *sdvc = [[MDSizeDescriptionViewController alloc]init];
+    [self.navigationController pushViewController:sdvc animated:YES];
+}
+
+-(void)matchButtonPushed{
+    [MDUtil makeAlertWithTitle:@"配送員マッチング中" message:@"只今、配送員を探しております。掲載期限中にマッチングしない場合は、キャンセル扱いとなります。キャンセルされた場合は、依頼金額など条件を変更してもう一度お試しください。" done:@"OK" viewController:self];
+}
+
+-(void) cancelButtonPushed{
+    [SVProgressHUD show];
+    //call api
+    [[MDAPI sharedAPI] cancelMyPackageWithHash:[MDUser getInstance].userHash
+                                       Package:_package
+                                    OnComplete:^(MKNetworkOperation *complete) {
+                                            //
+                                        [SVProgressHUD dismiss];
+                                        if([[complete responseJSON][@"code"] intValue] == 0){
+                                            [self backButtonPushed];
+                                        }
+                                    } onError:^(MKNetworkOperation *operation, NSError *error) {
+                                        //
+                                    }];
 }
 
 @end

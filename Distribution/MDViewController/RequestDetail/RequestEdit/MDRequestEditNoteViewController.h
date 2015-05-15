@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDPackage.h"
 
 @interface MDRequestEditNoteViewController : UIViewController<UITextViewDelegate>
 @property (strong, nonatomic) UITextView *serviceInputView;
 @property (strong, nonatomic) NSString *contentText;
-@property (strong, nonatomic) NSDictionary *data;
+@property (strong, nonatomic) MDPackage *package;
 
 -(void) setText:(NSString *)text;
 

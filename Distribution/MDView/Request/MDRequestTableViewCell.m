@@ -9,6 +9,7 @@
 #import "MDRequestTableViewCell.h"
 #import "MDRequest.h"
 #import <UIImageView+WebCache.h>
+#import "MDPackage.h"
 
 @implementation MDRequestTableViewCell
 
@@ -41,67 +42,6 @@
     [self addSubview:_cargoImageView];
     
     
-    
-    //status label 配達完了
-//    _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 78, 17)];
-//    _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-//    _statusLeft.textAlignment = NSTextAlignmentCenter;
-//    _statusLeft.layer.cornerRadius = 2.5;
-//    _statusLeft.layer.borderWidth = 0.5;
-//    _statusLeft.layer.borderColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1].CGColor;
-//    _statusLeft.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
-//    _statusLeft.text = @"配達完了の報告";
-    
-    //status label 残り３時間
-    //    _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 111, 17)];
-    //    _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-    //    _statusLeft.textAlignment = NSTextAlignmentCenter;
-    //    _statusLeft.layer.cornerRadius = 2.5;
-    //    _statusLeft.layer.borderWidth = 0.5;
-    //    _statusLeft.layer.borderColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1].CGColor;
-    //    _statusLeft.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
-    //    _statusLeft.text = @"残り3時間で自動評価";
-    
-    //status label お届け先へ配送中
-    //    _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 88, 17)];
-    //    _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-    //    _statusLeft.textAlignment = NSTextAlignmentCenter;
-    //    _statusLeft.layer.cornerRadius = 2.5;
-    //    _statusLeft.layer.borderWidth = 0.5;
-    //    _statusLeft.layer.borderColor = [UIColor colorWithRed:0/255.0 green:124.0/255.0 blue:226.0/255.0 alpha:1].CGColor;
-    //    _statusLeft.textColor = [UIColor colorWithRed:0/255.0 green:124.0/255.0 blue:226.0/255.0 alpha:1];
-    //    _statusLeft.text = @"お届け先へ配送中";
-    
-    //status label 24時間以内に配送予定
-    //    _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 117, 17)];
-    //    _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-    //    _statusLeft.textAlignment = NSTextAlignmentCenter;
-    //    _statusLeft.layer.cornerRadius = 2.5;
-    //    _statusLeft.layer.borderWidth = 0.5;
-    //    _statusLeft.layer.borderColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1].CGColor;
-    //    _statusLeft.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
-    //    _statusLeft.text = @"24時間以内に配送予定";
-    
-    //status label 荷物を預かりにお伺い中
-    //    _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 115, 17)];
-    //    _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-    //    _statusLeft.textAlignment = NSTextAlignmentCenter;
-    //    _statusLeft.layer.cornerRadius = 2.5;
-    //    _statusLeft.layer.borderWidth = 0.5;
-    //    _statusLeft.layer.borderColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0/255.0 alpha:1].CGColor;
-    //    _statusLeft.textColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0/255.0 alpha:1];
-    //    _statusLeft.text = @"荷物を預かりにお伺い中";
-    
-    //status label 30分以内に到着
-//        _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 87, 17)];
-//        _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-//        _statusLeft.textAlignment = NSTextAlignmentCenter;
-//        _statusLeft.layer.cornerRadius = 2.5;
-//        _statusLeft.layer.borderWidth = 0.5;
-//        _statusLeft.layer.borderColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1].CGColor;
-//        _statusLeft.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
-//        _statusLeft.text = @"30分以内に到着";
-    
     //status label 期限になってもマッチしなかったため取消
         _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 200, 17)];
         _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
@@ -111,20 +51,9 @@
         _statusLeft.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         _statusLeft.textColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
         _statusLeft.text = @"期限になってもマッチしなかったため取消";
-
-    //status label 配送員未定
-    //    _statusLeft = [[UILabel alloc]initWithFrame:CGRectMake(78, 15, 61, 17)];
-    //    _statusLeft.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-    //    _statusLeft.textAlignment = NSTextAlignmentCenter;
-    //    _statusLeft.layer.cornerRadius = 2.5;
-    //    _statusLeft.layer.borderWidth = 0.5;
-    //    _statusLeft.layer.borderColor = [UIColor colorWithRed:226.0/255.0 green:0/255.0 blue:0/255.0 alpha:1].CGColor;
-    //    _statusLeft.textColor = [UIColor colorWithRed:226.0/255.0 green:0/255.0 blue:0/255.0 alpha:1];
-    //    _statusLeft.text = @"配送員未定";
     
 
     [self addSubview:_statusLeft];
-
     
     
     //main label
@@ -145,21 +74,21 @@
     [self addSubview:footer];
 }
 
--(void) initCellWithData:(NSDictionary *)data {
-    
+-(void) initCellWithData:(MDPackage *)data {
     //status
-    long status = [data[@"status"] integerValue];
-    NSString *userReviewed = [NSString stringWithFormat:@"%@",data[@"review"][@"from_user"][@"reviewed"]];
+    long status = [data.status integerValue];
+    NSString *userReviewed = [NSString stringWithFormat:@"%@",data.review[@"from_user"][@"reviewed"]];
     
     if([userReviewed isEqualToString:@"0"] && status == 3){
         _statusLabel.text = [NSString stringWithFormat:@"評価をお願い致します。"];
         _statusLabel.textColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1];
     } else if([userReviewed isEqualToString:@"1"]){
         _statusLabel.text = [NSString stringWithFormat:@"評価済み"];
+        _statusLabel.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
         
     } else {
         //show package_number
-        NSString *number = [NSString stringWithFormat:@"%@", data[@"package_number"]];
+        NSString *number = [NSString stringWithFormat:@"%@", data.package_number];
         long length = number.length/2;
         NSString *numberLeft = [number substringToIndex:length];
         NSString *numberRight = [number substringFromIndex:length];
@@ -169,9 +98,11 @@
     
     
     //add image
-    NSString *imagePath = [NSString stringWithFormat:@"%@", data[@"image"]];
+    NSString *imagePath = [NSString stringWithFormat:@"%@", data.image];
     if (![imagePath isEqualToString:@"<null>"]) {
         [_cargoImageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
+        _cargoImageView.layer.cornerRadius = 2.5;
+        _cargoImageView.layer.masksToBounds = YES;
     }
     
     switch (status) {
@@ -204,6 +135,12 @@
             _statusLeft.layer.borderColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1].CGColor;
             _statusLeft.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
             _statusLeft.frame = CGRectMake(_statusLeft.frame.origin.x, _statusLeft.frame.origin.y, 88 , _statusLeft.frame.size.height);
+            break;
+        case 4:
+            _statusLeft.text = @"期限になってもマッチしなかったため取消";
+            _statusLeft.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
+            _statusLeft.textColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
+            _statusLeft.frame = CGRectMake(_statusLeft.frame.origin.x, _statusLeft.frame.origin.y, 200 , _statusLeft.frame.size.height);
             break;
         default:
             break;
