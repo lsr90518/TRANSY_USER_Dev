@@ -8,8 +8,10 @@
 
 #import "MDSettingView.h"
 
+
 @implementation MDSettingView{
     MDSelect *nameButton;
+    MDCreditView *payInner;
     MDSelect *pay;
     MDSelect *phoneButton;
     MDSelect *blockButton;
@@ -52,12 +54,19 @@
         [phoneButton addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneButton];
         
+        // pay button inner
+        payInner = [[MDCreditView alloc] initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
+        payInner.creditDelegate = self;
+        [_scrollView addSubview:payInner];
+        
         //pay button
         pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
         pay.buttonTitle.text = @"お支払い方法";
         pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [pay setTag:paymentSelect];
+        [pay.selectLabel setAlpha: 0.0f];
+        [pay setBackgroundColor:[UIColor clearColor]];
         [_scrollView addSubview:pay];
         
         UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -191,6 +200,14 @@
 -(void) setViewData:(MDUser *)user{
     nameButton.selectLabel.text = [NSString stringWithFormat:@"%@ %@", user.lastname, user.firstname];
     phoneButton.selectLabel.text = [NSString stringWithFormat:@"%@", user.phoneNumber];
+}
+
+
+/*
+ * MDCreditViewDelegate
+ */
+-(void)hasNoAuthorizedCard {
+    [pay.selectLabel setAlpha: 1.0f];
 }
 
 

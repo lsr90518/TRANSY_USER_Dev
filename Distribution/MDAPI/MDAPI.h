@@ -31,6 +31,8 @@
 
 #define USER_DEVICE                 @"ios"
 
+#define PAYMENT_IP            @"00044"  // for only debug environment
+// #define PAYMENT_IP            @"?????"  // for production environment
 
 #define API_HOST_NAME @"modelordistribution-dev.elasticbeanstalk.com"
 

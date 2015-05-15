@@ -34,7 +34,7 @@
     [self.view setBackgroundColor:[UIColor blackColor]];
     
     // デリゲートを指定
-    super.webView.delegate = self;
+    self.webView.delegate = self;
     
     if(!_withCardIO){
         [self openPaymentView];
@@ -108,9 +108,8 @@ navigationType:(UIWebViewNavigationType)navigationType
     [self openWebpageWithUrl:@"https://secure.telecomcredit.co.jp/inetcredit/adult/order.pl"
                       method:@"POST"
                    parameter:[NSDictionary dictionaryWithObjectsAndKeys:
-                              @"00044",@"clientip",
+                              PAYMENT_IP,@"clientip",
                               [NSString stringWithFormat: @"u%ld", (long)user.user_id],@"sendid",
-                              @"1500",@"money",
                               user.phoneNumber,@"usrtel",
                               user.mailAddress,@"usrmail",
                               [NSString stringWithFormat:@"http://%@/credit/auth_back.html",API_HOST_NAME],@"redirect_url",

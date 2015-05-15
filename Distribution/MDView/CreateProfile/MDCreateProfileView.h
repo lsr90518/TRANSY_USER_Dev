@@ -10,14 +10,16 @@
 #import "MDUtil.h"
 #import "MDInput.h"
 #import "MDSelect.h"
+#import "MDCreditView.h"
 
 @protocol CreateProfileViewDelegate;
 
-@interface MDCreateProfileView : UIView<UIScrollViewAccessibilityDelegate,UIScrollViewDelegate>
+@interface MDCreateProfileView : UIView<UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDCreditViewDelegate>
 
 @property (strong, nonatomic) UIScrollView  *scrollView;
 @property (strong, nonatomic) MDInput       *lastnameInput;
 @property (strong, nonatomic) MDInput       *givennameInput;
+@property (strong, nonatomic) MDCreditView  *creditView;
 @property (strong, nonatomic) MDSelect      *creditButton;
 @property (strong, nonatomic) UIButton      *creditAutoCompletionButton;
 @property (strong, nonatomic) MDInput       *passwordInput;
