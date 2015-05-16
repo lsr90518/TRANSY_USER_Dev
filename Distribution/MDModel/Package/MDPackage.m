@@ -43,6 +43,14 @@
     _user_id =                          ([data[@"user_id"] isEqual:[NSNull null]]) ? @"" : data[@"user_id"];
     _distance = @"0";
     
+    _driverReview = [[MDReview alloc]init];
+    [_driverReview initWithData:data[@"review"][@"from_driver"]];
+    
+    _userReview = [[MDReview alloc]init];
+    [_userReview initWithData:data[@"review"][@"from_user"]];
+    
+    _user_id = data[@"user_id"];
+    
     return self;
 }
 

@@ -26,13 +26,13 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     destinationAddressView = [[MDAddressInputTable alloc]initWithFrame:self.view.frame];
-//    destinationAddressView.addressField.text = [MDCurrentPackage getInstance].to_addr;
+    
     NSArray *addressArray = [[MDCurrentPackage getInstance].to_addr componentsSeparatedByString:@" "];
-    destinationAddressView.metropolitanField.input.text = addressArray[0];
-    destinationAddressView.cityField.input.text = addressArray[1];
-    destinationAddressView.townField.input.text = addressArray[2];
-    destinationAddressView.houseField.input.text = addressArray[3];
-    destinationAddressView.buildingNameField.input.text = addressArray[4];
+    destinationAddressView.metropolitanField.input.text = [MDCurrentPackage getInstance].to_pref;
+    destinationAddressView.cityField.input.text = addressArray[0];
+    destinationAddressView.townField.input.text = addressArray[1];
+    destinationAddressView.houseField.input.text = addressArray[2];
+    destinationAddressView.buildingNameField.input.text = addressArray[3];
     [destinationAddressView.zipField.input becomeFirstResponder];
     
     destinationAddressView.zipField.input.text = [MDCurrentPackage getInstance].to_zip;
@@ -75,11 +75,10 @@
     } else {
         [MDCurrentPackage getInstance].to_zip = destinationAddressView.zipField.input.text;
     }
-    [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", destinationAddressView.metropolitanField.input.text,
-                                                destinationAddressView.cityField.input.text,
-                                                destinationAddressView.townField.input.text,
-                                                destinationAddressView.houseField.input.text,
-                                                destinationAddressView.buildingNameField.input.text];
+    [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@", destinationAddressView.cityField.input.text,
+                                                                                        destinationAddressView.townField.input.text,
+                                                                                        destinationAddressView.houseField.input.text,
+                                                                                        destinationAddressView.buildingNameField.input.text];
     [MDCurrentPackage getInstance].to_pref = destinationAddressView.metropolitanField.input.text;
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -87,8 +86,7 @@
         for (CLPlacemark* aPlacemark in placemarks)
         {
             MKCoordinateRegion region;
-            region.center.latitude = aPlacemark.region.center.latitude;
-            region.center.longitude = aPlacemark.region.center.longitude;
+            region.center = [(CLCircularRegion *)aPlacemark.region center];
             
             [MDCurrentPackage getInstance].to_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
             [MDCurrentPackage getInstance].to_lng = [NSString stringWithFormat:@"%f",region.center.longitude];

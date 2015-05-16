@@ -29,11 +29,11 @@
     requestAddressView = [[MDAddressInputTable alloc]initWithFrame:self.view.frame];
 //    requestAddressView.addressField.text = [MDCurrentPackage getInstance].from_addr;
     NSArray *addressArray = [[MDCurrentPackage getInstance].from_addr componentsSeparatedByString:@" "];
-    requestAddressView.metropolitanField.input.text = addressArray[0];
-    requestAddressView.cityField.input.text = addressArray[1];
-    requestAddressView.townField.input.text = addressArray[2];
-    requestAddressView.houseField.input.text = addressArray[3];
-    requestAddressView.buildingNameField.input.text = addressArray[4];
+    requestAddressView.metropolitanField.input.text = [MDCurrentPackage getInstance].from_pref;
+    requestAddressView.cityField.input.text = addressArray[0];
+    requestAddressView.townField.input.text = addressArray[1];
+    requestAddressView.houseField.input.text = addressArray[2];
+    requestAddressView.buildingNameField.input.text = addressArray[3];
     [requestAddressView.zipField.input becomeFirstResponder];
     
     requestAddressView.zipField.input.text = [MDCurrentPackage getInstance].from_zip;
@@ -76,11 +76,10 @@
     } else {
         [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.input.text;
     }
-    [MDCurrentPackage getInstance].from_addr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", requestAddressView.metropolitanField.input.text,
-                                                                                          requestAddressView.cityField.input.text,
+    [MDCurrentPackage getInstance].from_addr = [NSString stringWithFormat:@"%@ %@ %@ %@", requestAddressView.cityField.input.text,
                                                                                           requestAddressView.townField.input.text,
                                                                                           requestAddressView.houseField.input.text,
-                                                requestAddressView.buildingNameField.input.text];
+                                                                                          requestAddressView.buildingNameField.input.text];
     [MDCurrentPackage getInstance].from_pref = requestAddressView.metropolitanField.input.text;
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -88,8 +87,8 @@
         for (CLPlacemark* aPlacemark in placemarks)
         {
             MKCoordinateRegion region;
-            region.center.latitude = aPlacemark.region.center.latitude;
-            region.center.longitude = aPlacemark.region.center.longitude;
+            
+            region.center = [(CLCircularRegion *)aPlacemark.region center];
             
             [MDCurrentPackage getInstance].from_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
             [MDCurrentPackage getInstance].from_lng = [NSString stringWithFormat:@"%f",region.center.longitude];

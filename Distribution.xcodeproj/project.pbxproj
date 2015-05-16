@@ -1144,7 +1144,7 @@
 				TargetAttributes = {
 					0DC16F471AC536640066FA0C = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = GVV2Z2J27L;
+						DevelopmentTeam = 58DG48DA72;
 					};
 					0DC16F601AC536640066FA0C = {
 						CreatedOnToolsVersion = 6.2;
@@ -1395,8 +1395,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SONGRAN LIU";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SONGRAN LIU";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (QBVUXP3K8D)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (QBVUXP3K8D)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1416,7 +1416,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "f4e31f5f-0d0a-4022-9dee-14aeae70ec67";
+				PROVISIONING_PROFILE = "dc0e7769-f7ed-4e06-916d-34787e4aacd7";
 				SDKROOT = iphoneos7.1;
 			};
 			name = Debug;
@@ -1439,8 +1439,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SONGRAN LIU";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SONGRAN LIU";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SONGRAN LIU (QBVUXP3K8D)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (QBVUXP3K8D)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1453,7 +1453,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "f4e31f5f-0d0a-4022-9dee-14aeae70ec67";
+				PROVISIONING_PROFILE = "dc0e7769-f7ed-4e06-916d-34787e4aacd7";
 				SDKROOT = iphoneos7.1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1465,8 +1465,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SONGRAN LIU";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SONGRAN LIU";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (QBVUXP3K8D)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1475,7 +1475,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85603bce-a17d-4af6-8fea-f278485f6d51";
+				PROVISIONING_PROFILE = "dc0e7769-f7ed-4e06-916d-34787e4aacd7";
 			};
 			name = Debug;
 		};
@@ -1485,8 +1485,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SONGRAN LIU";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SONGRAN LIU";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SONGRAN LIU (QBVUXP3K8D)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1495,7 +1495,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85603bce-a17d-4af6-8fea-f278485f6d51";
+				PROVISIONING_PROFILE = "dc0e7769-f7ed-4e06-916d-34787e4aacd7";
 			};
 			name = Release;
 		};

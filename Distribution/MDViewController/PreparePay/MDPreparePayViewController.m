@@ -114,16 +114,31 @@ static CGRect oldframe;
                               OnComplete:^(MKNetworkOperation *completeOperation){
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                       [MDCurrentPackage getInstance].status = @"2";
-                                      [SVProgressHUD dismiss];
+                                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                            // time-consuming task
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [SVProgressHUD dismiss];
+                                            });
+                                        });
                                       [self dismissViewControllerAnimated:YES completion:nil];
                                   }else{
                                       [MDUtil makeAlertWithTitle:@"エラー" message:@"支払い方法が登録されていません。" done:@"OK" viewController:self];
                                       
                                   }
-                                  [SVProgressHUD dismiss];
+                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                    // time-consuming task
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [SVProgressHUD dismiss];
+                                    });
+                                });
                               }onError:^(MKNetworkOperation *completeOperation, NSError *error){
                                   NSLog(@"%@",error);
-                                  [SVProgressHUD dismiss];
+                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                        // time-consuming task
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [SVProgressHUD dismiss];
+                                        });
+                                    });
                               }];
     }
 }

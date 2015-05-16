@@ -11,6 +11,7 @@
 @interface MDDevice : NSObject
 
 @property (strong, nonatomic) NSString *iosVersion;
+@property (strong, nonatomic) NSString *token;
 
 +(MDDevice *)getInstance;
 

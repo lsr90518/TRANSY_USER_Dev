@@ -77,14 +77,24 @@
 -(void) initCellWithData:(MDPackage *)data {
     //status
     long status = [data.status integerValue];
-    NSString *userReviewed = [NSString stringWithFormat:@"%@",data.review[@"from_user"][@"reviewed"]];
+    
+    NSString *userReviewed = [NSString stringWithFormat:@"%@", data.userReview.reviewed];
+    NSString *driverReviewed = [NSString stringWithFormat:@"%@", data.driverReview.reviewed];
     
     if([userReviewed isEqualToString:@"0"] && status == 3){
         _statusLabel.text = [NSString stringWithFormat:@"評価をお願い致します。"];
         _statusLabel.textColor = [UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1];
     } else if([userReviewed isEqualToString:@"1"]){
-        _statusLabel.text = [NSString stringWithFormat:@"評価済み"];
-        _statusLabel.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
+//        _statusLabel.text = [NSString stringWithFormat:@"評価済み"];
+//        _statusLabel.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
+        
+        if([driverReviewed isEqualToString:@"1"]){
+            _statusLabel.text = [NSString stringWithFormat:@"両方評価済み"];
+            _statusLabel.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
+        } else {
+            _statusLabel.text = [NSString stringWithFormat:@"評価済み"];
+            _statusLabel.textColor = [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1];
+        }
         
     } else {
         //show package_number

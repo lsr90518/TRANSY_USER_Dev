@@ -82,28 +82,63 @@
             //有効な電話番号
             NSString *phoneNumber = [MDUtil internationalPhoneNumber:_inputView.input.text];
             
-            [SVProgressHUD show];
-            [[MDAPI sharedAPI] createUserWithPhone:phoneNumber
-                          onComplete:^(MKNetworkOperation *completeOperation) {
-                              // NSLog(@"%ld",(long)[[completeOperation responseJSON][@"code"] integerValue]);
-                              [SVProgressHUD dismiss];
-                              if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                  MDUser *user = [MDUser getInstance];
-                                  // NSLog(@"user_id: %d", [[completeOperation responseJSON][@"user_id"] intValue]);
-                                  user.user_id = [[completeOperation responseJSON][@"user_id"] intValue];
-                                  user.phoneNumber = [MDUtil japanesePhoneNumber: phoneNumber];
-                                  MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
-                                  [self.navigationController pushViewController:checkNumberController animated:YES];
-                              } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                  [MDUtil makeAlertWithTitle:@"既存の番号" message:@"この電話番号は既に登録されています。" done:@"OK" viewController:self];
-                              } else if([[completeOperation responseJSON][@"code"] integerValue] == -99){
-                                  [MDUtil makeAlertWithTitle:@"連続送信禁止" message:@"悪用防止のため連続での送信はお控えください。しばらくお待ちいただいてから再度お試しください。" done:@"OK" viewController:self];
-                              }
-                              
-                          } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
-                                 NSLog(@"error --------------  %@", error);
-                                 [SVProgressHUD dismiss];
-                             }];
+            if([[MDUser getInstance] isLogin]){
+                
+                [SVProgressHUD showWithStatus:@"保存" maskType:SVProgressHUDMaskTypeBlack];
+                [[MDAPI sharedAPI] updatePhoneNumberWithOldPhoneNumber:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
+                                                        newPhoneNumber:[MDUtil internationalPhoneNumber:phoneNumber]
+                                                            OnComplete:^(MKNetworkOperation *completeOperation) {
+
+                                                            [SVProgressHUD dismiss];
+                                                            if( [[completeOperation responseJSON][@"code"] integerValue] == 0){
+
+                                                                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                                            } else if([[completeOperation responseJSON][@"code"] integerValue] == -99){
+                                                                [MDUtil makeAlertWithTitle:@"連続送信禁止" message:@"悪用防止のため連続での送信はお控えください。しばらくお待ちいただいてから再度お試しください。" done:@"OK" viewController:self];
+                                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 3){
+                                                                [MDUtil makeAlertWithTitle:@"変更できません" message:@"電話番号と確認コードの対応が不正です。" done:@"OK" viewController:self];
+                                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
+                                                                [MDUtil makeAlertWithTitle:@"変更できません" message:@"既に指定した電話番号が使われています。" done:@"OK" viewController:self];
+                                                            }
+                                                            [SVProgressHUD dismiss];
+                                                        }onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+                                                            NSLog(@"%@", error);
+                                                            [SVProgressHUD dismiss];
+                                                            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"番号変更"
+                                                                                                            message:@"この番号は変更できません。"
+                                                                                                           delegate:self
+                                                                                                  cancelButtonTitle:nil
+                                                                                                  otherButtonTitles:@"OK", nil];
+                                                            alert.delegate = self;
+                                                            [alert show];
+
+                                                        }];
+                
+            } else {
+            
+                [SVProgressHUD show];
+                [[MDAPI sharedAPI] createUserWithPhone:phoneNumber
+                              onComplete:^(MKNetworkOperation *completeOperation) {
+                                  // NSLog(@"%ld",(long)[[completeOperation responseJSON][@"code"] integerValue]);
+                                  [SVProgressHUD dismiss];
+                                  if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                      MDUser *user = [MDUser getInstance];
+                                      // NSLog(@"user_id: %d", [[completeOperation responseJSON][@"user_id"] intValue]);
+                                      user.user_id = [[completeOperation responseJSON][@"user_id"] intValue];
+                                      user.phoneNumber = [MDUtil japanesePhoneNumber: phoneNumber];
+                                      MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
+                                      [self.navigationController pushViewController:checkNumberController animated:YES];
+                                  } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
+                                      [MDUtil makeAlertWithTitle:@"既存の番号" message:@"この電話番号は既に登録されています。" done:@"OK" viewController:self];
+                                  } else if([[completeOperation responseJSON][@"code"] integerValue] == -99){
+                                      [MDUtil makeAlertWithTitle:@"連続送信禁止" message:@"悪用防止のため連続での送信はお控えください。しばらくお待ちいただいてから再度お試しください。" done:@"OK" viewController:self];
+                                  }
+                                  
+                              } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+                                     NSLog(@"error --------------  %@", error);
+                                     [SVProgressHUD dismiss];
+                                 }];
+            }
         }
     }
 }

@@ -30,7 +30,7 @@
         
         
         //input
-        self.input = [[UITextField alloc]initWithFrame:CGRectMake(frame.size.width-150, 19, 130, 15)];
+        self.input = [[UITextField alloc]initWithFrame:CGRectMake(frame.size.width-150, 17, 130, 17)];
         self.input.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         self.input.textAlignment = NSTextAlignmentRight;
         self.input.delegate = self;

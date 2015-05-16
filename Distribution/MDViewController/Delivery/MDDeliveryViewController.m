@@ -81,15 +81,18 @@
         [SVProgressHUD showWithStatus:@"荷物を登録中" maskType:SVProgressHUDMaskTypeClear];
         [[MDAPI sharedAPI] registerBaggageWithHash:[MDUser getInstance].userHash
                                         OnComplete:^(MKNetworkOperation *completeOperation) {
-                                            NSLog(@"%@", [completeOperation responseJSON]);
                                             
-                                           [SVProgressHUD dismiss];
+                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                // time-consuming task
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [SVProgressHUD dismiss];
+                                                });
+                                           });
                                            
                                            if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                                NSLog(@"%@", [completeOperation responseJSON]);
                                                [MDCurrentPackage getInstance].package_id        =   [completeOperation responseJSON][@"package_id"];
                                                [MDCurrentPackage getInstance].package_number    =   [completeOperation responseJSON][@"package_number"];
-//                                               NSLog(@"%@", [MDCurrentPackage getInstance].package_number);
                                         
                                                MDPreparePayViewController * preparePayViewController = [[MDPreparePayViewController alloc]init];
                                                
@@ -99,6 +102,9 @@
                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
 //                                              //警告
                                                [MDUtil makeAlertWithTitle:@"荷物登録失敗" message:@"改めてログインしてください。" done:@"OK" viewController:self];
+                                           } else if ([[completeOperation responseJSON][@"code"] integerValue] == 3){
+                                               //
+                                               [MDUtil makeAlertWithTitle:@"対象エリア外" message:@"エリア制限のため登録できません。" done:@"OK" viewController:self];
                                            }
                                        
                                        } onError:^(MKNetworkOperation *completeOperarion, NSError *error){

@@ -7,6 +7,7 @@
 //
 
 #import "MDNameSettingViewController.h"
+#import "MDDevice.h"
 #import <SVProgressHUD.h>
 
 @interface MDNameSettingViewController ()

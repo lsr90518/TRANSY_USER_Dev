@@ -7,6 +7,7 @@
 //
 
 #import "MDPhoneNumberSettingViewController.h"
+#import "MDPhoneViewController.h"
 #import "MDInput.h"
 #import "MDUser.h"
 #import "MDAPI.h"
@@ -28,6 +29,7 @@
     _phoneInput = [[MDInput alloc]initWithFrame:CGRectMake(10, 74, self.view.frame.size.width-20, 50)];
     _phoneInput.title.text = @"電話番号";
     _phoneInput.input.text = [MDUser getInstance].phoneNumber;
+    [_phoneInput setUserInteractionEnabled:YES];
     [_phoneInput.input setKeyboardType:UIKeyboardTypeNumberPad];
     [_phoneInput.title sizeToFit];
     [self.view addSubview:_phoneInput];
@@ -68,32 +70,38 @@
 
 -(void) changePhoneNumber {
     //call api
-    [SVProgressHUD showWithStatus:@"保存" maskType:SVProgressHUDMaskTypeBlack];
-    [[MDAPI sharedAPI] updatePhoneNumberWithOldPhoneNumber:[MDUser getInstance].phoneNumber
-                                            newPhoneNumber:_phoneInput.input.text OnComplete:^(MKNetworkOperation *completeOperation) {
-                                                
-                                                [SVProgressHUD dismiss];
-                                                if( [[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                                    
-                                                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-                                                } else if([[completeOperation responseJSON][@"code"] integerValue] == -99){
-                                                    [MDUtil makeAlertWithTitle:@"連続送信禁止" message:@"悪用防止のため連続での送信はお控えください。しばらくお待ちいただいてから再度お試しください。" done:@"OK" viewController:self];
-                                                }
-                                                [SVProgressHUD dismiss];
-                                            }onError:^(MKNetworkOperation *completeOperarion, NSError *error){
-                                                NSLog(@"%@", error);
-                                                [SVProgressHUD dismiss];
-                                                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"番号変更"
-                                                                                                message:@"この番号は変更できません。"
-                                                                                               delegate:self
-                                                                                      cancelButtonTitle:nil
-                                                                                      otherButtonTitles:@"OK", nil];
-                                                alert.delegate = self;
-                                                [alert show];
-                                                
-//                                                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-                                            }];
+//    [SVProgressHUD showWithStatus:@"保存" maskType:SVProgressHUDMaskTypeBlack];
+//    [[MDAPI sharedAPI] updatePhoneNumberWithOldPhoneNumber:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
+//                                            newPhoneNumber:[MDUtil internationalPhoneNumber:_phoneInput.input.text]
+//                                                OnComplete:^(MKNetworkOperation *completeOperation) {
+//                                                
+//                                                [SVProgressHUD dismiss];
+//                                                if( [[completeOperation responseJSON][@"code"] integerValue] == 0){
+//                                                    
+//                                                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+//                                                } else if([[completeOperation responseJSON][@"code"] integerValue] == -99){
+//                                                    [MDUtil makeAlertWithTitle:@"連続送信禁止" message:@"悪用防止のため連続での送信はお控えください。しばらくお待ちいただいてから再度お試しください。" done:@"OK" viewController:self];
+//                                                } else if ([[completeOperation responseJSON][@"code"] integerValue] == 3){
+//                                                    [MDUtil makeAlertWithTitle:@"変更できません" message:@"電話番号と確認コードの対応が不正です。" done:@"OK" viewController:self];
+//                                                } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
+//                                                    [MDUtil makeAlertWithTitle:@"変更できません" message:@"既に指定した電話番号が使われています。" done:@"OK" viewController:self];
+//                                                }
+//                                                [SVProgressHUD dismiss];
+//                                            }onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+//                                                NSLog(@"%@", error);
+//                                                [SVProgressHUD dismiss];
+//                                                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"番号変更"
+//                                                                                                message:@"この番号は変更できません。"
+//                                                                                               delegate:self
+//                                                                                      cancelButtonTitle:nil
+//                                                                                      otherButtonTitles:@"OK", nil];
+//                                                alert.delegate = self;
+//                                                [alert show];
+//
+//                                            }];
     
+    MDPhoneViewController *pvc = [[MDPhoneViewController alloc]init];
+    [self.navigationController pushViewController:pvc animated:YES];
 }
 
 -(void) backButtonTouched {

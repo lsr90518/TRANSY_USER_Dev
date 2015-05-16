@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MDReview.h"
 
 @interface MDPackage : NSObject
 
@@ -39,6 +40,8 @@
 @property (strong, nonatomic) NSString *reward_amount;
 @property (strong, nonatomic) NSString *created_time;
 @property (strong, nonatomic) NSString *distance;
+@property (strong, nonatomic) MDReview *driverReview;
+@property (strong, nonatomic) MDReview *userReview;
 
 -(MDPackage *)initWithData:(NSDictionary *)data;
 

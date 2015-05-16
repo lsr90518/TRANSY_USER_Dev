@@ -267,7 +267,6 @@
             [completeImageView setHidden:YES];
             statusButton.buttonTitle.text = @"配送員";
             [cancelButton setHidden:YES];
-            statusButton.selectLabel.text = @"09028280392";
             [statusButton addTarget:self action:@selector(seeDriverProfile) forControlEvents:UIControlEventTouchUpInside];
             break;
         case 2:
@@ -278,7 +277,6 @@
             [distributionImageView setHidden:NO];
             [completeImageView setHidden:YES];
             statusButton.buttonTitle.text = @"配送員";
-            statusButton.selectLabel.text = @"09028280392";
             [cancelButton setHidden:YES];
             [statusButton addTarget:self action:@selector(seeDriverProfile) forControlEvents:UIControlEventTouchUpInside];
             break;
@@ -324,12 +322,12 @@
     
     //address
     requestAddressView.zipField.text = package.from_zip;
-    requestAddressView.addressField.text = package.from_addr;
+    requestAddressView.addressField.text = [NSString stringWithFormat:@"%@ %@" ,package.from_pref, package.from_addr];
     destinationAddressView.zipField.text = package.to_zip;
-    destinationAddressView.addressField.text = package.to_addr;
+    destinationAddressView.addressField.text = [NSString stringWithFormat:@"%@ %@" ,package.to_pref, package.to_addr];
     
     //size
-    sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計%@cm以内", package.size];
+    sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計 %@cm 以内", package.size];
     
     //at_home_time
     //cusTodyTimePicker

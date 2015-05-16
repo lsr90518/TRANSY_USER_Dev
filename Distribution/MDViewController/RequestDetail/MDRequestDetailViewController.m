@@ -73,9 +73,18 @@
 
 -(void) getDriverData{
     //call api
+    [SVProgressHUD showWithStatus:@"" maskType:SVProgressHUDMaskTypeClear];
     [[MDAPI sharedAPI] getDriverDataWithHash:[MDUser getInstance].userHash
                                     dirverId:_package.driver_id
                                   OnComplete:^(MKNetworkOperation *complete) {
+                                      
+                                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                          // time-consuming task
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              [SVProgressHUD dismiss];
+                                          });
+                                      });
+                                      
                                       _driver = [[MDDriver alloc]init];
                                       [_driver initWithData:[complete responseJSON][@"Driver"]];
                                       [_requestDetailView setDriverData:_driver];

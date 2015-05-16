@@ -9,6 +9,7 @@
 #import "MDAPI.h"
 #import "MDUser.h"
 #import "MDCurrentPackage.h"
+#import "MDDevice.h"
 #import "MDPackage.h"
 
 @implementation MDAPI {
@@ -114,6 +115,7 @@
     [dic setValue:user.checknumber forKey:@"check_number"];
     [dic setValue:[NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname] forKey:@"name"];
     [dic setValue:user.password forKey:@"password"];
+    [dic setValue:[MDDevice getInstance].token forKey:@"device_token"];
     [dic setValue:@"ios" forKey:@"client"];
     
     [self callApi:dic
@@ -132,6 +134,7 @@
     [dic setValue:user.userHash forKey:@"hash"];
     [dic setValue:[NSString stringWithFormat:@"%@ %@",user.lastname,user.firstname] forKey:@"name"];
     if(sendPassword)[dic setValue:user.password forKey:@"password"];
+    [dic setValue:[MDDevice getInstance].token forKey:@"device_token"];
     [dic setValue:@"ios" forKey:@"client"];
     
     [self callApi:dic
