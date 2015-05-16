@@ -122,6 +122,7 @@
 		0DD8853A1AE53F0800CEA79E /* matchingProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885371AE53F0800CEA79E /* matchingProcess.png */; };
 		0DDDA6431AEBD19100067016 /* MDAddressTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6421AEBD19100067016 /* MDAddressTable.m */; };
 		0DDDA6461AEBD49B00067016 /* MDButtonInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6451AEBD49B00067016 /* MDButtonInput.m */; };
+		4842D3301B02F307002A4770 /* MDCreditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4842D32F1B02F307002A4770 /* MDCreditView.m */; };
 		4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */; };
 		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
 		8367BC341AEF4C7900B99B8C /* MDPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8367BC331AEF4C7900B99B8C /* MDPicker.m */; };
@@ -328,6 +329,8 @@
 		0DDDA6421AEBD19100067016 /* MDAddressTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressTable.m; path = MDView/Delivery/AddressTable/MDAddressTable.m; sourceTree = "<group>"; };
 		0DDDA6441AEBD49B00067016 /* MDButtonInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDButtonInput.h; path = MDView/Components/MDButtonInput.h; sourceTree = "<group>"; };
 		0DDDA6451AEBD49B00067016 /* MDButtonInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDButtonInput.m; path = MDView/Components/MDButtonInput.m; sourceTree = "<group>"; };
+		4842D32E1B02F307002A4770 /* MDCreditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDCreditView.h; path = MDViewController/CreditView/MDCreditView.h; sourceTree = "<group>"; };
+		4842D32F1B02F307002A4770 /* MDCreditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDCreditView.m; path = MDViewController/CreditView/MDCreditView.m; sourceTree = "<group>"; };
 		4873BCEA1AE8E3F6001C4F72 /* MDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDWebViewController.h; path = MDViewController/MDWebViewController/MDWebViewController.h; sourceTree = "<group>"; };
 		4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDWebViewController.m; path = MDViewController/MDWebViewController/MDWebViewController.m; sourceTree = "<group>"; };
 		4873BCF01AE8E800001C4F72 /* MDPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPaymentViewController.h; path = MDViewController/Payment/MDPaymentViewController.h; sourceTree = "<group>"; };
@@ -985,6 +988,7 @@
 		0DC16F9F1AC58FAB0066FA0C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4842D32D1B02F2C1002A4770 /* CreditView */,
 				0D5A37F41AC981EB0062F0C1 /* MDSelect.h */,
 				0D5A37F51AC981EB0062F0C1 /* MDSelect.m */,
 				0DC16FA01AC58FE30066FA0C /* MDTabButton.h */,
@@ -1072,6 +1076,15 @@
 				9D5F79D547F2E977CB21B14C /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		4842D32D1B02F2C1002A4770 /* CreditView */ = {
+			isa = PBXGroup;
+			children = (
+				4842D32E1B02F307002A4770 /* MDCreditView.h */,
+				4842D32F1B02F307002A4770 /* MDCreditView.m */,
+			);
+			name = CreditView;
 			sourceTree = "<group>";
 		};
 		4873BCE91AE8E2F6001C4F72 /* MDWebViewController */ = {
@@ -1313,6 +1326,7 @@
 				0D0FD5831ADA0E0800615C24 /* MDCustomer.m in Sources */,
 				0D0FD5CA1AE37C2300615C24 /* MDRequestDetailViewController.m in Sources */,
 				0DC16F9B1AC582D30066FA0C /* MDRequestViewController.m in Sources */,
+				4842D3301B02F307002A4770 /* MDCreditView.m in Sources */,
 				0D0FD5661AD8FD9E00615C24 /* MDInput.m in Sources */,
 				0DAA26F11AFDE8CB00AFD83A /* MDPackageService.m in Sources */,
 				0D5A380D1ACABE0E0062F0C1 /* MDPreparePayViewController.m in Sources */,

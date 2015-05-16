@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MDSelect.h"
 #import "MDUtil.h"
+#import "MDCreditView.h"
 
 @protocol PreparePayViewDelegate;
 
-@interface MDPreparePayView : UIView<UIScrollViewAccessibilityDelegate,UIScrollViewDelegate>
+@interface MDPreparePayView : UIView<UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDCreditViewDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIButton *postButton;

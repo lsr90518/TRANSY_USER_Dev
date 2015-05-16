@@ -35,6 +35,10 @@
         _givennameInput.input.placeholder = @"太郎";
         [_scrollView addSubview:_givennameInput];
         
+        _creditView = [[MDCreditView alloc]initWithFrame:CGRectMake(10, 125, frame.size.width-20, 50)];
+        _creditView.creditDelegate = self;
+        [_scrollView addSubview:_creditView];
+        
         _creditButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 125, frame.size.width-20, 50)];
         [_creditButton setBackgroundColor:[UIColor whiteColor]];
         _creditButton.buttonTitle.text = @"お支払い方法";
@@ -43,6 +47,8 @@
         [_creditButton setUnactive];
         [_creditButton setTag:paymentSelect];
         [_creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
+        [_creditButton.selectLabel setAlpha: 0.0f];
+        [_creditButton setBackgroundColor:[UIColor clearColor]];
         [_scrollView addSubview:_creditButton];
         
         _creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -133,6 +139,14 @@
     if([self.delegate respondsToSelector:@selector(showCardIO)]){
         [self.delegate showCardIO];
     }
+}
+
+
+/*
+ * MDCreditViewDelegate
+ */
+-(void)hasNoAuthorizedCard {
+    [_creditButton.selectLabel setAlpha: 1.0f];
 }
 
 @end
