@@ -16,6 +16,7 @@
 #import "MDUser.h"
 #import "MDDevice.h"
 #import "MDCurrentPackage.h"
+#import "SRGVersionUpdater.h"
 #import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
@@ -89,6 +90,12 @@
     self.viewController = [[MDIndexViewController alloc] init];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    // force update check
+    SRGVersionUpdater *versionUpdater = [SRGVersionUpdater new];
+    versionUpdater.endPointUrl = [NSString stringWithFormat:@"http://%@/versions/ios_user.json", API_HOST_NAME];
+    [versionUpdater executeVersionCheck];
+    
     return YES;
 }
 
