@@ -158,7 +158,9 @@ static CGRect oldframe;
                     animated:(BOOL)animated{
     MDSelect *pay = (MDSelect *)[_preparePayView.scrollView viewWithTag:paymentSelect];
     if(pay){
-        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+        [pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];
+        [pay.selectLabel setAlpha:[MDUtil getPaymentSelectLabelAlpha]];
+        [pay setBackgroundColor:[MDUtil getPaymentButtonBackground]];
     }
 }
 

@@ -55,8 +55,32 @@
     [user initDataClear];
     if(user.credit == 0){
         return @"新規登録";
+    }else if(user.credit == 1){
+        return @"認証済みのカード";
     }else{
-        return @"ご登録済みのカード";
+        return @"";     // web view
+    }
+}
++(float)getPaymentSelectLabelAlpha {
+    MDUser *user = [MDUser getInstance];
+    [user initDataClear];
+    if(user.credit == 0){
+        return 1.0f;
+    }else if(user.credit == 1){
+        return 1.0f;
+    }else{
+        return 0.0f;     // web view
+    }
+}
++(UIColor *)getPaymentButtonBackground {
+    MDUser *user = [MDUser getInstance];
+    [user initDataClear];
+    if(user.credit == 0){
+        return [UIColor whiteColor];
+    }else if(user.credit == 1){
+        return [UIColor whiteColor];
+    }else{
+        return [UIColor clearColor];     // web view
     }
 }
 
