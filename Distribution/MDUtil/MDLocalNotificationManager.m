@@ -49,7 +49,7 @@
                                                               alertBody:@"お届けまでの期限を過ぎました。至急ドライバーに確認し、荷物が届いてない場合や、問題があった場合、ドライバー情報画面より通報してください。"
                                                                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:package.package_id, @"package_id", nil]];
                                              }
-                                             if([package.status isEqualToString:@"3"] && ![package.review_limit isEqualToString:@""]){
+                                             if([package.status isEqualToString:@"3"] && ![package.review_limit isEqualToString:@""] && [package.userReview.star isEqualToString:@""]){
                                                  NSDate *review_date = [MDUtil getLocalDateTimeFromString:package.review_limit utc:YES];
                                                  // 3日前
                                                  [self makeNotification:[review_date initWithTimeInterval:-259200 sinceDate:review_date]
