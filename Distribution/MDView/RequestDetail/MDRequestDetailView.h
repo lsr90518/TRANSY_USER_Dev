@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MDPackage.h"
 #import "MDDriver.h"
+#import "MDReviewWell.h"
 
 @protocol MDRequestDetailViewDelegate;
 
@@ -24,6 +25,8 @@
 -(void) makeupByData:(MDPackage *)package;
 -(void) setDriverData:(MDDriver *)driver;
 -(UIImageView *) getUploadedImage;
+
+-(void) setReviewContent:(MDReview *)review;
 
 
 @end

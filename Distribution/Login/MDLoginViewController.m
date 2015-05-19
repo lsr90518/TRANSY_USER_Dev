@@ -12,6 +12,7 @@
 #import <SVProgressHUD.h>
 #import "MDUtil.h"
 #import "MDDeliveryViewController.h"
+#import "MDCustomerDAO.h"
 #import "MDViewController.h"
 
 @interface MDLoginViewController ()
@@ -46,6 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [_loginView setLoginData:[MDUser getInstance]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,6 +81,8 @@
                                         
                                         [[MDUser getInstance] setLogin];
                                         
+                                        [self saveUserToDB];
+                                        
 //                                        MDViewController *viewController = [[MDViewController alloc]init];
 //                                        [self presentViewController:viewController animated:YES completion:nil];
                                         
@@ -106,5 +110,21 @@
 -(void) backButtonTouched {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void) saveUserToDB {
+    [[NSFileManager defaultManager] removeItemAtPath:[RLMRealm defaultRealmPath] error:nil];
+    
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    
+    MDConsignor *consignor = [[MDConsignor alloc]init];
+    consignor.userid = [NSString stringWithFormat:@"%lu",(unsigned long)[MDUser getInstance].user_id];
+    consignor.password = [MDUser getInstance].password;
+    consignor.phonenumber = [MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber];
+    
+    [realm beginWriteTransaction];
+    [realm addOrUpdateObject:consignor];
+    [realm commitWriteTransaction];
+}
+
 
 @end

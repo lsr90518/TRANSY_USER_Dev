@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MDInput.h"
+#import "MDAddressInputTable.h"
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface MDInputRequestViewController : UIViewController
+
+@interface MDInputRequestViewController : UIViewController<MDAddressInputTableDelegate, UIActionSheetDelegate, CLLocationManagerDelegate>
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end

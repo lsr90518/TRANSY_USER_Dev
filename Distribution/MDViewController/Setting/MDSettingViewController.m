@@ -14,8 +14,18 @@
 #import "MDDeliveryViewController.h"
 #import "MDPaymentViewController.h"
 #import "MDPhoneNumberSettingViewController.h"
+#import "MDIndexViewController.h"
+#import "MDPackageService.h"
+#import "MDReviewHistoryViewController.h"
+#import "MDNotificationService.h"
+#import "MDProtocolViewController.h"
+#import "MDPrivacyViewController.h"
 
-@interface MDSettingViewController ()
+@interface MDSettingViewController () {
+    MDPackageService *packageService;
+    MDNotificationService *notificationService;
+    BOOL isAgerageLoaded;
+}
 
 @end
 
@@ -28,6 +38,10 @@
     _settingView = [[MDSettingView alloc]initWithFrame:self.view.frame];
     _settingView.delegate = self;
     [self.view addSubview:_settingView];
+    
+    isAgerageLoaded = NO;
+    //call api
+    [self updateData];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -83,6 +97,56 @@
     MDRequestViewController *rvc = [[MDRequestViewController alloc]init];
     UINavigationController *rvcNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
     [self presentViewController:rvcNavigationController animated:NO completion:nil];
+}
+
+-(void) notificationButtonPushed {
+    NSLog(@"notification button");
+}
+
+-(void) averageButtonPushed{
+        MDReviewHistoryViewController *rhvc = [[MDReviewHistoryViewController alloc]init];
+        rhvc.completePakcageList = [MDPackageService getInstance].completePackageList;
+        [self.navigationController pushViewController:rhvc animated:YES];
+}
+
+-(void) logoutButtonPushed{
+    [SVProgressHUD showSuccessWithStatus:@"ログアウト中..."];
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    
+    RLMResults *newconsiger = [MDConsignor allObjectsInRealm:realm];
+    MDConsignor *consignor = [[MDConsignor alloc]init];
+    
+    for(MDConsignor *tmp in newconsiger){
+        consignor.userid = tmp.userid;
+        consignor.phonenumber = tmp.phonenumber;
+    }
+    consignor.password = @"";
+    
+    [realm beginWriteTransaction];
+    [realm addOrUpdateObject:consignor];
+    [realm commitWriteTransaction];
+    
+    [[MDUser getInstance] clearData];
+    
+    [SVProgressHUD dismiss];
+    MDIndexViewController *ivc = [[MDIndexViewController alloc]init];
+    [self presentViewController:ivc animated:NO completion:nil];
+    
+}
+
+-(void) privacyButtonPushed{
+    MDPrivacyViewController *pvc = [[MDPrivacyViewController alloc]init];
+    [self.navigationController pushViewController:pvc animated:YES];
+}
+
+-(void) protocolButtonPushed{
+    MDProtocolViewController *pvc = [[MDProtocolViewController alloc]init];
+    [self.navigationController pushViewController:pvc animated:YES];
+}
+
+-(void) updateData{
+    //call api
+    
 }
 
 @end

@@ -69,6 +69,10 @@
     
     [_requestDetailView makeupByData:_package];
     
+    NSString *reviewed = [NSString stringWithFormat:@"%@", _package.driverReview.reviewed];
+    if([reviewed isEqualToString:@"1"]){
+        [_requestDetailView setReviewContent:_package.driverReview];
+    }
 }
 
 -(void) getDriverData{

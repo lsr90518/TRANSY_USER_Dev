@@ -10,6 +10,7 @@
 #import "MDIndexView.h"
 #import "MDPhoneViewController.h"
 #import "MDLoginViewController.h"
+#import "MDDeliveryViewController.h"
 
 @interface MDIndexViewController : UIViewController<indexDelegate>
 

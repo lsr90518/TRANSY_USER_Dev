@@ -206,7 +206,7 @@
         NSMutableArray *requestTermOptions = [[NSMutableArray alloc]init];
         NSMutableArray *requestTermFirstOptions = [[NSMutableArray alloc]initWithObjects:@"0.5",@"1",@"3",@"6",@"12",@"24",@"72", nil];
         [requestTermOptions addObject:requestTermFirstOptions];
-        [requestTerm setOptions:requestTermOptions :@"" :@"時間"];
+        [requestTerm setOptions:requestTermOptions :@"" :@"時間以内"];
         requestTerm.tag = 3;
         [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestTerm];

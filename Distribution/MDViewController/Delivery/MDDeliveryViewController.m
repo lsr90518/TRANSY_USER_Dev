@@ -11,9 +11,14 @@
 #import "MDSettingViewController.h"
 #import "MDSizeDescriptionViewController.h"
 #import <SVProgressHUD.h>
+#import "MDPackageService.h"
+#import "MDNotificationService.h"
 
 
-@interface MDDeliveryViewController ()
+@interface MDDeliveryViewController (){
+    MDPackageService *packageService;
+    MDNotificationService *notificationService;
+}
 
 @end
 
@@ -29,6 +34,8 @@
     [self.view addSubview:_deliveryView];
     
     [MDCurrentPackage getInstance].status = @"0";
+    //update data
+    [self updateMyPackageData];
 }
 
 - (void)viewDidLoad {
@@ -104,7 +111,7 @@
                                                [MDUtil makeAlertWithTitle:@"荷物登録失敗" message:@"改めてログインしてください。" done:@"OK" viewController:self];
                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 3){
                                                //
-                                               [MDUtil makeAlertWithTitle:@"対象エリア外" message:@"エリア制限のため登録できません。" done:@"OK" viewController:self];
+                                               [MDUtil makeAlertWithTitle:@"依頼可能エリア外" message:@"申し訳ございません。現在は、預かり先、お届け先ともに東京都23区のみのテストリリースとなっております。ご指定のエリアは、開放されるまで今しばらくお待ちください。" done:@"OK" viewController:self];
                                            }
                                        
                                        } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
@@ -181,6 +188,28 @@
 -(void) sizeDescriptionButtonPushed{
     MDSizeDescriptionViewController *sdvc = [[MDSizeDescriptionViewController alloc]init];
     [self.navigationController pushViewController:sdvc animated:YES];
+}
+
+-(void) updateMyPackageData {
+    [[MDAPI sharedAPI] getMyPackageWithHash:[MDUser getInstance].userHash
+                                 OnComplete:^(MKNetworkOperation *complete) {
+                                     //
+                                     packageService = [MDPackageService getInstance];
+                                     [packageService initDataWithArray:[complete responseJSON][@"Packages"]];
+                                     
+                                 } onError:^(MKNetworkOperation *operation, NSError *error) {
+                                     //
+                                 }];
+    
+    [[MDAPI sharedAPI] getAllNotificationWithHash:[MDUser getInstance].userHash
+                                       OnComplete:^(MKNetworkOperation *complete) {
+                                           if([[complete responseJSON][@"code"] intValue] == 0){
+                                               notificationService = [MDNotificationService getInstance];
+                                               [notificationService initWithDataArray:[complete responseJSON][@"Notifications"]];
+                                           }
+                                       } onError:^(MKNetworkOperation *operation, NSError *error) {
+                                           
+                                       }];
 }
 
 @end

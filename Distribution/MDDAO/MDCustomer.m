@@ -11,7 +11,7 @@
 
 @implementation MDCustomer
 
-@dynamic user_id;
+@dynamic userid;
 @dynamic phonenumber;
 @dynamic mailaddress;
 @dynamic password;

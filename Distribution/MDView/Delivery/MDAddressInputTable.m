@@ -80,18 +80,9 @@
 
 -(void)autoInputAddress {
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    [geocoder geocodeAddressString:self.zipField.input.text completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = placemarks.firstObject;
-        
-        NSDictionary *addressDictionary = placemark.addressDictionary;
-        if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
-            _metropolitanField.input.text = addressDictionary[(NSString *)kABPersonAddressStateKey];
-            _cityField.input.text = addressDictionary[@"City"];
-            _townField.input.text = addressDictionary[@"SubLocality"];
-        }
-    }];
+    if([self.delegate respondsToSelector:@selector(autoButtonPushed:)]){
+        [self.delegate autoButtonPushed:self];
+    }
     
 }
 
@@ -99,23 +90,27 @@
     NSArray *subviews = [_scrollView subviews];
     for(UIView *view in subviews) {
         if([view.class isSubclassOfClass:[MDButtonInput class]]){
-            MDButtonInput *tmpView = view;
+            MDButtonInput *tmpView = (MDButtonInput *)view;
             [tmpView.button setHidden:YES];
         } else if([view.class isSubclassOfClass:[MDInput class]]){
-            MDInput *tmpView = view;
+            MDInput *tmpView = (MDInput *)view;
             [tmpView.input setUserInteractionEnabled:NO];
         }
     }
 }
 
--(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+-(void) closeKeyboard{
     NSArray *subviews = [_scrollView subviews];
     for(UIView *view in subviews) {
         if([view.class isSubclassOfClass:[MDInput class]]){
-            MDInput *tmpView = view;
+            MDInput *tmpView = (MDInput*)view;
             [tmpView.input resignFirstResponder];
         }
     }
+}
+
+-(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self closeKeyboard];
 }
 
 -(BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -129,7 +124,7 @@
 }
 
 -(void) textFieldDidEndEditing:(UITextField *)textField{
-    [self autoInputAddress];
+//    [self autoInputAddress];
 }
 
 -(void)clearData {
@@ -137,6 +132,8 @@
     _metropolitanField.input.text = @"";
     _cityField.input.text = @"";
     _townField.input.text = @"";
+    _houseField.input.text = @"";
+    _buildingNameField.input.text = @"";
 }
 
 @end

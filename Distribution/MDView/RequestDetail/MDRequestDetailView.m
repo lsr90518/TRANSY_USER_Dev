@@ -40,6 +40,8 @@
     UIImageView *uploadedImage;
     
     UIButton *cancelButton;
+    
+    MDReviewWell *reviewWell;
 }
 
 -(id) initWithFrame:(CGRect)frame {
@@ -356,12 +358,12 @@
     destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@時", [deliver_limit substringToIndex:13]];
     
     //expire
-    NSDate * now = [NSDate date];
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setLocale:[NSLocale systemLocale]];
     [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:00"];
     NSDate *expireDate =[dateFormat dateFromString:package.expire];
     NSTimeInterval timeBetween = [expireDate timeIntervalSinceNow];
+    timeBetween = timeBetween + 32400;
     int hour = timeBetween/60/60;
     if (timeBetween < 0) {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"期限で取消された"];
@@ -376,6 +378,13 @@
     statusButton.buttonTitle.text = @"配送員";
     [statusButton setActive];
     
+}
+
+-(void) setReviewContent:(MDReview *)review{
+    reviewWell = [[MDReviewWell alloc]initWithFrame:CGRectMake(10, requestTerm.frame.origin.y + requestTerm.frame.size.height + 10, self.frame.size.width - 20, 100)];
+    [reviewWell setDataWithTitle:review.name star:[review.star intValue] text:review.text];
+    [_scrollView addSubview:reviewWell];
+    [_scrollView setContentSize:CGSizeMake(self.frame.size.width, reviewWell.frame.origin.y + reviewWell.frame.size.height + 20)];
 }
 
 -(void) cameraButtonTouched {

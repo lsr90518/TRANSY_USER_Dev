@@ -40,8 +40,6 @@
         [self addSubview:postButton];
         
     }
-    
-    [self loginTest];
     return self;
 }
 
@@ -54,6 +52,11 @@
 -(void) loginTest {
     _phoneInput.input.text = @"09028280392";
     _passwordInput.input.text = @"123456";
+}
+
+-(void) setLoginData:(MDUser *)user{
+    _phoneInput.input.text = [MDUtil japanesePhoneNumber:user.phoneNumber];
+    _passwordInput.input.text = user.password;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MDUser.h"
+#import "MDConsignor.h"
 
 @implementation MDUser
 
@@ -39,6 +40,26 @@
     if(_firstname.length < 1){
         _firstname = @"";
     }
+}
+
+-(void) clearData{
+    _user_id = 0;
+    _password = @"";
+    _phoneNumber = @"";
+    _mailAddress = @"";
+    _checknumber = @"";
+    _lastname = @"";
+    _firstname = @"";
+    _loginStatus = @"";
+    _credit = 0;
+    _userHash = @"";
+}
+
+-(void) initDataWithConsignor:(MDConsignor *)consignor{
+    _user_id = [consignor.userid integerValue];
+    _password = consignor.password;
+    _phoneNumber = consignor.phonenumber;
+    
 }
 
 -(void) setLogin {

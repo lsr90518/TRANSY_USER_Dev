@@ -31,6 +31,7 @@
         
         //subtitle
         starBar = [[MDStarRatingBar alloc]initWithFrame:CGRectMake(frame.size.width - 100, 14, 80, 20)];
+        [starBar setUserInteractionEnabled:NO];
         [self addSubview:starBar];
         
         

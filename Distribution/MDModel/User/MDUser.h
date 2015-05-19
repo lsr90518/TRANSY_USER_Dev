@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MDConsignor.h"
 #import <CoreData/CoreData.h>
 
 @interface MDUser : NSObject
@@ -30,6 +31,8 @@
 -(void) setLogout;
 -(BOOL) isLogin;
 -(void) copyDataFromUser:(MDUser *)newUser;
+-(void) initDataWithConsignor:(MDConsignor *)consignor;
+-(void) clearData;
 
 //{
 //    "code": 0,

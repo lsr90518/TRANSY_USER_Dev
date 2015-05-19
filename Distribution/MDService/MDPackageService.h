@@ -15,6 +15,8 @@
 @interface MDPackageService : NSObject
 
 @property (strong, nonatomic) NSMutableArray *packageList;
+@property (strong, nonatomic) NSMutableArray *completePackageList;
+@property (strong, nonatomic) NSMutableArray *reviewList;
 
 +(MDPackageService *)getInstance;
 
@@ -24,5 +26,6 @@
 -(void) initDataWithArray:(NSArray *)array
              WithDistance:(CLLocation *)location;
 -(NSMutableArray *)getPackageListByPackage:(MDCurrentPackage *)package;
+-(int) getAverageStar;
 
 @end

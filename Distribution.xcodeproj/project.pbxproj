@@ -122,6 +122,15 @@
 		0DD8853A1AE53F0800CEA79E /* matchingProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885371AE53F0800CEA79E /* matchingProcess.png */; };
 		0DDDA6431AEBD19100067016 /* MDAddressTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6421AEBD19100067016 /* MDAddressTable.m */; };
 		0DDDA6461AEBD49B00067016 /* MDButtonInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6451AEBD49B00067016 /* MDButtonInput.m */; };
+		0DFE072D1B07245200484069 /* MDConsignor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE072C1B07245200484069 /* MDConsignor.m */; };
+		0DFE07301B07851400484069 /* RealmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE072F1B07851400484069 /* RealmManager.m */; };
+		0DFE07331B0821BB00484069 /* MDSelectRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07321B0821BB00484069 /* MDSelectRating.m */; };
+		0DFE07371B0874A200484069 /* MDReviewHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07361B0874A200484069 /* MDReviewHistoryViewController.m */; };
+		0DFE073A1B08773B00484069 /* MDReviewHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07391B08773B00484069 /* MDReviewHistoryCell.m */; };
+		0DFE073E1B0897D200484069 /* MDNotifacation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE073D1B0897D200484069 /* MDNotifacation.m */; };
+		0DFE07411B0898C500484069 /* MDNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07401B0898C500484069 /* MDNotificationService.m */; };
+		0DFE07461B0A253800484069 /* MDProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07451B0A253800484069 /* MDProtocolViewController.m */; };
+		0DFE07491B0A255C00484069 /* MDPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07481B0A255C00484069 /* MDPrivacyViewController.m */; };
 		4842D3301B02F307002A4770 /* MDCreditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4842D32F1B02F307002A4770 /* MDCreditView.m */; };
 		4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */; };
 		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
@@ -329,6 +338,24 @@
 		0DDDA6421AEBD19100067016 /* MDAddressTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressTable.m; path = MDView/Delivery/AddressTable/MDAddressTable.m; sourceTree = "<group>"; };
 		0DDDA6441AEBD49B00067016 /* MDButtonInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDButtonInput.h; path = MDView/Components/MDButtonInput.h; sourceTree = "<group>"; };
 		0DDDA6451AEBD49B00067016 /* MDButtonInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDButtonInput.m; path = MDView/Components/MDButtonInput.m; sourceTree = "<group>"; };
+		0DFE072B1B07245200484069 /* MDConsignor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDConsignor.h; path = MDDAO/MDConsignor.h; sourceTree = "<group>"; };
+		0DFE072C1B07245200484069 /* MDConsignor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDConsignor.m; path = MDDAO/MDConsignor.m; sourceTree = "<group>"; };
+		0DFE072E1B07851400484069 /* RealmManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealmManager.h; path = MDDAO/RealmManager/RealmManager.h; sourceTree = "<group>"; };
+		0DFE072F1B07851400484069 /* RealmManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealmManager.m; path = MDDAO/RealmManager/RealmManager.m; sourceTree = "<group>"; };
+		0DFE07311B0821BB00484069 /* MDSelectRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSelectRating.h; path = MDView/Components/MDSelectRating.h; sourceTree = "<group>"; };
+		0DFE07321B0821BB00484069 /* MDSelectRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDSelectRating.m; path = MDView/Components/MDSelectRating.m; sourceTree = "<group>"; };
+		0DFE07351B0874A200484069 /* MDReviewHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDReviewHistoryViewController.h; path = MDViewController/ReviewHistory/MDReviewHistoryViewController.h; sourceTree = "<group>"; };
+		0DFE07361B0874A200484069 /* MDReviewHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDReviewHistoryViewController.m; path = MDViewController/ReviewHistory/MDReviewHistoryViewController.m; sourceTree = "<group>"; };
+		0DFE07381B08773B00484069 /* MDReviewHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDReviewHistoryCell.h; path = MDViewController/ReviewHistory/MDReviewHistoryCell.h; sourceTree = "<group>"; };
+		0DFE07391B08773B00484069 /* MDReviewHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDReviewHistoryCell.m; path = MDViewController/ReviewHistory/MDReviewHistoryCell.m; sourceTree = "<group>"; };
+		0DFE073C1B0897D200484069 /* MDNotifacation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDNotifacation.h; path = MDModel/Notification/MDNotifacation.h; sourceTree = "<group>"; };
+		0DFE073D1B0897D200484069 /* MDNotifacation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDNotifacation.m; path = MDModel/Notification/MDNotifacation.m; sourceTree = "<group>"; };
+		0DFE073F1B0898C500484069 /* MDNotificationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDNotificationService.h; path = MDService/MDNotificationService.h; sourceTree = "<group>"; };
+		0DFE07401B0898C500484069 /* MDNotificationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDNotificationService.m; path = MDService/MDNotificationService.m; sourceTree = "<group>"; };
+		0DFE07441B0A253800484069 /* MDProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDProtocolViewController.h; path = MDViewController/Protocol/MDProtocolViewController.h; sourceTree = "<group>"; };
+		0DFE07451B0A253800484069 /* MDProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDProtocolViewController.m; path = MDViewController/Protocol/MDProtocolViewController.m; sourceTree = "<group>"; };
+		0DFE07471B0A255C00484069 /* MDPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPrivacyViewController.h; path = MDViewController/Privacy/MDPrivacyViewController.h; sourceTree = "<group>"; };
+		0DFE07481B0A255C00484069 /* MDPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPrivacyViewController.m; path = MDViewController/Privacy/MDPrivacyViewController.m; sourceTree = "<group>"; };
 		4842D32E1B02F307002A4770 /* MDCreditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDCreditView.h; path = MDViewController/CreditView/MDCreditView.h; sourceTree = "<group>"; };
 		4842D32F1B02F307002A4770 /* MDCreditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDCreditView.m; path = MDViewController/CreditView/MDCreditView.m; sourceTree = "<group>"; };
 		4873BCEA1AE8E3F6001C4F72 /* MDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDWebViewController.h; path = MDViewController/MDWebViewController/MDWebViewController.h; sourceTree = "<group>"; };
@@ -692,6 +719,8 @@
 			children = (
 				0DAA26EF1AFDE8CB00AFD83A /* MDPackageService.h */,
 				0DAA26F01AFDE8CB00AFD83A /* MDPackageService.m */,
+				0DFE073F1B0898C500484069 /* MDNotificationService.h */,
+				0DFE07401B0898C500484069 /* MDNotificationService.m */,
 			);
 			name = MDService;
 			sourceTree = "<group>";
@@ -735,7 +764,6 @@
 		0DC16F3F1AC536640066FA0C = {
 			isa = PBXGroup;
 			children = (
-				0DAA27361B00526200AFD83A /* Crashlytics.framework */,
 				0DC16F4A1AC536640066FA0C /* Distribution */,
 				0DC16F641AC536640066FA0C /* DistributionTests */,
 				0DC16F491AC536640066FA0C /* Products */,
@@ -828,6 +856,10 @@
 		0DC16F731AC54CF20066FA0C /* MDViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0DFE07431B0A250D00484069 /* Protocol */,
+				0DFE07421B0A24F200484069 /* Privacy */,
+				0DFE073B1B08964A00484069 /* NotificationTable */,
+				0DFE07341B08745800484069 /* ReviewHistory */,
 				0DAA272E1AFFA86A00AFD83A /* ReportDriver */,
 				0DAA27021AFE69F700AFD83A /* SizeDescription */,
 				0DAA26F21AFDEF8900AFD83A /* Profile */,
@@ -868,6 +900,8 @@
 				0DAA26E91AFD224100AFD83A /* MDDriver.m */,
 				0DAA26EB1AFD22F600AFD83A /* MDReview.h */,
 				0DAA26EC1AFD22F600AFD83A /* MDReview.m */,
+				0DFE073C1B0897D200484069 /* MDNotifacation.h */,
+				0DFE073D1B0897D200484069 /* MDNotifacation.m */,
 			);
 			name = MDModel;
 			sourceTree = "<group>";
@@ -882,6 +916,10 @@
 				0D0FD5851ADA1A4600615C24 /* MDCustomerDAO.m */,
 				0D0FD5811ADA0E0800615C24 /* MDCustomer.h */,
 				0D0FD5821ADA0E0800615C24 /* MDCustomer.m */,
+				0DFE072B1B07245200484069 /* MDConsignor.h */,
+				0DFE072C1B07245200484069 /* MDConsignor.m */,
+				0DFE072E1B07851400484069 /* RealmManager.h */,
+				0DFE072F1B07851400484069 /* RealmManager.m */,
 			);
 			name = MDDAO;
 			sourceTree = "<group>";
@@ -991,6 +1029,8 @@
 				4842D32D1B02F2C1002A4770 /* CreditView */,
 				0D5A37F41AC981EB0062F0C1 /* MDSelect.h */,
 				0D5A37F51AC981EB0062F0C1 /* MDSelect.m */,
+				0DFE07311B0821BB00484069 /* MDSelectRating.h */,
+				0DFE07321B0821BB00484069 /* MDSelectRating.m */,
 				0DC16FA01AC58FE30066FA0C /* MDTabButton.h */,
 				0DC16FA11AC58FE30066FA0C /* MDTabButton.m */,
 				0D5A38121ACD99EA0062F0C1 /* MDCheckBox.h */,
@@ -1069,6 +1109,42 @@
 			name = Delivery;
 			sourceTree = "<group>";
 		};
+		0DFE07341B08745800484069 /* ReviewHistory */ = {
+			isa = PBXGroup;
+			children = (
+				0DFE07351B0874A200484069 /* MDReviewHistoryViewController.h */,
+				0DFE07361B0874A200484069 /* MDReviewHistoryViewController.m */,
+				0DFE07381B08773B00484069 /* MDReviewHistoryCell.h */,
+				0DFE07391B08773B00484069 /* MDReviewHistoryCell.m */,
+			);
+			name = ReviewHistory;
+			sourceTree = "<group>";
+		};
+		0DFE073B1B08964A00484069 /* NotificationTable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NotificationTable;
+			sourceTree = "<group>";
+		};
+		0DFE07421B0A24F200484069 /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				0DFE07471B0A255C00484069 /* MDPrivacyViewController.h */,
+				0DFE07481B0A255C00484069 /* MDPrivacyViewController.m */,
+			);
+			name = Privacy;
+			sourceTree = "<group>";
+		};
+		0DFE07431B0A250D00484069 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				0DFE07441B0A253800484069 /* MDProtocolViewController.h */,
+				0DFE07451B0A253800484069 /* MDProtocolViewController.m */,
+			);
+			name = Protocol;
+			sourceTree = "<group>";
+		};
 		4209E7653E83F8A6D5B70C76 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1099,6 +1175,7 @@
 		6254F0B82D8C881008CED483 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DAA27361B00526200AFD83A /* Crashlytics.framework */,
 				0D0FD5C41AE361FB00615C24 /* MapKit.framework */,
 				ABB7D0B79A9C487081FC5650 /* libPods.a */,
 			);
@@ -1293,8 +1370,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DFE073A1B08773B00484069 /* MDReviewHistoryCell.m in Sources */,
 				0D0FD5C01AE2A18800615C24 /* MDPhoneNumberSettingViewController.m in Sources */,
 				0D0FD5391AD4124C00615C24 /* MDRequestTableViewCell.m in Sources */,
+				0DFE07331B0821BB00484069 /* MDSelectRating.m in Sources */,
 				0D0FD5741AD972CF00615C24 /* MDCreateProfileView.m in Sources */,
 				0DC16F8F1AC550DD0066FA0C /* MDDeliveryView.m in Sources */,
 				0D0FD5971ADC0B5300615C24 /* MDInputRequestViewController.m in Sources */,
@@ -1314,6 +1393,8 @@
 				4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */,
 				0D0FD59A1ADC0D7B00615C24 /* MDInputDestinationViewController.m in Sources */,
 				0D0FD58A1ADA6DB600615C24 /* MDLoginView.m in Sources */,
+				0DFE07461B0A253800484069 /* MDProtocolViewController.m in Sources */,
+				0DFE073E1B0897D200484069 /* MDNotifacation.m in Sources */,
 				4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */,
 				0DAA26F91AFDEFD900AFD83A /* MDProfileView.m in Sources */,
 				0D0FD5451AD56B3900615C24 /* MDAPI.m in Sources */,
@@ -1340,6 +1421,7 @@
 				0DC16F511AC536640066FA0C /* AppDelegate.m in Sources */,
 				0DAA26ED1AFD22F600AFD83A /* MDReview.m in Sources */,
 				0DC16F4E1AC536640066FA0C /* main.m in Sources */,
+				0DFE07411B0898C500484069 /* MDNotificationService.m in Sources */,
 				0D0FD57D1ADA025C00615C24 /* MDSQLManager.m in Sources */,
 				0DAA26E21AFD1D8B00AFD83A /* MDStarRatingBar.m in Sources */,
 				0D7D07E71AEDCE51002C7056 /* MDRequestEditViewController.m in Sources */,
@@ -1348,6 +1430,7 @@
 				0D0FD55B1AD8F38700615C24 /* MDPhoneViewController.m in Sources */,
 				0D0FD54A1AD8EC2A00615C24 /* MDIndexViewController.m in Sources */,
 				0D0FD5901ADC096F00615C24 /* MDCurrentPackage.m in Sources */,
+				0DFE07301B07851400484069 /* RealmManager.m in Sources */,
 				0D0FD5701AD9727E00615C24 /* MDCreateProfileViewController.m in Sources */,
 				0DAA26F51AFDEFAD00AFD83A /* MDProfileViewController.m in Sources */,
 				0D0FD5691AD9039D00615C24 /* MDWell.m in Sources */,
@@ -1362,12 +1445,15 @@
 				0D0FD5BC1AE29D9900615C24 /* MDNameSettingViewController.m in Sources */,
 				0DAA26FC1AFDF11F00AFD83A /* MDTitleWell.m in Sources */,
 				0DAA26DF1AFD1D4B00AFD83A /* MDReviewView.m in Sources */,
+				0DFE072D1B07245200484069 /* MDConsignor.m in Sources */,
 				0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */,
+				0DFE07491B0A255C00484069 /* MDPrivacyViewController.m in Sources */,
 				0D5A38141ACD99EA0062F0C1 /* MDCheckBox.m in Sources */,
 				0D0FD5861ADA1A4600615C24 /* MDCustomerDAO.m in Sources */,
 				0D0FD5B41ADFFF6700615C24 /* MDDeliveryLimitViewController.m in Sources */,
 				0D0FD5411AD5516C00615C24 /* MDRequest.m in Sources */,
 				0DAA26DB1AFD1D1400AFD83A /* MDReviewViewController.m in Sources */,
+				0DFE07371B0874A200484069 /* MDReviewHistoryViewController.m in Sources */,
 				0D0FD5A21ADD546500615C24 /* MDNoteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

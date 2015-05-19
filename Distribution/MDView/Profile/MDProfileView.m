@@ -55,7 +55,7 @@
         [nameInput.title setFrame:CGRectMake(19, 16, nameInput.frame.size.width - 38, 18)];
         [_scrollView addSubview:nameInput];
         
-        //preview
+        //review
         reviewView = [[MDStarRatingBar alloc]initWithFrame:CGRectMake(nameInput.frame.origin.x,
                                                                       nameInput.frame.size.height + nameInput.frame.origin.y + 10,
                                                                       nameInput.frame.size.width,
@@ -63,6 +63,7 @@
         reviewView.layer.cornerRadius = 2.5;
         reviewView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         reviewView.layer.borderWidth = 0.5;
+        [reviewView setUserInteractionEnabled:NO];
         [_scrollView addSubview:reviewView];
         
         //連絡先

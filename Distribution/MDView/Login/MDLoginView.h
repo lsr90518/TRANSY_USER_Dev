@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MDInput.h"
+#import "MDUtil.h"
+#import "MDUser.h"
 
 @protocol LoginViewDelegate;
 
@@ -17,6 +19,8 @@
 @property (strong, nonatomic) MDInput *passwordInput;
 
 @property (nonatomic, assign) id<LoginViewDelegate> delegate;
+
+-(void) setLoginData:(MDUser *)user;
 
 @end
 

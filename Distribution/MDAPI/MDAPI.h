@@ -29,16 +29,25 @@
 #define API_CANCEL_MY_PACKAGE       @"packages/user/cancel_my_package"
 #define API_REPORT_DRIVER           @"users/report_driver"
 
+#define API_GET_NOTIFICATION        @"users/get_notifications"
+
 #define USER_DEVICE                 @"ios"
 
 #define PAYMENT_IP            @"00044"  // for only debug environment
 // #define PAYMENT_IP            @"?????"  // for production environment
+
+#define PRIVACY_URL                 @"http://trux.life/privacypolicy.html"
+#define PROTOCAL_URL                @"http://trux.life/term_of_use.html"
 
 #define API_HOST_NAME @"modelordistribution-dev.elasticbeanstalk.com"
 
 @interface MDAPI : NSObject
 
 +(MDAPI *)sharedAPI;
+
++(NSString *) getPrivacyURL;
+
++(NSString *) getProtocalURL;
 
 -(void) createUserWithPhone:(NSString *)phone
                  onComplete:(void (^)(MKNetworkOperation *))complete
@@ -114,6 +123,11 @@
                         text:(NSString *)text
                   OnComplete:(void (^)(MKNetworkOperation *))complete
                      onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
+-(void) getAllNotificationWithHash:(NSString *)hash
+                        OnComplete:(void (^)(MKNetworkOperation *))complete
+                           onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
 
 
 @end

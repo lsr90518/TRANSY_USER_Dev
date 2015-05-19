@@ -27,6 +27,14 @@
     return sharedInstance;
 }
 
++(NSString *)getPrivacyURL{
+    return PRIVACY_URL;
+}
+
++(NSString *)getProtocalURL{
+    return PROTOCAL_URL;
+}
+
 - (id)init
 {
     self = [super init];
@@ -351,6 +359,22 @@
           withUrl:API_REPORT_DRIVER
        withImages:@[]
    withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
+-(void) getAllNotificationWithHash:(NSString *)hash
+                        OnComplete:(void (^)(MKNetworkOperation *))complete
+                           onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:@"0" forKey:@"last_id"];
+    
+    [self callApi:dic
+          withUrl:API_GET_NOTIFICATION
+       withImages:@[]
+   withHttpMethod:@"GET"
        onComplete:complete
           onError:error];
 }

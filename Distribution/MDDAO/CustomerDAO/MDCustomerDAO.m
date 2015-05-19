@@ -12,18 +12,21 @@
 
 -(void) addCustomer :(MDUser *)customer {
     
+    //
+    [self deleteCustomer];
+    
     MDSQLManager *sqlManager = [MDSQLManager sharedSQLManager];
     [sqlManager initCoreData];
     MDCustomer *newcustomer = (MDCustomer *)[NSEntityDescription insertNewObjectForEntityForName:@"MDCustomer" inManagedObjectContext:sqlManager.managedObjectContext];
     
 //    newcustomer = customer;
-    [newcustomer setUser_id:customer.user_id];
-    [newcustomer setPhonenumber:customer.phoneNumber];
-    [newcustomer setMailaddress:customer.mailAddress];
-    [newcustomer setPassword:customer.password];
-    [newcustomer setCredit:customer.credit];
-    [newcustomer setLastname:customer.lastname];
-    [newcustomer setFirstname:customer.firstname];
+//    [newcustomer setUserid:1];
+//    [newcustomer setPhonenumber:customer.phoneNumber];
+//    [newcustomer setMailaddress:customer.mailAddress];
+//    [newcustomer setPassword:customer.password];
+//    [newcustomer setCredit:customer.credit];
+//    [newcustomer setLastname:customer.lastname];
+//    [newcustomer setFirstname:customer.firstname];
     
     NSError *error = nil;
     if (![sqlManager.managedObjectContext save:&error]) {

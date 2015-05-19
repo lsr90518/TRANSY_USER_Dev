@@ -14,6 +14,8 @@
 
 @interface MDInputDestinationViewController (){
     MDAddressInputTable *destinationAddressView;
+    UIActionSheet *myActionSheet;
+    BOOL isInputWithCurrentLocation;
 }
 
 @end
@@ -37,8 +39,24 @@
     
     destinationAddressView.zipField.input.text = [MDCurrentPackage getInstance].to_zip;
     [self.view addSubview:destinationAddressView];
+    destinationAddressView.delegate = self;
     
     [self initNavigationBar];
+    
+    isInputWithCurrentLocation = NO;
+    
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+#ifdef __IPHONE_8_0
+    if(IS_OS_8_OR_LATER) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
+#endif
+    
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
     
 }
 
@@ -94,6 +112,89 @@
         }
         [self.navigationController popViewControllerAnimated:YES];
     }];
+}
+
+-(void) autoButtonPushed:(MDAddressInputTable *)inputTable{
+    [inputTable closeKeyboard];
+    myActionSheet = [[UIActionSheet alloc]
+                     initWithTitle:nil
+                     delegate:self
+                     cancelButtonTitle:@"キャンセル"
+                     destructiveButtonTitle:nil
+                     otherButtonTitles: @"郵便番号から", @"現在地から",nil];
+    [myActionSheet showInView:self.view];
+}
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [self inputByZip:destinationAddressView];
+            break;
+        case 1:
+            [self inputByCurrentLocation:destinationAddressView];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void) inputByZip:(MDAddressInputTable *)inputTable{
+    isInputWithCurrentLocation = NO;
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    [geocoder geocodeAddressString:inputTable.zipField.input.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = placemarks.firstObject;
+        
+        NSDictionary *addressDictionary = placemark.addressDictionary;
+        if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
+            inputTable.metropolitanField.input.text = addressDictionary[(NSString *)kABPersonAddressStateKey];
+            inputTable.cityField.input.text = addressDictionary[@"City"];
+            inputTable.townField.input.text = addressDictionary[@"SubLocality"];
+        }
+    }];
+}
+
+-(void) inputByCurrentLocation:(MDAddressInputTable *)inputTable{
+    [SVProgressHUD show];
+    isInputWithCurrentLocation = YES;
+}
+
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error{
+    NSLog(@"error %@", error);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    
+    if(isInputWithCurrentLocation){
+        CLLocation* location = [locations lastObject];
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        
+        [geocoder reverseGeocodeLocation:location
+                       completionHandler:^(NSArray *placemarks, NSError *error) {
+                           
+                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                               // time-consuming task
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   [SVProgressHUD dismiss];
+                               });
+                           });
+                           
+                           CLPlacemark *placemark = placemarks.firstObject;
+                           
+                           NSDictionary *addressDictionary = placemark.addressDictionary;
+                           if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
+                               destinationAddressView.metropolitanField.input.text = addressDictionary[@"State"];
+                               destinationAddressView.cityField.input.text = addressDictionary[@"City"];
+                               destinationAddressView.townField.input.text = addressDictionary[@"Thoroughfare"];
+                               destinationAddressView.houseField.input.text = addressDictionary[@"SubThoroughfare"];
+                               NSString *zipStr = addressDictionary[@"ZIP"];
+                               destinationAddressView.zipField.input.text = [NSString stringWithFormat:@"〒%@", [zipStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                               isInputWithCurrentLocation = NO;
+                           }
+                       }];
+    }
 }
 
 -(void) clearFormData {

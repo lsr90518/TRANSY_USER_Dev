@@ -10,6 +10,8 @@
 #import "MDPreparePayView.h"
 #import "MDUtil.h"
 
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
 @interface MDPreparePayViewController : UIViewController <PreparePayViewDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) MDPreparePayView *preparePayView;

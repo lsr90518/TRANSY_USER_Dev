@@ -10,11 +10,14 @@
 #import "MDAddressInputTable.h"
 #import "MDCurrentPackage.h"
 #import "MDDeliveryViewController.h"
+#import "MDDevice.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <MapKit/MapKit.h>
 
 @interface MDInputRequestViewController (){
     MDAddressInputTable *requestAddressView;
+    UIActionSheet *myActionSheet;
+    BOOL isInputWithCurrentLocation;
 }
 
 @end
@@ -34,6 +37,7 @@
     requestAddressView.townField.input.text = addressArray[1];
     requestAddressView.houseField.input.text = addressArray[2];
     requestAddressView.buildingNameField.input.text = addressArray[3];
+    requestAddressView.delegate = self;
     [requestAddressView.zipField.input becomeFirstResponder];
     
     requestAddressView.zipField.input.text = [MDCurrentPackage getInstance].from_zip;
@@ -41,6 +45,20 @@
     
     [self initNavigationBar];
     
+    isInputWithCurrentLocation = NO;
+    
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+#ifdef __IPHONE_8_0
+    if(IS_OS_8_OR_LATER) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
+#endif
+    
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,7 +101,11 @@
     [MDCurrentPackage getInstance].from_pref = requestAddressView.metropolitanField.input.text;
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:[MDCurrentPackage getInstance].from_addr completionHandler:^(NSArray *placemarks, NSError *error) {
+    [geocoder geocodeAddressString:[NSString stringWithFormat:@"%@ %@",
+                                    [MDCurrentPackage getInstance].from_pref,
+                                    [MDCurrentPackage getInstance].from_addr]
+                 completionHandler:^(NSArray *placemarks, NSError *error) {
+                     
         for (CLPlacemark* aPlacemark in placemarks)
         {
             MKCoordinateRegion region;
@@ -96,8 +118,89 @@
         }
         [self.navigationController popViewControllerAnimated:YES];
     }];
+}
+
+-(void) autoButtonPushed:(MDAddressInputTable *)inputTable{
+    [inputTable closeKeyboard];
+    myActionSheet = [[UIActionSheet alloc]
+                     initWithTitle:nil
+                     delegate:self
+                     cancelButtonTitle:@"キャンセル"
+                     destructiveButtonTitle:nil
+                     otherButtonTitles: @"郵便番号から", @"現在地から",nil];
+    [myActionSheet showInView:self.view];
+}
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [self inputByZip:requestAddressView];
+            break;
+        case 1:
+            [self inputByCurrentLocation:requestAddressView];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void) inputByZip:(MDAddressInputTable *)inputTable{
+    isInputWithCurrentLocation = NO;
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     
-    
+    [geocoder geocodeAddressString:inputTable.zipField.input.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = placemarks.firstObject;
+        
+        NSDictionary *addressDictionary = placemark.addressDictionary;
+        if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
+            inputTable.metropolitanField.input.text = addressDictionary[(NSString *)kABPersonAddressStateKey];
+            inputTable.cityField.input.text = addressDictionary[@"City"];
+            inputTable.townField.input.text = addressDictionary[@"SubLocality"];
+        }
+    }];
+}
+
+-(void) inputByCurrentLocation:(MDAddressInputTable *)inputTable{
+    [SVProgressHUD show];
+    isInputWithCurrentLocation = YES;
+}
+
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error{
+    NSLog(@"error %@", error);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+
+    if(isInputWithCurrentLocation){
+        CLLocation* location = [locations lastObject];
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        
+        [geocoder reverseGeocodeLocation:location
+                       completionHandler:^(NSArray *placemarks, NSError *error) {
+                           
+                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                               // time-consuming task
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   [SVProgressHUD dismiss];
+                               });
+                           });
+                           
+                           CLPlacemark *placemark = placemarks.firstObject;
+                           
+                           NSDictionary *addressDictionary = placemark.addressDictionary;
+                           if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
+                               requestAddressView.metropolitanField.input.text = addressDictionary[@"State"];
+                               requestAddressView.cityField.input.text = addressDictionary[@"City"];
+                               requestAddressView.townField.input.text = addressDictionary[@"Thoroughfare"];
+                               requestAddressView.houseField.input.text = addressDictionary[@"SubThoroughfare"];
+                               NSString *zipStr = addressDictionary[@"ZIP"];
+                               requestAddressView.zipField.input.text = [NSString stringWithFormat:@"〒%@", [zipStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                               isInputWithCurrentLocation = NO;
+                           }
+        }];
+    }
 }
 
 -(void) clearFormData {

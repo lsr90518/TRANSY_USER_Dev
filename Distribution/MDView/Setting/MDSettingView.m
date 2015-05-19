@@ -10,11 +10,14 @@
 
 
 @implementation MDSettingView{
+    MDSelect *notificationButton;
+    MDSelectRating *averageButton;
     MDSelect *nameButton;
     MDCreditView *payInner;
     MDSelect *pay;
     MDSelect *phoneButton;
     MDSelect *blockButton;
+    UIButton *logoutButton;
 }
 
 #pragma mark - View Life Cycle
@@ -42,25 +45,37 @@
         _scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         [self addSubview:_scrollView];
         
+        notificationButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 10, frame.size.width - 20, 50)];
+        notificationButton.buttonTitle.text = @"通知";
+        [notificationButton addTarget:self action:@selector(notificationButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:notificationButton];
+        
+        averageButton = [[MDSelectRating alloc]initWithFrame:CGRectMake(10, notificationButton.frame.origin.y + notificationButton.frame.size.height + 10, frame.size.width - 20, 50)];
+        averageButton.buttonTitle.text = @"平均評価";
+        [averageButton.starLabel setRating:5];
+        [averageButton setReadOnly];
+        [averageButton addTarget:self action:@selector(averageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:averageButton];
+        
         //name button
-        nameButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 10, frame.size.width-20, 50)];
+        nameButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, averageButton.frame.origin.y + averageButton.frame.size.height + 10, frame.size.width-20, 50)];
         nameButton.buttonTitle.text = @"お名前";
         [nameButton addTarget:self action:@selector(nameButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:nameButton];
         
         //phone button
-        phoneButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 70, frame.size.width-20, 50)];
+        phoneButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, nameButton.frame.origin.y + nameButton.frame.size.height + 10, frame.size.width-20, 50)];
         phoneButton.buttonTitle.text = @"電話番号";
         [phoneButton addTarget:self action:@selector(phoneNumberTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:phoneButton];
         
         // pay button inner
-        payInner = [[MDCreditView alloc] initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
+        payInner = [[MDCreditView alloc] initWithFrame:CGRectMake(10, phoneButton.frame.origin.y + phoneButton.frame.size.height + 10, frame.size.width-20, 50)];
         payInner.creditDelegate = self;
         [_scrollView addSubview:payInner];
         
         //pay button
-        pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, 130, frame.size.width-20, 50)];
+        pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneButton.frame.origin.y + phoneButton.frame.size.height + 10, frame.size.width-20, 50)];
         pay.buttonTitle.text = @"お支払い方法";
         pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
         [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
@@ -70,7 +85,7 @@
         [_scrollView addSubview:pay];
         
         UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        creditAutoCompletionButton.frame = CGRectMake(30, 188, frame.size.width-60, 15);
+        creditAutoCompletionButton.frame = CGRectMake(30, pay.frame.origin.y + pay.frame.size.height + 8, frame.size.width-60, 15);
         creditAutoCompletionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [creditAutoCompletionButton setTitle:@">クレジットカードのスキャン入力" forState:UIControlStateNormal];
         [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
@@ -80,7 +95,7 @@
         [_scrollView addSubview:creditAutoCompletionButton];
         
         //name button
-        blockButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 220, frame.size.width-20, 50)];
+        blockButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, creditAutoCompletionButton.frame.origin.y + creditAutoCompletionButton.frame.size.height + 17, frame.size.width-20, 50)];
         blockButton.buttonTitle.text = @"ブロックドライバー";
         [blockButton.buttonTitle sizeToFit];
         blockButton.selectLabel.text = @"";
@@ -89,7 +104,7 @@
         [_scrollView addSubview:blockButton];
         
         //name button
-        MDSelect *qaButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 280, frame.size.width-20, 50)];
+        MDSelect *qaButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, blockButton.frame.origin.y + blockButton.frame.size.height + 10, frame.size.width-20, 50)];
         qaButton.buttonTitle.text = @"よくある質問";
         qaButton.selectLabel.text = @"";
         [qaButton setUnactive];
@@ -97,21 +112,32 @@
         [_scrollView addSubview:qaButton];
         
         //name button
-        MDSelect *privateButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 340, frame.size.width-20, 50)];
+        MDSelect *privateButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, qaButton.frame.origin.y + qaButton.frame.size.height + 10, frame.size.width-20, 50)];
         privateButton.buttonTitle.text = @"プライバシーポリシー";
         [privateButton.buttonTitle sizeToFit];
         privateButton.selectLabel.text = @"";
         [privateButton setUnactive];
-//        [privateButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+        [privateButton addTarget:self action:@selector(privateButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:privateButton];
         
         //name button
-        MDSelect *protocolButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, 400, frame.size.width-20, 50)];
+        MDSelect *protocolButton = [[MDSelect alloc]initWithFrame:CGRectMake(10, privateButton.frame.origin.y + privateButton.frame.size.height + 10, frame.size.width-20, 50)];
         protocolButton.buttonTitle.text = @"利用規約";
         protocolButton.selectLabel.text = @"";
         [protocolButton setUnactive];
-//        [protocolButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+        [protocolButton addTarget:self action:@selector(protocolButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:protocolButton];
+        
+        //button
+        logoutButton = [[UIButton alloc]initWithFrame:CGRectMake(10, protocolButton.frame.origin.y + protocolButton.frame.size.height + 23, frame.size.width-20, 50)];
+        [logoutButton setBackgroundColor:[UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1]];
+        [logoutButton setTitle:@"ログアウト" forState:UIControlStateNormal];
+        logoutButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:18];
+        logoutButton.layer.cornerRadius = 2.5;
+        [logoutButton addTarget:self action:@selector(logoutButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:logoutButton];
+        [_scrollView setContentSize:CGSizeMake(frame.size.width, logoutButton.frame.origin.y + logoutButton.frame.size.height + 10)];
+        
         
         //tabbar
         _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
@@ -200,8 +226,48 @@
 -(void) setViewData:(MDUser *)user{
     nameButton.selectLabel.text = [NSString stringWithFormat:@"%@ %@", user.lastname, user.firstname];
     phoneButton.selectLabel.text = [NSString stringWithFormat:@"%@", user.phoneNumber];
+    notificationButton.selectLabel.text = [NSString stringWithFormat:@"%d件の新着", 0];
+    
 }
 
+-(void) setRating:(int)star{
+    [averageButton.starLabel setRating:star];
+}
+
+-(void)setNotificationCount:(int)count{
+    
+    notificationButton.selectLabel.text = [NSString stringWithFormat:@"%d件の新着", count];
+}
+
+-(void) logoutButtonTouched{
+    if([self.delegate respondsToSelector:@selector(logoutButtonPushed)]){
+        [self.delegate logoutButtonPushed];
+    }
+}
+
+-(void) notificationButtonTouched {
+    if([self.delegate respondsToSelector:@selector(notificationButtonPushed)]){
+        [self.delegate notificationButtonPushed];
+    }
+}
+
+-(void) averageButtonTouched{
+    if([self.delegate respondsToSelector:@selector(averageButtonPushed)]){
+        [self.delegate averageButtonPushed];
+    }
+}
+
+-(void) privateButtonTouched{
+    if([self.delegate respondsToSelector:@selector(privacyButtonPushed)]){
+        [self.delegate privacyButtonPushed];
+    }
+}
+
+-(void) protocolButtonTouched {
+    if([self.delegate respondsToSelector:@selector(protocolButtonPushed)]){
+        [self.delegate protocolButtonPushed];
+    }
+}
 
 /*
  * MDCreditViewDelegate

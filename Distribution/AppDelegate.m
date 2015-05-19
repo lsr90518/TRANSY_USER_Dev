@@ -13,10 +13,12 @@
 #import "MDCustomer.h"
 #import "MDSQLManager.h"
 #import "MDCustomerDAO.h"
+#import "MDConsignor.h"
 #import "MDUser.h"
 #import "MDDevice.h"
 #import "MDCurrentPackage.h"
 #import <Crashlytics/Crashlytics.h>
+#import <Realm.h>
 
 @interface AppDelegate ()
 
@@ -84,10 +86,11 @@
     }
     
     [self configure];
+//    [[NSFileManager defaultManager] removeItemAtPath:[RLMRealm defaultRealmPath] error:nil];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.viewController = [[MDIndexViewController alloc] init];
-    self.window.rootViewController = self.viewController;
+    self.indexViewController = [[MDIndexViewController alloc] init];
+    self.window.rootViewController = self.indexViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -137,20 +140,9 @@
 }
 
 -(void) configure {
-    //core data
     //open api
-    
-    MDSQLManager *sqlManager = [[MDSQLManager alloc]init];
-    [sqlManager initCoreData];
     MDAPI *api = [[MDAPI alloc]init];
-    MDCurrentPackage *currentPackage = [[MDCurrentPackage alloc]init];
-    MDCustomerDAO   *customerDAO = [[MDCustomerDAO alloc]init];
-    
-    MDUser *customer = [customerDAO findCustomer];
-    [customer initDataClear];
-    
     [self checkIOS7];
-    NSLog(@"%@",[MDDevice getInstance].iosVersion);
 }
 
 - (void)checkIOS7

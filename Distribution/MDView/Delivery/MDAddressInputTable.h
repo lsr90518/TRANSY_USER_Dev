@@ -12,6 +12,8 @@
 #import "MDButtonInput.h"
 #import "MDInput.h"
 
+@protocol MDAddressInputTableDelegate;
+
 @interface MDAddressInputTable : UIView<UIScrollViewDelegate,UITextFieldDelegate,MDInputDelegate>
 
 @property (strong, nonatomic) MDButtonInput   *zipField;
@@ -24,10 +26,20 @@
 @property (strong, nonatomic) NSString      *lng;
 @property (strong, nonatomic) NSString      *lat;
 
+@property (strong, nonatomic) id<MDAddressInputTableDelegate> delegate;
+
 @property (strong, nonatomic) UIScrollView  *scrollView;
 
 -(void)setFrameColor:(UIColor *)color;
 -(void)clearData;
+-(void)closeKeyboard;
 
 -(void) setUnAvailable;
+@end
+
+@protocol MDAddressInputTableDelegate <NSObject>
+
+@optional
+-(void) autoButtonPushed:(MDAddressInputTable *)inputTable;
+
 @end

@@ -21,5 +21,6 @@
 -(void)initWithStarCount:(NSUInteger)count;
 -(BOOL)touch:(UITouch*)touch inStar:(UIImageView*)star;
 -(id)initWithFrame:(CGRect)frame starSize:(float)starSize;
+-(void)setRating:(NSUInteger)rating;
 
 @end

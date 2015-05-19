@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MDLoginView.h"
+#import <Realm.h>
+#import "MDConsignor.h"
 
 
 @interface MDLoginViewController : UIViewController<LoginViewDelegate>

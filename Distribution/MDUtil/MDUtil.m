@@ -31,9 +31,11 @@
 }
 
 +(NSString *)japanesePhoneNumber:(NSString *)phoneNumber {
-    if ( [[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
-        NSString *tmpNumber = [NSString stringWithFormat:@"0%@",[phoneNumber substringFromIndex:3]];
-        phoneNumber = tmpNumber;
+    if(phoneNumber.length > 0){
+        if ( [[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
+            NSString *tmpNumber = [NSString stringWithFormat:@"0%@",[phoneNumber substringFromIndex:3]];
+            phoneNumber = tmpNumber;
+        }
     }
     
     return phoneNumber;

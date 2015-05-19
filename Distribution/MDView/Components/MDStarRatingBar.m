@@ -116,7 +116,6 @@ const NSUInteger DEFAULT_STAR_COUNT = 5;
 
 -(BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    NSLog(@"abab1");
     __block MDStarRatingBar *blockSelf = self;
     [self.stars enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([blockSelf touch:touch inStar:obj]) {
@@ -130,8 +129,6 @@ const NSUInteger DEFAULT_STAR_COUNT = 5;
 #pragma mark - Private Method
 -(BOOL)touch:(UITouch *)touch inStar:(UIImageView *)star
 {
-    NSLog(@"abab2");
-    
     CGPoint pt = [touch locationInView:self];
     return CGRectContainsPoint(star.frame, pt);
 }

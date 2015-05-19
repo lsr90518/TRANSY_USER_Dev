@@ -14,7 +14,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) MDIndexViewController* viewController;
+@property (strong, nonatomic) MDIndexViewController *indexViewController;
+@property (strong, nonatomic) MDViewController      *viewController;
 @property (strong, nonatomic) UITabBarController *hogeTabController;
 
 

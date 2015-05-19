@@ -23,6 +23,8 @@
 -(void) initData{
     if(_packageList == nil){
         _packageList = [[NSMutableArray alloc]init];
+        _completePackageList = [[NSMutableArray alloc]init];
+        _reviewList = [[NSMutableArray alloc]init];
     }
 }
 
@@ -31,8 +33,12 @@
     //check 期限
     if(_packageList == nil){
         _packageList = [[NSMutableArray alloc]init];
+        _completePackageList = [[NSMutableArray alloc]init];
+        _reviewList  = [[NSMutableArray alloc]init];
     } else {
         [_packageList removeAllObjects];
+        [_completePackageList removeAllObjects];
+        [_reviewList removeAllObjects];
     }
     
     for (int i = 0;i < array.count;i++) {
@@ -40,12 +46,15 @@
         if(![image isEqual:@""]){
             MDPackage *tmpPackage = [[MDPackage alloc]initWithData:[array objectAtIndex:i]];
             //check
-            if([tmpPackage.status isEqualToString:@"0"] && ![self checkDate:tmpPackage.expire]){
-                tmpPackage.status = @"4";
-                NSLog(@"%@", tmpPackage.package_number);
-            }
             
             [_packageList addObject:tmpPackage];
+            
+            NSString *star = [NSString stringWithFormat:@"%@", tmpPackage.userReview.star];
+            if(![star isEqualToString:@""]){
+                NSLog(@"%@", tmpPackage.userReview.star);
+                [_reviewList addObject:tmpPackage.userReview];
+                [_completePackageList addObject:tmpPackage];
+            }
         }
     }
 }
@@ -141,6 +150,23 @@
         return YES;
     } else {
         return NO;
+    }
+}
+
+-(int)getAverageStar{
+    __block int allStar = 0;
+    int average = 5;
+    
+    if([_reviewList count] > 0){
+        [_reviewList enumerateObjectsUsingBlock:^(MDReview *obj, NSUInteger idx, BOOL *stop) {
+            allStar = allStar + [obj.star intValue];
+        }];
+        
+        average = (int)(allStar / [_reviewList count]);
+        
+        return average;
+    } else {
+        return 0;
     }
 }
 

@@ -12,6 +12,7 @@
 #import "MDUtil.h"
 #import "MDUser.h"
 #import "MDCreditView.h"
+#import "MDSelectRating.h"
 
 @protocol MDSettingViewDelegate;
 
@@ -23,12 +24,15 @@
 @property (nonatomic, assign) id<MDSettingViewDelegate> delegate;
 
 -(void) setViewData:(MDUser *)data;
+-(void) setRating:(int)star;
+-(void) setNotificationCount:(int)count;
 
 @end
 
 @protocol MDSettingViewDelegate <NSObject>
 
 @optional
+-(void) notificationButtonPushed;
 -(void) nameButtonPushed;
 -(void) phoneNumberPushed;
 -(void) paymentButtonPushed;
@@ -39,4 +43,9 @@
 -(void) agreementButtonPushed;
 -(void) gotoRequestView;
 -(void) gotoDeliveryView;
+-(void) logoutButtonPushed;
+-(void) averageButtonPushed;
+-(void) privateButtonPushed;
+-(void) protocolButtonPushed;
+
 @end
