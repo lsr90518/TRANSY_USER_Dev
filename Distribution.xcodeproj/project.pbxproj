@@ -131,6 +131,7 @@
 		0DFE07411B0898C500484069 /* MDNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07401B0898C500484069 /* MDNotificationService.m */; };
 		0DFE07461B0A253800484069 /* MDProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07451B0A253800484069 /* MDProtocolViewController.m */; };
 		0DFE07491B0A255C00484069 /* MDPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07481B0A255C00484069 /* MDPrivacyViewController.m */; };
+		4830177A1B0B2013005D812C /* MDLocalNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 483017791B0B2013005D812C /* MDLocalNotificationManager.m */; };
 		4842D3301B02F307002A4770 /* MDCreditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4842D32F1B02F307002A4770 /* MDCreditView.m */; };
 		4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */; };
 		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
@@ -356,6 +357,8 @@
 		0DFE07451B0A253800484069 /* MDProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDProtocolViewController.m; path = MDViewController/Protocol/MDProtocolViewController.m; sourceTree = "<group>"; };
 		0DFE07471B0A255C00484069 /* MDPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPrivacyViewController.h; path = MDViewController/Privacy/MDPrivacyViewController.h; sourceTree = "<group>"; };
 		0DFE07481B0A255C00484069 /* MDPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPrivacyViewController.m; path = MDViewController/Privacy/MDPrivacyViewController.m; sourceTree = "<group>"; };
+		483017781B0B2013005D812C /* MDLocalNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDLocalNotificationManager.h; path = MDUtil/MDLocalNotificationManager.h; sourceTree = "<group>"; };
+		483017791B0B2013005D812C /* MDLocalNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDLocalNotificationManager.m; path = MDUtil/MDLocalNotificationManager.m; sourceTree = "<group>"; };
 		4842D32E1B02F307002A4770 /* MDCreditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDCreditView.h; path = MDViewController/CreditView/MDCreditView.h; sourceTree = "<group>"; };
 		4842D32F1B02F307002A4770 /* MDCreditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDCreditView.m; path = MDViewController/CreditView/MDCreditView.m; sourceTree = "<group>"; };
 		4873BCEA1AE8E3F6001C4F72 /* MDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDWebViewController.h; path = MDViewController/MDWebViewController/MDWebViewController.h; sourceTree = "<group>"; };
@@ -420,6 +423,8 @@
 				0D0FD5321AD4089B00615C24 /* MDUtil.m */,
 				0D0F8A3E1AE5541000755A22 /* MDBigRed.h */,
 				0D0F8A3F1AE5541000755A22 /* MDBigRed.m */,
+				483017781B0B2013005D812C /* MDLocalNotificationManager.h */,
+				483017791B0B2013005D812C /* MDLocalNotificationManager.m */,
 			);
 			name = MDUtil;
 			sourceTree = "<group>";
@@ -1425,6 +1430,7 @@
 				0D0FD57D1ADA025C00615C24 /* MDSQLManager.m in Sources */,
 				0DAA26E21AFD1D8B00AFD83A /* MDStarRatingBar.m in Sources */,
 				0D7D07E71AEDCE51002C7056 /* MDRequestEditViewController.m in Sources */,
+				4830177A1B0B2013005D812C /* MDLocalNotificationManager.m in Sources */,
 				0D0F8A3D1AE5504600755A22 /* MDStatusLabel.m in Sources */,
 				0DAA27051AFE6A3400AFD83A /* MDSizeDescriptionViewController.m in Sources */,
 				0D0FD55B1AD8F38700615C24 /* MDPhoneViewController.m in Sources */,

@@ -20,6 +20,7 @@
 #import "SRGVersionUpdater.h"
 #import <Crashlytics/Crashlytics.h>
 #import <Realm.h>
+#import "MDLocalNotificationManager.h"
 
 @interface AppDelegate ()
 
@@ -107,7 +108,9 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    
+    // バックグラウンドに移行際に通知を設定する
+    MDLocalNotificationManager *notificationManager = [[MDLocalNotificationManager alloc] init];
+    [notificationManager scheduleLocalNotifications];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
