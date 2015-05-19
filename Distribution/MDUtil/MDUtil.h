@@ -22,6 +22,9 @@ typedef NS_ENUM (NSUInteger, viewTagNames) {
 +(NSString *)japanesePhoneNumber:(NSString *)phoneNumber;
 +(NSString *)getAnHourAfterDate:(NSString *)expire;
 
++(NSDate *)getLocalDateTimeFromString:(NSString *)datetime utc:(BOOL)utc;
++(NSString *)getLocalDateTimeStrFromString:(NSString *)datetime format:(NSString *)format;
+
 +(NSString *)getPaymentSelectLabel;
 +(float)getPaymentSelectLabelAlpha;
 +(UIColor *)getPaymentButtonBackground;
