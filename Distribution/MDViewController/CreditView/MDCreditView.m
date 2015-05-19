@@ -9,6 +9,7 @@
 #import "MDCreditView.h"
 #import "MDAPI.h"
 #import "MDUser.h"
+#import <SVProgressHUD.h>
 
 @implementation MDCreditView
 
@@ -35,6 +36,15 @@
 -(void)openCreditView {
     MDUser *user = [MDUser getInstance];
     [user initDataClear];
+    // credit=2の時(認証したカードで少なくとも1度決済も完了している時)のみカード番号が表示される
+    if(user.credit != 2)return;
+    
+    _creditLoadingLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, self.frame.size.width-30, self.frame.size.height)];
+    [_creditLoadingLabel setTextAlignment:NSTextAlignmentRight];
+    [_creditLoadingLabel setTextColor: [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
+    [_creditLoadingLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:14]];
+    [_creditLoadingLabel setText: @"読み込み中..."];
+    
     // @"https://secure.telecomcredit.co.jp/inetcredit/secure/one-click-order.pl"
     // @"https://modelor.com/TRANSY/credit_test/credit_view.html"       for debug
     // @"https://modelor.com/TRANSY/credit_test/credit_view_error.html"       for debug
@@ -100,5 +110,24 @@ navigationType:(UIWebViewNavigationType)navigationType
     else {
         return YES;
     }
+}
+
+/**
+ * Webページのロード時にインジケータを動かす
+ */
+- (void)webViewDidStartLoad:(UIWebView*)webView
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self addSubview:_creditLoadingLabel];
+}
+
+
+/**
+ * Webページのロード完了時にインジケータを非表示にする
+ */
+- (void)webViewDidFinishLoad:(UIWebView*)webView
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [_creditLoadingLabel removeFromSuperview];
 }
 @end

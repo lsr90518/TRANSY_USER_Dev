@@ -48,7 +48,6 @@
         [_creditButton setTag:paymentSelect];
         [_creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
         [_creditButton.selectLabel setAlpha: 0.0f];
-        [_creditButton setBackgroundColor:[UIColor clearColor]];
         [_scrollView addSubview:_creditButton];
         
         _creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];

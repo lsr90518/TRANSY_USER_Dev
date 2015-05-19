@@ -17,6 +17,7 @@
 #import "MDUser.h"
 #import "MDDevice.h"
 #import "MDCurrentPackage.h"
+#import "SRGVersionUpdater.h"
 #import <Crashlytics/Crashlytics.h>
 #import <Realm.h>
 
@@ -92,6 +93,12 @@
     self.indexViewController = [[MDIndexViewController alloc] init];
     self.window.rootViewController = self.indexViewController;
     [self.window makeKeyAndVisible];
+    
+    // force update check
+    SRGVersionUpdater *versionUpdater = [SRGVersionUpdater new];
+    versionUpdater.endPointUrl = [NSString stringWithFormat:@"http://%@/versions/ios_user.json", API_HOST_NAME];
+    [versionUpdater executeVersionCheck];
+    
     return YES;
 }
 
@@ -108,7 +115,10 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    
+    // force update check
+    SRGVersionUpdater *versionUpdater = [SRGVersionUpdater new];
+    versionUpdater.endPointUrl = [NSString stringWithFormat:@"http://%@/versions/ios_user.json", API_HOST_NAME];
+    [versionUpdater executeVersionCheck];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -123,7 +123,6 @@
         [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [pay setTag:paymentSelect];
         [pay.selectLabel setAlpha: 0.0f];
-        [pay setBackgroundColor:[UIColor clearColor]];
         [_scrollView addSubview:pay];
         
         UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];

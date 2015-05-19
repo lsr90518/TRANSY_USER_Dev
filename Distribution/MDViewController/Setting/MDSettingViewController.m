@@ -84,7 +84,9 @@
     // NSLog(@"navigationController delegate called!");
     MDSelect *pay = (MDSelect *)[_settingView.scrollView viewWithTag:paymentSelect];
     if(pay){
-        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+        [pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];
+        [pay.selectLabel setAlpha:[MDUtil getPaymentSelectLabelAlpha]];
+        [pay setBackgroundColor:[MDUtil getPaymentButtonBackground]];
     }
 }
 

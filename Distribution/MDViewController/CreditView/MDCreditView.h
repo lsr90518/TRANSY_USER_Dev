@@ -13,6 +13,7 @@
 @interface MDCreditView : UIWebView <UIWebViewDelegate>
 
 @property (nonatomic, assign) id<MDCreditViewDelegate> creditDelegate;
+@property (strong, nonatomic) UILabel *creditLoadingLabel;
 
 @end
 

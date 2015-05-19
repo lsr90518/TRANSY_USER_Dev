@@ -23,6 +23,8 @@ typedef NS_ENUM (NSUInteger, viewTagNames) {
 +(NSString *)getAnHourAfterDate:(NSString *)expire;
 
 +(NSString *)getPaymentSelectLabel;
++(float)getPaymentSelectLabelAlpha;
++(UIColor *)getPaymentButtonBackground;
 
 +(float) getOSVersion;
 

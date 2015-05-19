@@ -114,7 +114,9 @@
     MDSelect *pay = (MDSelect *)[_createProfileView.scrollView viewWithTag:paymentSelect];
     if(pay){
         // NSLog(@"pay changed!");
-        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+        [pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];
+        [pay.selectLabel setAlpha:[MDUtil getPaymentSelectLabelAlpha]];
+        [pay setBackgroundColor:[MDUtil getPaymentButtonBackground]];
     }
 }
 
