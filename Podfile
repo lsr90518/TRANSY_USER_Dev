@@ -10,4 +10,5 @@ pod 'SVProgressHUD'
 pod 'SSKeychain'
 pod 'CardIO'
 pod 'MJRefresh'
+pod ‘Realm’
 pod 'SRGVersionUpdater', "0.0.2"
