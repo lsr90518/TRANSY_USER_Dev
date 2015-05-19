@@ -18,6 +18,7 @@
 }
 
 - (void)schedulePackageWork {
+    if(![MDUser getInstance].isLogin)return;
     // makeNotification: を呼び出して通知を登録する
     MDPackageService *packageService = [MDPackageService alloc];
     [[MDAPI sharedAPI] getMyPackageWithHash:[MDUser getInstance].userHash
