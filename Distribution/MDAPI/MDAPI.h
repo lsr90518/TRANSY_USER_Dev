@@ -33,13 +33,14 @@
 
 #define USER_DEVICE                 @"ios"
 
-#define PAYMENT_IP            @"00044"  // for only debug environment
-// #define PAYMENT_IP            @"?????"  // for production environment
+#define PAYMENT_IP                  @"00044"  // for only debug environment
+// #define PAYMENT_IP               @"81621"  // for production environment
 
 #define PRIVACY_URL                 @"http://trux.life/privacypolicy.html"
 #define PROTOCAL_URL                @"http://trux.life/term_of_use.html"
 
-#define API_HOST_NAME @"modelordistribution-dev.elasticbeanstalk.com"
+#define API_HOST_NAME               @"modelordistribution-dev.elasticbeanstalk.com"  // for only debug environment
+// #define API_HOST_NAME            @"???????????????????????.elasticbeanstalk.com"  // for production environment
 
 @interface MDAPI : NSObject
 
