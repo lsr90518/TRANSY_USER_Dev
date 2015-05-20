@@ -59,7 +59,7 @@
 -(void) resize {
     float contentHeight = _addressField.frame.size.height + _zipField.frame.size.height + 7;
     float newHeight = contentHeight + 47;
-    [self setFrame:CGRectMake(0, 0, self.frame.size.width, newHeight)];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, newHeight)];
     [_titleContentLine setFrame:CGRectMake(95, 0, 0.5, newHeight)];
     [_buttonTitleLabel setFrame:CGRectMake(20, newHeight/2-7, 56, 15)];
     [_rightArrow setFrame:CGRectMake(self.frame.size.width-22, newHeight/2 - 5, 7, 11)];

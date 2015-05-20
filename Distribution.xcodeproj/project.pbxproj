@@ -137,6 +137,7 @@
 		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
 		8367BC341AEF4C7900B99B8C /* MDPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8367BC331AEF4C7900B99B8C /* MDPicker.m */; };
 		83F460491B0C2101004E9215 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F460481B0C2101004E9215 /* Fabric.framework */; };
+		83F4604C1B0C2F67004E9215 /* MDAddressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F4604B1B0C2F67004E9215 /* MDAddressButton.m */; };
 		8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB7D0B79A9C487081FC5650 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -369,6 +370,8 @@
 		8367BC321AEF4C7900B99B8C /* MDPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPicker.h; path = MDView/Picker/MDPicker.h; sourceTree = "<group>"; };
 		8367BC331AEF4C7900B99B8C /* MDPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPicker.m; path = MDView/Picker/MDPicker.m; sourceTree = "<group>"; };
 		83F460481B0C2101004E9215 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		83F4604A1B0C2F67004E9215 /* MDAddressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressButton.h; path = MDView/Components/MDAddressButton.h; sourceTree = "<group>"; };
+		83F4604B1B0C2F67004E9215 /* MDAddressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressButton.m; path = MDView/Components/MDAddressButton.m; sourceTree = "<group>"; };
 		9D5F79D547F2E977CB21B14C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ABB7D0B79A9C487081FC5650 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79CDEFC1A20916B813BD4A7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1065,6 +1068,8 @@
 				0DAA26FB1AFDF11F00AFD83A /* MDTitleWell.m */,
 				0DAA26FD1AFE10D600AFD83A /* MDReviewWell.h */,
 				0DAA26FE1AFE10D600AFD83A /* MDReviewWell.m */,
+				83F4604A1B0C2F67004E9215 /* MDAddressButton.h */,
+				83F4604B1B0C2F67004E9215 /* MDAddressButton.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1391,6 +1396,7 @@
 				0D7D07EA1AEDD454002C7056 /* MDRequestEditNoteViewController.m in Sources */,
 				0D0FD5331AD4089B00615C24 /* MDUtil.m in Sources */,
 				0D0FD58D1ADB822D00615C24 /* MDPackage.m in Sources */,
+				83F4604C1B0C2F67004E9215 /* MDAddressButton.m in Sources */,
 				0DDDA6431AEBD19100067016 /* MDAddressTable.m in Sources */,
 				0DAA27311AFFA88100AFD83A /* MDReportDriverViewController.m in Sources */,
 				0DC16FA21AC58FE30066FA0C /* MDTabButton.m in Sources */,

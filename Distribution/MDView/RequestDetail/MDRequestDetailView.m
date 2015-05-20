@@ -29,7 +29,7 @@
     MDSelect *beCarefulPicker;
     UIButton *cameraButton;
     MDAddressButton *requestAddressView;
-    MDAddressTable *destinationAddressView;
+    MDAddressButton *destinationAddressView;
     UILabel *matchingProcessLabel;
     UILabel *distributionProcessLabel;
     UILabel *completeProcessLabel;
@@ -145,24 +145,20 @@
         
         //address
         requestAddressView = [[MDAddressButton alloc]initWithFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, frame.size.width-20, 100)];
-//        requestAddressView.layer.cornerRadius = 2.5;
-//        requestAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
-//        requestAddressView.layer.borderWidth = 0.5;
-//        requestAddressView.addressField.text = @"";
-//        requestAddressView.zipField.text = @"";
-//        [requestAddressView setUnAvailable];
+        requestAddressView.layer.cornerRadius = 2.5;
+        requestAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
+        requestAddressView.layer.borderWidth = 0.5;
+        requestAddressView.buttonTitleLabel.text = @"預かり先";
         [_scrollView addSubview:requestAddressView];
         
         //destination address
         
-        destinationAddressView = [[MDAddressTable alloc]initWithFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height + 10, frame.size.width-20, 100)];
+        destinationAddressView = [[MDAddressButton alloc]initWithFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height + 10, frame.size.width-20, 100)];
         [destinationAddressView setBackgroundColor:[UIColor whiteColor]];
         destinationAddressView.layer.cornerRadius = 2.5;
         destinationAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         destinationAddressView.layer.borderWidth = 0.5;
-        destinationAddressView.addressField.text = @"";
-        destinationAddressView.zipField.text = @"";
-        [destinationAddressView setUnAvailable];
+        destinationAddressView.buttonTitleLabel.text = @"お届け先";
         [_scrollView addSubview:destinationAddressView];
         
         //list
@@ -236,8 +232,8 @@
 
 -(void) resizeSubviews{
     //address
-    [requestAddressView setFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, self.frame.size.width-20, 100)];
-    [destinationAddressView setFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height + 10, self.frame.size.width-20, 100)];
+    [requestAddressView setFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, self.frame.size.width-20, requestAddressView.frame.size.height)];
+    [destinationAddressView setFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height + 10, self.frame.size.width-20, destinationAddressView.frame.size.height)];
     [sizePicker setFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height + 10, self.frame.size.width-20, 50)];
     [sizeDescriptionButton setFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 5, sizePicker.frame.size.width, 10)];
     
@@ -324,10 +320,10 @@
     
     
     //address
-    requestAddressView.zipField.text = package.from_zip;
+    requestAddressView.zipField.text = [NSString stringWithFormat:@"〒%@", package.from_zip];
     [requestAddressView setAddressContent:[NSString stringWithFormat:@"%@ %@" ,package.from_pref, package.from_addr]];
-    destinationAddressView.zipField.text = package.to_zip;
-    destinationAddressView.addressField.text = [NSString stringWithFormat:@"%@ %@" ,package.to_pref, package.to_addr];
+    destinationAddressView.zipField.text = [NSString stringWithFormat:@"〒%@", package.to_zip];
+    [destinationAddressView setAddressContent:[NSString stringWithFormat:@"%@ %@" ,package.to_pref, package.to_addr]];
     
     //size
     sizePicker.selectLabel.text = [NSString stringWithFormat:@"合計 %@cm 以内", package.size];
@@ -372,6 +368,11 @@
     } else {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"%d時間以内",hour+1];
     }
+    
+    
+    //resize
+    [self resizeSubviews];
+    
 }
 
 -(void) setDriverData:(MDDriver *)driver{
