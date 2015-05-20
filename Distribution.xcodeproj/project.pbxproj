@@ -138,6 +138,9 @@
 		8367BC341AEF4C7900B99B8C /* MDPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8367BC331AEF4C7900B99B8C /* MDPicker.m */; };
 		83F460491B0C2101004E9215 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F460481B0C2101004E9215 /* Fabric.framework */; };
 		83F4604C1B0C2F67004E9215 /* MDAddressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F4604B1B0C2F67004E9215 /* MDAddressButton.m */; };
+		83F460501B0C5EE2004E9215 /* MDSelectRatingWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F4604F1B0C5EE2004E9215 /* MDSelectRatingWell.m */; };
+		83F460531B0C6DA1004E9215 /* MDNotificationTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F460521B0C6DA1004E9215 /* MDNotificationTable.m */; };
+		83F460561B0C6DC4004E9215 /* MDNotificationTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F460551B0C6DC4004E9215 /* MDNotificationTableCell.m */; };
 		8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB7D0B79A9C487081FC5650 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -372,6 +375,12 @@
 		83F460481B0C2101004E9215 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		83F4604A1B0C2F67004E9215 /* MDAddressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressButton.h; path = MDView/Components/MDAddressButton.h; sourceTree = "<group>"; };
 		83F4604B1B0C2F67004E9215 /* MDAddressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressButton.m; path = MDView/Components/MDAddressButton.m; sourceTree = "<group>"; };
+		83F4604E1B0C5EE2004E9215 /* MDSelectRatingWell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSelectRatingWell.h; path = MDView/Components/MDSelectRatingWell.h; sourceTree = "<group>"; };
+		83F4604F1B0C5EE2004E9215 /* MDSelectRatingWell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDSelectRatingWell.m; path = MDView/Components/MDSelectRatingWell.m; sourceTree = "<group>"; };
+		83F460511B0C6DA1004E9215 /* MDNotificationTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDNotificationTable.h; path = MDViewController/NotificationTable/MDNotificationTable.h; sourceTree = "<group>"; };
+		83F460521B0C6DA1004E9215 /* MDNotificationTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDNotificationTable.m; path = MDViewController/NotificationTable/MDNotificationTable.m; sourceTree = "<group>"; };
+		83F460541B0C6DC4004E9215 /* MDNotificationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDNotificationTableCell.h; path = MDViewController/NotificationTable/MDNotificationTableCell.h; sourceTree = "<group>"; };
+		83F460551B0C6DC4004E9215 /* MDNotificationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDNotificationTableCell.m; path = MDViewController/NotificationTable/MDNotificationTableCell.m; sourceTree = "<group>"; };
 		9D5F79D547F2E977CB21B14C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ABB7D0B79A9C487081FC5650 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79CDEFC1A20916B813BD4A7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1037,6 +1046,8 @@
 		0DC16F9F1AC58FAB0066FA0C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				83F4604E1B0C5EE2004E9215 /* MDSelectRatingWell.h */,
+				83F4604F1B0C5EE2004E9215 /* MDSelectRatingWell.m */,
 				4842D32D1B02F2C1002A4770 /* CreditView */,
 				0D5A37F41AC981EB0062F0C1 /* MDSelect.h */,
 				0D5A37F51AC981EB0062F0C1 /* MDSelect.m */,
@@ -1136,6 +1147,10 @@
 		0DFE073B1B08964A00484069 /* NotificationTable */ = {
 			isa = PBXGroup;
 			children = (
+				83F460511B0C6DA1004E9215 /* MDNotificationTable.h */,
+				83F460521B0C6DA1004E9215 /* MDNotificationTable.m */,
+				83F460541B0C6DC4004E9215 /* MDNotificationTableCell.h */,
+				83F460551B0C6DC4004E9215 /* MDNotificationTableCell.m */,
 			);
 			name = NotificationTable;
 			sourceTree = "<group>";
@@ -1401,6 +1416,7 @@
 				0DAA27311AFFA88100AFD83A /* MDReportDriverViewController.m in Sources */,
 				0DC16FA21AC58FE30066FA0C /* MDTabButton.m in Sources */,
 				0DC16FC31AC7C0C30066FA0C /* MDDeliveryKindButton.m in Sources */,
+				83F460501B0C5EE2004E9215 /* MDSelectRatingWell.m in Sources */,
 				0D0F8A401AE5541000755A22 /* MDBigRed.m in Sources */,
 				0D0FD56C1AD95C2900615C24 /* MDBarButton.m in Sources */,
 				0DC16F8C1AC550AB0066FA0C /* MDSettingView.m in Sources */,
@@ -1438,12 +1454,14 @@
 				0DC16F4E1AC536640066FA0C /* main.m in Sources */,
 				0DFE07411B0898C500484069 /* MDNotificationService.m in Sources */,
 				0D0FD57D1ADA025C00615C24 /* MDSQLManager.m in Sources */,
+				83F460531B0C6DA1004E9215 /* MDNotificationTable.m in Sources */,
 				0DAA26E21AFD1D8B00AFD83A /* MDStarRatingBar.m in Sources */,
 				0D7D07E71AEDCE51002C7056 /* MDRequestEditViewController.m in Sources */,
 				4830177A1B0B2013005D812C /* MDLocalNotificationManager.m in Sources */,
 				0D0F8A3D1AE5504600755A22 /* MDStatusLabel.m in Sources */,
 				0DAA27051AFE6A3400AFD83A /* MDSizeDescriptionViewController.m in Sources */,
 				0D0FD55B1AD8F38700615C24 /* MDPhoneViewController.m in Sources */,
+				83F460561B0C6DC4004E9215 /* MDNotificationTableCell.m in Sources */,
 				0D0FD54A1AD8EC2A00615C24 /* MDIndexViewController.m in Sources */,
 				0D0FD5901ADC096F00615C24 /* MDCurrentPackage.m in Sources */,
 				0DFE07301B07851400484069 /* RealmManager.m in Sources */,

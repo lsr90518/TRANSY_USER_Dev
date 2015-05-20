@@ -1,21 +1,15 @@
 //
-//  MDReviewHistoryViewController.m
+//  MDNotificationTable.m
 //  Distribution
 //
-//  Created by Lsr on 5/17/15.
-//  Copyright (c) 2015 Lsr. All rights reserved.
+//  Created by 劉 松然 on 2015/05/20.
+//  Copyright (c) 2015年 Lsr. All rights reserved.
 //
 
-#import "MDReviewHistoryViewController.h"
-#import "MDReviewHistoryCell.h"
-#import "MDRequestDetailViewController.h"
-#import <MJRefresh.h>
+#import "MDNotificationTable.h"
+#import "MDNotificationTableCell.h"
 
-@interface MDReviewHistoryViewController ()
-
-@end
-
-@implementation MDReviewHistoryViewController
+@implementation MDNotificationTable
 
 -(void) loadView{
     [super loadView];
@@ -37,7 +31,7 @@
 }
 
 -(void)initNavigationBar {
-    self.navigationItem.title = @"評価履歴";
+    self.navigationItem.title = @"通知";
     //add right button item
     UIButton *_backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setTitle:@"戻る" forState:UIControlStateNormal];
@@ -55,15 +49,15 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     // Return the number of rows in the section.
-    return [_completePakcageList count];
+    return [_notificationList count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,26 +66,26 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MDReviewHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reviewHistoryCell"];
+    MDNotificationTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"notificationCell"];
     
     if (cell == nil) {
-        cell = [[MDReviewHistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"reviewHistoryCell"];
+        cell = [[MDNotificationTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"notificationCell"];
     }
     
     return cell;
 }
 
--(void) tableView:(UITableView *)tableView willDisplayCell:(MDReviewHistoryCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [cell setDataWithPackage:[_completePakcageList objectAtIndex:indexPath.row]];
+-(void) tableView:(UITableView *)tableView willDisplayCell:(MDNotificationTableCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [cell setDataWithModel:[_notificationList objectAtIndex:indexPath.row]];
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     //
-    MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
-    rdvc.package = [_completePakcageList objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:rdvc animated:YES];
+//    MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
+//    rdvc.package = [_completePakcageList objectAtIndex:indexPath.row];
+//    [self.navigationController pushViewController:rdvc animated:YES];
 }
 
 -(void) loadNewData{

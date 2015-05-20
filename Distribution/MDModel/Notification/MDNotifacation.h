@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MDUtil.h"
 
 @interface MDNotifacation : NSObject
 

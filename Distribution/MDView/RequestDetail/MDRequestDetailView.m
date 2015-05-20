@@ -12,6 +12,7 @@
 #import "MDBigRed.h"
 #import <UIButton+WebCache.h>
 #import <UIImageView+WebCache.h>
+#import "MDSelectRatingWell.h"
 #import "MDUtil.h"
 
 @implementation MDRequestDetailView{
@@ -42,7 +43,7 @@
     
     UIButton *cancelButton;
     
-    MDReviewWell *reviewWell;
+    MDSelectRatingWell *reviewWell;
 }
 
 -(id) initWithFrame:(CGRect)frame {
@@ -156,7 +157,6 @@
         cusTodyTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height - 1, frame.size.width-20, 50)];
         cusTodyTimePicker.buttonTitle.text = @"預かり時刻";
         cusTodyTimePicker.selectLabel.text = @"いつでも";
-        //        [cusTodyTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [cusTodyTimePicker setReadOnly];
         [_scrollView addSubview:cusTodyTimePicker];
         
@@ -248,6 +248,17 @@
     
     
     [requestTerm setFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
+    
+    [_scrollView setContentSize:CGSizeMake(self.frame.size.width, requestTerm.frame.origin.y + requestTerm.frame.size.height + 70)];
+}
+
+-(void) resizeByReviews{
+    
+    //cameraButton
+    [cameraButton setFrame:CGRectMake(10, reviewWell.frame.origin.y + reviewWell.frame.size.height + 10, self.frame.size.width-20, (self.frame.size.width-20)*0.6)];
+    
+    [self resizeSubviews];
+    
 }
 
 
@@ -323,7 +334,6 @@
     cameraButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [cameraButton sd_setImageWithURL:[NSURL URLWithString:package.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
     
-    
     //address
     requestAddressView.zipField.text = [NSString stringWithFormat:@"〒%@", package.from_zip];
     [requestAddressView setAddressContent:[NSString stringWithFormat:@"%@ %@" ,package.from_pref, package.from_addr]];
@@ -348,8 +358,6 @@
         cusTodyTimePicker.selectLabel.text = at_home_time_str;
     }
     
-    //note
-    //    additionalServicePicker.selectLabel.text = [MDCurrentPackage getInstance].note;
     //取扱説明書
     beCarefulPicker.selectLabel.text = (package.note == nil) ? @"特になし" : package.note;
     //price
@@ -364,7 +372,6 @@
     [dateFormat setLocale:[NSLocale systemLocale]];
     [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:00"];
     NSDate *expireDate =[dateFormat dateFromString:package.expire];
-//    NSDate *expireDate = [MDUtil getLocalDateTimeFromString:package.expire utc:YES];
     
     NSTimeInterval timeBetween = [expireDate timeIntervalSinceNow];
     int hour = timeBetween/60/60;
@@ -373,7 +380,6 @@
     } else {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"%d時間以内",hour+1];
     }
-    
     
     //resize
     [self resizeSubviews];
@@ -389,10 +395,12 @@
 }
 
 -(void) setReviewContent:(MDReview *)review{
-    reviewWell = [[MDReviewWell alloc]initWithFrame:CGRectMake(10, requestTerm.frame.origin.y + requestTerm.frame.size.height + 10, self.frame.size.width - 20, 100)];
-    [reviewWell setDataWithTitle:review.name star:[review.star intValue] text:review.text];
+    reviewWell = [[MDSelectRatingWell alloc]initWithFrame:CGRectMake(10, statusButton.frame.origin.y + statusButton.frame.size.height + 10, self.frame.size.width - 20, 100)];
+    [reviewWell.selectRating.starLabel setRating:[review.star intValue]];
+    [reviewWell setContentText:review.text];
     [_scrollView addSubview:reviewWell];
-    [_scrollView setContentSize:CGSizeMake(self.frame.size.width, reviewWell.frame.origin.y + reviewWell.frame.size.height + 20)];
+    
+    [self resizeByReviews];
 }
 
 -(void) cameraButtonTouched {
@@ -440,7 +448,5 @@
         [self.delegate addressButtonPushed:button];
     }
 }
-
-
 
 @end
