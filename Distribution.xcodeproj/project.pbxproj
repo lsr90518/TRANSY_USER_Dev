@@ -60,7 +60,6 @@
 		0D0FD5CA1AE37C2300615C24 /* MDRequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5C91AE37C2300615C24 /* MDRequestDetailViewController.m */; };
 		0D0FD5CE1AE37E9800615C24 /* MDRequestDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */; };
 		0D0FD5D11AE3F07F00615C24 /* taskRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FD5D01AE3F07F00615C24 /* taskRound.png */; };
-		0D1AFD6A1B0C795900763C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1AFD691B0C795900763C1B /* Crashlytics.framework */; };
 		0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */; };
 		0D5A37F61AC981EB0062F0C1 /* MDSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F51AC981EB0062F0C1 /* MDSelect.m */; };
 		0D5A37F91AC987840062F0C1 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5A37F81AC987840062F0C1 /* rightArrow.png */; };
@@ -136,6 +135,7 @@
 		4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */; };
 		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
 		8367BC341AEF4C7900B99B8C /* MDPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8367BC331AEF4C7900B99B8C /* MDPicker.m */; };
+		83BA05DD1B0C7E7A00D23883 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA05DC1B0C7E7A00D23883 /* Crashlytics.framework */; };
 		83F460491B0C2101004E9215 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F460481B0C2101004E9215 /* Fabric.framework */; };
 		83F4604C1B0C2F67004E9215 /* MDAddressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F4604B1B0C2F67004E9215 /* MDAddressButton.m */; };
 		83F460501B0C5EE2004E9215 /* MDSelectRatingWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F4604F1B0C5EE2004E9215 /* MDSelectRatingWell.m */; };
@@ -246,7 +246,6 @@
 		0D0FD5CC1AE37E9800615C24 /* MDRequestDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDRequestDetailView.h; path = MDView/RequestDetail/MDRequestDetailView.h; sourceTree = "<group>"; };
 		0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDRequestDetailView.m; path = MDView/RequestDetail/MDRequestDetailView.m; sourceTree = "<group>"; };
 		0D0FD5D01AE3F07F00615C24 /* taskRound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taskRound.png; sourceTree = "<group>"; };
-		0D1AFD691B0C795900763C1B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0D5A37F11AC91D7E0062F0C1 /* MDAddressInputTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressInputTable.h; path = MDView/Delivery/MDAddressInputTable.h; sourceTree = "<group>"; };
 		0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressInputTable.m; path = MDView/Delivery/MDAddressInputTable.m; sourceTree = "<group>"; };
 		0D5A37F41AC981EB0062F0C1 /* MDSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSelect.h; path = MDView/Components/MDSelect.h; sourceTree = "<group>"; };
@@ -372,6 +371,7 @@
 		4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPaymentViewController.m; path = MDViewController/Payment/MDPaymentViewController.m; sourceTree = "<group>"; };
 		8367BC321AEF4C7900B99B8C /* MDPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPicker.h; path = MDView/Picker/MDPicker.h; sourceTree = "<group>"; };
 		8367BC331AEF4C7900B99B8C /* MDPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPicker.m; path = MDView/Picker/MDPicker.m; sourceTree = "<group>"; };
+		83BA05DC1B0C7E7A00D23883 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		83F460481B0C2101004E9215 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		83F4604A1B0C2F67004E9215 /* MDAddressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressButton.h; path = MDView/Components/MDAddressButton.h; sourceTree = "<group>"; };
 		83F4604B1B0C2F67004E9215 /* MDAddressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressButton.m; path = MDView/Components/MDAddressButton.m; sourceTree = "<group>"; };
@@ -393,7 +393,7 @@
 			files = (
 				0D0FD5C51AE361FB00615C24 /* MapKit.framework in Frameworks */,
 				8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */,
-				0D1AFD6A1B0C795900763C1B /* Crashlytics.framework in Frameworks */,
+				83BA05DD1B0C7E7A00D23883 /* Crashlytics.framework in Frameworks */,
 				83F460491B0C2101004E9215 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1203,7 +1203,7 @@
 		6254F0B82D8C881008CED483 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D1AFD691B0C795900763C1B /* Crashlytics.framework */,
+				83BA05DC1B0C7E7A00D23883 /* Crashlytics.framework */,
 				83F460481B0C2101004E9215 /* Fabric.framework */,
 				0D0FD5C41AE361FB00615C24 /* MapKit.framework */,
 				ABB7D0B79A9C487081FC5650 /* libPods.a */,
