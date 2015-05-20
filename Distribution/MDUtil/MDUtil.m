@@ -124,4 +124,17 @@
     return [dateFormatter stringFromDate:[self getLocalDateTimeFromString:datetime utc:YES]];
 }
 
++(NSString *)getUTCDateTimeStr:(NSString *)datetime{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    // 文字列からNSDateオブジェクトを生成
+    NSDate *fromFormatDate = [dateFormatter dateFromString: datetime];
+    NSDate *utcDate = [fromFormatDate initWithTimeInterval:(-3600 * 9) sinceDate:fromFormatDate];
+    return [dateFormatter stringFromDate:utcDate];
+}
+
++(NSDate *) getUTCDate {
+    return [NSDate dateWithTimeIntervalSinceNow:(60*60*9)];
+}
+
 @end

@@ -12,6 +12,7 @@
 #import "MDBigRed.h"
 #import <UIButton+WebCache.h>
 #import <UIImageView+WebCache.h>
+#import "MDUtil.h"
 
 @implementation MDRequestDetailView{
     UIView *processViews;
@@ -362,8 +363,9 @@
     [dateFormat setLocale:[NSLocale systemLocale]];
     [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:00"];
     NSDate *expireDate =[dateFormat dateFromString:package.expire];
+//    NSDate *expireDate = [MDUtil getLocalDateTimeFromString:package.expire utc:YES];
+    
     NSTimeInterval timeBetween = [expireDate timeIntervalSinceNow];
-    timeBetween = timeBetween + 32400;
     int hour = timeBetween/60/60;
     if (timeBetween < 0) {
         requestTerm.selectLabel.text = [NSString stringWithFormat:@"期限で取消された"];
