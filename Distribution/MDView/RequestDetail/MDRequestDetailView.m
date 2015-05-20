@@ -152,8 +152,16 @@
         [requestAddressView addTarget:self action:@selector(addressButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestAddressView];
         
-        //destination address
+        //list
+        cusTodyTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height - 1, frame.size.width-20, 50)];
+        cusTodyTimePicker.buttonTitle.text = @"預かり時刻";
+        cusTodyTimePicker.selectLabel.text = @"いつでも";
+        //        [cusTodyTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [cusTodyTimePicker setReadOnly];
+        [_scrollView addSubview:cusTodyTimePicker];
         
+        
+        //destination address
         destinationAddressView = [[MDAddressButton alloc]initWithFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height + 10, frame.size.width-20, 100)];
         [destinationAddressView setBackgroundColor:[UIColor whiteColor]];
         destinationAddressView.layer.cornerRadius = 2.5;
@@ -164,7 +172,14 @@
         [_scrollView addSubview:destinationAddressView];
         
         //list
-        sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height + 10, frame.size.width-20, 50)];
+        destinateTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height - 1, frame.size.width-20, 50)];
+        destinateTimePicker.buttonTitle.text = @"お届け期限";
+        [destinateTimePicker setReadOnly];
+        [_scrollView addSubview:destinateTimePicker];
+        
+        
+        //list
+        sizePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, frame.size.width-20, 50)];
         sizePicker.buttonTitle.text = @"サイズ";
         sizePicker.selectLabel.text = @"120";
         [sizePicker setReadOnly];
@@ -192,26 +207,10 @@
         [costPicker setReadOnly];
         [_scrollView addSubview:costPicker];
         
+
         //list
-        cusTodyTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, frame.size.width-20, 50)];
-        cusTodyTimePicker.buttonTitle.text = @"預かり時刻";
-        cusTodyTimePicker.selectLabel.text = @"いつでも";
-//        [cusTodyTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [cusTodyTimePicker setReadOnly];
-        [_scrollView addSubview:cusTodyTimePicker];
-        
-        //list
-        destinateTimePicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, cusTodyTimePicker.frame.origin.y + cusTodyTimePicker.frame.size.height + 10, frame.size.width-20, 50)];
-        destinateTimePicker.buttonTitle.text = @"お届け期限";
-//        [destinateTimePicker addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [destinateTimePicker setReadOnly];
-        [_scrollView addSubview:destinateTimePicker];
-        
-        
-        //list
-        requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, frame.size.width-20, 50)];
+        requestTerm = [[MDSelect alloc]initWithFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, frame.size.width-20, 50)];
         requestTerm.buttonTitle.text = @"掲載期限";
-//        [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [requestTerm setReadOnly];
         [_scrollView addSubview:requestTerm];
         
@@ -235,16 +234,20 @@
 -(void) resizeSubviews{
     //address
     [requestAddressView setFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, self.frame.size.width-20, requestAddressView.frame.size.height)];
-    [destinationAddressView setFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height + 10, self.frame.size.width-20, destinationAddressView.frame.size.height)];
-    [sizePicker setFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height + 10, self.frame.size.width-20, 50)];
+    [cusTodyTimePicker setFrame:CGRectMake(10, requestAddressView.frame.origin.y + requestAddressView.frame.size.height - 1, self.frame.size.width-20, 50)];
+    
+    [destinationAddressView setFrame:CGRectMake(10, cusTodyTimePicker.frame.origin.y + cusTodyTimePicker.frame.size.height + 10, self.frame.size.width-20, destinationAddressView.frame.size.height)];
+    [destinateTimePicker setFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height - 1, self.frame.size.width-20, 50)];
+    
+    [sizePicker setFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, self.frame.size.width-20, 50)];
     [sizeDescriptionButton setFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 5, sizePicker.frame.size.width, 10)];
     
     [beCarefulPicker setFrame:CGRectMake(10, sizeDescriptionButton.frame.origin.y + sizeDescriptionButton.frame.size.height + 10, self.frame.size.width-20, 50)];
     
     [costPicker setFrame:CGRectMake(10, beCarefulPicker.frame.origin.y + beCarefulPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
-    [cusTodyTimePicker setFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
-    [destinateTimePicker setFrame:CGRectMake(10, cusTodyTimePicker.frame.origin.y + cusTodyTimePicker.frame.size.height + 10, self.frame.size.width-20, 50)];
-    [requestTerm setFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, self.frame.size.width-20, 50)];
+    
+    
+    [requestTerm setFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
 }
 
 
