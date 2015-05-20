@@ -189,4 +189,15 @@
                                     }];
 }
 
+-(void) addressButtonPushed:(MDAddressButton *)button{
+    // URL encode the spaces
+    NSString *addressText =  [button.addressField.text stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    
+    //apple map
+    NSString* urlText = [NSString stringWithFormat:@"http://maps.apple.com/maps?q=%@",addressText];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
+}
+
+
 @end

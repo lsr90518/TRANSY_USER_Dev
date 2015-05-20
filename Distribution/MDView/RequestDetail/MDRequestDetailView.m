@@ -149,6 +149,7 @@
         requestAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         requestAddressView.layer.borderWidth = 0.5;
         requestAddressView.buttonTitleLabel.text = @"預かり先";
+        [requestAddressView addTarget:self action:@selector(addressButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestAddressView];
         
         //destination address
@@ -159,6 +160,7 @@
         destinationAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         destinationAddressView.layer.borderWidth = 0.5;
         destinationAddressView.buttonTitleLabel.text = @"お届け先";
+        [destinationAddressView addTarget:self action:@selector(addressButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:destinationAddressView];
         
         //list
@@ -429,6 +431,13 @@
         [self.delegate cancelButtonPushed];
     }
 }
+
+-(void)addressButtonTouched:(MDAddressButton *)button{
+    if([self.delegate respondsToSelector:@selector(addressButtonPushed:)]){
+        [self.delegate addressButtonPushed:button];
+    }
+}
+
 
 
 @end

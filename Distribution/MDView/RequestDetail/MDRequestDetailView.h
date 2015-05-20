@@ -41,5 +41,6 @@
 -(void) sizeDescriptionButtonPushed;
 -(void) matchButtonPushed;
 -(void) cancelButtonPushed;
+-(void) addressButtonPushed:(MDAddressButton *)button;
 
 @end
