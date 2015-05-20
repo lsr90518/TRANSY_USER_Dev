@@ -153,9 +153,19 @@
         
         NSDictionary *addressDictionary = placemark.addressDictionary;
         if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
-            inputTable.metropolitanField.input.text = addressDictionary[(NSString *)kABPersonAddressStateKey];
-            inputTable.cityField.input.text = addressDictionary[@"City"];
-            inputTable.townField.input.text = addressDictionary[@"SubLocality"];
+            //住所確認
+            NSString *stateStr = addressDictionary[(NSString *)kABPersonAddressStateKey];
+            if([stateStr isEqualToString:@"東京都"]){
+                inputTable.metropolitanField.input.text = addressDictionary[(NSString *)kABPersonAddressStateKey];
+                inputTable.cityField.input.text = addressDictionary[@"City"];
+                inputTable.townField.input.text = addressDictionary[@"SubLocality"];
+            } else {
+                inputTable.zipField.input.text = @"";
+                [self showEreaAlert];
+            }
+        } else {
+            inputTable.zipField.input.text = @"";
+            [self showEreaAlert];
         }
     }];
 }
@@ -191,12 +201,19 @@
                            
                            NSDictionary *addressDictionary = placemark.addressDictionary;
                            if(addressDictionary[(NSString *)kABPersonAddressStateKey]){
-                               requestAddressView.metropolitanField.input.text = addressDictionary[@"State"];
-                               requestAddressView.cityField.input.text = addressDictionary[@"City"];
-                               requestAddressView.townField.input.text = addressDictionary[@"Thoroughfare"];
-                               requestAddressView.houseField.input.text = addressDictionary[@"SubThoroughfare"];
-                               NSString *zipStr = addressDictionary[@"ZIP"];
-                               requestAddressView.zipField.input.text = [NSString stringWithFormat:@"〒%@", [zipStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                               
+                               NSString *stateStr = addressDictionary[(NSString *)kABPersonAddressStateKey];
+                               if([stateStr isEqualToString:@"東京都"]){
+                                   requestAddressView.metropolitanField.input.text = addressDictionary[@"State"];
+                                   requestAddressView.cityField.input.text = addressDictionary[@"City"];
+                                   requestAddressView.townField.input.text = addressDictionary[@"Thoroughfare"];
+                                   requestAddressView.houseField.input.text = addressDictionary[@"SubThoroughfare"];
+                                   NSString *zipStr = addressDictionary[@"ZIP"];
+                                   requestAddressView.zipField.input.text = [NSString stringWithFormat:@"〒%@", [zipStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                               } else {
+                                   [self showEreaAlert];
+                                   requestAddressView.zipField.input.text = @"";
+                               }
                                isInputWithCurrentLocation = NO;
                            }
         }];
@@ -209,6 +226,10 @@
     [MDCurrentPackage getInstance].from_lat = @"";
     [MDCurrentPackage getInstance].from_addr = @"";
     [MDCurrentPackage getInstance].from_pref = @"";
+}
+
+-(void) showEreaAlert{
+    [MDUtil makeAlertWithTitle:@"依頼可能エリア外" message:@"申し訳ございません。現在は、預かり先、お届け先ともに東京都23区のみのテストリリースとなっております。ご指定のエリアは、開放されるまで今しばらくお待ちください。" done:@"OK" viewController:self];
 }
 
 

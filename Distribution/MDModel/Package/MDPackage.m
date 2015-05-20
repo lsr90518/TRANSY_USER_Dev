@@ -7,6 +7,7 @@
 //
 
 #import "MDPackage.h"
+#import "MDUtil.h"
 
 @implementation MDPackage
 
@@ -18,9 +19,9 @@
     
     NSMutableArray *tmpArray = [[NSMutableArray alloc]initWithObjects:[[NSMutableArray alloc]initWithObjects:@"-1", nil] , nil];
     _at_home_time =                     ([data[@"at_home_time"] isEqual:[NSNull null]]) ? tmpArray : data[@"at_home_time"];
-    _deliver_limit =                    ([data[@"deliver_limit"] isEqual:[NSNull null]]) ? @"" : data[@"deliver_limit"];
+    _deliver_limit =                    ([data[@"deliver_limit"] isEqual:[NSNull null]]) ? @"" : [MDUtil getLocalDateTimeStrFromString:data[@"deliver_limit"] format:@"yyyy-MM-dd HH:mm:ss"];
     _driver_id =                        ([data[@"driver_id"] isEqual:[NSNull null]]) ? @"" : data[@"driver_id"];
-    _expire =                           ([data[@"expire"] isEqual:[NSNull null]]) ? @"" : data[@"expire"];
+    _expire =                           ([data[@"expire"] isEqual:[NSNull null]]) ? @"" : [MDUtil getLocalDateTimeStrFromString:data[@"expire"] format:@"yyyy-MM-dd HH:mm:ss"];
     _from_addr =                        ([data[@"from_addr"] isEqual:[NSNull null]]) ? @"" : data[@"from_addr"];
     _from_lat =                         ([data[@"from_lat"] isEqual:[NSNull null]]) ? @"" : data[@"from_lat"];
     _from_lng =                         ([data[@"from_lng"] isEqual:[NSNull null]]) ? @"" : data[@"from_lng"];

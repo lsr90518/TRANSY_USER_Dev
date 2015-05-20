@@ -192,8 +192,9 @@
     [dic setObject:[MDCurrentPackage getInstance].size              forKey:@"size"];
     NSString *at_home_time = [NSString stringWithFormat:@"%@,%@,%@",[MDCurrentPackage getInstance].at_home_time[0][0], [MDCurrentPackage getInstance].at_home_time[0][1],[MDCurrentPackage getInstance].at_home_time[0][2]];
     [dic setObject:at_home_time      forKey:@"at_home_time[]"];
-    [dic setObject:[MDCurrentPackage getInstance].deliver_limit     forKey:@"deliver_limit"];
-    [dic setObject:[MDCurrentPackage getInstance].expire            forKey:@"expire"];
+    
+    [dic setObject:[MDUtil getUTCDateTimeStr:[MDCurrentPackage getInstance].deliver_limit]     forKey:@"deliver_limit"];
+    [dic setObject:[MDUtil getUTCDateTimeStr:[MDCurrentPackage getInstance].expire]            forKey:@"expire"];
     
     [self callApi:dic
           withUrl:API_PACKAGE_RESIGER
@@ -262,7 +263,7 @@
     [dic setObject:hash forKey:@"hash"];
     [dic setObject:USER_DEVICE forKey:@"client"];
     [dic setObject:package.package_id forKey:@"package_id"];
-    [dic setObject:package.expire forKey:@"expire"];
+    [dic setObject:[MDUtil getUTCDateTimeStr:package.expire] forKey:@"expire"];
     [dic setObject:package.note forKey:@"note"];
     
     [self callApi:dic

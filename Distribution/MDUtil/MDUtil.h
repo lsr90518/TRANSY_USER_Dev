@@ -25,9 +25,13 @@ typedef NS_ENUM (NSUInteger, viewTagNames) {
 +(NSDate *)getLocalDateTimeFromString:(NSString *)datetime utc:(BOOL)utc;
 +(NSString *)getLocalDateTimeStrFromString:(NSString *)datetime format:(NSString *)format;
 
++(NSString *)getUTCDateTimeStr:(NSString *)datetime;
++(NSDate *)getUTCDate;
+
 +(NSString *)getPaymentSelectLabel;
 +(float)getPaymentSelectLabelAlpha;
 +(UIColor *)getPaymentButtonBackground;
+
 
 +(float) getOSVersion;
 
