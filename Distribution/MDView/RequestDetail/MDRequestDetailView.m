@@ -28,7 +28,7 @@
     MDSelect *requestTerm;
     MDSelect *beCarefulPicker;
     UIButton *cameraButton;
-    MDAddressTable *requestAddressView;
+    MDAddressButton *requestAddressView;
     MDAddressTable *destinationAddressView;
     UILabel *matchingProcessLabel;
     UILabel *distributionProcessLabel;
@@ -144,13 +144,13 @@
         
         
         //address
-        requestAddressView = [[MDAddressTable alloc]initWithFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, frame.size.width-20, 100)];
-        requestAddressView.layer.cornerRadius = 2.5;
-        requestAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
-        requestAddressView.layer.borderWidth = 0.5;
-        requestAddressView.addressField.text = @"";
-        requestAddressView.zipField.text = @"";
-        [requestAddressView setUnAvailable];
+        requestAddressView = [[MDAddressButton alloc]initWithFrame:CGRectMake(10, cameraButton.frame.origin.y + cameraButton.frame.size.height + 10, frame.size.width-20, 100)];
+//        requestAddressView.layer.cornerRadius = 2.5;
+//        requestAddressView.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
+//        requestAddressView.layer.borderWidth = 0.5;
+//        requestAddressView.addressField.text = @"";
+//        requestAddressView.zipField.text = @"";
+//        [requestAddressView setUnAvailable];
         [_scrollView addSubview:requestAddressView];
         
         //destination address
@@ -325,7 +325,7 @@
     
     //address
     requestAddressView.zipField.text = package.from_zip;
-    requestAddressView.addressField.text = [NSString stringWithFormat:@"%@ %@" ,package.from_pref, package.from_addr];
+    [requestAddressView setAddressContent:[NSString stringWithFormat:@"%@ %@" ,package.from_pref, package.from_addr]];
     destinationAddressView.zipField.text = package.to_zip;
     destinationAddressView.addressField.text = [NSString stringWithFormat:@"%@ %@" ,package.to_pref, package.to_addr];
     
