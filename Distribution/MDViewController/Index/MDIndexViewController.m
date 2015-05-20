@@ -55,7 +55,7 @@
                                   if([[complete responseJSON][@"code"] intValue] == 0){
                                   
                                       
-                                      user.user_id = [[complete responseJSON][@"data"][@"id"] intValue];
+                                      user.user_id  = [[complete responseJSON][@"data"][@"id"] intValue];
                                       user.phoneNumber = [MDUtil japanesePhoneNumber:[complete responseJSON][@"data"][@"phone"]];
                                       user.mailAddress = [complete responseJSON][@"data"][@"mail"];
                                       user.userHash = [complete responseJSON][@"hash"];
