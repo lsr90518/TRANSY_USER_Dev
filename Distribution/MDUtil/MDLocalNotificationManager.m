@@ -94,6 +94,7 @@
     [notification setUserInfo:userInfo];
     [notification setSoundName:UILocalNotificationDefaultSoundName];
     [notification setAlertAction:@"Open"];
+    [notification setApplicationIconBadgeNumber:1];
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     NSLog(@"Setting LocalNotification: %@", fireDate);
 }
