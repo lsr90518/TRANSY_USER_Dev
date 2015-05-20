@@ -18,7 +18,9 @@
 #import "MDPackageService.h"
 #import "MDReviewHistoryViewController.h"
 #import "MDNotificationService.h"
+#import "MDNotificationTable.h"
 #import "MDProtocolViewController.h"
+#import "MDNotifacation.h"
 #import "MDPrivacyViewController.h"
 
 @interface MDSettingViewController () {
@@ -102,7 +104,10 @@
 }
 
 -(void) notificationButtonPushed {
-    NSLog(@"notification button");
+    MDNotificationTable *nt = [[MDNotificationTable alloc]init];
+    
+//    nt.notificationList = [MDNotificationService getInstance].notificationList;
+    [self.navigationController pushViewController:nt animated:YES];
 }
 
 -(void) averageButtonPushed{

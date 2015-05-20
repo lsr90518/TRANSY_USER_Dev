@@ -15,6 +15,8 @@
     [super loadView];
     self.tableView.separatorStyle = NO;
     [self initNavigationBar];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
     self.tableView.header.updatedTimeHidden = YES;
@@ -57,12 +59,26 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    return [_notificationList count];
+//    return [_notificationList count];
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 74;
+//    NSString *text = [_notificationList objectAtIndex:indexPath.row];
+    NSString *text = @"これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、";
+    
+    UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 236, 100)];
+    contentLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
+    contentLabel.numberOfLines = 0;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:8];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
+    contentLabel.attributedText = attributedString;
+    [contentLabel sizeToFit];
+    
+    return contentLabel.frame.size.height + 25;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,7 +92,9 @@
 }
 
 -(void) tableView:(UITableView *)tableView willDisplayCell:(MDNotificationTableCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [cell setDataWithModel:[_notificationList objectAtIndex:indexPath.row]];
+//    [cell setDataWithModel:[_notificationList objectAtIndex:indexPath.row]];
+    MDNotifacation *noti = [[MDNotifacation alloc]init];
+    [cell setDataWithModel:noti];
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

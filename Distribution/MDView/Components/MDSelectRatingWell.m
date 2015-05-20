@@ -29,7 +29,6 @@
         _content.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:11];
         _content.textColor = [UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1];
         _content.numberOfLines = 0;
-        [_content setNumberOfLines:0];
         [self addSubview:_content];
         
         
@@ -48,7 +47,8 @@
     [paragraphStyle setLineSpacing:8];//调整行间距
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
     _content.attributedText = attributedString;
-    
+    [_content sizeToFit];
+
     [self resize];
 }
 
