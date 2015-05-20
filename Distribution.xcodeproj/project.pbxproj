@@ -60,6 +60,7 @@
 		0D0FD5CA1AE37C2300615C24 /* MDRequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5C91AE37C2300615C24 /* MDRequestDetailViewController.m */; };
 		0D0FD5CE1AE37E9800615C24 /* MDRequestDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */; };
 		0D0FD5D11AE3F07F00615C24 /* taskRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FD5D01AE3F07F00615C24 /* taskRound.png */; };
+		0D1AFD6A1B0C795900763C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1AFD691B0C795900763C1B /* Crashlytics.framework */; };
 		0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */; };
 		0D5A37F61AC981EB0062F0C1 /* MDSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F51AC981EB0062F0C1 /* MDSelect.m */; };
 		0D5A37F91AC987840062F0C1 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5A37F81AC987840062F0C1 /* rightArrow.png */; };
@@ -93,7 +94,6 @@
 		0DAA27011AFE3AAA00AFD83A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DAA27001AFE3AAA00AFD83A /* LaunchScreen.xib */; };
 		0DAA27051AFE6A3400AFD83A /* MDSizeDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA27041AFE6A3400AFD83A /* MDSizeDescriptionViewController.m */; };
 		0DAA27311AFFA88100AFD83A /* MDReportDriverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA27301AFFA88100AFD83A /* MDReportDriverViewController.m */; };
-		0DAA27371B00526200AFD83A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DAA27361B00526200AFD83A /* Crashlytics.framework */; };
 		0DC16F4E1AC536640066FA0C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F4D1AC536640066FA0C /* main.m */; };
 		0DC16F511AC536640066FA0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC16F501AC536640066FA0C /* AppDelegate.m */; };
 		0DC16F591AC536640066FA0C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DC16F581AC536640066FA0C /* Images.xcassets */; };
@@ -246,6 +246,7 @@
 		0D0FD5CC1AE37E9800615C24 /* MDRequestDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDRequestDetailView.h; path = MDView/RequestDetail/MDRequestDetailView.h; sourceTree = "<group>"; };
 		0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDRequestDetailView.m; path = MDView/RequestDetail/MDRequestDetailView.m; sourceTree = "<group>"; };
 		0D0FD5D01AE3F07F00615C24 /* taskRound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taskRound.png; sourceTree = "<group>"; };
+		0D1AFD691B0C795900763C1B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0D5A37F11AC91D7E0062F0C1 /* MDAddressInputTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressInputTable.h; path = MDView/Delivery/MDAddressInputTable.h; sourceTree = "<group>"; };
 		0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressInputTable.m; path = MDView/Delivery/MDAddressInputTable.m; sourceTree = "<group>"; };
 		0D5A37F41AC981EB0062F0C1 /* MDSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSelect.h; path = MDView/Components/MDSelect.h; sourceTree = "<group>"; };
@@ -298,7 +299,6 @@
 		0DAA27041AFE6A3400AFD83A /* MDSizeDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDSizeDescriptionViewController.m; path = MDViewController/SizeDescription/MDSizeDescriptionViewController.m; sourceTree = "<group>"; };
 		0DAA272F1AFFA88100AFD83A /* MDReportDriverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDReportDriverViewController.h; path = MDViewController/MDReportDriverViewController.h; sourceTree = "<group>"; };
 		0DAA27301AFFA88100AFD83A /* MDReportDriverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDReportDriverViewController.m; path = MDViewController/MDReportDriverViewController.m; sourceTree = "<group>"; };
-		0DAA27361B00526200AFD83A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0DC16F481AC536640066FA0C /* Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Distribution.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC16F4C1AC536640066FA0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DC16F4D1AC536640066FA0C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -392,8 +392,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D0FD5C51AE361FB00615C24 /* MapKit.framework in Frameworks */,
-				0DAA27371B00526200AFD83A /* Crashlytics.framework in Frameworks */,
 				8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */,
+				0D1AFD6A1B0C795900763C1B /* Crashlytics.framework in Frameworks */,
 				83F460491B0C2101004E9215 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1203,8 +1203,8 @@
 		6254F0B82D8C881008CED483 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D1AFD691B0C795900763C1B /* Crashlytics.framework */,
 				83F460481B0C2101004E9215 /* Fabric.framework */,
-				0DAA27361B00526200AFD83A /* Crashlytics.framework */,
 				0D0FD5C41AE361FB00615C24 /* MapKit.framework */,
 				ABB7D0B79A9C487081FC5650 /* libPods.a */,
 			);
@@ -1360,7 +1360,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run b3bf459fee27b33c2f19f338b31b00b8e4590f72 5b38d46271cdcd4b9c6ccd5255a0059b320a8597d5b790503d96f74edfa83a1b";
+			shellScript = "./Fabric.framework/run b3bf459fee27b33c2f19f338b31b00b8e4590f72 5b38d46271cdcd4b9c6ccd5255a0059b320a8597d5b790503d96f74edfa83a1b";
 		};
 		341C4AB57F172945CD7E944A /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
