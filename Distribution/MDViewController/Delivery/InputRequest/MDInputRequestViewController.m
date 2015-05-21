@@ -31,12 +31,14 @@
     
     requestAddressView = [[MDAddressInputTable alloc]initWithFrame:self.view.frame];
     //    requestAddressView.addressField.text = [MDCurrentPackage getInstance].from_addr;
-    NSArray *addressArray = [[MDCurrentPackage getInstance].from_addr componentsSeparatedByString:@" "];
-    requestAddressView.metropolitanField.input.text = [MDCurrentPackage getInstance].from_pref;
-    requestAddressView.cityField.input.text = addressArray[0];
-    requestAddressView.townField.input.text = addressArray[1];
-    requestAddressView.houseField.input.text = addressArray[2];
-    requestAddressView.buildingNameField.input.text = addressArray[3];
+    if([MDCurrentPackage getInstance].from_addr.length > 0){
+        NSArray *addressArray = [[MDCurrentPackage getInstance].from_addr componentsSeparatedByString:@" "];
+        requestAddressView.metropolitanField.input.text = [MDCurrentPackage getInstance].from_pref;
+        requestAddressView.cityField.input.text = addressArray[0];
+        requestAddressView.townField.input.text = addressArray[1];
+        requestAddressView.houseField.input.text = addressArray[2];
+        requestAddressView.buildingNameField.input.text = addressArray[3];
+    }
     requestAddressView.delegate = self;
     [requestAddressView.zipField.input becomeFirstResponder];
     
@@ -243,6 +245,7 @@
 
 -(void) clearFormData {
     [requestAddressView clearData];
+    [MDCurrentPackage getInstance].from_zip = @"";
     [MDCurrentPackage getInstance].from_lng = @"";
     [MDCurrentPackage getInstance].from_lat = @"";
     [MDCurrentPackage getInstance].from_addr = @"";

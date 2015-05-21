@@ -173,14 +173,14 @@
 -(BOOL) isAllEmpty{
     BOOL empty = true;
     int flag = 0;
-    (_zipField.input.text.length < 1) ? flag++ : flag;
-    (_metropolitanField.input.text.length < 1) ? flag++ : flag;
-    (_cityField.input.text.length < 1) ? flag++ : flag;
-    (_townField.input.text.length < 1) ? flag++ : flag;
-    (_houseField.input.text.length < 1) ? flag++ : flag;
-    (_buildingNameField.input.text.length < 1) ? flag++ : flag;
+    (_zipField.input.text.length > 1) ? flag++ : flag;
+    (_metropolitanField.input.text.length > 0) ? flag++ : flag;
+    (_cityField.input.text.length > 0) ? flag++ : flag;
+    (_townField.input.text.length > 0) ? flag++ : flag;
+    (_houseField.input.text.length > 0) ? flag++ : flag;
+    (_buildingNameField.input.text.length > 0) ? flag++ : flag;
     
-    if(flag == 5){
+    if(flag > 0){
         empty = false;
     }
     return empty;

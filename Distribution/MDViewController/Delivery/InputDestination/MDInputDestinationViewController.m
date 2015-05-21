@@ -33,12 +33,14 @@
     
     destinationAddressView = [[MDAddressInputTable alloc]initWithFrame:self.view.frame];
     
-    NSArray *addressArray = [[MDCurrentPackage getInstance].to_addr componentsSeparatedByString:@" "];
-    destinationAddressView.metropolitanField.input.text = [MDCurrentPackage getInstance].to_pref;
-    destinationAddressView.cityField.input.text = addressArray[0];
-    destinationAddressView.townField.input.text = addressArray[1];
-    destinationAddressView.houseField.input.text = addressArray[2];
-    destinationAddressView.buildingNameField.input.text = addressArray[3];
+    if([MDCurrentPackage getInstance].to_addr.length > 0){
+        NSArray *addressArray = [[MDCurrentPackage getInstance].to_addr componentsSeparatedByString:@" "];
+        destinationAddressView.metropolitanField.input.text = [MDCurrentPackage getInstance].to_pref;
+        destinationAddressView.cityField.input.text = addressArray[0];
+        destinationAddressView.townField.input.text = addressArray[1];
+        destinationAddressView.houseField.input.text = addressArray[2];
+        destinationAddressView.buildingNameField.input.text = addressArray[3];
+    }
     [destinationAddressView.zipField.input becomeFirstResponder];
     
     destinationAddressView.zipField.input.text = [MDCurrentPackage getInstance].to_zip;
