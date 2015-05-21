@@ -10,12 +10,14 @@
 #import "MDProfileView.h"
 #import "MDDriver.h"
 #import "MDUser.h"
+#import "MDPackage.h"
 #import <SVProgressHUD.h>
 #import "MDAPI.h"
 
 @interface MDProfileViewController : UIViewController<MDProfileViewDelegate>
 
-@property (strong, nonatomic) MDProfileView     *profileView;
-@property (strong, nonatomic) MDDriver          *driver;
+@property (nonatomic) MDProfileView     *profileView;
+@property (nonatomic) MDPackage         *package;
+@property (nonatomic) MDDriver          *driver;
 
 @end

@@ -83,4 +83,22 @@
     [self.navigationController pushViewController:rdvc animated:YES];
 }
 
+-(void) rejectButtonPushed{
+    [[MDAPI sharedAPI] rejectDrvierWithHash:[MDUser getInstance].userHash
+                                  PakcageId:_package.package_id
+                                 OnComplete:^(MKNetworkOperation *complete) {
+                                      //
+                                     if ([[complete responseJSON][@"code"] intValue] == 0) {
+                                         [SVProgressHUD showSuccessWithStatus:@"ドライバーをリジェクトしました。" maskType:SVProgressHUDMaskTypeGradient];
+                                         
+                                         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(backToTop) name:SVProgressHUDDidDisappearNotification object: nil];
+                                     } else {
+                                         [SVProgressHUD showSuccessWithStatus:@"ドライバーをリジェクトできませんでした。" maskType:SVProgressHUDMaskTypeGradient];
+                                         
+                                     }
+                                 } onError:^(MKNetworkOperation *operation, NSError *error) {
+                                     [SVProgressHUD showSuccessWithStatus:@"ドライバーをリジェクトできませんでした。" maskType:SVProgressHUDMaskTypeGradient];
+                                  }];
+}
+
 @end

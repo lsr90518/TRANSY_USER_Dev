@@ -129,7 +129,7 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     // 文字列からNSDateオブジェクトを生成
     NSDate *fromFormatDate = [dateFormatter dateFromString: datetime];
-    NSDate *utcDate = [fromFormatDate initWithTimeInterval:[[NSTimeZone systemTimeZone] secondsFromGMT] sinceDate:fromFormatDate];
+    NSDate *utcDate = [fromFormatDate initWithTimeInterval:(-3600*90) sinceDate:fromFormatDate];
     return [dateFormatter stringFromDate:utcDate];
 }
 

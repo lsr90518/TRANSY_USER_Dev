@@ -161,6 +161,7 @@
 -(void) profileButtonPushed{
     MDProfileViewController *pvc = [[MDProfileViewController alloc]init];
     pvc.driver = _driver;
+    pvc.package = _package;
     [self.navigationController pushViewController:pvc animated:YES];
 }
 

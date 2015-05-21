@@ -75,20 +75,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *text = [_notificationList objectAtIndex:indexPath.row];
-//    NSString *text = @"これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、";
+    MDNotifacation *notification = [_notificationList objectAtIndex:indexPath.row];
     
     UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 84, 100)];
     contentLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     contentLabel.numberOfLines = 0;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:notification.message];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:8];//调整行间距
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [notification.message length])];
     contentLabel.attributedText = attributedString;
     [contentLabel sizeToFit];
     
-    return contentLabel.frame.size.height + 25;
+    return contentLabel.frame.size.height + 40;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -51,7 +51,6 @@
             
             NSString *star = [NSString stringWithFormat:@"%@", tmpPackage.userReview.star];
             if(![star isEqualToString:@""]){
-                NSLog(@"%@", tmpPackage.userReview.star);
                 [_reviewList addObject:tmpPackage.userReview];
                 [_completePackageList addObject:tmpPackage];
             }

@@ -39,8 +39,6 @@
 }
 
 -(void) setDataWithModel:(MDNotifacation *)notification{
-    NSLog(@"%@", notification.message);
-//    NSString *text = @"これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、";
     NSString *text = notification.message;
     
     //content
@@ -68,8 +66,8 @@
     //time
     timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(contentLabel.frame.origin.x, contentLabel.frame.origin.y + contentLabel.frame.size.height + 10, contentLabel.frame.size.width, 11)];
     timeLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
-//    timeLabel.text = [NSString stringWithFormat:@"%@", notification.created_time];
-    timeLabel.text = @"2015-05-17";
+    
+    timeLabel.text = [NSString stringWithFormat:@"%@",notification.created_time];
     timeLabel.textColor = [UIColor colorWithRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1];
     [self addSubview:timeLabel];
     

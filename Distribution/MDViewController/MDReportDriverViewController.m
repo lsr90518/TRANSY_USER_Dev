@@ -48,7 +48,7 @@
 }
 
 -(void) initNavigationBar {
-    self.navigationItem.title = @"取扱説明書";
+    self.navigationItem.title = @"ドライバー通報";
     
     UIButton *_backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setTitle:@"戻る" forState:UIControlStateNormal];

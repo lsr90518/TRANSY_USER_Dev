@@ -364,6 +364,23 @@
           onError:error];
 }
 
+-(void) rejectDrvierWithHash:(NSString *)hash
+                   PakcageId:(NSString *)packageId
+                  OnComplete:(void (^)(MKNetworkOperation *))complete
+                     onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:packageId forKey:@"package_id"];
+    
+    [self callApi:dic
+          withUrl:API_REJECT_DRIVER
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
+
 -(void) getAllNotificationWithHash:(NSString *)hash
                         OnComplete:(void (^)(MKNetworkOperation *))complete
                            onError:(void (^)(MKNetworkOperation *, NSError *))error{

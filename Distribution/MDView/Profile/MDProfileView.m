@@ -17,15 +17,16 @@
 #import "MDReviewWell.h"
 
 @implementation MDProfileView{
-    UIImageView *profileImageView;
-    MDInput     *nameInput;
-    MDSelect    *phoneNumberButton;
-    MDWell      *descriptionWell;
-    MDTitleWell      *introWell;
-    MDInput     *countNumber;
-    MDReviewWell      *previewWell;
-    UIButton *blockButton;
-    UIButton *policeButton;
+    UIImageView     *profileImageView;
+    MDInput         *nameInput;
+    MDSelect        *phoneNumberButton;
+    MDWell          *descriptionWell;
+    MDTitleWell     *introWell;
+    MDInput         *countNumber;
+    MDReviewWell    *previewWell;
+    UIButton        *rejectButton;
+    UIButton        *blockButton;
+    UIButton        *policeButton;
     MDStarRatingBar *reviewView;
     
 }
@@ -41,7 +42,7 @@
         
         //profile Image
         profileImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 110, 110)];
-//        [profileImageView sd_setImageWithURL:[NSURL URLWithString:[MDUser getInstance].image] placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
+        //        [profileImageView sd_setImageWithURL:[NSURL URLWithString:[MDUser getInstance].image] placeholderImage:[UIImage imageNamed:@"cargo"] options:SDWebImageRetryFailed];
         [profileImageView setImage:[UIImage imageNamed:@"cargo"]];
         [_scrollView addSubview:profileImageView];
         
@@ -91,7 +92,7 @@
         countNumber = [[MDInput alloc]initWithFrame:CGRectMake(10, introWell.frame.origin.y + introWell.frame.size.height + 10, frame.size.width -20, 50)];
         countNumber.title.text = @"今まで運んだ荷物";
         [countNumber.title sizeToFit];
-//        countNumber.input.text = [NSString stringWithFormat:@"%@回",[MDUser getInstance].deposit];
+        //        countNumber.input.text = [NSString stringWithFormat:@"%@回",[MDUser getInstance].deposit];
         [countNumber.input setUserInteractionEnabled:NO];
         [_scrollView addSubview:countNumber];
         
@@ -100,16 +101,28 @@
         [previewWell setBackgroundColor:[UIColor whiteColor]];
         [_scrollView addSubview:previewWell];
         
+        //reject
+        rejectButton = [[UIButton alloc]initWithFrame:CGRectMake(10, previewWell.frame.origin.y + previewWell.frame.size.height+10, frame.size.width - 20, 50)];
+        [rejectButton setTitle:@"このドライバーを変える" forState:UIControlStateNormal];
+        [rejectButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        rejectButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
+        rejectButton.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
+        rejectButton.layer.borderWidth = 0.5;
+        rejectButton.layer.cornerRadius = 1;
+        [rejectButton addTarget:self action:@selector(rejectButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:rejectButton];
+        
         //ブロック
-        blockButton = [[UIButton alloc]initWithFrame:CGRectMake(10, previewWell.frame.origin.y + previewWell.frame.size.height+10, frame.size.width - 20, 50)];
+        blockButton = [[UIButton alloc]initWithFrame:CGRectMake(10, rejectButton.frame.origin.y + rejectButton.frame.size.height+10, frame.size.width - 20, 50)];
         [blockButton setTitle:@"このドライバーをブロックする" forState:UIControlStateNormal];
         [blockButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         blockButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         blockButton.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         blockButton.layer.borderWidth = 0.5;
         blockButton.layer.cornerRadius = 1;
+        [blockButton addTarget:self action:@selector(blockButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:blockButton];
-
+        
         //通報
         policeButton = [[UIButton alloc]initWithFrame:CGRectMake(10, blockButton.frame.origin.y + blockButton.frame.size.height+10, frame.size.width - 20, 50)];
         [policeButton setTitle:@"このドライバーを通報する" forState:UIControlStateNormal];
@@ -118,7 +131,7 @@
         policeButton.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
         policeButton.layer.borderWidth = 0.5;
         policeButton.layer.cornerRadius = 1;
-        [policeButton addTarget:self action:@selector(reportButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+        [policeButton addTarget:self action:@selector(reportButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:policeButton];
         
         [_scrollView setContentSize:CGSizeMake(frame.size.width, policeButton.frame.origin.y + policeButton.frame.size.height + 50)];
@@ -163,9 +176,21 @@
     }
 }
 
+-(void) reportButtonTouched{
+    if([self.delegate respondsToSelector:@selector(reportButtonPushed)]){
+        [self.delegate reportButtonPushed];
+    }
+}
+
 -(void) blockButtonTouched{
     if([self.delegate respondsToSelector:@selector(blockButtonPushed)]){
         [self.delegate blockButtonPushed];
+    }
+}
+
+-(void) rejectButtonTouched{
+    if([self.delegate respondsToSelector:@selector(rejectButtonPushed)]){
+        [self.delegate rejectButtonPushed];
     }
 }
 

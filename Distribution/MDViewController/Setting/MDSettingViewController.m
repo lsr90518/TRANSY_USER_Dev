@@ -48,6 +48,8 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [_settingView setViewData:[MDUser getInstance]];
+    int count = (int)[[MDNotificationService getInstance].notificationList count];
+    [_settingView setNotificationCount:count];
 }
 
 - (void)viewDidLoad {

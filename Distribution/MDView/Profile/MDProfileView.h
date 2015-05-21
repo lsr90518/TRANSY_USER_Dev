@@ -32,5 +32,6 @@
 -(void)phoneButtonPushed:(MDSelect *)button;
 -(void)blockButtonPushed;
 -(void)reportButtonPushed;
+-(void)rejectButtonPushed;
 
 @end

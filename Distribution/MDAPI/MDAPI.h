@@ -21,13 +21,14 @@
 #define API_USER_GET_DRIVER_DATA    @"users/get_driver_data"
 #define API_USER_POST_REVIEW        @"users/post_review"
 #define API_USER_BLOCK_DRIVER       @"users/block_driver"
+#define API_REPORT_DRIVER           @"users/report_driver"
 
 #define API_PACKAGE_RESIGER         @"packages/user/register"
 #define API_PACKAGE_ORDER           @"packages/user/order"
 #define API_GET_MY_PACKAGE          @"packages/user/get_my_packages"
 #define API_EDIT_MY_PACKAGE         @"packages/user/edit_my_package"
 #define API_CANCEL_MY_PACKAGE       @"packages/user/cancel_my_package"
-#define API_REPORT_DRIVER           @"users/report_driver"
+#define API_REJECT_DRIVER           @"packages/user/reject_driver"
 
 #define API_GET_NOTIFICATION        @"users/get_notifications"
 
@@ -122,6 +123,11 @@
 -(void) reportDeiverWithHash:(NSString *)hash
                     driverId:(NSString *)driver_id
                         text:(NSString *)text
+                  OnComplete:(void (^)(MKNetworkOperation *))complete
+                     onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
+-(void) rejectDrvierWithHash:(NSString *)hash
+                   PakcageId:(NSString *)packageId
                   OnComplete:(void (^)(MKNetworkOperation *))complete
                      onError:(void (^)(MKNetworkOperation *, NSError *))error;
 
