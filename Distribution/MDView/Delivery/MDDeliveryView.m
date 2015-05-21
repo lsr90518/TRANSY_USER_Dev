@@ -375,9 +375,9 @@
         [dateFormatter setDateFormat:@"M月d日"];
         NSString *dateStr = [dateFormatter stringFromDate:curDate];
         
-        NSDateFormatter *weekFormatter = [[NSDateFormatter alloc] init];
-        [weekFormatter setDateFormat:@"EEEE"];
-        NSString *weekStr = [weekFormatter stringFromDate:curDate];
+//        NSDateFormatter *weekFormatter = [[NSDateFormatter alloc] init];
+//        [weekFormatter setDateFormat:@"EEEE"];
+//        NSString *weekStr = [weekFormatter stringFromDate:curDate];
         
         //server date formate
         NSDateFormatter *serverDateFormatter = [[NSDateFormatter alloc]init];
@@ -542,6 +542,7 @@
 
 -(void) endInput:(MDInput *)input{
     [MDCurrentPackage getInstance].request_amount = input.input.text;
+    [self resizeScrollView];
 }
 
 #pragma MDSelect delegate
@@ -564,6 +565,9 @@
     if(contentBottomOffset > 0){
         if(scrollOffset > contentBottomOffset){
             CGPoint point = CGPointMake(0, contentBottomOffset);
+            [_scrollView setContentOffset:point animated:YES];
+        } else {
+            CGPoint point = CGPointMake(0, -64);
             [_scrollView setContentOffset:point animated:YES];
         }
     } else {

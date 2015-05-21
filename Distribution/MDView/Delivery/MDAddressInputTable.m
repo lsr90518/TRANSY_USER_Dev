@@ -139,25 +139,35 @@
     _buildingNameField.input.text = @"";
 }
 
+#pragma MDInput delegate
 -(void) inputPushed:(MDInput *)input{
-//ここ
-    NSLog(@"%f", self.frame.size.height - 256);
-    NSLog(@"%f", input.frame.origin.y + input.frame.size.height);
-    if(self.frame.size.height - 256 > input.frame.origin.y + input.frame.size.height){
-        [UIView beginAnimations: nil context: nil];
-        _scrollView.frame = CGRectMake(0, -80, self.frame.size.width, self.frame.size.height);
-        [UIView commitAnimations];
-    }
+    int offset = input.frame.origin.y + input.frame.size.height + 100 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    CGPoint point = CGPointMake(0, offset);
+    [_scrollView setContentOffset:point animated:YES];
 }
 
 -(void) endInput:(MDInput *)input{
-    
-    if(self.frame.size.height - 256 > input.frame.origin.y + input.frame.size.height){
-        [UIView beginAnimations: nil context: nil];
-        _scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-        [UIView commitAnimations];
-    }
+    [self resizeScrollView];
 }
 
+-(void) resizeScrollView {
+    // 下に空白ができたらスクロールで調整
+    int scrollOffset = [_scrollView contentOffset].y;
+    int contentBottomOffset = _scrollView.contentSize.height - _scrollView.frame.size.height;
+    
+    if(contentBottomOffset > 0){
+        if(scrollOffset > contentBottomOffset){
+            CGPoint point = CGPointMake(0, contentBottomOffset);
+            [_scrollView setContentOffset:point animated:YES];
+        } else {
+            CGPoint point = CGPointMake(0, -64);
+            [_scrollView setContentOffset:point animated:YES];
+        }
+    } else {
+        
+        CGPoint point = CGPointMake(0, -64);
+        [_scrollView setContentOffset:point animated:YES];
+    }
+}
 
 @end
