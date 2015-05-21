@@ -34,6 +34,7 @@
         _metropolitanField.input.placeholder = @"例) 東京都";
         _metropolitanField.title.text = @"都道府県";
         [_metropolitanField.title sizeToFit];
+        _metropolitanField.delegate = self;
         [_scrollView addSubview:_metropolitanField];
         
         //市
@@ -41,6 +42,7 @@
         _cityField.input.placeholder = @"例) 都区";
         _cityField.title.text = @"市区";
         [_cityField.title sizeToFit];
+        _cityField.delegate = self;
         [_scrollView addSubview:_cityField];
         
         //区
@@ -48,6 +50,7 @@
         _townField.input.placeholder = @"例) 三田";
         _townField.title.text = @"町村";
         [_townField.title sizeToFit];
+        _townField.delegate = self;
         [_scrollView addSubview:_townField];
         
         //番地
@@ -55,6 +58,7 @@
         _houseField.input.placeholder = @"例) 3-8-12";
         _houseField.title.text = @"番地";
         [_houseField.title sizeToFit];
+        _houseField.delegate = self;
         [_scrollView addSubview:_houseField];
         
         //ビル
@@ -62,6 +66,7 @@
         _buildingNameField.title.text = @"建物名(任意)";
         [_buildingNameField.title sizeToFit];
         _buildingNameField.input.placeholder = @"例) シティ201";
+        _buildingNameField.delegate = self;
         [_scrollView addSubview:_buildingNameField];
 
         [_scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height + 100)];
@@ -71,10 +76,6 @@
 }
 
 -(void) setFrameColor:(UIColor *)color {
-    
-}
-
--(void) endInput:(MDInput *)input{
     
 }
 
@@ -124,7 +125,9 @@
 }
 
 -(void) textFieldDidEndEditing:(UITextField *)textField{
-//    [self autoInputAddress];
+    if([self.delegate respondsToSelector:@selector(inputDidEnd:)]){
+        [self.delegate inputDidEnd:self];
+    }
 }
 
 -(void)clearData {
@@ -135,5 +138,26 @@
     _houseField.input.text = @"";
     _buildingNameField.input.text = @"";
 }
+
+-(void) inputPushed:(MDInput *)input{
+//ここ
+    NSLog(@"%f", self.frame.size.height - 256);
+    NSLog(@"%f", input.frame.origin.y + input.frame.size.height);
+    if(self.frame.size.height - 256 > input.frame.origin.y + input.frame.size.height){
+        [UIView beginAnimations: nil context: nil];
+        _scrollView.frame = CGRectMake(0, -80, self.frame.size.width, self.frame.size.height);
+        [UIView commitAnimations];
+    }
+}
+
+-(void) endInput:(MDInput *)input{
+    
+    if(self.frame.size.height - 256 > input.frame.origin.y + input.frame.size.height){
+        [UIView beginAnimations: nil context: nil];
+        _scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        [UIView commitAnimations];
+    }
+}
+
 
 @end

@@ -41,5 +41,7 @@
 
 @optional
 -(void) autoButtonPushed:(MDAddressInputTable *)inputTable;
+-(void) inputDidEnd:(MDAddressInputTable *)inputTable;
+-(void) beginInput:(MDInput *)input;
 
 @end

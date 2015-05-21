@@ -479,7 +479,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     for (UIView *view in [scrollView subviews]) {
         if([view isKindOfClass:[MDInput class]]){
-            MDInput *tmpView = view;
+            MDInput *tmpView = (MDInput *)view;
             [tmpView.input resignFirstResponder];
         }
     }
@@ -551,6 +551,28 @@
     [_scrollView setContentOffset:point animated:YES];
 }
 
+-(void)didClosed {
+    
+    [self resizeScrollView];
+}
+
+-(void) resizeScrollView {
+    // 下に空白ができたらスクロールで調整
+    int scrollOffset = [_scrollView contentOffset].y;
+    int contentBottomOffset = _scrollView.contentSize.height - _scrollView.frame.size.height;
+    
+    if(contentBottomOffset > 0){
+        if(scrollOffset > contentBottomOffset){
+            CGPoint point = CGPointMake(0, contentBottomOffset);
+            [_scrollView setContentOffset:point animated:YES];
+        }
+    } else {
+        
+        CGPoint point = CGPointMake(0, -64);
+        [_scrollView setContentOffset:point animated:YES];
+    }
+}
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     int offset = costPicker.frame.origin.y + costPicker.frame.size.height + 54 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
@@ -565,6 +587,9 @@
 }
 
 -(void) textFieldDidEndEditing:(UITextField *)textField{
+    
+    [self resizeScrollView];
+    
     if([textField.text hasPrefix:@"¥"]){
         if([[textField.text substringFromIndex:1] intValue] < 100){
             if([self.delegate respondsToSelector:@selector(amountNotEnough)]){
@@ -603,10 +628,9 @@
                                                     [[destinateTimePicker.options objectAtIndex:1] objectAtIndex:[resultList[1][0] integerValue]],
                                                     [[destinateTimePicker.options objectAtIndex:2] objectAtIndex:[resultList[2][0] integerValue]]];
             
-            [self convertDestinateTimeToSave:
-             [realDate objectAtIndex:[resultList[0][0] integerValue]]:
-             [[destinateTimePicker.options objectAtIndex:1] objectAtIndex:[resultList[1][0] integerValue]]:
-             [[destinateTimePicker.options objectAtIndex:2] objectAtIndex:[resultList[2][0] integerValue]]];
+            [self convertDestinateTimeToSave:[realDate objectAtIndex:[resultList[0][0] integerValue]]
+                                     newHour:[[destinateTimePicker.options objectAtIndex:1] objectAtIndex:[resultList[1][0] integerValue]]
+                                   newMinute:[[destinateTimePicker.options objectAtIndex:2] objectAtIndex:[resultList[2][0] integerValue]]];
             [destinateTimePicker setActive];
             
             break;
@@ -619,23 +643,6 @@
             break;
     }
     
-}
--(void)didClosed {
-    // 下に空白ができたらスクロールで調整
-    int scrollOffset = [_scrollView contentOffset].y;
-    int contentBottomOffset = _scrollView.contentSize.height - _scrollView.frame.size.height;
-    
-    if(contentBottomOffset > 0){
-        if(scrollOffset > contentBottomOffset){
-            CGPoint point = CGPointMake(0, contentBottomOffset);
-            [_scrollView setContentOffset:point animated:YES];
-        }
-    } else {
-        
-        CGPoint point = CGPointMake(0, -64);
-        [_scrollView setContentOffset:point animated:YES];
-    }
-
 }
 
 -(void)convertReciveTimeToSave {
@@ -654,13 +661,12 @@
     }
 }
 
--(void) convertDestinateTimeToSave:(NSString*)newDate:(NSString*)newHour:(NSString*)newMinute {
+-(void) convertDestinateTimeToSave:(NSString*)newDate newHour:(NSString*)newHour newMinute:(NSString*)newMinute {
     
     NSString *stardardHour = [newHour substringToIndex:2];
     NSString *stardardMinute = [newMinute substringToIndex:2];
     
     [MDCurrentPackage getInstance].deliver_limit = [NSString stringWithFormat:@"%@ %@:%@:00",newDate, stardardHour, stardardMinute];
-    NSLog(@"deliver_limit :  %@",[MDCurrentPackage getInstance].deliver_limit);
 }
 
 -(void) convertRequestTermToSave:(NSString *)term{
@@ -672,9 +678,7 @@
     [tmpFormatter setCalendar:gregorianCalendar];
     [tmpFormatter setLocale:[NSLocale systemLocale]];
     [tmpFormatter setDateFormat:@"YYYY-MM-dd HH:mm:00"];
-    [MDCurrentPackage getInstance].expire = [tmpFormatter stringFromDate:nHoursAfter];
-    NSLog(@"%@",[MDCurrentPackage getInstance].expire);
-}
+    [MDCurrentPackage getInstance].expire = [tmpFormatter stringFromDate:nHoursAfter];}
 
 -(void) sizeDescriptionButtonTouched {
     if([self.delegate respondsToSelector:@selector(sizeDescriptionButtonPushed)]){

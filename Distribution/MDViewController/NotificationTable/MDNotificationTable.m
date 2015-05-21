@@ -65,10 +65,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    NSString *text = [_notificationList objectAtIndex:indexPath.row];
-    NSString *text = @"これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、";
+    NSString *text = [_notificationList objectAtIndex:indexPath.row];
+//    NSString *text = @"これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、";
     
-    UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 236, 100)];
+    UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 84, 100)];
     contentLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     contentLabel.numberOfLines = 0;
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
@@ -92,9 +92,9 @@
 }
 
 -(void) tableView:(UITableView *)tableView willDisplayCell:(MDNotificationTableCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [cell setDataWithModel:[_notificationList objectAtIndex:indexPath.row]];
-    MDNotifacation *noti = [[MDNotifacation alloc]init];
-    [cell setDataWithModel:noti];
+    [cell setDataWithModel:[_notificationList objectAtIndex:indexPath.row]];
+//    MDNotifacation *noti = [[MDNotifacation alloc]init];
+//    [cell setDataWithModel:noti];
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

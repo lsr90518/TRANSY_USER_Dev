@@ -122,9 +122,8 @@
 
 -(void) selectButtonTouched:(MDSelect *)select {
     
-    
     //select button
-    if([select.buttonTitle.text isEqualToString:@"取扱説明書"]){
+    if([select.buttonTitle.text isEqualToString:@"取扱注意事項"]){
         MDNoteViewController *nvc = [[MDNoteViewController alloc]init];
         [self.navigationController pushViewController:nvc animated:YES];
     

@@ -39,8 +39,10 @@
 }
 
 -(void) setDataWithModel:(MDNotifacation *)notification{
-//    NSLog(@"%@", notification.message);
-    NSString *text = @"これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、";
+    NSLog(@"%@", notification.message);
+//    NSString *text = @"これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、これはテストで、";
+    NSString *text = notification.message;
+    
     //content
     contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(67, 14, self.frame.size.width - 84, 60)];
     contentLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
@@ -64,11 +66,16 @@
     
     
     //time
-    timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(contentLabel.frame.origin.x, contentLabel.frame.origin.y + contentLabel.frame.size.height, contentLabel.frame.size.width, 11)];
+    timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(contentLabel.frame.origin.x, contentLabel.frame.origin.y + contentLabel.frame.size.height + 10, contentLabel.frame.size.width, 11)];
     timeLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:10];
 //    timeLabel.text = [NSString stringWithFormat:@"%@", notification.created_time];
+    timeLabel.text = @"2015-05-17";
     timeLabel.textColor = [UIColor colorWithRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1];
     [self addSubview:timeLabel];
+    
+    UIView *footerLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 0.5)];
+    [footerLine setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
+    [self addSubview:footerLine];
 }
 
 @end

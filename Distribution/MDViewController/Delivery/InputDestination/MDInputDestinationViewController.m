@@ -22,6 +22,10 @@
 
 @implementation MDInputDestinationViewController
 
+- (void) loadView{
+    [super loadView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -225,6 +229,11 @@
 -(void) showEreaAlert{
     
     [MDUtil makeAlertWithTitle:@"依頼可能エリア外" message:@"申し訳ございません。現在は、預かり先、お届け先ともに東京都23区のみのテストリリースとなっております。ご指定のエリアは、開放されるまで今しばらくお待ちください。" done:@"OK" viewController:self];
+}
+
+-(void)beginInput:(MDInput *)input{
+    
+    
 }
 
 @end
