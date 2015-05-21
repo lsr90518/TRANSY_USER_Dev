@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDPackage.h"
+#import "MDPackageService.h"
 #import <MJRefresh.h>
 
 @interface MDNotificationTable : UITableViewController

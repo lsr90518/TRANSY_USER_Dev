@@ -28,4 +28,6 @@
 -(NSMutableArray *)getPackageListByPackage:(MDCurrentPackage *)package;
 -(int) getAverageStar;
 
+-(MDPackage *) getPackageByPackageId:(NSString *)packageId;
+
 @end

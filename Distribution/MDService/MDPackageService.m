@@ -169,4 +169,16 @@
     }
 }
 
+-(MDPackage *)getPackageByPackageId:(NSString *)packageId{
+    __block MDPackage *returnPakcage;
+    [_packageList enumerateObjectsUsingBlock:^(MDPackage *obj, NSUInteger idx, BOOL *stop) {
+        //
+        if([obj.package_id isEqualToString:packageId]){
+            returnPakcage = obj;
+        }
+    }];
+    
+    return returnPakcage;
+}
+
 @end

@@ -8,6 +8,7 @@
 
 #import "MDNotificationTable.h"
 #import "MDNotificationTableCell.h"
+#import "MDRequestDetailViewController.h"
 
 @implementation MDNotificationTable
 
@@ -109,10 +110,11 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    //
-//    MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
-//    rdvc.package = [_completePakcageList objectAtIndex:indexPath.row];
-//    [self.navigationController pushViewController:rdvc animated:YES];
+    MDNotifacation *notification = [_notificationList objectAtIndex:indexPath.row];
+    MDPackage *package = [[MDPackageService getInstance] getPackageByPackageId:notification.package_id];
+    MDRequestDetailViewController *rdvc = [[MDRequestDetailViewController alloc]init];
+    rdvc.package = package;
+    [self.navigationController pushViewController:rdvc animated:YES];
 }
 
 -(void) loadNewData{
