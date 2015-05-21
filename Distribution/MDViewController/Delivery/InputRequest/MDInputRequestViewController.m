@@ -30,7 +30,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     requestAddressView = [[MDAddressInputTable alloc]initWithFrame:self.view.frame];
-//    requestAddressView.addressField.text = [MDCurrentPackage getInstance].from_addr;
+    //    requestAddressView.addressField.text = [MDCurrentPackage getInstance].from_addr;
     NSArray *addressArray = [[MDCurrentPackage getInstance].from_addr componentsSeparatedByString:@" "];
     requestAddressView.metropolitanField.input.text = [MDCurrentPackage getInstance].from_pref;
     requestAddressView.cityField.input.text = addressArray[0];
@@ -89,35 +89,56 @@
 
 
 -(void) backButtonTouched {
-    if([requestAddressView.zipField.input.text hasPrefix:@"〒"]){
-        [MDCurrentPackage getInstance].from_zip = [requestAddressView.zipField.input.text substringFromIndex:1];
-    } else {
-        [MDCurrentPackage getInstance].from_zip = requestAddressView.zipField.input.text;
-    }
-    [MDCurrentPackage getInstance].from_addr = [NSString stringWithFormat:@"%@ %@ %@ %@", requestAddressView.cityField.input.text,
-                                                                                          requestAddressView.townField.input.text,
-                                                                                          requestAddressView.houseField.input.text,
-                                                                                          requestAddressView.buildingNameField.input.text];
-    [MDCurrentPackage getInstance].from_pref = requestAddressView.metropolitanField.input.text;
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:[NSString stringWithFormat:@"%@ %@",
-                                    [MDCurrentPackage getInstance].from_pref,
-                                    [MDCurrentPackage getInstance].from_addr]
-                 completionHandler:^(NSArray *placemarks, NSError *error) {
-                     
-        for (CLPlacemark* aPlacemark in placemarks)
-        {
-            MKCoordinateRegion region;
-            
-            region.center = [(CLCircularRegion *)aPlacemark.region center];
-            
-            [MDCurrentPackage getInstance].from_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
-            [MDCurrentPackage getInstance].from_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
-            
+    if(![requestAddressView isAllEmpty]){
+        NSString *zip_str;
+        if([requestAddressView.zipField.input.text hasPrefix:@"〒"]){
+            zip_str = [requestAddressView.zipField.input.text substringFromIndex:1];
+        } else {
+            zip_str = requestAddressView.zipField.input.text;
         }
+        NSString *addr_str = [NSString stringWithFormat:@"%@ %@ %@ %@",
+                              requestAddressView.cityField.input.text,
+                              requestAddressView.townField.input.text,
+                              requestAddressView.houseField.input.text,
+                              requestAddressView.buildingNameField.input.text];
+        NSString *pref_str = requestAddressView.metropolitanField.input.text;
+        
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder geocodeAddressString:[NSString stringWithFormat:@"%@ %@",
+                                        pref_str,
+                                        addr_str]
+                     completionHandler:^(NSArray *placemarks, NSError *error) {
+                         
+                         if(placemarks.count != 0){
+                             
+                             CLPlacemark* aPlacemark = [placemarks lastObject];
+                             MKCoordinateRegion region;
+                             
+                             NSString *state = aPlacemark.addressDictionary[(NSString *)kABPersonAddressStateKey];
+                             
+                             if([state isEqualToString:@"東京都"]){
+                                 
+                                 region.center = [(CLCircularRegion *)aPlacemark.region center];
+                                 
+                                 [MDCurrentPackage getInstance].from_zip = zip_str;
+                                 [MDCurrentPackage getInstance].from_addr = addr_str;
+                                 [MDCurrentPackage getInstance].from_pref = pref_str;
+                                 [MDCurrentPackage getInstance].from_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
+                                 [MDCurrentPackage getInstance].from_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
+                                 [self.navigationController popViewControllerAnimated:YES];
+                             } else {
+                                 [self showEreaAlert];
+                             }
+                         } else {
+                             [self showEreaAlert];
+                         }
+                         
+                     }];
+    } else {
         [self.navigationController popViewControllerAnimated:YES];
-    }];
+    }
 }
 
 -(void) autoButtonPushed:(MDAddressInputTable *)inputTable{
@@ -182,7 +203,7 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-
+    
     if(isInputWithCurrentLocation){
         CLLocation* location = [locations lastObject];
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -216,7 +237,7 @@
                                }
                                isInputWithCurrentLocation = NO;
                            }
-        }];
+                       }];
     }
 }
 

@@ -33,6 +33,7 @@
 -(void)setFrameColor:(UIColor *)color;
 -(void)clearData;
 -(void)closeKeyboard;
+-(BOOL)isAllEmpty;
 
 -(void) setUnAvailable;
 @end

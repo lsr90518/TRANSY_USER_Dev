@@ -92,30 +92,56 @@
 
 
 -(void) backButtonTouched {
-    if([destinationAddressView.zipField.input.text hasPrefix:@"〒"]){
-        [MDCurrentPackage getInstance].to_zip = [destinationAddressView.zipField.input.text substringFromIndex:1];
-    } else {
-        [MDCurrentPackage getInstance].to_zip = destinationAddressView.zipField.input.text;
-    }
-    [MDCurrentPackage getInstance].to_addr = [NSString stringWithFormat:@"%@ %@ %@ %@", destinationAddressView.cityField.input.text,
-                                                                                        destinationAddressView.townField.input.text,
-                                                                                        destinationAddressView.houseField.input.text,
-                                                                                        destinationAddressView.buildingNameField.input.text];
-    [MDCurrentPackage getInstance].to_pref = destinationAddressView.metropolitanField.input.text;
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:[MDCurrentPackage getInstance].to_addr completionHandler:^(NSArray *placemarks, NSError *error) {
-        for (CLPlacemark* aPlacemark in placemarks)
-        {
-            MKCoordinateRegion region;
-            region.center = [(CLCircularRegion *)aPlacemark.region center];
-            
-            [MDCurrentPackage getInstance].to_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
-            [MDCurrentPackage getInstance].to_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
-            
+    if(![destinationAddressView isAllEmpty]){
+        NSString *zip_str;
+        if([destinationAddressView.zipField.input.text hasPrefix:@"〒"]){
+            zip_str = [destinationAddressView.zipField.input.text substringFromIndex:1];
+        } else {
+            zip_str = destinationAddressView.zipField.input.text;
         }
+        NSString *addr_str = [NSString stringWithFormat:@"%@ %@ %@ %@",
+                              destinationAddressView.cityField.input.text,
+                              destinationAddressView.townField.input.text,
+                              destinationAddressView.houseField.input.text,
+                              destinationAddressView.buildingNameField.input.text];
+        NSString *pref_str = destinationAddressView.metropolitanField.input.text;
+        
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder geocodeAddressString:[NSString stringWithFormat:@"%@ %@",
+                                        pref_str,
+                                        addr_str]
+                     completionHandler:^(NSArray *placemarks, NSError *error) {
+                         
+                         if(placemarks.count != 0){
+                             
+                             CLPlacemark* aPlacemark = [placemarks lastObject];
+                             MKCoordinateRegion region;
+                             
+                             NSString *state = aPlacemark.addressDictionary[(NSString *)kABPersonAddressStateKey];
+                             
+                             if([state isEqualToString:@"東京都"]){
+                                 
+                                 region.center = [(CLCircularRegion *)aPlacemark.region center];
+                                 
+                                 [MDCurrentPackage getInstance].to_zip = zip_str;
+                                 [MDCurrentPackage getInstance].to_addr = addr_str;
+                                 [MDCurrentPackage getInstance].to_pref = pref_str;
+                                 [MDCurrentPackage getInstance].to_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
+                                 [MDCurrentPackage getInstance].to_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
+                                 [self.navigationController popViewControllerAnimated:YES];
+                             } else {
+                                 [self showEreaAlert];
+                             }
+                         } else {
+                             [self showEreaAlert];
+                         }
+                         
+                     }];
+    } else {
         [self.navigationController popViewControllerAnimated:YES];
-    }];
+    }
 }
 
 -(void) autoButtonPushed:(MDAddressInputTable *)inputTable{
@@ -232,7 +258,6 @@
 }
 
 -(void)beginInput:(MDInput *)input{
-    
     
 }
 
