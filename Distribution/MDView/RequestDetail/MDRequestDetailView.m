@@ -249,6 +249,8 @@
     
     [requestTerm setFrame:CGRectMake(10, costPicker.frame.origin.y + costPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
     
+    [cancelButton setFrame:CGRectMake(10, requestTerm.frame.origin.y + requestTerm.frame.size.height + 10, self.frame.size.width - 20, 50)];
+    
     [_scrollView setContentSize:CGSizeMake(self.frame.size.width, requestTerm.frame.origin.y + requestTerm.frame.size.height + 70)];
 }
 
