@@ -106,7 +106,7 @@
 -(void) notificationButtonPushed {
     MDNotificationTable *nt = [[MDNotificationTable alloc]init];
     
-//    nt.notificationList = [MDNotificationService getInstance].notificationList;
+    nt.notificationList = [MDNotificationService getInstance].notificationList;
     [self.navigationController pushViewController:nt animated:YES];
 }
 

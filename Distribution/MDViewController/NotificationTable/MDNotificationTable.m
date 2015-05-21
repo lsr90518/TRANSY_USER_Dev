@@ -20,6 +20,16 @@
     
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
     self.tableView.header.updatedTimeHidden = YES;
+    
+    if([_notificationList count] == 0){
+        UILabel *messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 15)];
+        messageLabel.text = @"これ以上通知がありません。";
+        messageLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.textColor = [UIColor colorWithRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1];
+        [self.view addSubview:messageLabel];
+    
+    }
 }
 
 - (void)viewDidLoad {
@@ -59,8 +69,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-//    return [_notificationList count];
-    return 2;
+    return [_notificationList count];
+//    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
