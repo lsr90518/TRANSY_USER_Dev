@@ -22,16 +22,18 @@
 }
 
 +(NSString *)internationalPhoneNumber:(NSString *)phoneNumber {
-    if ( ![[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
-        NSString *tmpNumber = [NSString stringWithFormat:@"+81%@",[phoneNumber substringFromIndex:1]];
-        phoneNumber = tmpNumber;
+    if(phoneNumber.length > 9){
+        if ( ![[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
+            NSString *tmpNumber = [NSString stringWithFormat:@"+81%@",[phoneNumber substringFromIndex:1]];
+            phoneNumber = tmpNumber;
+        }
     }
     
     return phoneNumber;
 }
 
 +(NSString *)japanesePhoneNumber:(NSString *)phoneNumber {
-    if(phoneNumber.length > 0){
+    if(phoneNumber.length > 9){
         if ( [[phoneNumber substringToIndex:3] isEqualToString:@"+81"] ) {
             NSString *tmpNumber = [NSString stringWithFormat:@"0%@",[phoneNumber substringFromIndex:3]];
             phoneNumber = tmpNumber;

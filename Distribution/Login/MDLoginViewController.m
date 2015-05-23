@@ -58,53 +58,59 @@
 
 -(void)postData:(MDLoginView *)loginView {
     
-    NSString *phoneNumber = [MDUtil internationalPhoneNumber:loginView.phoneInput.input.text];
-    NSString *password = loginView.passwordInput.input.text;
     
-    [SVProgressHUD show];
-    [[MDAPI sharedAPI] loginWithPhone:phoneNumber
-                             password:password
-                                onComplete:^(MKNetworkOperation *completeOperation) {
-                                    [SVProgressHUD dismiss];
-                                    if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                        MDUser *user = [MDUser getInstance];
-                                        user.user_id = [[completeOperation responseJSON][@"data"][@"id"] intValue];
-                                        user.phoneNumber = [MDUtil japanesePhoneNumber:phoneNumber];
-                                        user.mailAddress = [completeOperation responseJSON][@"data"][@"mail"];
-                                        user.password = password;
-                                        user.userHash = [completeOperation responseJSON][@"hash"];
-                                        NSString *username = [completeOperation responseJSON][@"data"][@"name"];
-                                        NSArray *nameArray = [username componentsSeparatedByString:@" "];
-                                        user.lastname = nameArray[0];
-                                        user.firstname = nameArray[1];
-                                        user.credit =[[completeOperation responseJSON][@"data"][@"credit"] intValue];
-                                        
-                                        [[MDUser getInstance] setLogin];
-                                        
-                                        [self saveUserToDB];
-                                        
-//                                        MDViewController *viewController = [[MDViewController alloc]init];
-//                                        [self presentViewController:viewController animated:YES completion:nil];
-                                        
-                                        MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
-                                        UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
-                                        [[MDUser getInstance] setLogin];
-                                        [self presentViewController:deliveryNavigationController animated:YES completion:nil];
-                                        
-                                    } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
-                                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
-                                                                                        message:@"パスワードは正しくありません。"
-                                                                                        delegate:self
-                                                                                        cancelButtonTitle:nil
-                                                                                        otherButtonTitles:@"OK", nil];
-                                        alert.delegate = self;
-                                        [alert show];
-                                    }
-                                    
-                                } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
-                                    NSLog(@"error --------------  %@", error);
-                                    [SVProgressHUD dismiss];
-                                }];
+    if(loginView.phoneInput.input.text.length > 3 && loginView.passwordInput.input.text > 0){
+        
+        NSString *phoneNumber = [MDUtil internationalPhoneNumber:loginView.phoneInput.input.text];
+        NSString *password = loginView.passwordInput.input.text;
+        
+        [SVProgressHUD show];
+        [[MDAPI sharedAPI] loginWithPhone:phoneNumber
+                                 password:password
+                               onComplete:^(MKNetworkOperation *completeOperation) {
+                                   [SVProgressHUD dismiss];
+                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
+                                       MDUser *user = [MDUser getInstance];
+                                       user.user_id = [[completeOperation responseJSON][@"data"][@"id"] intValue];
+                                       user.phoneNumber = [MDUtil japanesePhoneNumber:phoneNumber];
+                                       user.mailAddress = [completeOperation responseJSON][@"data"][@"mail"];
+                                       user.password = password;
+                                       user.userHash = [completeOperation responseJSON][@"hash"];
+                                       NSString *username = [completeOperation responseJSON][@"data"][@"name"];
+                                       NSArray *nameArray = [username componentsSeparatedByString:@" "];
+                                       user.lastname = nameArray[0];
+                                       user.firstname = nameArray[1];
+                                       user.credit =[[completeOperation responseJSON][@"data"][@"credit"] intValue];
+                                       
+                                       [[MDUser getInstance] setLogin];
+                                       
+                                       [self saveUserToDB];
+                                       
+                                       //                                        MDViewController *viewController = [[MDViewController alloc]init];
+                                       //                                        [self presentViewController:viewController animated:YES completion:nil];
+                                       
+                                       MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
+                                       UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
+                                       [[MDUser getInstance] setLogin];
+                                       [self presentViewController:deliveryNavigationController animated:YES completion:nil];
+                                       
+                                   } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
+                                       UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
+                                                                                       message:@"パスワードは正しくありません。"
+                                                                                      delegate:self
+                                                                             cancelButtonTitle:nil
+                                                                             otherButtonTitles:@"OK", nil];
+                                       alert.delegate = self;
+                                       [alert show];
+                                   }
+                                   
+                               } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
+                                   NSLog(@"error --------------  %@", error);
+                                   [SVProgressHUD dismiss];
+                               }];
+    } else {
+        [MDUtil makeAlertWithTitle:@"不正番号" message:@"入力した番号が正しくありません。" done:@"OK" viewController:self];
+    }
     
 }
 -(void) backButtonTouched {
