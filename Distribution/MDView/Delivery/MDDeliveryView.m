@@ -293,7 +293,7 @@
     } else {
     
         destinateTimePicker.selectLabel.text = [self getInitStr];
-//        [destinateTimePicker setActive];
+        [destinateTimePicker setActive];
     }
     
     //expire
@@ -464,9 +464,9 @@
 
 - (NSString*) checkInput {
     NSString *result;
-    if([requestButton.selectLabel.text isEqualToString:@"〒"]){
+    if(requestButton.selectLabel.text.length > 0){
         result = @"預かり先";
-    } else if([destinationButton.selectLabel.text isEqualToString:@"〒"]){
+    } else if(destinationButton.selectLabel.text.length > 0){
         result = @"お届け先";
     } else {
         result = @"";

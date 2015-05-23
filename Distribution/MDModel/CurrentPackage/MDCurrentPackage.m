@@ -47,7 +47,7 @@
 //    //届け時刻
     if(self.deliver_limit == nil) {
         //4時間後
-        NSDate *fiveHoursAfter = [now dateByAddingTimeInterval:5*60*60];
+        NSDate *fiveHoursAfter = [now dateByAddingTimeInterval:72*60*60];
         NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
         [tmpFormatter setCalendar:gregorianCalendar];
@@ -58,8 +58,8 @@
 //
     //期限
     if(self.expire == nil) {
-        //4時間後
-        NSDate *threeHoursAfter = [now dateByAddingTimeInterval:3*60*60];
+        //24時間後
+        NSDate *threeHoursAfter = [now dateByAddingTimeInterval:24*60*60];
         NSCalendar *gregorianCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateFormatter *tmpFormatter = [[NSDateFormatter alloc]init];
         [tmpFormatter setCalendar:gregorianCalendar];
@@ -72,7 +72,7 @@
     
     self.request_amount = (self.request_amount.length > 0) ? self.request_amount : @"1400";
     
-    self.expire = (self.expire.length > 0) ? self.expire : @"3";
+    self.expire = (self.expire.length > 0) ? self.expire : @"24";
     
     //lat lng
     if(self.to_lng.length < 1){

@@ -15,7 +15,7 @@
     if(self){
         _selectRating = [[MDSelectRating alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 50)];
 
-        _selectRating.buttonTitle.text = @"依頼者からの評価";
+        _selectRating.buttonTitle.text = @"ドライバーの評価";
         [_selectRating.buttonTitle sizeToFit];
         [_selectRating.starLabel setRating:5];
         _selectRating.userInteractionEnabled = NO;

@@ -184,17 +184,17 @@
         sizePicker.selectLabel.text = @"120";
         [sizePicker setReadOnly];
         [_scrollView addSubview:sizePicker];
-        sizeDescriptionButton = [[UIButton alloc]initWithFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 5, sizePicker.frame.size.width, 10)];
-        sizeDescriptionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [sizeDescriptionButton setTitle:@"荷物サイズの測り方 >" forState:UIControlStateNormal];
-        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
-        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
-        [sizeDescriptionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
-        [sizeDescriptionButton addTarget:self action:@selector(sizeDescriptionButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-        [_scrollView addSubview:sizeDescriptionButton];
+//        sizeDescriptionButton = [[UIButton alloc]initWithFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 5, sizePicker.frame.size.width, 10)];
+//        sizeDescriptionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//        [sizeDescriptionButton setTitle:@"荷物サイズの測り方 >" forState:UIControlStateNormal];
+//        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
+//        [sizeDescriptionButton setTitleColor:[UIColor colorWithRed:110.0/255.0 green:212.0/255.0 blue:238.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+//        [sizeDescriptionButton.titleLabel setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:10]];
+//        [sizeDescriptionButton addTarget:self action:@selector(sizeDescriptionButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+//        [_scrollView addSubview:sizeDescriptionButton];
         
         //list
-        beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, sizeDescriptionButton.frame.origin.y + sizeDescriptionButton.frame.size.height + 10, frame.size.width-20, 50)];
+        beCarefulPicker = [[MDSelect alloc]initWithFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 10, frame.size.width-20, 50)];
         beCarefulPicker.buttonTitle.text = @"取扱説明書";
         beCarefulPicker.selectLabel.text = @"特になし";
         [beCarefulPicker setReadOnly];
@@ -240,9 +240,8 @@
     [destinateTimePicker setFrame:CGRectMake(10, destinationAddressView.frame.origin.y + destinationAddressView.frame.size.height - 1, self.frame.size.width-20, 50)];
     
     [sizePicker setFrame:CGRectMake(10, destinateTimePicker.frame.origin.y + destinateTimePicker.frame.size.height + 10, self.frame.size.width-20, 50)];
-    [sizeDescriptionButton setFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 5, sizePicker.frame.size.width, 10)];
     
-    [beCarefulPicker setFrame:CGRectMake(10, sizeDescriptionButton.frame.origin.y + sizeDescriptionButton.frame.size.height + 10, self.frame.size.width-20, 50)];
+    [beCarefulPicker setFrame:CGRectMake(10, sizePicker.frame.origin.y + sizePicker.frame.size.height + 10, self.frame.size.width-20, 50)];
     
     [costPicker setFrame:CGRectMake(10, beCarefulPicker.frame.origin.y + beCarefulPicker.frame.size.height + 10, self.frame.size.width-20, 50)];
     
@@ -304,7 +303,7 @@
             [matchingImageView setHidden:YES];
             [distributionImageView setHidden:YES];
             [completeImageView setHidden:NO];
-            statusButton.buttonTitle.text = @"依頼者評価";
+            statusButton.buttonTitle.text = @"依頼者の評価";
             statusButton.selectLabel.text = @"";
             [cancelButton setHidden:YES];
             [statusButton addTarget:self action:@selector(reviewButtonTouched) forControlEvents:UIControlEventTouchUpInside];
@@ -353,11 +352,13 @@
         NSString *at_home_hour = [NSString stringWithFormat:@"%@", package.at_home_time[0][1]];
         NSString *at_home_time_str = @"";
         if([at_home_hour isEqualToString:@"-1"]){
-            at_home_time_str = [NSString stringWithFormat:@"%@ いつでも", package.at_home_time[0][0]];
+            at_home_time_str = [NSString stringWithFormat:@"%@ いつでも", [MDUtil getOutputDateStr:package.at_home_time[0][0]]];
         } else {
-            at_home_time_str = [NSString stringWithFormat:@"%@ %@時〜%@時", package.at_home_time[0][0], package.at_home_time[0][1], package.at_home_time[0][2]];
+            
+            at_home_time_str = [NSString stringWithFormat:@"%@ %@時〜%@時",  [MDUtil getOutputDateStr:package.at_home_time[0][0]], package.at_home_time[0][1], package.at_home_time[0][2]];
         }
         cusTodyTimePicker.selectLabel.text = at_home_time_str;
+        [cusTodyTimePicker.selectLabel sizeToFit];
     }
     
     //取扱説明書
@@ -367,7 +368,10 @@
     //at home time;
     
     NSString *deliver_limit = [NSString stringWithFormat:@"%@",package.deliver_limit];
-    destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@時", [deliver_limit substringToIndex:13]];
+
+    destinateTimePicker.selectLabel.text = [NSString stringWithFormat:@"%@ %d時",
+                                            [MDUtil getOutputDateStr:[deliver_limit substringToIndex:10]],
+                                            [[deliver_limit substringWithRange:NSMakeRange(11, 2)] intValue]];
     
     //expire
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];

@@ -25,6 +25,8 @@ typedef NS_ENUM (NSUInteger, viewTagNames) {
 +(NSDate *)getLocalDateTimeFromString:(NSString *)datetime utc:(BOOL)utc;
 +(NSString *)getLocalDateTimeStrFromString:(NSString *)datetime format:(NSString *)format;
 
++(NSString *)getOutputDateStr:(NSString *)dateStr;
+
 +(NSString *)getUTCDateTimeStr:(NSString *)datetime;
 +(NSDate *)getUTCDate;
 

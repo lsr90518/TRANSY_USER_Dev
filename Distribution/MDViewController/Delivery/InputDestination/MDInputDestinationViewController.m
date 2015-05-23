@@ -182,9 +182,16 @@
             
             NSString *stateStr = addressDictionary[(NSString *)kABPersonAddressStateKey];
             if([stateStr isEqualToString:@"東京都"]){
-                inputTable.metropolitanField.input.text = addressDictionary[(NSString *)kABPersonAddressStateKey];
-                inputTable.cityField.input.text = addressDictionary[@"City"];
-                inputTable.townField.input.text = addressDictionary[@"SubLocality"];
+                
+                [destinationAddressView clearData];
+                
+                destinationAddressView.metropolitanField.input.text = addressDictionary[@"State"];
+                destinationAddressView.cityField.input.text = addressDictionary[@"City"];
+                destinationAddressView.townField.input.text = addressDictionary[@"SubLocality"];
+                destinationAddressView.houseField.input.text = addressDictionary[@"SubThoroughfare"];
+                NSString *zipStr = addressDictionary[@"ZIP"];
+                destinationAddressView.zipField.input.text = [NSString stringWithFormat:@"〒%@", [zipStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                
             } else {
                 inputTable.zipField.input.text = @"";
                 [self showEreaAlert];

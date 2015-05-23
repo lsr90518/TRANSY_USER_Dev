@@ -84,6 +84,8 @@
                                        
                                        [[MDUser getInstance] setLogin];
                                        
+                                       [self sendToken];
+                                       
                                        [self saveUserToDB];
                                        
                                        //                                        MDViewController *viewController = [[MDViewController alloc]init];
@@ -115,6 +117,16 @@
 }
 -(void) backButtonTouched {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) sendToken{
+    [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
+                              sendPassword:[MDUser getInstance].password
+                                onComplete:^(MKNetworkOperation *complete) {
+                                    //
+                                } onError:^(MKNetworkOperation *operation, NSError *error) {
+                                    //
+                                }];
 }
 
 -(void) saveUserToDB {

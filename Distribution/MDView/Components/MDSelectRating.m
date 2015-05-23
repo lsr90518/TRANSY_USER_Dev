@@ -27,7 +27,7 @@
         [self addSubview:self.buttonTitle];
         
         //add select
-        self.starLabel = [[MDStarRatingBar alloc]initWithFrame:CGRectMake(frame.size.width-150, 9, 130, 32)];
+        self.starLabel = [[MDStarRatingBar alloc]initWithFrame:CGRectMake(frame.size.width-140, 9, 130, 32)];
         [self addSubview:self.starLabel];
         
         //add right arrow

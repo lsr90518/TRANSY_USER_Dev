@@ -131,17 +131,17 @@
 }
 
 -(void)clearData {
-    _zipField.input.text = @"";
-    _metropolitanField.input.text = @"";
-    _cityField.input.text = @"";
-    _townField.input.text = @"";
-    _houseField.input.text = @"";
-    _buildingNameField.input.text = @"";
+    for(UIView *view in [_scrollView subviews]){
+        if([view isKindOfClass:[MDInput class]]){
+            MDInput *tmpInput = (MDInput *)view;
+            tmpInput.input.text = @"";
+        }
+    }
 }
 
 #pragma MDInput delegate
 -(void) inputPushed:(MDInput *)input{
-    int offset = input.frame.origin.y + input.frame.size.height + 100 - (_scrollView.frame.size.height - 216.0);//键盘高度216
+    int offset = input.frame.origin.y + input.frame.size.height + 130 - (_scrollView.frame.size.height - 216.0);//键盘高度216
     CGPoint point = CGPointMake(0, offset);
     [_scrollView setContentOffset:point animated:YES];
 }
