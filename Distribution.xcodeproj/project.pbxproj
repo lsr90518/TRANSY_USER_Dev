@@ -60,6 +60,7 @@
 		0D0FD5CA1AE37C2300615C24 /* MDRequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5C91AE37C2300615C24 /* MDRequestDetailViewController.m */; };
 		0D0FD5CE1AE37E9800615C24 /* MDRequestDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */; };
 		0D0FD5D11AE3F07F00615C24 /* taskRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FD5D01AE3F07F00615C24 /* taskRound.png */; };
+		0D31365A1B122BBC0072A488 /* MDRealmNotificationRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3136591B122BBC0072A488 /* MDRealmNotificationRecord.m */; };
 		0D5A37F31AC91D7E0062F0C1 /* MDAddressInputTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */; };
 		0D5A37F61AC981EB0062F0C1 /* MDSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5A37F51AC981EB0062F0C1 /* MDSelect.m */; };
 		0D5A37F91AC987840062F0C1 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5A37F81AC987840062F0C1 /* rightArrow.png */; };
@@ -246,6 +247,8 @@
 		0D0FD5CC1AE37E9800615C24 /* MDRequestDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDRequestDetailView.h; path = MDView/RequestDetail/MDRequestDetailView.h; sourceTree = "<group>"; };
 		0D0FD5CD1AE37E9800615C24 /* MDRequestDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDRequestDetailView.m; path = MDView/RequestDetail/MDRequestDetailView.m; sourceTree = "<group>"; };
 		0D0FD5D01AE3F07F00615C24 /* taskRound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taskRound.png; sourceTree = "<group>"; };
+		0D3136581B122BBC0072A488 /* MDRealmNotificationRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRealmNotificationRecord.h; sourceTree = "<group>"; };
+		0D3136591B122BBC0072A488 /* MDRealmNotificationRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRealmNotificationRecord.m; sourceTree = "<group>"; };
 		0D5A37F11AC91D7E0062F0C1 /* MDAddressInputTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddressInputTable.h; path = MDView/Delivery/MDAddressInputTable.h; sourceTree = "<group>"; };
 		0D5A37F21AC91D7E0062F0C1 /* MDAddressInputTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressInputTable.m; path = MDView/Delivery/MDAddressInputTable.m; sourceTree = "<group>"; };
 		0D5A37F41AC981EB0062F0C1 /* MDSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSelect.h; path = MDView/Components/MDSelect.h; sourceTree = "<group>"; };
@@ -929,6 +932,8 @@
 		0DC16F751AC54D190066FA0C /* MDDAO */ = {
 			isa = PBXGroup;
 			children = (
+				0D3136581B122BBC0072A488 /* MDRealmNotificationRecord.h */,
+				0D3136591B122BBC0072A488 /* MDRealmNotificationRecord.m */,
 				0D0FD57B1ADA025C00615C24 /* MDSQLManager.h */,
 				0D0FD57C1ADA025C00615C24 /* MDSQLManager.m */,
 				0D0FD57E1ADA0C3F00615C24 /* Model.xcdatamodeld */,
@@ -1488,6 +1493,7 @@
 				0D0FD5411AD5516C00615C24 /* MDRequest.m in Sources */,
 				0DAA26DB1AFD1D1400AFD83A /* MDReviewViewController.m in Sources */,
 				0DFE07371B0874A200484069 /* MDReviewHistoryViewController.m in Sources */,
+				0D31365A1B122BBC0072A488 /* MDRealmNotificationRecord.m in Sources */,
 				0D0FD5A21ADD546500615C24 /* MDNoteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

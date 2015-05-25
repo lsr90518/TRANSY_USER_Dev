@@ -120,6 +120,9 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    [application setApplicationIconBadgeNumber:0];
+    
     // force update check
     SRGVersionUpdater *versionUpdater = [SRGVersionUpdater new];
     versionUpdater.endPointUrl = [NSString stringWithFormat:@"http://%@/versions/ios_user.json", API_HOST_NAME];

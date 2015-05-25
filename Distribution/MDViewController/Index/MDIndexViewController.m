@@ -54,16 +54,16 @@
                               onComplete:^(MKNetworkOperation *complete) {
                                   if([[complete responseJSON][@"code"] intValue] == 0){
                                   
-                                      
-                                      user.user_id  = [[complete responseJSON][@"data"][@"id"] intValue];
-                                      user.phoneNumber = [MDUtil japanesePhoneNumber:[complete responseJSON][@"data"][@"phone"]];
-                                      user.mailAddress = [complete responseJSON][@"data"][@"mail"];
-                                      user.userHash = [complete responseJSON][@"hash"];
+                                      NSLog(@"%@", [complete responseJSON]);
+                                      [MDUser getInstance].user_id  = [[complete responseJSON][@"data"][@"id"] intValue];
+                                      [MDUser getInstance].phoneNumber = [MDUtil japanesePhoneNumber:[complete responseJSON][@"data"][@"phone"]];
+                                      [MDUser getInstance].mailAddress = [complete responseJSON][@"data"][@"mail"];
+                                      [MDUser getInstance].userHash = [complete responseJSON][@"hash"];
                                       NSString *username = [complete responseJSON][@"data"][@"name"];
                                       NSArray *nameArray = [username componentsSeparatedByString:@" "];
-                                      user.lastname = nameArray[0];
-                                      user.firstname = nameArray[1];
-                                      user.credit =[[complete responseJSON][@"data"][@"credit"] intValue];
+                                      [MDUser getInstance].lastname = nameArray[0];
+                                      [MDUser getInstance].firstname = nameArray[1];
+                                      [MDUser getInstance].credit =[[complete responseJSON][@"data"][@"credit"] intValue];
                                       
                                       [[MDUser getInstance] setLogin];
 

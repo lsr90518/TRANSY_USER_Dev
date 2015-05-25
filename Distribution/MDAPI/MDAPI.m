@@ -397,4 +397,21 @@
           onError:error];
 }
 
+-(void) getNotificationWithHash:(NSString *)hash
+                         lastId:(NSString *)lastId
+                     OnComplete:(void (^)(MKNetworkOperation *))complete
+                        onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:hash forKey:@"hash"];
+    [dic setObject:USER_DEVICE forKey:@"client"];
+    [dic setObject:lastId forKey:@"last_id"];
+    
+    [self callApi:dic
+          withUrl:API_GET_NOTIFICATION
+       withImages:@[]
+   withHttpMethod:@"GET"
+       onComplete:complete
+          onError:error];
+}
+
 @end

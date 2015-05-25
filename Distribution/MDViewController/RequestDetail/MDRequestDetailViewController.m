@@ -69,9 +69,14 @@
     
     [_requestDetailView makeupByData:_package];
     
-    NSString *reviewed = [NSString stringWithFormat:@"%@", _package.driverReview.reviewed];
-    if([reviewed isEqualToString:@"1"]){
-        [_requestDetailView setReviewContent:_package.driverReview];
+    NSString *driverReviewed = [NSString stringWithFormat:@"%@", _package.driverReview.reviewed];
+//    if([driverReviewed isEqualToString:@"1"]){
+//        [_requestDetailView setDriverReviewContent:_package.driverReview];
+//    }
+    
+    NSString *userReviewed = [NSString stringWithFormat:@"%@", _package.userReview.reviewed];
+    if([userReviewed isEqualToString:@"1"] && [driverReviewed isEqualToString:@"1"]){
+        [_requestDetailView setReviewContent:_package.userReview];
     }
 }
 

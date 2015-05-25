@@ -34,8 +34,7 @@
     [self.view addSubview:_deliveryView];
     
     [MDCurrentPackage getInstance].status = @"0";
-    //update data
-    [self updateMyPackageData];
+    
 }
 
 - (void)viewDidLoad {
@@ -46,6 +45,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     [_deliveryView initViewData:[MDCurrentPackage getInstance]];
+    //update data
+    [self updateMyPackageData];
     
 }
 

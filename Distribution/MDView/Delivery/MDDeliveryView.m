@@ -464,9 +464,9 @@
 
 - (NSString*) checkInput {
     NSString *result;
-    if(requestButton.selectLabel.text.length > 0){
+    if(requestButton.selectLabel.text.length < 7){
         result = @"預かり先";
-    } else if(destinationButton.selectLabel.text.length > 0){
+    } else if(destinationButton.selectLabel.text.length < 7){
         result = @"お届け先";
     } else {
         result = @"";

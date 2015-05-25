@@ -20,6 +20,7 @@
 @property (strong, nonatomic) id<MDSelectRatingDelegate> delegate;
 
 -(void) setReadOnly;
+-(void) setNoArrow;
 
 
 @end

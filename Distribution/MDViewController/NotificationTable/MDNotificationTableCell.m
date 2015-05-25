@@ -12,6 +12,7 @@
     UIImageView *iconImageView;
     UILabel     *contentLabel;
     UILabel     *timeLabel;
+    UIView      *footerLine;
 }
 
 #pragma mark - Init
@@ -40,6 +41,11 @@
 
 -(void) setDataWithModel:(MDNotifacation *)notification{
     NSString *text = notification.message;
+    
+    [contentLabel removeFromSuperview];
+    [iconImageView removeFromSuperview];
+    [timeLabel removeFromSuperview];
+    [footerLine removeFromSuperview];
     
     //content
     contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(67, 14, self.frame.size.width - 84, 60)];
@@ -71,7 +77,7 @@
     timeLabel.textColor = [UIColor colorWithRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1];
     [self addSubview:timeLabel];
     
-    UIView *footerLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 0.5)];
+    footerLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 0.5)];
     [footerLine setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
     [self addSubview:footerLine];
 }

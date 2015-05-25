@@ -402,6 +402,7 @@
 
 -(void) setReviewContent:(MDReview *)review{
     reviewWell = [[MDSelectRatingWell alloc]initWithFrame:CGRectMake(10, statusButton.frame.origin.y + statusButton.frame.size.height + 10, self.frame.size.width - 20, 100)];
+    [reviewWell.selectRating setNoArrow];
     [reviewWell.selectRating.starLabel setRating:[review.star intValue]];
     [reviewWell setContentText:review.text];
     [_scrollView addSubview:reviewWell];

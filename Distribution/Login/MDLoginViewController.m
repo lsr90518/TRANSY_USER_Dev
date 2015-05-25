@@ -70,17 +70,16 @@
                                onComplete:^(MKNetworkOperation *completeOperation) {
                                    [SVProgressHUD dismiss];
                                    if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                       MDUser *user = [MDUser getInstance];
-                                       user.user_id = [[completeOperation responseJSON][@"data"][@"id"] intValue];
-                                       user.phoneNumber = [MDUtil japanesePhoneNumber:phoneNumber];
-                                       user.mailAddress = [completeOperation responseJSON][@"data"][@"mail"];
-                                       user.password = password;
-                                       user.userHash = [completeOperation responseJSON][@"hash"];
+                                       
+                                       [MDUser getInstance].user_id = [[completeOperation responseJSON][@"data"][@"id"] intValue];
+                                       [MDUser getInstance].phoneNumber = [MDUtil japanesePhoneNumber:phoneNumber];
+                                       [MDUser getInstance].mailAddress = [completeOperation responseJSON][@"data"][@"mail"];
+                                       [MDUser getInstance].password = password;
                                        NSString *username = [completeOperation responseJSON][@"data"][@"name"];
                                        NSArray *nameArray = [username componentsSeparatedByString:@" "];
-                                       user.lastname = nameArray[0];
-                                       user.firstname = nameArray[1];
-                                       user.credit =[[completeOperation responseJSON][@"data"][@"credit"] intValue];
+                                       [MDUser getInstance].lastname = nameArray[0];
+                                       [MDUser getInstance].firstname = nameArray[1];
+                                       [MDUser getInstance].credit =[[completeOperation responseJSON][@"data"][@"credit"] intValue];
                                        
                                        [[MDUser getInstance] setLogin];
                                        
@@ -88,13 +87,24 @@
                                        
                                        [self saveUserToDB];
                                        
-                                       //                                        MDViewController *viewController = [[MDViewController alloc]init];
-                                       //                                        [self presentViewController:viewController animated:YES completion:nil];
-                                       
-                                       MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
-                                       UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
                                        [[MDUser getInstance] setLogin];
-                                       [self presentViewController:deliveryNavigationController animated:YES completion:nil];
+                                       //update api
+                                       [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
+                                                                 sendPassword:NO
+                                                                   onComplete:^(MKNetworkOperation *complete) {
+                                                                       //
+                                                                       [MDUser getInstance].userHash = [completeOperation responseJSON][@"hash"];
+                                                                       
+                                                                       MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
+                                                                       UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
+                                                                       [self presentViewController:deliveryNavigationController animated:YES completion:nil];
+                                                                       
+                                                                   } onError:^(MKNetworkOperation *operation, NSError *error) {
+                                                                       //
+                                                                   }];
+                                       
+                                       
+                                       
                                        
                                    } else if([[completeOperation responseJSON][@"code"] integerValue] == 2){
                                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"不正番号"
