@@ -131,7 +131,7 @@
 
 -(void) sendToken{
     [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
-                              sendPassword:[MDUser getInstance].password
+                              sendPassword:NO
                                 onComplete:^(MKNetworkOperation *complete) {
                                     //
                                 } onError:^(MKNetworkOperation *operation, NSError *error) {

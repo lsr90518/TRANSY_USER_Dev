@@ -22,6 +22,7 @@
 #import "MDProtocolViewController.h"
 #import "MDNotifacation.h"
 #import "MDPrivacyViewController.h"
+#import "MDRealmPushNotice.h"
 #import "MDRealmNotificationRecord.h"
 
 @interface MDSettingViewController () {
@@ -173,13 +174,13 @@
 -(void) updateNotificationData{
     //get data from db
     RLMRealm *realm = [RLMRealm defaultRealm];
-    RLMResults *newNoti = [MDRealmNotificationRecord allObjectsInRealm:realm];
+    RLMResults *oldNotice = [MDRealmPushNotice allObjectsInRealm:realm];
     
     NSString *lastId;
     
-    if([newNoti count] > 0){
-        MDRealmNotificationRecord *noti = [newNoti lastObject];
-        lastId = noti.last_id;
+    if([oldNotice count] > 0){
+        MDRealmPushNotice *noti = [oldNotice firstObject];
+        lastId = noti.notification_id;
     } else {
         lastId = @"0";
     }
@@ -189,6 +190,7 @@
                                     OnComplete:^(MKNetworkOperation *complete) {
                                         if([[complete responseJSON][@"code"] intValue] == 0){
                                             [[MDNotificationService getInstance] initWithDataArray:[complete responseJSON][@"Notifications"]];
+                                            
                                             if([[MDNotificationService getInstance].notificationList count] > 0){
                                                 //save to realm
                                                 [self saveNotiToDB];
@@ -206,23 +208,23 @@
 
 -(void) saveNotiToDB{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    
-    RLMResults *newNoti = [MDRealmNotificationRecord allObjectsInRealm:realm];
-    MDRealmNotificationRecord *noti = [[MDRealmNotificationRecord alloc]init];
-    
-    MDNotifacation *notification = [[MDNotificationService getInstance].notificationList lastObject];
-    
-    for(MDRealmNotificationRecord *tmp in newNoti){
-        noti.index = tmp.index;
+    NSMutableArray *noticArray = [[NSMutableArray alloc]init];
+    @autoreleasepool {
+        [realm beginWriteTransaction];
+        
+        [[MDNotificationService getInstance].notificationList enumerateObjectsUsingBlock:^(MDNotifacation *obj, NSUInteger idx, BOOL *stop) {
+            MDRealmPushNotice *noti = [[MDRealmPushNotice alloc]init];
+            
+            noti.notification_id        = obj.notification_id;
+            noti.package_id             = obj.package_id;
+            noti.created_time           = obj.created_time;
+            noti.message                = obj.message;
+            [noticArray addObject:noti];
+            
+        }];
+        [realm addOrUpdateObjectsFromArray:noticArray];
+        [realm commitWriteTransaction];
     }
-    if (noti.index == nil) {
-        noti.index = @"0";
-    }
-    noti.last_id = notification.notification_id;
-    
-    [realm beginWriteTransaction];
-    [realm addOrUpdateObject:noti];
-    [realm commitWriteTransaction];
 }
 
 @end

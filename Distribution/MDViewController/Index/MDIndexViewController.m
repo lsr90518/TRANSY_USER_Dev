@@ -54,7 +54,6 @@
                               onComplete:^(MKNetworkOperation *complete) {
                                   if([[complete responseJSON][@"code"] intValue] == 0){
                                   
-                                      NSLog(@"%@", [complete responseJSON]);
                                       [MDUser getInstance].user_id  = [[complete responseJSON][@"data"][@"id"] intValue];
                                       [MDUser getInstance].phoneNumber = [MDUtil japanesePhoneNumber:[complete responseJSON][@"data"][@"phone"]];
                                       [MDUser getInstance].mailAddress = [complete responseJSON][@"data"][@"mail"];

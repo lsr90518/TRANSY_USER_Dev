@@ -225,7 +225,7 @@
 -(void) setViewData:(MDUser *)user{
     nameButton.selectLabel.text = [NSString stringWithFormat:@"%@ %@", user.lastname, user.firstname];
     phoneButton.selectLabel.text = [NSString stringWithFormat:@"%@", user.phoneNumber];
-    notificationButton.selectLabel.text = [NSString stringWithFormat:@"%d件の新着", 0];
+    notificationButton.selectLabel.text = [NSString stringWithFormat:@"新着通知はありません"];
     
 }
 

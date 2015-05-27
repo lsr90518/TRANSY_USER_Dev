@@ -13,6 +13,6 @@
 
 @interface MDNotificationTable : UITableViewController
 
-@property (nonatomic) NSMutableArray *notificationList;
+@property (strong, nonatomic) NSMutableArray *notificationList;
 
 @end
