@@ -25,12 +25,14 @@
     
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     self.tableView.header.updatedTimeHidden = YES;
+    
+    [self saveNotiToDB];
+    [self loadDataFromDB];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadDataFromDB];
     
     if([_notificationList count] == 0){
         UILabel *messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 15)];
@@ -127,8 +129,6 @@
 
 -(void) refreshData{
     [self loadNewData];
-    [self loadDataFromDB];
-    [self.tableView reloadData];
     [self.tableView.header endRefreshing];
 }
 
@@ -139,7 +139,7 @@
 
 -(void) loadDataFromDB{
     
-    _notificationList = [[NSMutableArray alloc]init];
+    NSMutableArray *tmpList = [[NSMutableArray alloc]init];
     
     //get data from db
     RLMRealm *realm = [RLMRealm defaultRealm];
@@ -151,29 +151,10 @@
         notice.notification_id  = tmpNotice.notification_id;
         notice.created_time     = tmpNotice.created_time;
         notice.message          = tmpNotice.message;
-        [_notificationList addObject:notice];
+        [tmpList addObject:notice];
     }
     
-    //sort
-    [_notificationList sortUsingComparator:^NSComparisonResult(MDNotifacation *obj1, MDNotifacation *obj2) {
-        
-        //排序
-        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
-        NSDate *date1 = [dateFormat dateFromString:obj1.created_time];
-        NSDate *date2 = [dateFormat dateFromString:obj2.created_time];
-        
-        NSTimeInterval time1 = [date1 timeIntervalSince1970];
-        NSTimeInterval time2 = [date2 timeIntervalSince1970];
-        
-        
-        if (time1 > time2) {
-            return NSOrderedAscending;
-        } else {
-            return NSOrderedDescending;
-        }
-        
-    }];
+    _notificationList = [[NSMutableArray alloc]initWithArray:[tmpList sortedArrayUsingSelector:@selector(noticeCompareByDate:)]];
 }
 
 -(void) updateNotificationData{
@@ -199,6 +180,8 @@
                                             if([[MDNotificationService getInstance].notificationList count] > 0){
                                                 //save to realm
                                                 [self saveNotiToDB];
+                                                [self loadDataFromDB];
+                                                [self.tableView reloadData];
                                             }
                                             
                                         }
@@ -216,10 +199,10 @@
         [[MDNotificationService getInstance].notificationList enumerateObjectsUsingBlock:^(MDNotifacation *obj, NSUInteger idx, BOOL *stop) {
             MDRealmPushNotice *noti = [[MDRealmPushNotice alloc]init];
             
-            noti.notification_id        = obj.notification_id;
-            noti.package_id             = obj.package_id;
-            noti.created_time           = obj.created_time;
-            noti.message                = obj.message;
+            noti.notification_id        = ([obj.notification_id isEqual:[NSNull null]]) ? @"" : obj.notification_id;
+            noti.package_id             = ([obj.package_id isEqual:[NSNull null]]) ? @"" : obj.package_id;
+            noti.created_time           = ([obj.created_time isEqual:[NSNull null]]) ? @"" : obj.created_time;
+            noti.message                = ([obj.message isEqual:[NSNull null]]) ? @"" : obj.message;
             [noticArray addObject:noti];
             
         }];

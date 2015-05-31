@@ -77,7 +77,7 @@
         
         //説明文
         descriptionWell = [[MDWell alloc]initWithFrame:CGRectMake(10, phoneNumberButton.frame.origin.y + phoneNumberButton.frame.size.height, frame.size.width-20, 100)];
-        descriptionWell.contentText = @"荷物について、ご不明点や連絡が必要な際は、上記連絡先よりドライバーに直接ご問い合わせたください。当サービスでは、サービス向上のためドライバーの方の免許証、保険証の確認しております。";
+        [descriptionWell setContentText:@"荷物について、ご不明点や連絡が必要な際は、上記連絡先よりドライバーに直接お問い合わせください。当サービスでは、サービス向上のためドライバーの方の免許証、保険証の確認しております。"];
         [_scrollView addSubview:descriptionWell];
         
         //自己紹介
@@ -167,6 +167,12 @@
         [previewWell setDataWithTitle:lastReview.user_name star:[lastReview.star integerValue] text:lastReview.text];
     } else {
         [previewWell removeFromSuperview];
+    }
+}
+
+-(void) setStatus:(NSString *)status{
+    if ([status isEqualToString:@"2"] || [status isEqualToString:@"3"]) {
+        [rejectButton setHidden:YES];
     }
 }
 

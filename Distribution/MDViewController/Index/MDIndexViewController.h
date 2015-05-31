@@ -10,11 +10,14 @@
 #import "MDIndexView.h"
 #import "MDPhoneViewController.h"
 #import "MDLoginViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import "MDDeliveryViewController.h"
 
 @interface MDIndexViewController : UIViewController<indexDelegate>
 
 @property (strong, nonatomic) MDIndexView *indexView;
+
+@property (strong, nonatomic) AVPlayer    *avPlayer;
 
 
 @end

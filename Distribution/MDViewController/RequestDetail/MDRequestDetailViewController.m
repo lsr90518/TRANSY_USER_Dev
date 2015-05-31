@@ -61,13 +61,13 @@
 -(void) viewWillAppear:(BOOL)animated{
     [self initNavigationBar];
     
-    [_requestDetailView setStatus:[_package.status intValue]];
-    
     if([_package.status intValue] != 0){
         [self getDriverData];
     }
     
     [_requestDetailView makeupByData:_package];
+    
+    [_requestDetailView setStatus:[_package.status intValue]];
     
     NSString *driverReviewed = [NSString stringWithFormat:@"%@", _package.driverReview.reviewed];
 //    if([driverReviewed isEqualToString:@"1"]){
@@ -77,6 +77,8 @@
     NSString *userReviewed = [NSString stringWithFormat:@"%@", _package.userReview.reviewed];
     if([userReviewed isEqualToString:@"1"] && [driverReviewed isEqualToString:@"1"]){
         [_requestDetailView setReviewContent:_package.userReview];
+    } else if([userReviewed isEqualToString:@"0"]){
+        [_requestDetailView takePackageButton];
     }
 }
 
@@ -167,6 +169,7 @@
     MDProfileViewController *pvc = [[MDProfileViewController alloc]init];
     pvc.driver = _driver;
     pvc.package = _package;
+    
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
@@ -180,12 +183,34 @@
 }
 
 -(void) cancelButtonPushed{
+    
+    UIAlertView *view = [[UIAlertView alloc]initWithTitle:@"依頼のキャンセル"    //标题
+                                                  message:@"依頼をキャンセルしますが、よろしいでしょうか。"   //显示内容
+                                                 delegate:self          //委托，可以点击事件进行处理
+                                        cancelButtonTitle:@"いいえ"
+                                        otherButtonTitles:@"はい",nil];
+    [view show];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            [self cancelPackage];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void) cancelPackage{
     [SVProgressHUD show];
     //call api
     [[MDAPI sharedAPI] cancelMyPackageWithHash:[MDUser getInstance].userHash
                                        Package:_package
                                     OnComplete:^(MKNetworkOperation *complete) {
-                                            //
+                                        //
                                         [SVProgressHUD dismiss];
                                         if([[complete responseJSON][@"code"] intValue] == 0){
                                             [self backButtonPushed];

@@ -124,11 +124,15 @@
                                  
                                  region.center = [(CLCircularRegion *)aPlacemark.region center];
                                  
-                                 [MDCurrentPackage getInstance].from_zip = zip_str;
                                  [MDCurrentPackage getInstance].from_addr = addr_str;
                                  [MDCurrentPackage getInstance].from_pref = pref_str;
                                  [MDCurrentPackage getInstance].from_lat = [NSString stringWithFormat:@"%f",region.center.latitude];
                                  [MDCurrentPackage getInstance].from_lng = [NSString stringWithFormat:@"%f",region.center.longitude];
+                                 NSString *zipStr = aPlacemark.addressDictionary[@"ZIP"];
+                                 requestAddressView.zipField.input.text = [NSString stringWithFormat:@"〒%@", [zipStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                                 
+                                 [MDCurrentPackage getInstance].from_zip = [zipStr stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                                 
                                  [self.navigationController popViewControllerAnimated:YES];
                              } else {
                                  [self showEreaAlert];

@@ -107,7 +107,7 @@
         qaButton.buttonTitle.text = @"よくある質問";
         qaButton.selectLabel.text = @"";
         [qaButton setUnactive];
-//        [qaButton addTarget:self action:@selector(nameButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+        [qaButton addTarget:self action:@selector(aqButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:qaButton];
         
         //name button
@@ -269,6 +269,12 @@
 -(void) protocolButtonTouched {
     if([self.delegate respondsToSelector:@selector(protocolButtonPushed)]){
         [self.delegate protocolButtonPushed];
+    }
+}
+
+-(void) aqButtonPushed{
+    if([self.delegate respondsToSelector:@selector(aqButtonPushed)]){
+        [self.delegate aqButtonPushed];
     }
 }
 

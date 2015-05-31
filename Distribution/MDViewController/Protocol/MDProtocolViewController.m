@@ -35,7 +35,7 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-    NSURL *url =[NSURL URLWithString:[MDAPI getProtocalURL]];
+    NSURL *url =[NSURL URLWithString:API_HOST_TERMOFUSE];
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     [_webView loadRequest:request];
 }

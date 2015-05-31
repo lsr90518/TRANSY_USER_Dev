@@ -66,6 +66,9 @@
 }
 
 -(void) postButtonTouched {
+//    MDCreateProfileViewController *cpv = [[MDCreateProfileViewController alloc]init];
+//    [self.navigationController pushViewController:cpv animated:YES];
+    
     [SVProgressHUD showWithStatus:@"認証中" maskType:SVProgressHUDMaskTypeBlack];
     [[MDAPI sharedAPI] checkUserWithPhone:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
                                  withCode:_inputView.input.text

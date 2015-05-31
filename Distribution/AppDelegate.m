@@ -22,6 +22,8 @@
 #import <Crashlytics/Crashlytics.h>
 #import <Realm.h>
 #import "MDLocalNotificationManager.h"
+#import "MDInputRequestViewController.h"
+#import "MDDeliveryViewController.h"
 
 @interface AppDelegate ()
 
@@ -149,7 +151,6 @@
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     [MDDevice getInstance].token = token;
-    NSLog(@"token %@", [MDDevice getInstance].token);
     
 }
 

@@ -55,11 +55,14 @@
 }
 
 -(void) backButtonTouched {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) postData:(MDCreateProfileView *)createProfileView {
-    if([createProfileView.lastnameInput.input.text length] == 0
+    
+    if(![createProfileView isChecked]){
+        [MDUtil makeAlertWithTitle:@"利用規約" message:@"利用規約を同意してください。" done:@"OK" viewController:self];
+    } else if([createProfileView.lastnameInput.input.text length] == 0
        || [createProfileView.givennameInput.input.text length] == 0) {
         [MDUtil makeAlertWithTitle:@"名前" message:@"名前を入力してください。" done:@"OK" viewController:self];
     } else if (![createProfileView.passwordInput.input.text isEqualToString:[NSString stringWithFormat:@"%@",createProfileView.repeatInput.input.text]]) {

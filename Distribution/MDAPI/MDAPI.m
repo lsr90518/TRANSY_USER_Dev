@@ -28,11 +28,11 @@
 }
 
 +(NSString *)getPrivacyURL{
-    return PRIVACY_URL;
+    return API_HOST_PRIVACY;
 }
 
 +(NSString *)getProtocalURL{
-    return PROTOCAL_URL;
+    return API_HOST_TERMOFUSE;
 }
 
 - (id)init
@@ -173,6 +173,7 @@
 -(void) registerBaggageWithHash:(NSString *)hash
                      OnComplete:(void (^)(MKNetworkOperation *))complete
                           onError:(void (^)(MKNetworkOperation *, NSError *))error {
+
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:hash         forKey:@"hash"];
     [dic setObject:USER_DEVICE  forKey:@"client"];

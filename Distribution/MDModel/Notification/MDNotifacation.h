@@ -18,6 +18,8 @@
 
 -(void) initDataWithData:(NSDictionary *)data;
 
+-(NSComparisonResult) noticeCompareByDate: (MDNotifacation *)otherData;
+
 @end
 
 //"id": "6",

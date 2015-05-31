@@ -35,7 +35,7 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-    NSURL *url =[NSURL URLWithString:[MDAPI getPrivacyURL]];
+    NSURL *url =[NSURL URLWithString:API_HOST_PRIVACY];
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     [_webView loadRequest:request];
 }
@@ -46,7 +46,7 @@
 }
 
 -(void)initNavigationBar {
-    self.navigationItem.title = @"利用規約";
+    self.navigationItem.title = @"プライバシーポリシー";
     //add right button item
     UIButton *_backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setTitle:@"戻る" forState:UIControlStateNormal];

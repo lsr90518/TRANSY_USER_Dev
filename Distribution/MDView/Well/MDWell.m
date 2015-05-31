@@ -35,7 +35,7 @@
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:_contentText];
     [attributedText addAttribute:NSParagraphStyleAttributeName value:paragrahStyle range:NSMakeRange(0, attributedText.length)];
     _content.attributedText = attributedText;
-    _content.numberOfLines = 3;
+    _content.numberOfLines = 0;
     [self addSubview:_content];
     
 }
@@ -47,7 +47,7 @@
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:contentText];
     [attributedText addAttribute:NSParagraphStyleAttributeName value:paragrahStyle range:NSMakeRange(0, attributedText.length)];
     _content.attributedText = attributedText;
-    _content.numberOfLines = 3;
+    _content.numberOfLines = 0;
 
 }
 

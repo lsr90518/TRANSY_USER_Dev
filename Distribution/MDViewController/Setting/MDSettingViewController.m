@@ -24,6 +24,7 @@
 #import "MDPrivacyViewController.h"
 #import "MDRealmPushNotice.h"
 #import "MDRealmNotificationRecord.h"
+#import "MDAQViewController.h"
 
 @interface MDSettingViewController () {
     MDPackageService *packageService;
@@ -48,12 +49,20 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [_settingView setViewData:[MDUser getInstance]];
+    
     [self updateData];
+    
+    [_settingView setRating:[[MDPackageService getInstance] getAverageStar]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    int count = (int)[[MDNotificationService getInstance].notificationList count];
+    [_settingView setNotificationCount:count];
+    
+    [_settingView setRating:[[MDPackageService getInstance] getAverageStar]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -152,6 +161,12 @@
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
+-(void) aqButtonPushed{
+    
+    MDAQViewController *av = [[MDAQViewController alloc]init];
+    [self.navigationController pushViewController:av animated:YES];
+}
+
 -(void) updateData{
     //call api
     [[MDAPI sharedAPI] getMyPackageWithHash:[MDUser getInstance].userHash
@@ -167,19 +182,36 @@
                                     }];
     
     [self updateNotificationData];
+}
+
+-(NSMutableArray *) loadDataFromDB{
     
+    NSMutableArray *tmpList = [[NSMutableArray alloc]init];
+    
+    //get data from db
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    RLMResults *oldNotice = [[MDRealmPushNotice allObjectsInRealm:realm] sortedResultsUsingProperty:@"notification_id" ascending:YES];
+    
+    for(MDRealmPushNotice *tmpNotice in oldNotice){
+        MDNotifacation *notice = [[MDNotifacation alloc]init];
+        notice.package_id       = tmpNotice.package_id;
+        notice.notification_id  = tmpNotice.notification_id;
+        notice.created_time     = tmpNotice.created_time;
+        notice.message          = tmpNotice.message;
+        [tmpList addObject:notice];
+    }
+    return tmpList;
     
 }
 
 -(void) updateNotificationData{
     //get data from db
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    RLMResults *oldNotice = [MDRealmPushNotice allObjectsInRealm:realm];
+    NSArray *tmpList = [[self loadDataFromDB] sortedArrayUsingSelector:@selector(noticeCompareByDate:)];
     
     NSString *lastId;
     
-    if([oldNotice count] > 0){
-        MDRealmPushNotice *noti = [oldNotice firstObject];
+    if([tmpList count] > 0){
+        MDNotifacation *noti = [tmpList firstObject];
         lastId = noti.notification_id;
     } else {
         lastId = @"0";
@@ -192,8 +224,6 @@
                                             [[MDNotificationService getInstance] initWithDataArray:[complete responseJSON][@"Notifications"]];
                                             
                                             if([[MDNotificationService getInstance].notificationList count] > 0){
-                                                //save to realm
-                                                [self saveNotiToDB];
                                                 //update view
                                                 int count = (int)[[MDNotificationService getInstance].notificationList count];
                                                 [_settingView setNotificationCount:count];
@@ -204,27 +234,6 @@
                                     } onError:^(MKNetworkOperation *operation, NSError *error) {
                                         
                                     }];
-}
-
--(void) saveNotiToDB{
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    NSMutableArray *noticArray = [[NSMutableArray alloc]init];
-    @autoreleasepool {
-        [realm beginWriteTransaction];
-        
-        [[MDNotificationService getInstance].notificationList enumerateObjectsUsingBlock:^(MDNotifacation *obj, NSUInteger idx, BOOL *stop) {
-            MDRealmPushNotice *noti = [[MDRealmPushNotice alloc]init];
-            
-            noti.notification_id        = obj.notification_id;
-            noti.package_id             = obj.package_id;
-            noti.created_time           = obj.created_time;
-            noti.message                = obj.message;
-            [noticArray addObject:noti];
-            
-        }];
-        [realm addOrUpdateObjectsFromArray:noticArray];
-        [realm commitWriteTransaction];
-    }
 }
 
 @end

@@ -19,10 +19,12 @@
 
 @property (strong, nonatomic) UIScrollView  *scrollView;
 @property (strong, nonatomic) MDDriver      *driver;
+@property (strong, nonatomic) NSString      *status;
 
 @property (assign, nonatomic) id<MDProfileViewDelegate> delegate;
 
 -(void) setDriverData:(MDDriver *)driver;
+-(void) setStatus:(NSString *)status;
 
 @end
 

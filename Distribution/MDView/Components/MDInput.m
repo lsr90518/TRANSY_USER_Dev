@@ -81,5 +81,12 @@
     }
 }
 
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    if([self.delegate respondsToSelector:@selector(returnKeyPushed:)]){
+        [self.delegate returnKeyPushed:self];
+    }
+    return YES;
+}
+
 
 @end

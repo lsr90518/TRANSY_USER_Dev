@@ -43,4 +43,6 @@
 
 -(void) initData;
 
+-(BOOL) isAllInput;
+
 @end

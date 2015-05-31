@@ -123,6 +123,9 @@
 		0DD8853A1AE53F0800CEA79E /* matchingProcess.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD885371AE53F0800CEA79E /* matchingProcess.png */; };
 		0DDDA6431AEBD19100067016 /* MDAddressTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6421AEBD19100067016 /* MDAddressTable.m */; };
 		0DDDA6461AEBD49B00067016 /* MDButtonInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDDA6451AEBD49B00067016 /* MDButtonInput.m */; };
+		0DEDF4631B1B56B700B29882 /* MDAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DEDF4621B1B56B700B29882 /* MDAQViewController.m */; };
+		0DF7389D1B1B113700D3D0E0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF7389C1B1B113700D3D0E0 /* AVFoundation.framework */; };
+		0DF7389F1B1B118C00D3D0E0 /* trux_bgvideo_portrait.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0DF7389E1B1B118C00D3D0E0 /* trux_bgvideo_portrait.mp4 */; };
 		0DFE072D1B07245200484069 /* MDConsignor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE072C1B07245200484069 /* MDConsignor.m */; };
 		0DFE07301B07851400484069 /* RealmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE072F1B07851400484069 /* RealmManager.m */; };
 		0DFE07331B0821BB00484069 /* MDSelectRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE07321B0821BB00484069 /* MDSelectRating.m */; };
@@ -349,6 +352,10 @@
 		0DDDA6421AEBD19100067016 /* MDAddressTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddressTable.m; path = MDView/Delivery/AddressTable/MDAddressTable.m; sourceTree = "<group>"; };
 		0DDDA6441AEBD49B00067016 /* MDButtonInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDButtonInput.h; path = MDView/Components/MDButtonInput.h; sourceTree = "<group>"; };
 		0DDDA6451AEBD49B00067016 /* MDButtonInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDButtonInput.m; path = MDView/Components/MDButtonInput.m; sourceTree = "<group>"; };
+		0DEDF4611B1B56B700B29882 /* MDAQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAQViewController.h; path = MDViewController/AQ/MDAQViewController.h; sourceTree = "<group>"; };
+		0DEDF4621B1B56B700B29882 /* MDAQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAQViewController.m; path = MDViewController/AQ/MDAQViewController.m; sourceTree = "<group>"; };
+		0DF7389C1B1B113700D3D0E0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0DF7389E1B1B118C00D3D0E0 /* trux_bgvideo_portrait.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trux_bgvideo_portrait.mp4; sourceTree = "<group>"; };
 		0DFE072B1B07245200484069 /* MDConsignor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDConsignor.h; path = MDDAO/MDConsignor.h; sourceTree = "<group>"; };
 		0DFE072C1B07245200484069 /* MDConsignor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDConsignor.m; path = MDDAO/MDConsignor.m; sourceTree = "<group>"; };
 		0DFE072E1B07851400484069 /* RealmManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealmManager.h; path = MDDAO/RealmManager/RealmManager.h; sourceTree = "<group>"; };
@@ -397,6 +404,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DF7389D1B1B113700D3D0E0 /* AVFoundation.framework in Frameworks */,
 				0D0FD5C51AE361FB00615C24 /* MapKit.framework in Frameworks */,
 				8F9BC63BB67C9A89C5697725 /* libPods.a in Frameworks */,
 				83BA05DD1B0C7E7A00D23883 /* Crashlytics.framework in Frameworks */,
@@ -488,6 +496,7 @@
 		0D0FD54E1AD8EC7700615C24 /* Index */ = {
 			isa = PBXGroup;
 			children = (
+				0DF7389E1B1B118C00D3D0E0 /* trux_bgvideo_portrait.mp4 */,
 				0D0FD54F1AD8EC8900615C24 /* firstBG.png */,
 			);
 			name = Index;
@@ -882,6 +891,7 @@
 		0DC16F731AC54CF20066FA0C /* MDViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0DEDF4601B1B568100B29882 /* AQ */,
 				0DFE07431B0A250D00484069 /* Protocol */,
 				0DFE07421B0A24F200484069 /* Privacy */,
 				0DFE073B1B08964A00484069 /* NotificationTable */,
@@ -1143,6 +1153,15 @@
 			name = Delivery;
 			sourceTree = "<group>";
 		};
+		0DEDF4601B1B568100B29882 /* AQ */ = {
+			isa = PBXGroup;
+			children = (
+				0DEDF4611B1B56B700B29882 /* MDAQViewController.h */,
+				0DEDF4621B1B56B700B29882 /* MDAQViewController.m */,
+			);
+			name = AQ;
+			sourceTree = "<group>";
+		};
 		0DFE07341B08745800484069 /* ReviewHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -1213,6 +1232,7 @@
 		6254F0B82D8C881008CED483 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DF7389C1B1B113700D3D0E0 /* AVFoundation.framework */,
 				83BA05DC1B0C7E7A00D23883 /* Crashlytics.framework */,
 				83F460481B0C2101004E9215 /* Fabric.framework */,
 				0D0FD5C41AE361FB00615C24 /* MapKit.framework */,
@@ -1333,6 +1353,7 @@
 				0D0787361AF44F11007607E9 /* iTunesArtwork.png in Resources */,
 				0D5A38051AC9971B0062F0C1 /* setting_tab_unactive@2x.png in Resources */,
 				0D0787331AF44F11007607E9 /* Icon-Small@2x.png in Resources */,
+				0DF7389F1B1B118C00D3D0E0 /* trux_bgvideo_portrait.mp4 in Resources */,
 				0DC16FC01AC7C0910066FA0C /* packageIcon.png in Resources */,
 				0DC16FB81AC7B1FC0066FA0C /* zipcode.png in Resources */,
 				0D0787321AF44F11007607E9 /* Icon-Small.png in Resources */,
@@ -1421,6 +1442,7 @@
 				0D7D07EA1AEDD454002C7056 /* MDRequestEditNoteViewController.m in Sources */,
 				0D0FD5331AD4089B00615C24 /* MDUtil.m in Sources */,
 				0D0FD58D1ADB822D00615C24 /* MDPackage.m in Sources */,
+				0DEDF4631B1B56B700B29882 /* MDAQViewController.m in Sources */,
 				83F4604C1B0C2F67004E9215 /* MDAddressButton.m in Sources */,
 				0DDDA6431AEBD19100067016 /* MDAddressTable.m in Sources */,
 				0DAA27311AFFA88100AFD83A /* MDReportDriverViewController.m in Sources */,

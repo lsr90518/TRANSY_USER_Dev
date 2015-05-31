@@ -28,6 +28,7 @@
     [super viewDidLoad];
     
     [_profileView setDriverData:_driver];
+    [_profileView setStatus:_package.status];
 }
 
 -(void) initNavigationBar {

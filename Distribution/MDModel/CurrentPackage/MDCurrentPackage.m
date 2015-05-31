@@ -89,4 +89,73 @@
     }
 }
 
+-(BOOL) isAllInput{
+    BOOL returnFlag = YES;
+    
+    if(self.from_pref.length < 1){
+        returnFlag = NO;
+    }
+    if(self.from_addr.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.from_lat.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.from_lng.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.from_zip.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.to_pref.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.to_addr.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.to_lat.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.to_lng.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.to_zip.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.size.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.request_amount.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.deliver_limit.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.expire.length < 1){
+        returnFlag = NO;
+    }
+
+    if(self.note.length < 1){
+        returnFlag = NO;
+    }
+
+    if([self.at_home_time count] < 1){
+        returnFlag = NO;
+    }
+    
+    return returnFlag;
+}
+
 @end

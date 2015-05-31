@@ -9,7 +9,9 @@
 #import "MDCreateProfileView.h"
 #import "MDCheckBox.h"
 
-@implementation MDCreateProfileView
+@implementation MDCreateProfileView{
+    BOOL isChecked;
+}
 
 -(id) initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -26,6 +28,7 @@
         _lastnameInput.title.text = @"姓";
         [_lastnameInput.title sizeToFit];
         _lastnameInput.input.placeholder = @"山田";
+        _lastnameInput.delegate = self;
         [_scrollView addSubview:_lastnameInput];
         
         _givennameInput = [[MDInput alloc]initWithFrame:CGRectMake(10, 59, frame.size.width-20, 50)];
@@ -33,6 +36,7 @@
         _givennameInput.title.text = @"名";
         [_givennameInput.title sizeToFit];
         _givennameInput.input.placeholder = @"太郎";
+        _givennameInput.delegate = self;
         [_scrollView addSubview:_givennameInput];
         
         _creditView = [[MDCreditView alloc]initWithFrame:CGRectMake(10, 125, frame.size.width-20, 50)];
@@ -44,7 +48,6 @@
         _creditButton.buttonTitle.text = @"お支払い方法";
         [_creditButton.buttonTitle sizeToFit];
         _creditButton.selectLabel.text = [MDUtil getPaymentSelectLabel];
-        [_creditButton setUnactive];
         [_creditButton setTag:paymentSelect];
         [_creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
         [_creditButton.selectLabel setAlpha: 0.0f];
@@ -66,6 +69,7 @@
         [_passwordInput.title sizeToFit];
         [_passwordInput.input setSecureTextEntry:YES];
         _passwordInput.input.placeholder = @"6桁以上の英数字";
+        _passwordInput.delegate = self;
         [_scrollView addSubview:_passwordInput];
         
         _repeatInput = [[MDInput alloc]initWithFrame:CGRectMake(10, 275, frame.size.width-20, 50)];
@@ -73,11 +77,13 @@
         _repeatInput.title.text = @"パスワード(確認用)";
         [_repeatInput.title sizeToFit];
         _repeatInput.input.placeholder = @"6桁以上の英数字";
+        _repeatInput.delegate = self;
         [_repeatInput.input setSecureTextEntry:YES];
         [_scrollView addSubview:_repeatInput];
         
         //checkbox
         MDCheckBox *checkBox = [[MDCheckBox alloc]initWithFrame:CGRectMake(10, 340, 34, 34)];
+        [checkBox addTarget:self action:@selector(toggleCheck:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:checkBox];
         
         
@@ -140,6 +146,44 @@
     }
 }
 
+-(void)returnKeyPushed:(MDInput *)input{
+    if([input isEqual:_repeatInput]){
+        [input resignFirstResponder];
+    } else {
+        bool isFind = NO;
+        
+        for (UIView *view in [_scrollView subviews]) {
+            if([view isKindOfClass:[MDInput class]]){
+                MDInput *tmpView = (MDInput *)view;
+                
+                if(isFind){
+                    if(tmpView.tag == 3){
+                        
+                        continue;
+                    } else {
+                        [tmpView.input becomeFirstResponder];
+                        break;
+                    }
+                    
+                } else {
+                    
+                    if([input isEqual:tmpView]){
+                        isFind = YES;
+                    }
+                }
+                
+            }
+        }
+    }
+}
+
+-(void) toggleCheck:(MDCheckBox *)box{
+    isChecked = [box toggleCheck];
+}
+
+-(BOOL)isChecked{
+    return isChecked;
+}
 
 /*
  * MDCreditViewDelegate

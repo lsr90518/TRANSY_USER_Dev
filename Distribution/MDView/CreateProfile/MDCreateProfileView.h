@@ -14,7 +14,7 @@
 
 @protocol CreateProfileViewDelegate;
 
-@interface MDCreateProfileView : UIView<UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDCreditViewDelegate>
+@interface MDCreateProfileView : UIView<UIScrollViewAccessibilityDelegate,UIScrollViewDelegate,MDCreditViewDelegate, UITextFieldDelegate, MDInputDelegate>
 
 @property (strong, nonatomic) UIScrollView  *scrollView;
 @property (strong, nonatomic) MDInput       *lastnameInput;
@@ -28,6 +28,8 @@
 @property (strong, nonatomic) UIButton      *postButton;
 
 @property (assign, nonatomic) id<CreateProfileViewDelegate> delegate;
+
+-(BOOL) isChecked;
 
 @end
 

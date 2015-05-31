@@ -27,6 +27,7 @@
 @optional
 -(void) inputPushed:(MDInput *)input;
 -(void) endInput:(MDInput *)input;
+-(void) returnKeyPushed:(MDInput *)input;
 -(void) buttonPushed:(MDInput *)view;
 
 @end

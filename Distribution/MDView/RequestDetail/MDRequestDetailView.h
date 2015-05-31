@@ -26,7 +26,7 @@
 -(void) makeupByData:(MDPackage *)package;
 -(void) setDriverData:(MDDriver *)driver;
 -(UIImageView *) getUploadedImage;
-
+-(void) takePackageButton;
 -(void) setReviewContent:(MDReview *)review;
 
 

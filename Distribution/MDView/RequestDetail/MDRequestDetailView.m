@@ -41,6 +41,8 @@
     
     UIImageView *uploadedImage;
     
+    UIButton *takeButton;
+    
     UIButton *cancelButton;
     
     MDSelectRatingWell *reviewWell;
@@ -136,12 +138,17 @@
         [statusButton setUnactive];
         [_scrollView addSubview:statusButton];
         
+        //take button
+        takeButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 95, self.frame.size.width - 20, 50)];
+        takeButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:16];
+        takeButton.layer.cornerRadius = 2.5;
+        takeButton.layer.borderWidth = 0.5;
+        
         //cameraButton
         cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 155,  frame.size.width-20, (frame.size.width-20)*0.6)];
         [cameraButton setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4]];
         [cameraButton addTarget:self action:@selector(cameraButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:cameraButton];
-        
         
         
         //address
@@ -262,6 +269,14 @@
     
 }
 
+-(void) resizeByTakeButton{
+    
+    //cameraButton
+    [cameraButton setFrame:CGRectMake(10, statusButton.frame.origin.y + statusButton.frame.size.height + 10, self.frame.size.width-20, (self.frame.size.width-20)*0.6)];
+    
+    [self resizeSubviews];
+    
+}
 
 -(void) setStatus:(int)status {
     switch (status) {
@@ -293,6 +308,7 @@
             [distributionImageView setHidden:NO];
             [completeImageView setHidden:YES];
             statusButton.buttonTitle.text = @"配送員";
+            requestTerm.selectLabel.text = @"荷物配達中";
             [cancelButton setHidden:YES];
             [statusButton addTarget:self action:@selector(seeDriverProfile) forControlEvents:UIControlEventTouchUpInside];
             break;
@@ -305,8 +321,9 @@
             [completeImageView setHidden:NO];
             statusButton.buttonTitle.text = @"依頼者の評価";
             statusButton.selectLabel.text = @"";
+            requestTerm.selectLabel.text = @"配達完了";
             [cancelButton setHidden:YES];
-            [statusButton addTarget:self action:@selector(reviewButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+            [statusButton addTarget:self action:@selector(seeDriverProfile) forControlEvents:UIControlEventTouchUpInside];
             break;
         case 4:
             [statusButton setHidden:YES];
@@ -400,6 +417,21 @@
     
 }
 
+-(void) takePackageButton{
+    //    statusButton
+    [takeButton setTitle:@"ドライバーへを評価" forState:UIControlStateNormal];
+    [takeButton setTitleColor:[UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1] forState:UIControlStateNormal];
+    takeButton.layer.borderColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1].CGColor;
+    [takeButton addTarget:self action:@selector(reviewButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    takeButton.tag = 1;
+    [_scrollView addSubview:takeButton];
+    
+    [statusButton setFrame:CGRectMake(10, takeButton.frame.origin.y + takeButton.frame.size.height + 10, self.frame.size.width - 20, 50)];
+    
+    [self resizeByTakeButton];
+    
+}
+
 -(void) setReviewContent:(MDReview *)review{
     reviewWell = [[MDSelectRatingWell alloc]initWithFrame:CGRectMake(10, statusButton.frame.origin.y + statusButton.frame.size.height + 10, self.frame.size.width - 20, 100)];
     [reviewWell.selectRating setNoArrow];
@@ -408,6 +440,10 @@
     [_scrollView addSubview:reviewWell];
     
     [self resizeByReviews];
+}
+
+-(void) takeButtonTouched:(UIButton *)button{
+    
 }
 
 -(void) cameraButtonTouched {

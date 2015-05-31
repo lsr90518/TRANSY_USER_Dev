@@ -69,6 +69,12 @@
 }
 
 -(void) postButtonTouched {
+    
+//    if([_inputView.input.text isEqualToString:@"09028280392"]){
+//        MDCheckNumberViewController *checkNumberController = [[MDCheckNumberViewController alloc]init];
+//        [self.navigationController pushViewController:checkNumberController animated:YES];
+//    }
+    
     if(_inputView.input.text.length == 0){
         [MDUtil makeAlertWithTitle:@"未入力" message:@"電話番号を入力してください。" done:@"OK" viewController:self];
     }else{
@@ -88,7 +94,6 @@
                 [[MDAPI sharedAPI] updatePhoneNumberWithOldPhoneNumber:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
                                                         newPhoneNumber:[MDUtil internationalPhoneNumber:phoneNumber]
                                                             OnComplete:^(MKNetworkOperation *completeOperation) {
-
                                                             [SVProgressHUD dismiss];
                                                             if( [[completeOperation responseJSON][@"code"] integerValue] == 0){
 
@@ -120,6 +125,7 @@
                 [[MDAPI sharedAPI] createUserWithPhone:phoneNumber
                               onComplete:^(MKNetworkOperation *completeOperation) {
                                   // NSLog(@"%ld",(long)[[completeOperation responseJSON][@"code"] integerValue]);
+                                  
                                   [SVProgressHUD dismiss];
                                   if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                       MDUser *user = [MDUser getInstance];

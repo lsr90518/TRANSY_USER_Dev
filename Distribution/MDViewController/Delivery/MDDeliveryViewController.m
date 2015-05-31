@@ -13,6 +13,7 @@
 #import <SVProgressHUD.h>
 #import "MDPackageService.h"
 #import "MDNotificationService.h"
+#import "MDRealmPushNotice.h"
 
 
 @interface MDDeliveryViewController (){
@@ -46,8 +47,11 @@
     
     [_deliveryView initViewData:[MDCurrentPackage getInstance]];
     //update data
+    //5.30
     [self updateMyPackageData];
     
+    //
+    [self sendToken];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -55,6 +59,7 @@
 //        [MDCurrentPackage getInstance].status = @"0";
         [self gotoRequestView];
     }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,14 +87,17 @@
     MDCurrentPackage *package = [MDCurrentPackage getInstance];
 
     NSString *result = [_deliveryView checkInput];
-    if (![result isEqualToString:@""]) {
+    if (![result isEqualToString:@""] || ![[MDCurrentPackage getInstance] isAllInput]) {
         //警告
-        [MDUtil makeAlertWithTitle:@"入力未完成" message:[NSString stringWithFormat:@"%@を入力してください",result] done:@"OK" viewController:self];
+        [MDUtil makeAlertWithTitle:@"入力未完成" message:[NSString stringWithFormat:@"%@入力してください",result] done:@"OK" viewController:self];
     } else {
         //ok
+        NSLog(@"%@",[MDUser getInstance].userHash);
         [SVProgressHUD showWithStatus:@"荷物を登録中" maskType:SVProgressHUDMaskTypeClear];
         [[MDAPI sharedAPI] registerBaggageWithHash:[MDUser getInstance].userHash
                                         OnComplete:^(MKNetworkOperation *completeOperation) {
+                                            
+                                            NSLog(@"%@", [completeOperation responseJSON]);
                                             
                                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                 // time-consuming task
@@ -202,15 +210,69 @@
                                      //
                                  }];
     
-    [[MDAPI sharedAPI] getAllNotificationWithHash:[MDUser getInstance].userHash
-                                       OnComplete:^(MKNetworkOperation *complete) {
-                                           if([[complete responseJSON][@"code"] intValue] == 0){
-                                               notificationService = [MDNotificationService getInstance];
-                                               [notificationService initWithDataArray:[complete responseJSON][@"Notifications"]];
-                                           }
-                                       } onError:^(MKNetworkOperation *operation, NSError *error) {
-                                           
-                                       }];
+//    [[MDAPI sharedAPI] getAllNotificationWithHash:[MDUser getInstance].userHash
+//                                       OnComplete:^(MKNetworkOperation *complete) {
+//                                           if([[complete responseJSON][@"code"] intValue] == 0){
+//                                               notificationService = [MDNotificationService getInstance];
+//                                               [notificationService initWithDataArray:[complete responseJSON][@"Notifications"]];
+//                                           }
+//                                       } onError:^(MKNetworkOperation *operation, NSError *error) {
+//                                           
+//                                       }];
+}
+
+-(NSMutableArray *) loadDataFromDB{
+    
+    NSMutableArray *tmpList = [[NSMutableArray alloc]init];
+    
+    //get data from db
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    RLMResults *oldNotice = [[MDRealmPushNotice allObjectsInRealm:realm] sortedResultsUsingProperty:@"notification_id" ascending:YES];
+    
+    for(MDRealmPushNotice *tmpNotice in oldNotice){
+        MDNotifacation *notice = [[MDNotifacation alloc]init];
+        notice.package_id       = tmpNotice.package_id;
+        notice.notification_id  = tmpNotice.notification_id;
+        notice.created_time     = tmpNotice.created_time;
+        notice.message          = tmpNotice.message;
+        [tmpList addObject:notice];
+    }
+    return tmpList;
+    
+}
+
+-(void) loadNotificationData{
+    //get data from db
+    NSArray *tmpList = [[self loadDataFromDB] sortedArrayUsingSelector:@selector(noticeCompareByDate:)];
+    
+    NSString *lastId;
+    
+    if([tmpList count] > 0){
+        MDNotifacation *noti = [tmpList firstObject];
+        lastId = noti.notification_id;
+    } else {
+        lastId = @"0";
+    }
+    
+    [[MDAPI sharedAPI] getNotificationWithHash:[MDUser getInstance].userHash
+                                        lastId:lastId
+                                    OnComplete:^(MKNetworkOperation *complete) {
+                                        if([[complete responseJSON][@"code"] intValue] == 0){
+                                            [[MDNotificationService getInstance] initWithDataArray:[complete responseJSON][@"Notifications"]];
+                                        }
+                                    } onError:^(MKNetworkOperation *operation, NSError *error) {
+                                        
+                                    }];
+}
+
+-(void) sendToken{
+    [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
+                              sendPassword:NO
+                                onComplete:^(MKNetworkOperation *complete) {
+        //
+    } onError:^(MKNetworkOperation *operation, NSError *error) {
+        //
+    }];
 }
 
 @end

@@ -83,17 +83,22 @@
                                        
                                        [[MDUser getInstance] setLogin];
                                        
+                                       [MDUser getInstance].userHash = [completeOperation responseJSON][@"hash"];
+                                       
+                                       
                                        [self sendToken];
                                        
                                        [self saveUserToDB];
                                        
                                        [[MDUser getInstance] setLogin];
+                                       
                                        //update api
                                        [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
                                                                  sendPassword:NO
                                                                    onComplete:^(MKNetworkOperation *complete) {
+                                                                       
                                                                        //
-                                                                       [MDUser getInstance].userHash = [completeOperation responseJSON][@"hash"];
+                                                                       [MDUser getInstance].userHash = [complete responseJSON][@"hash"];
                                                                        
                                                                        MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
                                                                        UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
