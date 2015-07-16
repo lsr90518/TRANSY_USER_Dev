@@ -7,8 +7,6 @@
 //
 
 #import "MDIndexViewController.h"
-#import "MDViewController.h"
-#import "MDCreateProfileViewController.h"
 
 @interface MDIndexViewController ()
 
@@ -28,31 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"trux_bgvideo_portrait" ofType:@"mp4"];
-    NSURL *fileURL = [NSURL fileURLWithPath:filepath];
-    self.avPlayer = [AVPlayer playerWithURL:fileURL];
-    
-    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
-    self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
-    layer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-    [self.view.layer addSublayer: layer];
-    
-    [self.avPlayer play];
-    
-    self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerItemDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[self.avPlayer currentItem]];
-    
-}
-
-- (void)playerItemDidReachEnd:(NSNotification *)notification {
-    AVPlayerItem *p = [notification object];
-    [p seekToTime:kCMTimeZero];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -62,11 +35,9 @@
     
     RLMResults *newconsiger = [MDConsignor allObjectsInRealm:realm];
     if([newconsiger count] == 0){
-        
         user.phoneNumber = @"";
         user.password = @"";
         [self initIndexView];
-        
     } else {
         
         for(MDConsignor *tmp in newconsiger){
@@ -92,7 +63,7 @@
                                       
                                       [[MDUser getInstance] setLogin];
                                       
-                                      [self gotoDelivery];
+                                      [self goToMainView:self];
                                   } else {
                                       [self initIndexView];
                                   }
@@ -111,34 +82,72 @@
 }
 
 -(void) initIndexView{
+    [self initOpeningMovie];
     _indexView = [[MDIndexView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _indexView.delegate = self;
     [self.view addSubview:_indexView];
 }
 
+-(void) initOpeningMovie{
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"trux_bgvideo_portrait" ofType:@"mp4"];
+    NSURL *fileURL = [NSURL fileURLWithPath:filepath];
+    self.avPlayer = [AVPlayer playerWithURL:fileURL];
+    
+    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
+    self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    
+    layer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [self.view.layer addSublayer: layer];
+    
+    [self.avPlayer play];
+    
+    self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[self.avPlayer currentItem]];
+}
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    AVPlayerItem *p = [notification object];
+    [p seekToTime:kCMTimeZero];
+}
+- (void) releaseOpeningMovie{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.avPlayer pause];
+    self.avPlayer = nil;
+}
+
 #pragma indexDelegate
 -(void)signTouched {
-    MDPhoneViewController *phoneViewController = [[MDPhoneViewController alloc]init];
-    UINavigationController *signNavigationController = [[UINavigationController alloc]initWithRootViewController:phoneViewController];
-    [self presentViewController:signNavigationController animated:YES completion:nil];
+    _signNav = [[MDSignUpNavigationController alloc] init];
+    _signNav.sign_delegate = self;
+    [self presentViewController:_signNav animated:YES completion:nil];
 }
 
 -(void)loginTouched {
     MDLoginViewController *loginViewController = [[MDLoginViewController alloc]init];
-    UINavigationController *loginNavigationController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
-    [self presentViewController:loginNavigationController animated:YES completion:nil];
+    loginViewController.delegate = self;
+    _loginNav = [[UINavigationController alloc]initWithRootViewController:loginViewController];
+    [self presentViewController:_loginNav animated:YES completion:nil];
 }
 
--(void) gotoDelivery{
-    MDDeliveryViewController *dvc = [[MDDeliveryViewController alloc]init];
-    UINavigationController *dvcNavigationController = [[UINavigationController alloc]initWithRootViewController:dvc];
-    [self presentViewController:dvcNavigationController animated:NO completion:nil];
-//    MDCreateProfileViewController *cpv = [[MDCreateProfileViewController alloc]init];
-//    UINavigationController *dvcNavigationController = [[UINavigationController alloc]initWithRootViewController:cpv];
-//    [self presentViewController:dvcNavigationController animated:YES completion:nil];
-    
+-(void) goToMainView:(UIViewController *)viewController {
+    [self releaseOpeningMovie];
+    _mdViewController = [[MDViewController alloc]init];
+    _mdViewController.delegate = self;
+    if([viewController.navigationController isKindOfClass:[MDSignUpNavigationController class]]){
+        [viewController presentViewController:_mdViewController animated:YES completion:^{
+            [viewController.navigationController popToRootViewControllerAnimated:NO];
+        }];
+    }else{
+        [viewController presentViewController:_mdViewController animated:YES completion:nil];
+    }
 }
 
+-(void) closeAllView {
+    [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 @end

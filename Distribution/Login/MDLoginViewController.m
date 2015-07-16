@@ -100,10 +100,9 @@
                                                                        //
                                                                        [MDUser getInstance].userHash = [complete responseJSON][@"hash"];
                                                                        
-                                                                       MDDeliveryViewController *deliveryViewController = [[MDDeliveryViewController alloc]init];
-                                                                       UINavigationController *deliveryNavigationController = [[UINavigationController alloc]initWithRootViewController:deliveryViewController];
-                                                                       [self presentViewController:deliveryNavigationController animated:YES completion:nil];
-                                                                       
+                                                                       if([self.delegate respondsToSelector:@selector(goToMainView:)]){
+                                                                           [self.delegate goToMainView: self];
+                                                                       }
                                                                    } onError:^(MKNetworkOperation *operation, NSError *error) {
                                                                        //
                                                                    }];

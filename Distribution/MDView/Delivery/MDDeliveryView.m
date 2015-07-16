@@ -78,7 +78,7 @@
         
         //package moving buttons
         UIView *tabButtonView = [[UIView alloc]initWithFrame:CGRectMake(10, 10, frame.size.width-20, 80)];
-            //package
+        //package
         _packageButton = [[MDDeliveryKindButton alloc]initWithFrame:CGRectMake(0, 0, tabButtonView.frame.size.width/2, 80)];
         [_packageButton setActive];
         [_packageButton setIconImage:[UIImage imageNamed:@"packageIcon"]];
@@ -213,25 +213,25 @@
         
         [_scrollView setContentSize:CGSizeMake(frame.size.width, requestTerm.frame.origin.y + requestTerm.frame.size.height + 70)];
         
-        //tabbar
-        _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
-        //tab bar shadow
-        UIView *shadowView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0.5)];
-        [shadowView setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
-        [_tabbar addSubview:shadowView];
-        
-        //tab bar button
-        for (int i = 0; i < 3; i++) {
-            MDTabButton *tabButton = [[MDTabButton alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width / 3) * i, 0.5, ([UIScreen mainScreen].bounds.size.width / 3), 49.5) withTabType:i];
-            if (i == 1) {
-                [tabButton setButtonImage:YES];
-            } else {
-                [tabButton setButtonImage:NO];
-            }
-            [tabButton addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchDown];
-            [_tabbar addSubview:tabButton];
-        }
-        [self addSubview:_tabbar];
+//        //tabbar
+//        _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
+//        //tab bar shadow
+//        UIView *shadowView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0.5)];
+//        [shadowView setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
+//        [_tabbar addSubview:shadowView];
+//        
+//        //tab bar button
+//        for (int i = 0; i < 3; i++) {
+//            MDTabButton *tabButton = [[MDTabButton alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width / 3) * i, 0.5, ([UIScreen mainScreen].bounds.size.width / 3), 49.5) withTabType:i];
+//            if (i == 1) {
+//                [tabButton setButtonImage:YES];
+//            } else {
+//                [tabButton setButtonImage:NO];
+//            }
+//            [tabButton addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchDown];
+//            [_tabbar addSubview:tabButton];
+//        }
+//        [self addSubview:_tabbar];
         
     }
     return self;

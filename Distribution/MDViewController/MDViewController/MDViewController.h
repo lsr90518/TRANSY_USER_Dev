@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDDeliveryViewController.h"
+#import "MDRequestViewController.h"
+#import "MDSettingViewController.h"
 
-@interface MDViewController : UIViewController
+@protocol MDViewDelegate;
+
+@interface MDViewController : UIViewController<MDLogoutDelegate>
+@property (nonatomic, assign) id<MDViewDelegate> delegate;
+
+@end
+
+
+@protocol MDViewDelegate <NSObject>
+@optional
+-(void) closeAllView;
 
 @end

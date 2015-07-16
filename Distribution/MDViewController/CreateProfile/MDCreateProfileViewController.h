@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MDUtil.h"
 #import "MDCreateProfileView.h"
+#import "MDSignUpNavigationController.h"
 
 @interface MDCreateProfileViewController : UIViewController<CreateProfileViewDelegate, UINavigationControllerDelegate>
 

@@ -11,8 +11,15 @@
 #import "MDUtil.h"
 #import "MDUser.h"
 
+@protocol MDLogoutDelegate;
 @interface MDSettingViewController : UIViewController<MDSettingViewDelegate, UINavigationControllerDelegate>
-
 @property (strong, nonatomic) MDSettingView *settingView;
+@property (nonatomic, assign) id<MDLogoutDelegate> delegate;
+
+@end
+
+@protocol MDLogoutDelegate <NSObject>
+@optional
+-(void) logoutDone;
 
 @end

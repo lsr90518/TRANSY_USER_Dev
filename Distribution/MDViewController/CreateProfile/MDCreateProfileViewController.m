@@ -83,8 +83,10 @@
                                         if([[completeOperation responseJSON][@"code"] intValue] == 0){
                                             user.userHash = [completeOperation responseJSON][@"hash"];
                                             [user setLogin];
-                                            MDViewController *viewcontroller = [[MDViewController alloc]init];
-                                            [self presentViewController:viewcontroller animated:YES completion:nil];
+                                            MDSignUpNavigationController *signNav = (MDSignUpNavigationController *)self.navigationController;
+                                            if([signNav.sign_delegate respondsToSelector:@selector(goToMainView:)]){
+                                                [signNav.sign_delegate goToMainView:self];
+                                            }
                                         }else{
                                             [MDUtil makeAlertWithTitle:@"エラー" message:@"エラーが発生しました。最初からやり直してください。" done:@"OK" viewController:self];
                                         }

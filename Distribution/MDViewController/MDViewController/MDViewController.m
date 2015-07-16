@@ -7,9 +7,6 @@
 //
 
 #import "MDViewController.h"
-#import "MDDeliveryViewController.h"
-#import "MDRequestViewController.h"
-#import "MDSettingViewController.h"
 
 #import "MDTabButton.h"
 
@@ -48,14 +45,16 @@
     _deliveryViewController   =   [[MDDeliveryViewController    alloc]init];
     _requestViewController    =   [[MDRequestViewController     alloc]init];
     _settingViewController    =   [[MDSettingViewController     alloc]init];
+    _settingViewController.delegate = self;
     
     // navigation controller
-    UINavigationController *deliveryViewController  =   [[UINavigationController alloc]initWithRootViewController:_deliveryViewController];
-    UINavigationController *requestViewController   =   [[UINavigationController alloc]initWithRootViewController:_requestViewController];
-    UINavigationController *settingViewController   =   [[UINavigationController alloc]initWithRootViewController:_settingViewController];
+    UINavigationController *deliveryNavigationController  =   [[UINavigationController alloc]initWithRootViewController:_deliveryViewController];
+    UINavigationController *requestNavigationController   =   [[UINavigationController alloc]initWithRootViewController:_requestViewController];
+    UINavigationController *settingNavigationController   =   [[UINavigationController alloc]initWithRootViewController:_settingViewController];
+    
     
     // tab view controller
-    _tabController.viewControllers = @[requestViewController,deliveryViewController,settingViewController];
+    _tabController.viewControllers = @[requestNavigationController, deliveryNavigationController, settingNavigationController];
     [self.view addSubview:_tabController.view];
     
     
@@ -114,6 +113,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)logoutDone {
+    if([self.delegate respondsToSelector:@selector(closeAllView)]){
+        [self.delegate closeAllView];
+    }
 }
 
 

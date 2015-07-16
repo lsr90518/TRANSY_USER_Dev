@@ -139,6 +139,7 @@
 		4842D3301B02F307002A4770 /* MDCreditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4842D32F1B02F307002A4770 /* MDCreditView.m */; };
 		4873BCEC1AE8E3F6001C4F72 /* MDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */; };
 		4873BCF21AE8E800001C4F72 /* MDPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */; };
+		48BB7EE91B57F7D30071E5C0 /* MDSignUpNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48BB7EE81B57F7D30071E5C0 /* MDSignUpNavigationController.m */; };
 		8367BC341AEF4C7900B99B8C /* MDPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8367BC331AEF4C7900B99B8C /* MDPicker.m */; };
 		83BA05DD1B0C7E7A00D23883 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA05DC1B0C7E7A00D23883 /* Crashlytics.framework */; };
 		83F460491B0C2101004E9215 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F460481B0C2101004E9215 /* Fabric.framework */; };
@@ -382,6 +383,8 @@
 		4873BCEB1AE8E3F6001C4F72 /* MDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDWebViewController.m; path = MDViewController/MDWebViewController/MDWebViewController.m; sourceTree = "<group>"; };
 		4873BCF01AE8E800001C4F72 /* MDPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPaymentViewController.h; path = MDViewController/Payment/MDPaymentViewController.h; sourceTree = "<group>"; };
 		4873BCF11AE8E800001C4F72 /* MDPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPaymentViewController.m; path = MDViewController/Payment/MDPaymentViewController.m; sourceTree = "<group>"; };
+		48BB7EE71B57F7D30071E5C0 /* MDSignUpNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDSignUpNavigationController.h; path = MDViewController/Index/MDSignUpNavigationController.h; sourceTree = "<group>"; };
+		48BB7EE81B57F7D30071E5C0 /* MDSignUpNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDSignUpNavigationController.m; path = MDViewController/Index/MDSignUpNavigationController.m; sourceTree = "<group>"; };
 		8367BC321AEF4C7900B99B8C /* MDPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDPicker.h; path = MDView/Picker/MDPicker.h; sourceTree = "<group>"; };
 		8367BC331AEF4C7900B99B8C /* MDPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDPicker.m; path = MDView/Picker/MDPicker.m; sourceTree = "<group>"; };
 		83BA05DC1B0C7E7A00D23883 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -480,6 +483,8 @@
 			children = (
 				0D0FD5481AD8EC2A00615C24 /* MDIndexViewController.h */,
 				0D0FD5491AD8EC2A00615C24 /* MDIndexViewController.m */,
+				48BB7EE71B57F7D30071E5C0 /* MDSignUpNavigationController.h */,
+				48BB7EE81B57F7D30071E5C0 /* MDSignUpNavigationController.m */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -1478,6 +1483,7 @@
 				0D5A37F61AC981EB0062F0C1 /* MDSelect.m in Sources */,
 				0DC16F891AC5508D0066FA0C /* MDRequestView.m in Sources */,
 				0DAA26FF1AFE10D600AFD83A /* MDReviewWell.m in Sources */,
+				48BB7EE91B57F7D30071E5C0 /* MDSignUpNavigationController.m in Sources */,
 				0D0FD5AC1ADEB50E00615C24 /* MDRecieveTimeViewController.m in Sources */,
 				0D0FD57A1AD9F73C00615C24 /* MDUser.m in Sources */,
 				0D0FD5B01ADFFBF500615C24 /* MDExpireViewController.m in Sources */,

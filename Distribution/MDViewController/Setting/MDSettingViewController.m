@@ -145,10 +145,12 @@
     
     [[MDUser getInstance] clearData];
     
-    [SVProgressHUD dismiss];
-    MDIndexViewController *ivc = [[MDIndexViewController alloc]init];
-    [self presentViewController:ivc animated:NO completion:nil];
-    
+//    [SVProgressHUD dismiss];
+//    MDIndexViewController *ivc = [[MDIndexViewController alloc]init];
+//    [self presentViewController:ivc animated:NO completion:nil];
+    if([self.delegate respondsToSelector:@selector(logoutDone)]){
+        [self.delegate logoutDone];
+    }
 }
 
 -(void) privacyButtonPushed{

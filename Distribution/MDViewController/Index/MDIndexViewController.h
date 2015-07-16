@@ -11,13 +11,18 @@
 #import "MDPhoneViewController.h"
 #import "MDLoginViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "MDDeliveryViewController.h"
+#import "MDViewController.h"
+#import "MDCreateProfileViewController.h"
+#import "MDSignUpNavigationController.h"
 
-@interface MDIndexViewController : UIViewController<indexDelegate>
+
+@interface MDIndexViewController : UIViewController<indexDelegate, MDViewDelegate, MDLoginDelegate, MDSignUpDelegate>
 
 @property (strong, nonatomic) MDIndexView *indexView;
-
 @property (strong, nonatomic) AVPlayer    *avPlayer;
+@property (strong, nonatomic) UINavigationController *loginNav;
+@property (strong, nonatomic) MDSignUpNavigationController *signNav;
+@property (strong, nonatomic) MDViewController *mdViewController;
 
 
 @end
