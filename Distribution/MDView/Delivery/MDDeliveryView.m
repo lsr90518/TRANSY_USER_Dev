@@ -61,12 +61,6 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         self.frameColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1];
         _frameWidth = 0.5;
-        //post Button
-        _postButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_postButton setTitle:@"以下で依頼" forState:UIControlStateNormal];
-        _postButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
-        _postButton.frame = CGRectMake(0, 0, 60, 44);
-        [_postButton addTarget:self action:@selector(postButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         
         //scroll view
         _scrollView = [[UIScrollView alloc]initWithFrame:frame];
@@ -211,28 +205,18 @@
         [requestTerm addTarget:self action:@selector(pickerButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:requestTerm];
         
-        [_scrollView setContentSize:CGSizeMake(frame.size.width, requestTerm.frame.origin.y + requestTerm.frame.size.height + 70)];
+        //post Button
+        _postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_postButton setTitle:@"依頼する" forState:UIControlStateNormal];
+        [_postButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_postButton.titleLabel setFont: [UIFont fontWithName:@"HiraKakuProN-W3" size:18]];
+        [_postButton setBackgroundColor:[MDUtil getThemeColor]];
+        [_postButton.layer setCornerRadius:2.5];
+        [_postButton setFrame:CGRectMake(10, requestTerm.frame.origin.y+requestTerm.frame.size.height+10, frame.size.width-20, 50)];
+        [_postButton addTarget:self action:@selector(postButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:_postButton];
         
-//        //tabbar
-//        _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
-//        //tab bar shadow
-//        UIView *shadowView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0.5)];
-//        [shadowView setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
-//        [_tabbar addSubview:shadowView];
-//        
-//        //tab bar button
-//        for (int i = 0; i < 3; i++) {
-//            MDTabButton *tabButton = [[MDTabButton alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width / 3) * i, 0.5, ([UIScreen mainScreen].bounds.size.width / 3), 49.5) withTabType:i];
-//            if (i == 1) {
-//                [tabButton setButtonImage:YES];
-//            } else {
-//                [tabButton setButtonImage:NO];
-//            }
-//            [tabButton addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchDown];
-//            [_tabbar addSubview:tabButton];
-//        }
-//        [self addSubview:_tabbar];
-        
+        [_scrollView setContentSize:CGSizeMake(frame.size.width, _postButton.frame.origin.y + _postButton.frame.size.height + 70)];
     }
     return self;
 }
@@ -496,19 +480,6 @@
         [self.delegate gotoDestinationAddressView];
     }
     
-}
-
--(void) changeTab:(MDTabButton *)button {
-    switch (button.type) {
-        case 0:
-            [self gotoRequestView];
-            break;
-        case 2:
-            [self gotoSettingView];
-            break;
-        default:
-            break;
-    }
 }
 
 -(void) gotoRequestView{

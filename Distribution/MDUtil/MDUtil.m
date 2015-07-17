@@ -62,7 +62,7 @@
     }else if(user.credit == 1){
         return @"認証済みのカード";
     }else{
-        return @"";     // web view
+        return @"認証済みのカード";     // web view(透明になるはず)
     }
 }
 +(float)getPaymentSelectLabelAlpha {
@@ -86,6 +86,10 @@
     }else{
         return [UIColor clearColor];     // web view
     }
+}
+
++(UIColor *)getThemeColor {
+    return [UIColor colorWithRed:67.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0];
 }
 
 +(float)getOSVersion {

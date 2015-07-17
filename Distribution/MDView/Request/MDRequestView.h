@@ -16,7 +16,7 @@
 @interface MDRequestView : UIView<MDRequestTableViewDelegate>
 
 @property (strong, nonatomic) MDRequestTableView        *requestTableView;
-@property (strong, nonatomic) UIView                    *tabbar;
+//@property (strong, nonatomic) UIView                    *tabbar;
 
 @property (nonatomic, assign) id<MDRequestViewDelegate>   delegate;
 

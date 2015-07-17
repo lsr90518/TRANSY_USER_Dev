@@ -89,6 +89,7 @@
 }
 
 -(void) initOpeningMovie{
+    if(self.avPlayer)return;
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"trux_bgvideo_portrait" ofType:@"mp4"];
     NSURL *fileURL = [NSURL fileURLWithPath:filepath];
     self.avPlayer = [AVPlayer playerWithURL:fileURL];
@@ -134,14 +135,14 @@
 
 -(void) goToMainView:(UIViewController *)viewController {
     [self releaseOpeningMovie];
-    _mdViewController = [[MDViewController alloc]init];
-    _mdViewController.delegate = self;
+    _mdMainNavigationController = [[MDMainNavigationController alloc]init];
+    _mdMainNavigationController.main_delegate = self;
     if([viewController.navigationController isKindOfClass:[MDSignUpNavigationController class]]){
-        [viewController presentViewController:_mdViewController animated:YES completion:^{
+        [viewController presentViewController:_mdMainNavigationController animated:YES completion:^{
             [viewController.navigationController popToRootViewControllerAnimated:NO];
         }];
     }else{
-        [viewController presentViewController:_mdViewController animated:YES completion:nil];
+        [viewController presentViewController:_mdMainNavigationController animated:YES completion:nil];
     }
 }
 

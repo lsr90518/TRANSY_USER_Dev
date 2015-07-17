@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Lsr. All rights reserved.
 //
 
-#import "MDSettingViewController.h"
+#import "MDMainNavigationController.h"
 #import "MDPhoneNumberSettingViewController.h"
 #import "MDNameSettingViewController.h"
 #import "MDPhoneViewController.h"
@@ -40,6 +40,12 @@
     [super loadView];
     self.navigationItem.title = @"設定";
     self.navigationController.delegate = self;
+    
+    //add right button item
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"閉じる" style:UIBarButtonItemStylePlain target:self action:@selector(gotoRequestView)];
+    [rightBarButton setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    
     _settingView = [[MDSettingView alloc]initWithFrame:self.view.frame];
     _settingView.delegate = self;
     [self.view addSubview:_settingView];
@@ -94,7 +100,7 @@
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
     // NSLog(@"navigationController delegate called!");
-    MDSelect *pay = (MDSelect *)[_settingView.scrollView viewWithTag:paymentSelect];
+    MDSelect *pay = _settingView.pay; // (MDSelect *)[_settingView.scrollView viewWithTag:paymentSelect];
     if(pay){
         [pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];
         [pay.selectLabel setAlpha:[MDUtil getPaymentSelectLabelAlpha]];
@@ -108,9 +114,7 @@
     [self presentViewController:rvcNavigationController animated:NO completion:nil];
 }
 -(void) gotoRequestView {
-    MDRequestViewController *rvc = [[MDRequestViewController alloc]init];
-    UINavigationController *rvcNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
-    [self presentViewController:rvcNavigationController animated:NO completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) notificationButtonPushed {
@@ -146,10 +150,10 @@
     [[MDUser getInstance] clearData];
     
 //    [SVProgressHUD dismiss];
-//    MDIndexViewController *ivc = [[MDIndexViewController alloc]init];
-//    [self presentViewController:ivc animated:NO completion:nil];
-    if([self.delegate respondsToSelector:@selector(logoutDone)]){
-        [self.delegate logoutDone];
+    if(self.mainNav){
+        if([self.mainNav isKindOfClass:[MDMainNavigationController class]]){
+            [self.mainNav logoutDone];
+        }
     }
 }
 

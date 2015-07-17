@@ -83,7 +83,7 @@
     }
     [body deleteCharactersInRange:NSMakeRange([body length]-1, 1)];
     
-    NSLog(@"URL: %@\n Body: %@", url, body);
+//    NSLog(@"URL: %@\n Body: %@", url, body);
     req.HTTPBody = [body dataUsingEncoding: NSUTF8StringEncoding];
     
     // リクエストを投げる
@@ -97,8 +97,8 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
 navigationType:(UIWebViewNavigationType)navigationType
 {
-     NSLog(@"request sent. scheme: %@, host: %@", request.URL.scheme, request.URL.host);
-    // schemeがnative だった場合
+    // NSLog(@"request sent. scheme: %@, host: %@", request.URL.scheme, request.URL.host);
+    // schemeがauth だった場合
     if ([ request.URL.scheme isEqualToString:@"auth" ] && [request.URL.host isEqualToString:@"hasNoAuthorizedCard"]) {
         if([self.creditDelegate respondsToSelector:@selector(hasNoAuthorizedCard)]){
             [self.creditDelegate hasNoAuthorizedCard];

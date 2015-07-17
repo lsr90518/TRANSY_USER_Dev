@@ -67,7 +67,7 @@
 navigationType:(UIWebViewNavigationType)navigationType
 {
     // NSLog([NSString stringWithFormat:@"request sent. scheme: %@, host: %@", request.URL.scheme, request.URL.host]);
-    // schemeがnative だった場合
+    // schemeがauth だった場合
     if ([ request.URL.scheme isEqualToString:@"auth" ]) {
         [ self paymentAuthComplete: request ];
         // WebViewの読み込みは中断する。
@@ -101,7 +101,7 @@ navigationType:(UIWebViewNavigationType)navigationType
     MDUser *user = [MDUser getInstance];
     [user initDataClear];
     // 検証用クレジットカード番号
-    // 9191753589464621
+    // 9191-7535-8946-4621
     // 有効期限(12/16)
     // 名義は任意の文字列
     // for debug page: @"https://modelor.com/TRANSY/credit_test"
@@ -145,7 +145,7 @@ navigationType:(UIWebViewNavigationType)navigationType
         _cardInfo = info;
     }
     else {
-        NSLog(@"User cancelled payment info");
+        // NSLog(@"User cancelled payment info");
         [cardIOView removeFromSuperview];
         [self.navigationController popViewControllerAnimated:YES];
         return;

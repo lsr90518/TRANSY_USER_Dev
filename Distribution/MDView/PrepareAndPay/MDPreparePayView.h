@@ -18,7 +18,7 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIButton *postButton;
 @property (strong, nonatomic) UIButton *backButton;
-
+@property (strong, nonatomic) MDSelect *pay;
 
 @property (nonatomic, assign) id<PreparePayViewDelegate> delegate;
 

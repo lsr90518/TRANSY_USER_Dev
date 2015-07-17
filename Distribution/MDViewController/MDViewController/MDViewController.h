@@ -13,7 +13,7 @@
 
 @protocol MDViewDelegate;
 
-@interface MDViewController : UIViewController<MDLogoutDelegate>
+@interface MDViewController : UIViewController
 @property (nonatomic, assign) id<MDViewDelegate> delegate;
 
 @end

@@ -208,7 +208,7 @@
     [SVProgressHUD show];
     //call api
     [[MDAPI sharedAPI] cancelMyPackageWithHash:[MDUser getInstance].userHash
-                                       Package:_package
+                                     packageId:_package.package_id
                                     OnComplete:^(MKNetworkOperation *complete) {
                                         //
                                         [SVProgressHUD dismiss];

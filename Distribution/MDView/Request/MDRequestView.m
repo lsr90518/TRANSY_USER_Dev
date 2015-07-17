@@ -7,6 +7,7 @@
 //
 
 #import "MDRequestView.h"
+#import "MDUtil.h"
 #import <MJRefresh.h>
 
 @implementation MDRequestView
@@ -27,54 +28,30 @@
         _requestTableView = [[MDRequestTableView alloc]initWithFrame:CGRectMake(frame.origin.x,
                                                                                 frame.origin.y,
                                                                                 frame.size.width,
-                                                                                frame.size.height-50)];
-        
-        //call api
-        
+                                                                                frame.size.height)];
         [self addSubview:_requestTableView];
         _requestTableView.requestTableViewDelegate = self;
         
         [_requestTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
         _requestTableView.header.updatedTimeHidden = YES;
         
-        //tabbar
-        _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
-        //tab bar shadow
-        UIView *shadowView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0.5)];
-        [shadowView setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
-        [_tabbar addSubview:shadowView];
+        // Add Package Butotn
+        UIButton *addPackageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [addPackageButton setFrame:CGRectMake(frame.size.width-70, frame.size.height-70, 50, 50)];
+        [addPackageButton.layer setCornerRadius:25.0];
+        [addPackageButton.layer setBorderWidth:1.0];
+        [addPackageButton.layer setBorderColor:[[MDUtil getThemeColor] CGColor]];
+        [addPackageButton setImage:[UIImage imageNamed:@"delivery_tab_unactive"] forState:UIControlStateNormal];
+        [addPackageButton setBackgroundColor:[UIColor whiteColor]];
+        [addPackageButton addTarget:self action:@selector(gotoDeliveryView) forControlEvents:UIControlEventTouchUpInside];
         
-        //tab bar button
-        for (int i = 0; i < 3; i++) {
-            MDTabButton *tabButton = [[MDTabButton alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width / 3) * i, 0.5, ([UIScreen mainScreen].bounds.size.width / 3), 49.5) withTabType:i];
-            if (i == 0) {
-                [tabButton setButtonImage:YES];
-            } else {
-                [tabButton setButtonImage:NO];
-            }
-            [tabButton addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchDown];
-            [_tabbar addSubview:tabButton];
-        }
-        [self addSubview:_tabbar];
+        [self addSubview: addPackageButton];
     }
     return self;
 }
 
 -(void) initWithArray:(NSArray *)array{
     [_requestTableView initWithArray:array];
-}
-
--(void) changeTab:(MDTabButton *)button {
-    switch (button.type) {
-        case 1:
-            [self gotoDeliveryView];
-            break;
-        case 2:
-            [self gotoSettingView];
-            break;
-        default:
-            break;
-    }
 }
 
 -(void) gotoDeliveryView{

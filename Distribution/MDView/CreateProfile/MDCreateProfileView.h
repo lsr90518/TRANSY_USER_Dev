@@ -11,6 +11,7 @@
 #import "MDInput.h"
 #import "MDSelect.h"
 #import "MDCreditView.h"
+#import "MDUser.h"
 
 @protocol CreateProfileViewDelegate;
 

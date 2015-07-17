@@ -19,9 +19,8 @@
 @interface MDSettingView : UIView <UIScrollViewAccessibilityDelegate, UIScrollViewDelegate, MDCreditViewDelegate>
 
 @property (strong, nonatomic) UIScrollView  *scrollView;
-@property (strong, nonatomic) UIView        *tabbar;
-
 @property (nonatomic, assign) id<MDSettingViewDelegate> delegate;
+@property (strong, nonatomic) MDSelect *pay;
 
 -(void) setViewData:(MDUser *)data;
 -(void) setRating:(int)star;

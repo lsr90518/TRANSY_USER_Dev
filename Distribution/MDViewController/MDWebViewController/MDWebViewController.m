@@ -53,7 +53,7 @@
     }
     [body deleteCharactersInRange:NSMakeRange([body length]-1, 1)];
     
-    NSLog(@"URL: %@\n Body: %@", url, body);
+    // NSLog(@"URL: %@\n Body: %@", url, body);
     req.HTTPBody = [body dataUsingEncoding: NSUTF8StringEncoding];
     
     // リクエストを投げる

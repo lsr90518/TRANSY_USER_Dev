@@ -78,7 +78,14 @@ static CGRect oldframe;
 
 #pragma PreparePayView
 -(void)backButtonPushed {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // cancel back
+    MDUser *user = [MDUser getInstance];
+    [user initDataClear];
+    [[MDAPI sharedAPI] cancelMyPackageWithHash:user.userHash
+                                     packageId:[MDCurrentPackage getInstance].package_id
+                                    OnComplete:nil
+                                       onError:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void) cameraButtonTouched {
@@ -156,7 +163,7 @@ static CGRect oldframe;
 - (void)navigationController:(UINavigationController *)navigationController
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
-    MDSelect *pay = (MDSelect *)[_preparePayView.scrollView viewWithTag:paymentSelect];
+    MDSelect *pay = _preparePayView.pay;
     if(pay){
         [pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];
         [pay.selectLabel setAlpha:[MDUtil getPaymentSelectLabelAlpha]];

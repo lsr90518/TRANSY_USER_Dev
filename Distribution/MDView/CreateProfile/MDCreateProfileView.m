@@ -48,7 +48,6 @@
         _creditButton.buttonTitle.text = @"お支払い方法";
         [_creditButton.buttonTitle sizeToFit];
         _creditButton.selectLabel.text = [MDUtil getPaymentSelectLabel];
-        [_creditButton setTag:paymentSelect];
         [_creditButton addTarget:self action:@selector(showCreditView) forControlEvents:UIControlEventTouchUpInside];
         [_creditButton.selectLabel setAlpha: 0.0f];
         [_scrollView addSubview:_creditButton];
@@ -189,6 +188,8 @@
  * MDCreditViewDelegate
  */
 -(void)hasNoAuthorizedCard {
+    [[MDUser getInstance] setCredit:0];
+    [_creditButton.selectLabel setText:[MDUtil getPaymentSelectLabel]];
     [_creditButton.selectLabel setAlpha: 1.0f];
 }
 

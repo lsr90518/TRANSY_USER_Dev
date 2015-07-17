@@ -276,13 +276,13 @@
 }
 
 -(void) cancelMyPackageWithHash:(NSString *)hash
-                        Package:(MDPackage *)package
+                      packageId:(NSString *)package_id
                      OnComplete:(void (^)(MKNetworkOperation *))complete
                         onError:(void (^)(MKNetworkOperation *, NSError *))error{
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:hash forKey:@"hash"];
     [dic setObject:USER_DEVICE forKey:@"client"];
-    [dic setObject:package.package_id forKey:@"package_id"];
+    [dic setObject:package_id forKey:@"package_id"];
     
     [self callApi:dic
           withUrl:API_CANCEL_MY_PACKAGE

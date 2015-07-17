@@ -14,7 +14,6 @@
     MDSelectRating *averageButton;
     MDSelect *nameButton;
     MDCreditView *payInner;
-    MDSelect *pay;
     MDSelect *phoneButton;
     MDSelect *blockButton;
     UIButton *logoutButton;
@@ -36,7 +35,7 @@
         [user initDataClear];
         
         //scroll view
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height-50)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height)];
         _scrollView.scrollEnabled = YES;
         _scrollView.delegate = self;
         [_scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height)];
@@ -75,16 +74,15 @@
         [_scrollView addSubview:payInner];
         
         //pay button
-        pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneButton.frame.origin.y + phoneButton.frame.size.height + 10, frame.size.width-20, 50)];
-        pay.buttonTitle.text = @"お支払い方法";
-        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
-        [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-        [pay setTag:paymentSelect];
-        [pay.selectLabel setAlpha: 0.0f];
-        [_scrollView addSubview:pay];
+        _pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneButton.frame.origin.y + phoneButton.frame.size.height + 10, frame.size.width-20, 50)];
+        _pay.buttonTitle.text = @"お支払い方法";
+        _pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+        [_pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_pay.selectLabel setAlpha: 0.0f];
+        [_scrollView addSubview:_pay];
         
         UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        creditAutoCompletionButton.frame = CGRectMake(30, pay.frame.origin.y + pay.frame.size.height + 8, frame.size.width-60, 15);
+        creditAutoCompletionButton.frame = CGRectMake(30, _pay.frame.origin.y + _pay.frame.size.height + 8, frame.size.width-60, 15);
         creditAutoCompletionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [creditAutoCompletionButton setTitle:@">クレジットカードのスキャン入力" forState:UIControlStateNormal];
         [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
@@ -137,27 +135,6 @@
         [_scrollView addSubview:logoutButton];
         [_scrollView setContentSize:CGSizeMake(frame.size.width, logoutButton.frame.origin.y + logoutButton.frame.size.height + 10)];
         
-        
-        //tabbar
-        _tabbar = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-50, frame.size.width, 50)];
-        //tab bar shadow
-        UIView *shadowView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0.5)];
-        [shadowView setBackgroundColor:[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1]];
-        [_tabbar addSubview:shadowView];
-        
-        //tab bar button
-        for (int i = 0; i < 3; i++) {
-            MDTabButton *tabButton = [[MDTabButton alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width / 3) * i, 0.5, ([UIScreen mainScreen].bounds.size.width / 3), 49.5) withTabType:i];
-            if (i == 2) {
-                [tabButton setButtonImage:YES];
-            } else {
-                [tabButton setButtonImage:NO];
-            }
-            [tabButton addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchDown];
-            [_tabbar addSubview:tabButton];
-        }
-        [self addSubview:_tabbar];
-        
     }
     return self;
 }
@@ -194,19 +171,6 @@
 -(void) blockDriverTouched {
     if([self.delegate respondsToSelector:@selector(blockDriverPushed)]){
         [self.delegate blockDriverPushed];
-    }
-}
-
--(void) changeTab:(MDTabButton *)button {
-    switch (button.type) {
-        case 0:
-            [self gotoRequestView];
-            break;
-        case 1:
-            [self gotoDeliveryView];
-            break;
-        default:
-            break;
     }
 }
 
@@ -282,7 +246,9 @@
  * MDCreditViewDelegate
  */
 -(void)hasNoAuthorizedCard {
-    [pay.selectLabel setAlpha: 1.0f];
+    [[MDUser getInstance] setCredit:0];
+    [_pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];
+    [_pay.selectLabel setAlpha: 1.0f];
 }
 
 

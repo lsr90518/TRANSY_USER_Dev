@@ -116,7 +116,7 @@
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
     // NSLog(@"navigationController delegate called!");
-    MDSelect *pay = (MDSelect *)[_createProfileView.scrollView viewWithTag:paymentSelect];
+    MDSelect *pay = _createProfileView.creditButton;
     if(pay){
         // NSLog(@"pay changed!");
         [pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];

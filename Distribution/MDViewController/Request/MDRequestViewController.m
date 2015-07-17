@@ -62,6 +62,9 @@
 -(void) initNavigationBar {
     self.navigationItem.title = @"依頼一覧";
     self.navigationItem.hidesBackButton = YES;
+    //add right button item
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"setting_tab_active"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(gotoSettingView)];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,14 +75,14 @@
 -(void) gotoDeliveryView{
     MDDeliveryViewController *dvc = [[MDDeliveryViewController alloc]init];
     UINavigationController *dvcNavigationController = [[UINavigationController alloc]initWithRootViewController:dvc];
-    [self presentViewController:dvcNavigationController animated:NO completion:nil];
+    [self presentViewController:dvcNavigationController animated:YES completion:nil];
 }
 
 -(void) gotoSettingView {
     MDSettingViewController *dvc = [[MDSettingViewController alloc]init];
-    UINavigationController *dvcNavigationController = [[UINavigationController alloc]initWithRootViewController:dvc];
-    [self presentViewController:dvcNavigationController animated:NO completion:nil];
-    
+    dvc.mainNav = (MDMainNavigationController *)self.navigationController;
+    UINavigationController *settingNav = [[UINavigationController alloc] initWithRootViewController:dvc];
+    [self presentViewController:settingNav animated:YES completion:nil];
 }
 
 -(void) makeUpData:(MDPackage *)data{

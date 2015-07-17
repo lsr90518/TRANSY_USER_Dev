@@ -101,7 +101,7 @@
                       onError:(void (^)(MKNetworkOperation *, NSError *))error;
 
 -(void) cancelMyPackageWithHash:(NSString *)hash
-                        Package:(MDPackage *)package
+                      packageId:(NSString *)package_id
                      OnComplete:(void (^)(MKNetworkOperation *))complete
                         onError:(void (^)(MKNetworkOperation *, NSError *))error;
 

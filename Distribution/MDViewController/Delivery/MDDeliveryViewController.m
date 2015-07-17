@@ -44,14 +44,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    
     [_deliveryView initViewData:[MDCurrentPackage getInstance]];
-    //update data
-    //5.30
-    [self updateMyPackageData];
-    
-    //
-    [self sendToken];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -70,7 +63,8 @@
 -(void) initNavigationBar {
     self.navigationItem.title = @"配送の依頼";
     //add right button item
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:_deliveryView.postButton];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"キャンセル" style:UIBarButtonItemStylePlain target:self action:@selector(gotoRequestView)];
+    [rightBarButton setTintColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
@@ -84,7 +78,6 @@
 -(void) postRequest {
     // 接下来做/packages/user/register
     //package_number
-    MDCurrentPackage *package = [MDCurrentPackage getInstance];
 
     NSString *result = [_deliveryView checkInput];
     if (![result isEqualToString:@""] || ![[MDCurrentPackage getInstance] isAllInput]) {
@@ -97,32 +90,30 @@
         [[MDAPI sharedAPI] registerBaggageWithHash:[MDUser getInstance].userHash
                                         OnComplete:^(MKNetworkOperation *completeOperation) {
                                             
-                                            NSLog(@"%@", [completeOperation responseJSON]);
+                                            // NSLog(@"%@", [completeOperation responseJSON]);
                                             
-                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                 // time-consuming task
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     [SVProgressHUD dismiss];
                                                 });
-                                           });
+                                            });
                                            
-                                           if([[completeOperation responseJSON][@"code"] integerValue] == 0){
-                                               NSLog(@"%@", [completeOperation responseJSON]);
+                                            if([[completeOperation responseJSON][@"code"] integerValue] == 0){
                                                [MDCurrentPackage getInstance].package_id        =   [completeOperation responseJSON][@"package_id"];
                                                [MDCurrentPackage getInstance].package_number    =   [completeOperation responseJSON][@"package_number"];
                                         
                                                MDPreparePayViewController * preparePayViewController = [[MDPreparePayViewController alloc]init];
                                                
-                                               UINavigationController *prepareNavigationController = [[UINavigationController alloc]initWithRootViewController:preparePayViewController];
-                                               [self presentViewController:prepareNavigationController animated:YES completion:nil];
+                                               [self.navigationController pushViewController:preparePayViewController animated:YES];
                                                
-                                           } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
+                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 2){
 //                                              //警告
                                                [MDUtil makeAlertWithTitle:@"荷物登録失敗" message:@"改めてログインしてください。" done:@"OK" viewController:self];
-                                           } else if ([[completeOperation responseJSON][@"code"] integerValue] == 3){
+                                            } else if ([[completeOperation responseJSON][@"code"] integerValue] == 3){
                                                //
                                                [MDUtil makeAlertWithTitle:@"依頼可能エリア外" message:@"申し訳ございません。現在は、預かり先、お届け先ともに東京都23区のみのテストリリースとなっております。ご指定のエリアは、開放されるまで今しばらくお待ちください。" done:@"OK" viewController:self];
-                                           }
+                                            }
                                        
                                        } onError:^(MKNetworkOperation *completeOperarion, NSError *error){
                                          NSLog(@"error --------------  %@", error);
@@ -173,9 +164,8 @@
 }
 
 -(void) gotoRequestView{
-    MDRequestViewController *rvc = [[MDRequestViewController alloc]init];
-    UINavigationController *rNavigationController = [[UINavigationController alloc]initWithRootViewController:rvc];
-    [self presentViewController:rNavigationController animated:NO completion:nil];
+    // cancel
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) gotoSettingView {
@@ -199,27 +189,7 @@
     [self.navigationController pushViewController:sdvc animated:YES];
 }
 
--(void) updateMyPackageData {
-    [[MDAPI sharedAPI] getMyPackageWithHash:[MDUser getInstance].userHash
-                                 OnComplete:^(MKNetworkOperation *complete) {
-                                     //
-                                     packageService = [MDPackageService getInstance];
-                                     [packageService initDataWithArray:[complete responseJSON][@"Packages"]];
-                                     
-                                 } onError:^(MKNetworkOperation *operation, NSError *error) {
-                                     //
-                                 }];
-    
-//    [[MDAPI sharedAPI] getAllNotificationWithHash:[MDUser getInstance].userHash
-//                                       OnComplete:^(MKNetworkOperation *complete) {
-//                                           if([[complete responseJSON][@"code"] intValue] == 0){
-//                                               notificationService = [MDNotificationService getInstance];
-//                                               [notificationService initWithDataArray:[complete responseJSON][@"Notifications"]];
-//                                           }
-//                                       } onError:^(MKNetworkOperation *operation, NSError *error) {
-//                                           
-//                                       }];
-}
+
 
 -(NSMutableArray *) loadDataFromDB{
     
@@ -263,16 +233,6 @@
                                     } onError:^(MKNetworkOperation *operation, NSError *error) {
                                         
                                     }];
-}
-
--(void) sendToken{
-    [[MDAPI sharedAPI] updateProfileByUser:[MDUser getInstance]
-                              sendPassword:NO
-                                onComplete:^(MKNetworkOperation *complete) {
-        //
-    } onError:^(MKNetworkOperation *operation, NSError *error) {
-        //
-    }];
 }
 
 @end

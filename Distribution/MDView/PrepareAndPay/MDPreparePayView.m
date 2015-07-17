@@ -19,7 +19,6 @@
     UIImageView *cameraIcon;
     MDSelect *phoneNumber;
     MDSelect *requestPerson;
-    MDSelect *pay;
     BOOL isChecked;
 }
 
@@ -35,7 +34,6 @@
         
         _scrollView = [[UIScrollView alloc]initWithFrame:frame];
         _scrollView.delegate = self;
-        [_scrollView setContentSize:CGSizeMake(frame.size.width, 780)];
         [_scrollView setBackgroundColor:[UIColor whiteColor]];
         [_scrollView setScrollEnabled:YES];
         [self addSubview:_scrollView];
@@ -117,16 +115,15 @@
         payInner.creditDelegate = self;
         [_scrollView addSubview:payInner];
         
-        pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneNumber.frame.origin.y + phoneNumber.frame.size.height + 10, frame.size.width-20, 50)];
-        pay.buttonTitle.text = @"お支払い方法";
-        pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
-        [pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-        [pay setTag:paymentSelect];
-        [pay.selectLabel setAlpha: 0.0f];
-        [_scrollView addSubview:pay];
+        _pay = [[MDSelect alloc]initWithFrame:CGRectMake(10, phoneNumber.frame.origin.y + phoneNumber.frame.size.height + 10, frame.size.width-20, 50)];
+        _pay.buttonTitle.text = @"お支払い方法";
+        _pay.selectLabel.text = [MDUtil getPaymentSelectLabel];
+        [_pay addTarget:self action:@selector(paymentButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [_pay.selectLabel setAlpha: 0.0f];
+        [_scrollView addSubview:_pay];
         
         UIButton *creditAutoCompletionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        creditAutoCompletionButton.frame = CGRectMake(30, pay.frame.origin.y + pay.frame.size.height + 8, frame.size.width-60, 15);
+        creditAutoCompletionButton.frame = CGRectMake(30, _pay.frame.origin.y + _pay.frame.size.height + 8, frame.size.width-60, 15);
         creditAutoCompletionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [creditAutoCompletionButton setTitle:@">クレジットカードのスキャン入力" forState:UIControlStateNormal];
         [creditAutoCompletionButton setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
@@ -174,6 +171,7 @@
         [_postButton addTarget:self action:@selector(postButtonPushed) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:self.postButton];
         
+        [_scrollView setContentSize:CGSizeMake(frame.size.width, _postButton.frame.origin.y + _postButton.frame.size.height + 70)];
         
     }
     return self;
@@ -278,7 +276,9 @@
  * MDCreditViewDelegate
  */
 -(void)hasNoAuthorizedCard {
-    [pay.selectLabel setAlpha: 1.0f];
+    [[MDUser getInstance] setCredit:0];
+    [_pay.selectLabel setText:[MDUtil getPaymentSelectLabel]];
+    [_pay.selectLabel setAlpha: 1.0f];
 }
 
 @end
