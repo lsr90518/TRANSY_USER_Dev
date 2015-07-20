@@ -41,4 +41,6 @@
 -(void) scrollDidMove:(MDCreateProfileView *)createProfileView;
 -(void) showCreditView;
 -(void) showCardIO;
+-(void) showPrivacyView;
+-(void) showTermView;
 @end

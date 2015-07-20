@@ -16,5 +16,6 @@
 
 @property (strong, nonatomic) MDInput *inputView;
 @property (strong, nonatomic) NSString *phoneNumber;
+@property (nonatomic) int checkCount;   // limitation
 
 @end

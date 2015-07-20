@@ -15,5 +15,6 @@
 
 @property (strong, nonatomic) MDInput       *lastnameInput;
 @property (strong, nonatomic) MDInput       *firstnameInput;
+@property (strong, nonatomic) UIButton      *postButton;
 
 @end

@@ -11,6 +11,12 @@
 @interface MDWebViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) UIWebView *webView;
+@property (strong, nonatomic) NSString *initialOpenUrl;
+@property (strong, nonatomic) NSString *initialOpenTitle;
+@property (strong, nonatomic) UIButton *backButton;
+
+- (MDWebViewController *)initWithUrl: (NSString *)url
+                               title: (NSString *)title;
 
 - (void)openWebpageWithUrl: (NSString *)url
                     method: (NSString *)method

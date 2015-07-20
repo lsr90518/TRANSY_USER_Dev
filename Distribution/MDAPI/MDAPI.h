@@ -18,6 +18,7 @@
 #define API_USER_UPDATEPROFILE      @"users/update_profile"
 #define API_USER_LOGIN              @"users/login"
 #define API_USER_UPDATE_PHONE       @"users/request_phone_number_change"
+#define API_USER_APPROVE_PHONE      @"users/approve_phone_number_change"
 #define API_USER_GET_DRIVER_DATA    @"users/get_driver_data"
 #define API_USER_POST_REVIEW        @"users/post_review"
 #define API_USER_BLOCK_DRIVER       @"users/block_driver"
@@ -38,7 +39,7 @@
 // #define PAYMENT_IP               @"81621"  // for production environment
 
 #define API_HOST_HELP               @"http://trux.life/help/"
-#define API_HOST_FAQ                @"http://trux.life/help/faq.html"
+#define API_HOST_FAQ                @"http://trux.life/help/faq_user.html"
 #define API_HOST_PRIVACY            @"http://trux.life/help/privacypolicy.html"
 #define API_HOST_TERMOFUSE          @"http://trux.life/help/term_of_use.html"
 
@@ -61,6 +62,10 @@
                   withCode:(NSString *)code
                 onComplete:(void (^)(MKNetworkOperation *))complete
                    onError:(void (^)(MKNetworkOperation *, NSError *))error;
+
+-(void) changePhoneNumberWithCode:(NSString *)code
+                       onComplete:(void (^)(MKNetworkOperation *))complete
+                          onError:(void (^)(MKNetworkOperation *, NSError *))error;
 
 -(void) newProfileByUser:(MDUser *)user
               onComplete:(void (^)(MKNetworkOperation *))complete

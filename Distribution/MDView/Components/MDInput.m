@@ -22,19 +22,20 @@
         self.layer.borderWidth = 0.5;
         self.layer.cornerRadius = 2.5;
         
-        //title
-        self.title = [[UILabel alloc]initWithFrame:CGRectMake(19, 18, 20, 14)];
-        self.title.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:14];
-        self.title.text = @"お題";
-        [self addSubview:self.title];
-        
-        
         //input
-        self.input = [[UITextField alloc]initWithFrame:CGRectMake(frame.size.width-150, 17, 130, 17)];
+        self.input = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, frame.size.width-40, frame.size.height)];
         self.input.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         self.input.textAlignment = NSTextAlignmentRight;
         self.input.delegate = self;
         [self addSubview:self.input];
+        
+        //title
+        self.title = [[UILabel alloc]initWithFrame:CGRectMake(19, 18, 20, 14)];
+        self.title.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:14];
+        self.title.text = @"お題";
+        self.title.backgroundColor = [UIColor whiteColor];
+        [self addSubview:self.title];
+        
         
         //default toolbar
         [self setKeyboardToolbar];

@@ -38,6 +38,7 @@
     [well setContentText:@"SMSに送られてきた、5桁の認証番号を記入してください。"];
     [self.view addSubview:well];
     
+    _checkCount = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,12 +70,36 @@
 //    MDCreateProfileViewController *cpv = [[MDCreateProfileViewController alloc]init];
 //    [self.navigationController pushViewController:cpv animated:YES];
     
+    _checkCount++;
+    if(_checkCount > 5){
+        [MDUtil makeAlertWithTitle:@"不正な操作" message:@"連続して間違った番号が入力されました。始めからやり直してください。" done:@"OK" viewController:self];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+    }
     [SVProgressHUD showWithStatus:@"認証中" maskType:SVProgressHUDMaskTypeBlack];
-    [[MDAPI sharedAPI] checkUserWithPhone:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
+    if([[MDUser getInstance] isLogin]){
+        [[MDAPI sharedAPI] changePhoneNumberWithCode:_inputView.input.text
+                                          onComplete:^(MKNetworkOperation *completeOperation) {
+                                              [SVProgressHUD dismiss];
+                                              if([[completeOperation responseJSON][@"code"] integerValue] == 0) {
+                                                  [self checkHash];
+                                              }else if([[completeOperation responseJSON][@"code"] integerValue] == 3) {
+                                                  [MDUtil makeAlertWithTitle:@"エラー" message:@"認証番号が異なります。" done:@"OK" viewController:self];
+                                              }else{
+                                                  [MDUtil makeAlertWithTitle:@"エラー" message:@"この電話番号は使用できません。" done:@"OK" viewController:self];
+                                                  [self.navigationController popViewControllerAnimated:YES];
+                                              }
+
+                                          } onError:^(MKNetworkOperation *completeOperation, NSError *error) {
+                                              // NSLog(@"%@", error);
+                                              [MDUtil makeAlertWithTitle:@"通信エラー" message:@"通信中にエラーが発生しました。通信環境をご確認の上、再度お試しください。" done:@"OK" viewController:self];
+                                              [SVProgressHUD dismiss];
+                                          }];
+    }else{
+        [[MDAPI sharedAPI] checkUserWithPhone:[MDUtil internationalPhoneNumber:[MDUser getInstance].phoneNumber]
                                  withCode:_inputView.input.text
                                onComplete:^(MKNetworkOperation *completeOperation) {
                                    [SVProgressHUD dismiss];
-                                   NSLog(@"%@",[completeOperation responseJSON]);
                                    if([[completeOperation responseJSON][@"code"] integerValue] == 0) {
                                        if([[completeOperation responseJSON][@"check"] integerValue] == 1){
                                            MDUser *user = [MDUser getInstance];
@@ -86,11 +111,11 @@
                                    }
                                }
                                   onError:^(MKNetworkOperation *completeOperartion, NSError *error){
-                                      NSLog(@"%@", error);
-                                      
+                                      // NSLog(@"%@", error);
+                                      [MDUtil makeAlertWithTitle:@"通信エラー" message:@"通信中にエラーが発生しました。通信環境をご確認の上、再度お試しください。" done:@"OK" viewController:self];
                                       [SVProgressHUD dismiss];
                                   }];
-    
+    }
 }
 
 -(void) backButtonTouched {
@@ -98,10 +123,12 @@
 }
 
 -(void) checkHash {
-    if([MDUser getInstance].userHash.length > 0) {
+    if([[MDUser getInstance] isLogin]) {
         //番号変更
-        MDPhoneNumberSettingViewController *phoneNumberSettingViewController = [[MDPhoneNumberSettingViewController alloc]init];
-        [self.navigationController pushViewController:phoneNumberSettingViewController animated:YES];
+        MDUser *user = [MDUser getInstance];
+        user.phoneNumber = user.tmp_phoneNumber;
+        user.tmp_phoneNumber = @"";
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         //新規
         MDCreateProfileViewController *cpv = [[MDCreateProfileViewController alloc]init];

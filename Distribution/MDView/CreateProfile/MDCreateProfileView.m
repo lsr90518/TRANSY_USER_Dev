@@ -90,6 +90,7 @@
         userProtocol.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:14];
         [userProtocol setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
         [userProtocol setTitle:@"利用規約" forState:UIControlStateNormal];
+        [userProtocol addTarget:self action:@selector(showTermView) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:userProtocol];
         
         UILabel *toLabel = [[UILabel alloc]initWithFrame:CGRectMake(userProtocol.frame.origin.x + userProtocol.frame.size.width, userProtocol.frame.origin.y, 14, 14)];
@@ -102,6 +103,7 @@
         driverProtocol.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W6" size:14];
         [driverProtocol setTitleColor:[UIColor colorWithRed:30.0/255.0 green:132.0/255.0 blue:158.0/255.0 alpha:1] forState:UIControlStateNormal];
         [driverProtocol setTitle:@"プライバシポリシー" forState:UIControlStateNormal];
+        [driverProtocol addTarget:self action:@selector(showPrivacyView) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:driverProtocol];
         
         UILabel *niLabel = [[UILabel alloc]initWithFrame:CGRectMake(driverProtocol.frame.origin.x + driverProtocol.frame.size.width, driverProtocol.frame.origin.y, 42, 14)];
@@ -142,6 +144,17 @@
 -(void)showCardIO {
     if([self.delegate respondsToSelector:@selector(showCardIO)]){
         [self.delegate showCardIO];
+    }
+}
+
+-(void)showPrivacyView {
+    if([self.delegate respondsToSelector:@selector(showPrivacyView)]){
+        [self.delegate showPrivacyView];
+    }
+}
+-(void)showTermView {
+    if([self.delegate respondsToSelector:@selector(showTermView)]){
+        [self.delegate showTermView];
     }
 }
 

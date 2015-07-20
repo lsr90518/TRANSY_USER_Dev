@@ -25,6 +25,9 @@
     if(_phoneNumber.length < 1){
        _phoneNumber = @"";
     }
+    if(_tmp_phoneNumber.length < 1){
+        _tmp_phoneNumber = @"";
+    }
     if([_mailAddress isEqual:[NSNull null]] || _mailAddress.length < 1){
         _mailAddress = @"";
     }

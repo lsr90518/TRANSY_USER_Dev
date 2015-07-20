@@ -14,6 +14,7 @@
 
 @property (nonatomic) NSInteger user_id;
 @property (strong, nonatomic) NSString *phoneNumber;
+@property (strong, nonatomic) NSString *tmp_phoneNumber;    // 番号変更時使用
 @property (strong, nonatomic) NSString *mailAddress;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *lastname;

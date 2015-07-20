@@ -114,6 +114,23 @@
        onComplete:complete
           onError:error];
 }
+-(void) changePhoneNumberWithCode:(NSString *)code
+                onComplete:(void (^)(MKNetworkOperation *))complete
+                   onError:(void (^)(MKNetworkOperation *, NSError *))error{
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:[MDUtil internationalPhoneNumber: [MDUser getInstance].phoneNumber] forKey:@"phone"];
+    [dic setValue:[MDUtil internationalPhoneNumber: [MDUser getInstance].tmp_phoneNumber] forKey:@"new_phone"];
+    [dic setValue:code forKey:@"check_number"];
+    
+    
+    [self callApi:dic
+          withUrl:API_USER_APPROVE_PHONE
+       withImages:@[]
+   withHttpMethod:@"POST"
+       onComplete:complete
+          onError:error];
+}
 
 -(void) newProfileByUser:(MDUser *)user
               onComplete:(void (^)(MKNetworkOperation *))complete

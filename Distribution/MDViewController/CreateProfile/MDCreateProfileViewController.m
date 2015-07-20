@@ -112,6 +112,16 @@
     MDPaymentViewController *paymentViewController = [[MDPaymentViewController alloc] initWithCardIO];
     [self.navigationController pushViewController:paymentViewController animated:YES];
 }
+
+-(void) showPrivacyView {
+    MDWebViewController *vc = [[MDWebViewController alloc] initWithUrl:API_HOST_PRIVACY title:@"プライバシーポリシー"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void) showTermView {
+    MDWebViewController *vc = [[MDWebViewController alloc] initWithUrl:API_HOST_TERMOFUSE title:@"利用規約"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)navigationController:(UINavigationController *)navigationController
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{

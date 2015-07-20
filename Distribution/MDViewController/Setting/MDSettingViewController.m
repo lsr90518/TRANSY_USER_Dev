@@ -19,12 +19,9 @@
 #import "MDReviewHistoryViewController.h"
 #import "MDNotificationService.h"
 #import "MDNotificationTable.h"
-#import "MDProtocolViewController.h"
 #import "MDNotifacation.h"
-#import "MDPrivacyViewController.h"
 #import "MDRealmPushNotice.h"
 #import "MDRealmNotificationRecord.h"
-#import "MDAQViewController.h"
 
 @interface MDSettingViewController () {
     MDPackageService *packageService;
@@ -158,19 +155,18 @@
 }
 
 -(void) privacyButtonPushed{
-    MDPrivacyViewController *pvc = [[MDPrivacyViewController alloc]init];
-    [self.navigationController pushViewController:pvc animated:YES];
+    MDWebViewController *vc = [[MDWebViewController alloc] initWithUrl:API_HOST_PRIVACY title:@"プライバシーポリシー"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void) protocolButtonPushed{
-    MDProtocolViewController *pvc = [[MDProtocolViewController alloc]init];
-    [self.navigationController pushViewController:pvc animated:YES];
+    MDWebViewController *vc = [[MDWebViewController alloc] initWithUrl:API_HOST_TERMOFUSE title:@"利用規約"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void) aqButtonPushed{
-    
-    MDAQViewController *av = [[MDAQViewController alloc]init];
-    [self.navigationController pushViewController:av animated:YES];
+    MDWebViewController *vc = [[MDWebViewController alloc] initWithUrl:API_HOST_FAQ title:@"よくある質問"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void) updateData{

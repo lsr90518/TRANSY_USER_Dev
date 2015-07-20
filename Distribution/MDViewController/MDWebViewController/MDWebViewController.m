@@ -12,6 +12,13 @@
 
 
 @implementation MDWebViewController
+- (MDWebViewController *)initWithUrl: (NSString *)url title:(NSString *)title {
+    self = [super init];
+    _initialOpenUrl = url;
+    _initialOpenTitle = title;
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -27,6 +34,26 @@
     
     // デリゲートを指定(小クラスにdelegateを実装した場合そちらでselfを上書き指定)
     _webView.delegate = self;
+    
+    if(_initialOpenUrl && _initialOpenTitle){
+        [self openWebpageWithUrl:_initialOpenUrl method:@"GET" parameter:nil];
+        [self initNavigationBarWithTitle:_initialOpenTitle];
+    }
+}
+
+-(void)initNavigationBarWithTitle: (NSString *)title {
+    self.navigationItem.title = title;
+    //add right button item
+    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_backButton setTitle:@"戻る" forState:UIControlStateNormal];
+    _backButton.titleLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:12];
+    _backButton.frame = CGRectMake(0, 0, 25, 44);
+    [_backButton addTarget:self action:@selector(backButtonPushed) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
+    self.navigationItem.leftBarButtonItem = leftButton;
+}
+-(void) backButtonPushed{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /**
@@ -51,7 +78,7 @@
         [body appendString:[params valueForKey:key]];
         [body appendString:@"&"];
     }
-    [body deleteCharactersInRange:NSMakeRange([body length]-1, 1)];
+    if([body length] > 0)[body deleteCharactersInRange:NSMakeRange([body length]-1, 1)];
     
     // NSLog(@"URL: %@\n Body: %@", url, body);
     req.HTTPBody = [body dataUsingEncoding: NSUTF8StringEncoding];

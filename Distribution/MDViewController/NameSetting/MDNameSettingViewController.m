@@ -34,6 +34,13 @@
     _firstnameInput.input.text = [MDUser getInstance].firstname;
     [self.view addSubview:_firstnameInput];
     
+    _postButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 183, self.view.frame.size.width-20, 50)];
+    [_postButton setBackgroundColor:[UIColor colorWithRed:226.0/255.0 green:138.0/255.0 blue:0 alpha:1]];
+    [_postButton setTitle:@"名前の変更" forState:UIControlStateNormal];
+    _postButton.layer.cornerRadius = 2.5;
+    [_postButton addTarget:self action:@selector(postNameChange) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview: _postButton];
+    
     [self initNavigationBar];
 }
 
@@ -60,6 +67,10 @@
 }
 
 -(void) backButtonPushed{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) postNameChange{
     [SVProgressHUD showWithStatus:@"保存" maskType:SVProgressHUDMaskTypeBlack];
     MDUser *newUser = [[MDUser alloc]init];
     [newUser copyDataFromUser:[MDUser getInstance]];
@@ -71,11 +82,13 @@
                                     [SVProgressHUD dismiss];
                                     [MDUser getInstance].lastname = _lastnameInput.input.text;
                                     [MDUser getInstance].firstname = _firstnameInput.input.text;
-                                    [self.navigationController popViewControllerAnimated:YES];
+                                    [self backButtonPushed];
                                 } onError:^(MKNetworkOperation *completeOperarion, NSError *error) {
-                                    NSLog(@"error --------------  %@", error);
+                                    // NSLog(@"error --------------  %@", error);
+                                    [MDUtil makeAlertWithTitle:@"通信エラー" message:@"通信中にエラーが発生しました。通信環境をご確認の上、再度お試しください。" done:@"OK" viewController:self];
                                     [SVProgressHUD dismiss];
                                 }];
+
 }
 
 
